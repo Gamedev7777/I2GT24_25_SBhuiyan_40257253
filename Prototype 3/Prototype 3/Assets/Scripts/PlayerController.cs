@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
         {
            _playerRb.AddForce(Vector3.up * 10, ForceMode.Impulse);
            isOnGround = false;
+           _playerAnim.SetTrigger("Jump_trig");
         }
     }
 
