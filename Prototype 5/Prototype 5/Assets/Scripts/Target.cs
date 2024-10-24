@@ -5,6 +5,7 @@ using UnityEngine;
 public class Target : MonoBehaviour
 {
     private Rigidbody _targetRb;
+    private GameManager _gameManager;
     private float _minSpeed = 12f;
     private float _maxSpeed = 16f;
     private float _maxTorque = 10f;
@@ -15,7 +16,7 @@ public class Target : MonoBehaviour
     void Start()
     {
         _targetRb = GetComponent<Rigidbody>();
-
+        _gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
         // Apply random upward force and random torque
         _targetRb.AddForce(RandomForce(), ForceMode.Impulse);
         _targetRb.AddTorque(RandomTorque(), RandomTorque(), RandomTorque(), ForceMode.Impulse);
@@ -27,6 +28,7 @@ public class Target : MonoBehaviour
     private void OnMouseDown()
     {
         Destroy(gameObject);
+        _gameManager.UpdateScore(5);
     }
 
     private void OnTriggerEnter(Collider other)
