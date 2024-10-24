@@ -49,10 +49,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void StartGame()
+    public void StartGame(int difficulty)
     {
         isGameActive = true;
         _score = 0;
+        _spawnRate /= difficulty;
         StartCoroutine(SpawnTarget());
         UpdateScore(0);
         
