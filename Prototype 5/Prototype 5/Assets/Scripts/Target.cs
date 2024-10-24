@@ -9,7 +9,7 @@ public class Target : MonoBehaviour
     private float _maxSpeed = 16f;
     private float _maxTorque = 10f;
     private float xRange = 4f;
-    private float ySpawnPos = -6f;
+    private float ySpawnPos = -2f;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +24,15 @@ public class Target : MonoBehaviour
         transform.position = RandomSpawnPos();
     }
 
+    private void OnMouseDown()
+    {
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy(gameObject);
+    }
     // Generates a random upward force
     Vector3 RandomForce()
     {
