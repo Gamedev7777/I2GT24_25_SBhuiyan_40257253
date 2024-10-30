@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Alien
+  - PowerUp1
+  - PowerUp2
+  - PowerUp3
+  - Cover
   layers:
   - Default
   - TransparentFX
