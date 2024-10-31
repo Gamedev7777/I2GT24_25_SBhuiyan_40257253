@@ -13,7 +13,7 @@ public class AlienController : MonoBehaviour
     private float _distanceToPlayer;
     private readonly float _stopDistance = 5.0f;
     public GameObject laserPrefab;
-    private float _laserSpeed = 100.0f;
+    private float _laserSpeed = 50.0f;
     private float _fireTimer;
     private float _fireInterval = 2.0f;
     private Rigidbody _laserRb;

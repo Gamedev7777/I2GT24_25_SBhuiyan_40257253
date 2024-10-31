@@ -9,6 +9,7 @@ TagManager:
   - PowerUp2
   - PowerUp3
   - Cover
+  - Laser
   layers:
   - Default
   - TransparentFX
