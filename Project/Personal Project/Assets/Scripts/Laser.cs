@@ -8,7 +8,6 @@ public class Laser : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name);
         PlayerHealth.instance.TakeDamage(1);
     }
 

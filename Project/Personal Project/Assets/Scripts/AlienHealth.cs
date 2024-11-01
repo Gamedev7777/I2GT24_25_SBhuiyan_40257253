@@ -4,28 +4,30 @@ using UnityEngine;
 
 public class AlienHealth : MonoBehaviour
 {
-    
-    public static AlienHealth instance;
-private bool _alienDeath = false;
+    public static AlienHealth Instance;
+    private bool _alienDeath = false;
+
     void Awake()
     {
-        instance = this;
+        Instance = this;
     }
-        
+
     private int _health = 10; // Set the initial health
-    
+
     public void TakeDamage(int damage)
     {
-        // if (!_isShielded) // Only take damage if not shielded
-        {
+        
             _health -= damage;
-            
+
             if (_health <= 0 && !_alienDeath)
             {
                 Die(); // Call a method to handle the player's death
+                Debug.Log("Die");
             }
-        }
+            Debug.Log(_health);
+        
     }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,10 +39,14 @@ private bool _alienDeath = false;
     {
         
     }
+
     void Die()
     {
-        // Handle player death
+        // Handle alien death
         _alienDeath = true;
+        //SpawnManager.Instance.alienList.Remove(gameObject);
+        // SpawnManager.Instance.LevelComplete();
+        Debug.Log(gameObject.name);
         Destroy(gameObject);
     }
 }

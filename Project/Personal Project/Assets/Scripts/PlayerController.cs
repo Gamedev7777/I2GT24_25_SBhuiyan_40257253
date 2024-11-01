@@ -12,6 +12,13 @@ public class PlayerController : MonoBehaviour
     private Vector3 _playerMovement;
     public GameObject bulletPrefab;
     private float _bulletSpeed = 50.0f;
+    public static PlayerController Instance; // Created an instance of the player controller class to access the player controller class from another class in the spawn manager
+
+    // Initialising the instance variable
+    private void Awake()
+    {
+        Instance = this; // It means this particular instance of the script
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -21,8 +28,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _horizontalMovement = Input.GetAxis("Horizontal");
-        _verticalMovement = Input.GetAxis("Vertical");
+        _horizontalMovement = Input.GetAxis("Horizontal"); // Assigning horizontal movements in response to player input
+        _verticalMovement = Input.GetAxis("Vertical"); // Assigning vertical movements in response to player input
 
         _playerMovement = new Vector3(_horizontalMovement, 0, _verticalMovement).normalized;
 
@@ -32,11 +39,12 @@ public class PlayerController : MonoBehaviour
             FireBullet();
         }
     }
+
     void FireBullet()
     {
         // Instantiate the bullet at the player's position
         GameObject bullet = Instantiate(bulletPrefab, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
-        
+
         // Get the Rigidbody component
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
         if (bulletRb != null)
@@ -53,7 +61,7 @@ public class PlayerController : MonoBehaviour
                 bulletRb.velocity = direction * _bulletSpeed; // Move the bullet towards the target
             }
         }
-        
+
         // Destroy the bullet after 1 second to avoid clutter
         Destroy(bullet, 1.0f);
     }
