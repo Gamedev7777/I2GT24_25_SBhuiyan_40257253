@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 5813299090328399188}
   - component: {fileID: 3577875258032699068}
   - component: {fileID: 778212954078380558}
+  - component: {fileID: 6611847867469134917}
   m_Layer: 0
-  m_Name: Cover1
-  m_TagString: Cover
+  m_Name: MovingWall3
+  m_TagString: MovingWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,13 +28,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7788814688094036746}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.55, y: 0.5, z: 9.14}
-  m_LocalScale: {x: 11.535531, y: 3.6676, z: 1}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 3.61, y: 0.5, z: 7.29}
+  m_LocalScale: {x: 4.3345604, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &5813299090328399188
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -105,3 +106,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!111 &6611847867469134917
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7788814688094036746}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 74e15088954a62b4d95b3863947af1fd, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 74e15088954a62b4d95b3863947af1fd, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0

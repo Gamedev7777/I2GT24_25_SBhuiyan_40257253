@@ -20,9 +20,9 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
         // Check if the bullet hits a power-up
-        else if ((other.CompareTag("PowerUp1") || other.CompareTag("PowerUp2")) ||
+        else if ((other.CompareTag("PowerUpSpeed") || other.CompareTag("PowerUpShield")) ||
 
-                 other.CompareTag("PowerUp3"))
+                 other.CompareTag("PowerUpHealth"))
         {
             // When the laser hits a PowerUp destroy the bullet
             Destroy(gameObject);
