@@ -25,7 +25,7 @@ public class AlienController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!PlayerHealth.instance.playerDeath) // To ensure that we only use this when the player is alive
+        if (!PlayerHealth.Instance.playerDeath) // To ensure that we only use this when the player is alive
         {
             // Calculating distance between player and alien and saving it in the _distanceToPlayer variable
             _distanceToPlayer = Vector3.Distance(transform.position, PlayerController.Instance.transform.position);

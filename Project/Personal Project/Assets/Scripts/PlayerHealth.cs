@@ -4,11 +4,11 @@ using UnityEngine.SceneManagement;
 public class PlayerHealth : MonoBehaviour
 {
     public bool playerDeath = false;
-    public static PlayerHealth instance; // Created an instance of the player health class to access the player health class from another class
+    public static PlayerHealth Instance; // Created an instance of the player health class to access the player health class from another class
 
     void Awake()
     {
-        instance = this; // It means this particular instance of the script
+        Instance = this; // It means this particular instance of the script
     }
 
     private int _health = 1000; // Set the initial health
