@@ -11,6 +11,7 @@ TagManager:
   - Laser
   - Bullet
   - MovingWall
+  - FixedWall
   layers:
   - Default
   - TransparentFX

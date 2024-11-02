@@ -11,7 +11,7 @@ public class PlayerHealth : MonoBehaviour
         instance = this; // It means this particular instance of the script
     }
 
-    private int _health = 50; // Set the initial health
+    private int _health = 1000; // Set the initial health
 
     public void TakeDamage(int damage)
     {
