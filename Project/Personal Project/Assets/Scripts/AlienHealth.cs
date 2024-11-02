@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class AlienHealth : MonoBehaviour
@@ -16,36 +15,25 @@ public class AlienHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        
-            _health -= damage;
+        _health -= damage;
 
-            if (_health <= 0 && !_alienDeath)
-            {
-                Die(); // Call a method to handle the player's death
-                Debug.Log("Die");
-            }
-            Debug.Log(_health);
-        
-    }
+        if (_health <= 0 && !_alienDeath)
+        {
+            PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + 100);
+            GameManager.instance.scoreText.text = "Score: " + PlayerPrefs.GetInt("Score").ToString();
+            Die(); // Call a method to handle the player's death
+            Debug.Log("Die");
+        }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Debug.Log(_health);
     }
 
     void Die()
     {
         // Handle alien death
         _alienDeath = true;
-        //SpawnManager.Instance.alienList.Remove(gameObject);
-        // SpawnManager.Instance.LevelComplete();
+        SpawnManager.Instance.alienList.Remove(gameObject);
+        SpawnManager.Instance.LevelComplete();
         Debug.Log(gameObject.name);
         Destroy(gameObject);
     }

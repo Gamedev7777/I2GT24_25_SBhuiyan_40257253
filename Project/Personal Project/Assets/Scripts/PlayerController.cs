@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -12,17 +8,14 @@ public class PlayerController : MonoBehaviour
     private Vector3 _playerMovement;
     public GameObject bulletPrefab;
     private float _bulletSpeed = 50.0f;
-    public static PlayerController Instance; // Created an instance of the player controller class to access the player controller class from another class in the spawn manager
+
+    public static PlayerController
+        Instance; // Created an instance of the player controller class to access the player controller class from another class in the spawn manager
 
     // Initialising the instance variable
     private void Awake()
     {
         Instance = this; // It means this particular instance of the script
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
     }
 
     // Update is called once per frame
@@ -43,7 +36,7 @@ public class PlayerController : MonoBehaviour
     void FireBullet()
     {
         // Instantiate the bullet at the player's position
-        GameObject bullet = Instantiate(bulletPrefab, transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
 
         // Get the Rigidbody component
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();

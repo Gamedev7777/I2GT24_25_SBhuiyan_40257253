@@ -8,8 +8,9 @@ TagManager:
   - PowerUp1
   - PowerUp2
   - PowerUp3
-  - Cover
   - Laser
+  - Bullet
+  - MovingWall
   layers:
   - Default
   - TransparentFX

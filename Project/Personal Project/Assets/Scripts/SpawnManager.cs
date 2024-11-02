@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,14 +21,11 @@ public class SpawnManager : MonoBehaviour
              i < PlayerPrefs.GetInt("Level", 1);
              i++) // Using for loop and player prefs to spawn multiple aliens. We use player prefs to save data permanently on disk
         {
-            alienList.Add(Instantiate(alienPrefab, transform.position,
-                Quaternion.identity)); // Instantiating the alien prefab  
+            float offset = i * 2;
+            Vector3 spawnPos = new Vector3(transform.position.x + offset, transform.position.y + 0.5f,
+                transform.position.z); // Offsets position of alien so it is not in the ground
+            alienList.Add(Instantiate(alienPrefab, spawnPos, Quaternion.identity)); // Instantiating the alien prefab  
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     public void LevelComplete()
@@ -40,7 +35,7 @@ public class SpawnManager : MonoBehaviour
             Debug.Log("Level Complete");
             PlayerPrefs.SetInt("Level",
                 PlayerPrefs.GetInt("Level", 1) + 1); // Increasing the level number once each level is completed 
-            Invoke(nameof(LevelLoad), 3.0f);
+            Invoke(nameof(LevelLoad), 1.0f);
         }
     }
 

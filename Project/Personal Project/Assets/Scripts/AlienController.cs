@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public class AlienController : MonoBehaviour
 {
     private float _alienSpeed = 3.0f;
@@ -28,27 +25,31 @@ public class AlienController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Calculating distance between player and alien and saving it in the _distanceToPlayer variable
-        _distanceToPlayer = Vector3.Distance(transform.position, PlayerController.Instance.transform.position);
-
-        // Checking if the alien is far enough from the player
-
-        if (_distanceToPlayer > _stopDistance)
+        if (!PlayerHealth.instance.playerDeath) // To ensure that we only use this when the player is alive
         {
-            // Handles the movement of the alien following the player and the rotation of the alien to face the player
-            transform.position =
-                Vector3.MoveTowards(transform.position, PlayerController.Instance.transform.position, _alienSpeed * Time.deltaTime);
-            _direction = (PlayerController.Instance.transform.position - transform.position).normalized;
-            _lookRotation = Quaternion.LookRotation(_direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, _rotationSpeed * Time.deltaTime);
-        }
+            // Calculating distance between player and alien and saving it in the _distanceToPlayer variable
+            _distanceToPlayer = Vector3.Distance(transform.position, PlayerController.Instance.transform.position);
 
-        // To create gap between firing laser
-        _fireTimer -= Time.deltaTime;
-        if (_fireTimer <= 0)
-        {
-            FireLaser();
-            _fireTimer = _fireInterval;
+            // Checking if the alien is far enough from the player
+
+            if (_distanceToPlayer > _stopDistance)
+            {
+                // Handles the movement of the alien following the player and the rotation of the alien to face the player
+                transform.position =
+                    Vector3.MoveTowards(transform.position, PlayerController.Instance.transform.position,
+                        _alienSpeed * Time.deltaTime);
+                _direction = (PlayerController.Instance.transform.position - transform.position).normalized;
+                _lookRotation = Quaternion.LookRotation(_direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, _rotationSpeed * Time.deltaTime);
+            }
+
+            // To create gap between firing laser
+            _fireTimer -= Time.deltaTime;
+            if (_fireTimer <= 0)
+            {
+                FireLaser();
+                _fireTimer = _fireInterval;
+            }
         }
     }
 
