@@ -30,7 +30,7 @@ public class PlayerHealth : MonoBehaviour
     void Die()
     {
         // Handle player death
-        Debug.Log("Player Death");
+        print ("Player is dead");
         SpawnManager.Instance.LevelLoad();
         playerDeath = true;
         Destroy(gameObject);

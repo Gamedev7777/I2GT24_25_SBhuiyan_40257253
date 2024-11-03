@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float playerSpeed = 5.0f;
+    public float playerSpeed = 20.0f;
     private float _horizontalMovement;
     private float _verticalMovement;
     private Vector3 _playerMovement;
     public GameObject bulletPrefab;
-    private float _bulletSpeed = 50.0f;
+    private float _bulletSpeed = 30.0f;
 
     public static PlayerController
         Instance; // Created an instance of the player controller class to access the player controller class from another class in the spawn manager
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     {
         // Instantiate the bullet at the player's position
         GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-
+        print ("Bullet fired");
         // Get the Rigidbody component
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
         if (bulletRb != null)

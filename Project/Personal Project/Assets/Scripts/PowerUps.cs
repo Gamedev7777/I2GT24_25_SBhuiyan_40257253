@@ -12,7 +12,7 @@ public class PowerUps : MonoBehaviour
         {
             if (other.gameObject.tag == "Player")
             {
-                PlayerHealth.Instance.health += 10;
+                PlayerHealth.Instance.health += 20;
                 GameManager.Instance.playerHealthText.text = "Player Health: " + PlayerHealth.Instance.health.ToString();
                 Destroy(gameObject);
             }   

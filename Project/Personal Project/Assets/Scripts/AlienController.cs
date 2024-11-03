@@ -1,8 +1,8 @@
 using UnityEngine;
 public class AlienController : MonoBehaviour
 {
-    private float _alienSpeed = 2.0f;
-    private float _rotationSpeed = 2.0f;
+    private float _alienSpeed = 10.0f;
+    private float _rotationSpeed = 10.0f;
 
     private Vector3 _direction;
     private Quaternion _lookRotation;
@@ -74,3 +74,4 @@ public class AlienController : MonoBehaviour
         }
     }
 }
+

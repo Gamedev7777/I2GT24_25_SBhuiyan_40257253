@@ -21,20 +21,18 @@ public class AlienHealth : MonoBehaviour
         {
             PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + 100);
             GameManager.Instance.scoreText.text = "Score: " + PlayerPrefs.GetInt("Score").ToString();
-            Die(); // Call a method to handle the player's death
-            Debug.Log("Die");
+            Die(); // Call a method to handle the alien's death
         }
-
-        Debug.Log(_health);
+        
     }
 
     void Die()
     {
         // Handle alien death
         _alienDeath = true;
+        Debug.Log("Aliens are dead");
         SpawnManager.Instance.alienList.Remove(gameObject);
         SpawnManager.Instance.LevelComplete();
-        Debug.Log(gameObject.name);
         Destroy(gameObject);
     }
 }
