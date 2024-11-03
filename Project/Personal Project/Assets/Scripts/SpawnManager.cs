@@ -34,7 +34,7 @@ public class SpawnManager : MonoBehaviour
         {
             Debug.Log("Level Complete");
             PlayerPrefs.SetInt("Level",
-            PlayerPrefs.GetInt("Level", 1) + 1); // Increasing the level number once each level is completed 
+                PlayerPrefs.GetInt("Level", 1) + 1); // Increasing the level number once each level is completed 
             Invoke(nameof(LevelLoad), 1.0f);
         }
     }
@@ -42,5 +42,16 @@ public class SpawnManager : MonoBehaviour
     public void LevelLoad()
     {
         SceneManager.LoadScene("Adapt or Die");
+    }
+
+    public void ProcessPlayerShield()
+    {
+        Invoke(nameof(DisablePlayerShield), 5.0f);
+    }
+
+    void DisablePlayerShield()
+    {
+        PlayerHealth.Instance.playerShield = false;
+        GameManager.Instance.playerShieldText.SetActive(false);
     }
 }

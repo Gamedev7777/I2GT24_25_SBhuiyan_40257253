@@ -14,8 +14,7 @@ GameObject:
   - component: {fileID: 2965240732390608105}
   - component: {fileID: 2576299025049463734}
   - component: {fileID: 2543823110462158624}
-  - component: {fileID: 2890129894013074716}
-  - component: {fileID: -1928436892634320045}
+  - component: {fileID: 4979797931089950048}
   m_Layer: 0
   m_Name: Alien
   m_TagString: Alien
@@ -107,7 +106,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2576299025049463734
 MonoBehaviour:
@@ -134,40 +133,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82a99bc1a467525438153d9582ff9b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2890129894013074716
-MonoBehaviour:
+--- !u!54 &4979797931089950048
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8885761924075523858}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5173c141b0d2a154ea28c3aadf0f1701, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  idleTime: 5
-  aiNavMeshAgent: {fileID: -1928436892634320045}
-  waypoints: []
---- !u!195 &-1928436892634320045
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8885761924075523858}
-  m_Enabled: 0
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 0.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 1
-  m_BaseOffset: 0.5
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  serializedVersion: 4
+  m_Mass: 2
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 4
+  m_CollisionDetection: 0

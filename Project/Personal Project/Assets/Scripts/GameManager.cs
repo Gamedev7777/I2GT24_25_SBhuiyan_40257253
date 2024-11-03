@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public TextMeshProUGUI playerHealthText;
     public TextMeshProUGUI levelNumberText;
+    public GameObject playerShieldText, playerSpeedText;
     private void Awake()
     {
         Instance = this;
