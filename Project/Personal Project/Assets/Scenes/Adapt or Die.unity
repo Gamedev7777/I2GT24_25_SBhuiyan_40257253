@@ -679,9 +679,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: Use the WASD or Arrow Keys to move the player (blue ball). Click the left
     mouse button to fire bullets at the aliens (red balls). Collect the powerups.
-    GREEN powerup gives you double the speed for the duration of the current level,
-    the CYAN powerup gives you 10 extra health points, the YELLOW powerup gives you
-    20 seconds of immunity from taking damage.
+    The GREEN powerup gives you double the speed for the duration of the current
+    level, the CYAN powerup gives you 20 additional health points, the YELLOW powerup
+    gives you a shield for 20 seconds during which you are immune from taking damage.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
