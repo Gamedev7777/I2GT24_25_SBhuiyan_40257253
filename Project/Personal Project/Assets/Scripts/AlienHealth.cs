@@ -20,7 +20,7 @@ public class AlienHealth : MonoBehaviour
         if (_health <= 0 && !_alienDeath)
         {
             PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + 100);
-            GameManager.instance.scoreText.text = "Score: " + PlayerPrefs.GetInt("Score").ToString();
+            GameManager.Instance.scoreText.text = "Score: " + PlayerPrefs.GetInt("Score").ToString();
             Die(); // Call a method to handle the player's death
             Debug.Log("Die");
         }

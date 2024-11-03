@@ -11,14 +11,15 @@ public class PlayerHealth : MonoBehaviour
         Instance = this; // It means this particular instance of the script
     }
 
-    private int _health = 1000; // Set the initial health
+    public int health = 50; // Set the initial health
 
     public void TakeDamage(int damage)
     {
         {
-            _health -= damage; // reduces health by the value assigned to the damage variable for each time the player is shot by alien laser
+            health -= damage; // reduces health by the value assigned to the damage variable for each time the player is shot by alien laser
             
-            if (_health <= 0 && !playerDeath)
+            GameManager.Instance.playerHealthText.text = "Player Health: " + health.ToString();
+            if (health <= 0 && !playerDeath)
             {
                 Die(); // Call a method to handle the player's death
             }
@@ -28,12 +29,10 @@ public class PlayerHealth : MonoBehaviour
     void Die()
     {
         // Handle player death
-        Invoke(nameof(LevelLoad),1.0f);
+        Debug.Log("Player Death");
+        SpawnManager.Instance.LevelLoad();
         playerDeath = true;
         Destroy(gameObject);
     }
-    private void LevelLoad()
-    {
-        SceneManager.LoadScene("Adapt or Die");
-    }
+    
 }

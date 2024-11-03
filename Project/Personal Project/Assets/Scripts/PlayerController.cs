@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float _playerspeed = 10.0f;
+    public float playerSpeed = 10.0f;
     private float _horizontalMovement;
     private float _verticalMovement;
     private Vector3 _playerMovement;
@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
         _playerMovement = new Vector3(_horizontalMovement, 0, _verticalMovement).normalized;
 
-        transform.Translate(_playerspeed * Time.deltaTime * _playerMovement, Space.World);
+        transform.Translate(playerSpeed * Time.deltaTime * _playerMovement, Space.World);
         if (Input.GetMouseButtonDown(0))
         {
             FireBullet();

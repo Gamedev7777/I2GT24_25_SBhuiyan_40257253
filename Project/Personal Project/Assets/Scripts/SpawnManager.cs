@@ -21,7 +21,7 @@ public class SpawnManager : MonoBehaviour
              i < PlayerPrefs.GetInt("Level", 1);
              i++) // Using for loop and player prefs to spawn multiple aliens. We use player prefs to save data permanently on disk
         {
-            float offset = i * 2;
+            float offset = i * 6;
             Vector3 spawnPos = new Vector3(transform.position.x + offset, transform.position.y + 0.5f,
                 transform.position.z); // Offsets position of alien so it is not in the ground
             alienList.Add(Instantiate(alienPrefab, spawnPos, Quaternion.identity)); // Instantiating the alien prefab  
@@ -34,12 +34,12 @@ public class SpawnManager : MonoBehaviour
         {
             Debug.Log("Level Complete");
             PlayerPrefs.SetInt("Level",
-                PlayerPrefs.GetInt("Level", 1) + 1); // Increasing the level number once each level is completed 
+            PlayerPrefs.GetInt("Level", 1) + 1); // Increasing the level number once each level is completed 
             Invoke(nameof(LevelLoad), 1.0f);
         }
     }
 
-    private void LevelLoad()
+    public void LevelLoad()
     {
         SceneManager.LoadScene("Adapt or Die");
     }

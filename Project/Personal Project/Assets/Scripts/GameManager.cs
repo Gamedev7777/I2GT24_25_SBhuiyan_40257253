@@ -7,16 +7,20 @@ public class GameManager : MonoBehaviour
 
 {
     public TextMeshProUGUI scoreText;
-    public static GameManager instance;
-
+    public static GameManager Instance;
+    public TextMeshProUGUI playerHealthText;
+    public TextMeshProUGUI levelNumberText;
     private void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
     void Start()
     {
         scoreText.text = "Score: " + PlayerPrefs.GetInt("Score", 0).ToString();
+        playerHealthText.text = "Player Health: " + PlayerHealth.Instance.health.ToString();
+        levelNumberText.text = "Level Number: " + PlayerPrefs.GetInt("Level", 1).ToString();
+
     }
     
     
