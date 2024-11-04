@@ -24,6 +24,7 @@ public class SpawnManager : MonoBehaviour
         for (int i = 0;
              i < PlayerPrefs.GetInt("Level", 1);
              i++) // Using for loop and player prefs to spawn multiple aliens. We use player prefs to save data permanently on disk
+               
         {
             float offset = i * 2;
             int randomIndex = Random.Range(0, spawnPoints.Count);
@@ -39,9 +40,18 @@ public class SpawnManager : MonoBehaviour
     {
         if (alienList.Count <= 0)
         {
-            PlayerPrefs.SetInt("Level",
-                PlayerPrefs.GetInt("Level", 1) + 1); // Increasing the level number once each level is completed 
-            Invoke(nameof(LevelLoad), 1.0f);
+            if (PlayerPrefs.GetInt("Level", 1) == 7)
+            {
+                GameManager.Instance.popUpList[7].SetActive(true);
+                PlayerPrefs.SetInt("Level", 1);
+            }
+            else
+            {
+            
+                PlayerPrefs.SetInt("Level",
+                    PlayerPrefs.GetInt("Level", 1) + 1); // Increasing the level number once each level is completed 
+                Invoke(nameof(LevelLoad), 1.0f);
+            }
         }
     }
 
