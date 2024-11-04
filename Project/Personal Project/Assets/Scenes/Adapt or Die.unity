@@ -661,6 +661,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 165844319}
   m_CullTransparentMesh: 1
+--- !u!1 &193185114
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 193185116}
+  - component: {fileID: 193185115}
+  m_Layer: 0
+  m_Name: XboxController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &193185115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 193185114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9a9c6b706dfc9841a715f17fa5eaa76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &193185116
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 193185114}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 763.0829, y: 255.98103, z: -11.53668}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &200897787
 GameObject:
   m_ObjectHideFlags: 0
@@ -3450,7 +3494,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: '"You value you more than you value us," said the alien voice. That is
     why you kill so many of us. "You got that right. You are the bad guys. You kidnapped
-    us. You shot lasser at me." "We not bad. We good. We want to know humans. Understand
+    us. You shot laser at me." "We not bad. We good. We want to know humans. Understand
     your nature."'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7041,7 +7085,8 @@ MonoBehaviour:
     human daughter." The alien said. You are teleported to another room where your
     son and daughter are waiting for you. Your son looks human but he is luminous.
     He is hovering in the air and is smiling at you. Your daughter is also happy
-    to see you. You go to them and you have a group hug.'
+    to see you. You go to them and you have a group hug. There was an alien in the
+    room who asked you, "What would you like to do next?"'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9840,3 +9885,4 @@ SceneRoots:
   - {fileID: 915713187}
   - {fileID: 5581162}
   - {fileID: 337826023}
+  - {fileID: 193185116}
