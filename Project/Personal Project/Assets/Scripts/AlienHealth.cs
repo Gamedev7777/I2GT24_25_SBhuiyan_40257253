@@ -1,38 +1,56 @@
-using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class AlienHealth : MonoBehaviour
 {
+    // public variable
+    // Singleton instance of the AlienHealth class
     public static AlienHealth Instance;
-    private bool _alienDeath = false;
 
-    void Awake()
+    // private variables
+    private bool _alienDeath = false; // Tracks if the alien is already dead
+    private int _health = 10; // Initial health of the alien
+    private void Awake()
     {
+        // Assigns the instance of this script to the static Instance variable
         Instance = this;
     }
 
-    private int _health = 10; // Set the initial health
-
+    // Method to reduce health when alien takes damage
     public void TakeDamage(int damage)
     {
+        // Reduces health by the damage amount
         _health -= damage;
 
+        // If health is zero or less and the alien is not already dead
         if (_health <= 0 && !_alienDeath)
         {
+            // Increases player's score by 100 points
             PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + 100);
+
+            // Updates the score text in the GameManager
             GameManager.Instance.scoreText.text = "Score: " + PlayerPrefs.GetInt("Score").ToString();
-            Die(); // Call a method to handle the alien's death
+
+            // Call the Die method to handle alien's death
+            Die();
         }
-        
     }
 
-    void Die()
+    // Method to handle the death of the alien
+    private void Die()
     {
-        // Handle alien death
+        // Sets the alien's death status to true
         _alienDeath = true;
-        Debug.Log("Aliens are dead");
+
+        // Logs a message indicating the alien has died
+        Debug.Log ("Aliens are dead");
+
+        // Removes the alien from the list of active aliens in the SpawnManager
         SpawnManager.Instance.alienList.Remove(gameObject);
+
+        // Calls the LevelComplete method from the SpawnManager to check if the level is complete
         SpawnManager.Instance.LevelComplete();
+
+        // Destroys the alien game object
         Destroy(gameObject);
     }
 }

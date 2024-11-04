@@ -1,21 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class MovingWall : MonoBehaviour
 {
-    private NavMeshObstacle obstacle;
+    // private variable
+    // Reference to the NavMeshObstacle component attached to the wall
+    private NavMeshObstacle _obstacle;
 
-    void Start()
+    private void Start()
     {
-        obstacle = GetComponent<NavMeshObstacle>();
+        // Gets the NavMeshObstacle component from the current GameObject
+        _obstacle = GetComponent<NavMeshObstacle>();
     }
 
-    void Update()
+    private void Update()
     {
-        // Force the nav mesh to update to the new position of the moving wall
-        obstacle.carving = false;
-        obstacle.carving = true;
+        // Disables and re-enables carving to force the NavMesh to update
+        // This allows the NavMesh to account for the new position of the wall
+        _obstacle.carving = false;
+        _obstacle.carving = true;
     }
 }

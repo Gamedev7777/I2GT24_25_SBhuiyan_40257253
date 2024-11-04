@@ -1,73 +1,83 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 public class SpawnManager : MonoBehaviour
-
 {
-    public static SpawnManager Instance;
-    public GameObject alienPrefab;
-    public List<GameObject> alienList = new List<GameObject>();
-    public List<Transform> waypoints;
-    public List<Transform> spawnPoints;
+    // public variables
+    public static SpawnManager Instance; // Singleton instance of SpawnManager for easy access
+    public GameObject alienPrefab; // Prefab of the alien to be spawned
+    public List<GameObject> alienList = new List<GameObject>(); // List to keep track of all spawned aliens
+    public List<Transform> waypoints; // Waypoints that the aliens will follow
+    public List<Transform> spawnPoints; // Possible spawn points for aliens
+
+    // Awake is called when the script instance is being loaded
     private void Awake()
     {
+        // Sets up the singleton instance
         Instance = this;
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        for (int i = 0;
-             i < PlayerPrefs.GetInt("Level", 1);
-             i++) // Using for loop and player prefs to spawn multiple aliens. We use player prefs to save data permanently on disk
-               
+        // Spawns a number of aliens based on the current level stored in PlayerPrefs
+        for (int i = 0; i < PlayerPrefs.GetInt("Level", 1); i++)
         {
-            float offset = i * 2;
-            int randomIndex = Random.Range(0, spawnPoints.Count);
-            Vector3 spawnPos = spawnPoints[randomIndex].position; // Offsets position of alien so it is not in the ground
+            float offset = i * 2; // Offsets to space out the aliens
+            int randomIndex = Random.Range(0, spawnPoints.Count); // Randomly selects a spawn point
+            Vector3 spawnPos = spawnPoints[randomIndex].position; // Gets the position of the chosen spawn point
+            
+            // Instantiates an alien at the chosen spawn position
             GameObject alienSpawned = Instantiate(alienPrefab, spawnPos, Quaternion.identity);
-            alienList.Add(alienSpawned); // Instantiating the alien prefab 
+            
+            // Adds the newly spawned alien to the alien list
+            alienList.Add(alienSpawned);
+            
+            // Sets the waypoints for the alien's AI
             AlienAI alienAI = alienSpawned.GetComponent<AlienAI>();
             alienAI.waypoints = waypoints;
         }
     }
 
+    // Called when the level is completed
     public void LevelComplete()
     {
+        // Checks if all aliens have been eliminated
         if (alienList.Count <= 0)
         {
+            // If the player has completed all 7 levels, shows the final pop-up and reset the level
             if (PlayerPrefs.GetInt("Level", 1) == 7)
             {
                 GameManager.Instance.popUpList[7].SetActive(true);
-                PlayerPrefs.SetInt("Level", 1);
+                PlayerPrefs.SetInt("Level", 1); // Resets level to 1
             }
             else
             {
-            
-                PlayerPrefs.SetInt("Level",
-                    PlayerPrefs.GetInt("Level", 1) + 1); // Increasing the level number once each level is completed 
-                Invoke(nameof(LevelLoad), 1.0f);
+                // Increments the level and load the next level
+                PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level", 1) + 1);
+                Invoke(nameof(LevelLoad), 1.0f); // Loads the next level after a delay of 1 second
             }
         }
     }
 
+    // Loads the current level scene
     public void LevelLoad()
     {
         SceneManager.LoadScene("Adapt or Die");
     }
 
+    // Processes player shield by disabling it after a fixed time
     public void ProcessPlayerShield()
     {
-        Invoke(nameof(DisablePlayerShield), 20.0f);
+        Invoke(nameof(DisablePlayerShield), 20.0f); // Disables player shield after 20 seconds
     }
 
-    void DisablePlayerShield()
+    // Disables the player's shield and update the User Interface
+    private void DisablePlayerShield()
     {
-        PlayerHealth.Instance.playerShield = false;
-        GameManager.Instance.playerShieldText.SetActive(false);
+        PlayerHealth.Instance.playerShield = false; // Sets player's shield status to false
+        GameManager.Instance.playerShieldText.SetActive(false); // Hides the shield User Interface text
     }
 }

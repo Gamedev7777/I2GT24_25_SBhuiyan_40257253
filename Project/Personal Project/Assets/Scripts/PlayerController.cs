@@ -2,60 +2,72 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float playerSpeed = 20.0f;
-    private float _horizontalMovement;
-    private float _verticalMovement;
-    private Vector3 _playerMovement;
-    public GameObject bulletPrefab;
-    private float _bulletSpeed = 30.0f;
+    // public variables
+    public float playerSpeed = 5.0f; // Speed at which the player moves
+    public GameObject bulletPrefab; // Bullet prefab used for shooting
+    public static PlayerController Instance; // Singleton instance to allow access from other classes
 
-    public static PlayerController
-        Instance; // Created an instance of the player controller class to access the player controller class from another class in the spawn manager
+    // private variables
+    private float _horizontalMovement; // Horizontal movement input
+    private float _verticalMovement; // Vertical movement input
+    private Vector3 _playerMovement; // Player movement vector
+    private float _bulletSpeed = 30.0f; // Speed at which the bullet moves
 
-    // Initialising the instance variable
+
+    // Awake is called when the script instance is being loaded
+    // Initialising the instance variable to set up the singleton pattern
     private void Awake()
     {
-        Instance = this; // It means this particular instance of the script
+        Instance = this; // Sets this instance as the global instance of the PlayerController
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        _horizontalMovement = Input.GetAxis("Horizontal"); // Assigning horizontal movements in response to player input
-        _verticalMovement = Input.GetAxis("Vertical"); // Assigning vertical movements in response to player input
+        // Gets player input for horizontal movement (left/right)
+        _horizontalMovement = Input.GetAxis("Horizontal");
+        // Gets player input for vertical movement (up/down)
+        _verticalMovement = Input.GetAxis("Vertical");
 
+        // Creates a new movement vector based on the player's input
         _playerMovement = new Vector3(_horizontalMovement, 0, _verticalMovement).normalized;
 
+        // Moves the player based on the input and playerSpeed
         transform.Translate(playerSpeed * Time.deltaTime * _playerMovement, Space.World);
+
+        // Checks if the left mouse button is pressed to fire a bullet
         if (Input.GetMouseButtonDown(0))
         {
-            FireBullet();
+            FireBullet(); // Calls the function to fire a bullet
         }
     }
 
-    void FireBullet()
+    // Function to fire a bullet from the player's position
+    private void FireBullet()
     {
-        // Instantiate the bullet at the player's position
+        // Instantiates the bullet prefab at the player's current position
         GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-        print ("Bullet fired");
-        // Get the Rigidbody component
+        Debug.Log("Bullet fired"); // Debug log to indicate a bullet was fired
+
+        // Gets the Rigidbody component of the bullet to control its movement
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
         if (bulletRb != null)
         {
-            // Convert mouse position to world position
+            // Creates a ray from the camera to the mouse position
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            // Perform a raycast to determine where the mouse cursor intersects with the game world
+            // Performs a raycast to determine where the mouse cursor intersects with the game world
             if (Physics.Raycast(ray, out hit))
             {
-                // Calculate direction towards the mouse cursor position
+                // Calculates the direction from the player's position to the target hit point
                 Vector3 direction = (hit.point - transform.position).normalized;
-                bulletRb.velocity = direction * _bulletSpeed; // Move the bullet towards the target
+                // Sets the bullet's velocity in the direction of the target
+                bulletRb.velocity = direction * _bulletSpeed;
             }
         }
 
-        // Destroy the bullet after 1 second to avoid clutter
+        // Destroys the bullet after 1 second to avoid cluttering the scene with unused bullets
         Destroy(bullet, 1.0f);
     }
 }

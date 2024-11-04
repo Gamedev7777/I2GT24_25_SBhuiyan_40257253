@@ -5,21 +5,21 @@ public class Laser : MonoBehaviour
     // This method handles what happens when the laser hits various objects
     private void OnTriggerEnter(Collider other)
     {
-        // Check if the laser hits the player
+        // Checks if the laser hits the player
         if (other.CompareTag("Player"))
         {
-            // Reduce the player's health by one
+            // Reduces the player's health by one
             PlayerHealth.Instance.TakeDamage(1);
-            // After hitting the player destroy the laser
+            // After hitting the player destroys the laser
             Destroy(gameObject);
         }
-        // Check if the laser has hit a fixed or moving wall
+        // Checks if the laser has hit a fixed or moving wall
         else if ((other.CompareTag("FixedWall")) || other.CompareTag("MovingWall"))
         {
-            //Destroy the laser when it hits a wall so it does not pass through it    
+            //Destroys the laser when it hits a wall so it does not pass through it    
             Destroy(gameObject);
         }
-        // Check if the laser hits a power-up
+        // Checks if the laser hits a power-up
         else if ((other.CompareTag("PowerUpSpeed") || other.CompareTag("PowerUpShield")) ||
 
         other.CompareTag("PowerUpHealth"))
@@ -30,9 +30,9 @@ public class Laser : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        // Destroy the laser after 1 second to prevent clutter
+        // Destroys the laser after 1 second to prevent cluttering the scene and keeps the game optimised
         Destroy(gameObject, 1.0f);
     }
 }
