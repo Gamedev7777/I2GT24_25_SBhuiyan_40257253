@@ -16,13 +16,13 @@ public class PlayerController : MonoBehaviour
 
     // Awake is called when the script instance is being loaded
     // Initialising the instance variable to set up the singleton pattern
-    private void Awake()
+    void Awake()
     {
         Instance = this; // Sets this instance as the global instance of the PlayerController
     }
 
     // Update is called once per frame
-    private void Update()
+    void Update()
     {
         // Gets player input for horizontal movement (left/right)
         _horizontalMovement = Input.GetAxis("Horizontal");
@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Function to fire a bullet from the player's position
-    private void FireBullet()
+    void FireBullet()
     {
         // Instantiates the bullet prefab at the player's current position
         GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);

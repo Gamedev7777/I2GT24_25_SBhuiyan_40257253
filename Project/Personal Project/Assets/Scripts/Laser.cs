@@ -3,7 +3,7 @@ public class Laser : MonoBehaviour
 
 {
     // This method handles what happens when the laser hits various objects
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         // Checks if the laser hits the player
         if (other.CompareTag("Player"))
@@ -30,7 +30,7 @@ public class Laser : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
+    void Update()
     {
         // Destroys the laser after 1 second to prevent cluttering the scene and keeps the game optimised
         Destroy(gameObject, 1.0f);

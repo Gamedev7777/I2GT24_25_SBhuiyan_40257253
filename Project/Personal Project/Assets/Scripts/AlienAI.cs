@@ -30,14 +30,14 @@ public class AlienAI : MonoBehaviour
     private float _fireInterval = 1.0f; // Time interval between laser shots
 
     // Start is called before the first frame update
-    private void Start()
+    void Start()
     {
         aiNavMeshAgent = GetComponent<NavMeshAgent>(); // Gets the NavMeshAgent component attached to the alien
         _fireTimer = _fireInterval; // Initialises the fire timer
     }
 
     // Update is called once per frame
-    private void Update()
+    void Update()
     {
         // Executes behaviour based on the current state
         switch (_currentState)
@@ -58,7 +58,7 @@ public class AlienAI : MonoBehaviour
     }
 
     // Handles the idle state behaviour
-    private void HandleIdleState()
+    void HandleIdleState()
     {
         // Increments the idle timer
         _idleTimer += Time.deltaTime;
@@ -71,7 +71,7 @@ public class AlienAI : MonoBehaviour
     }
 
     // Handles the patrol state behaviour
-    private void HandlePatrolState()
+    void HandlePatrolState()
     {
         // If the alien is not currently moving or if it has not been assigned a waypoint
         if ((aiNavMeshAgent.pathStatus == NavMeshPathStatus.PathComplete && aiNavMeshAgent.remainingDistance < 0.5f) ||
@@ -97,7 +97,7 @@ public class AlienAI : MonoBehaviour
     }
 
     // Handles the chase state behaviour
-    private void HandleChaseState()
+    void HandleChaseState()
     {
         // Sets the alien's destination to the target's position
         if (target != null)
@@ -127,7 +127,7 @@ public class AlienAI : MonoBehaviour
     }
 
     // Handles the attack state behaviour
-    private void HandleAttackState()
+    void HandleAttackState()
     {
         // Checks if the target is not null before proceeding
         if (target == null)
@@ -160,7 +160,7 @@ public class AlienAI : MonoBehaviour
     }
 
     // Fires a laser towards the target
-    private void FireLaser()
+    void FireLaser()
     {
         if (laserPrefab != null)
         {
@@ -179,7 +179,7 @@ public class AlienAI : MonoBehaviour
     }
 
     // Handles trigger enter events such as when the alien detects a player
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         // If the detected object is tagged as "Player"
         if (other.gameObject.CompareTag("Player"))
@@ -190,7 +190,7 @@ public class AlienAI : MonoBehaviour
     }
 
     // Handles trigger exit events such as when the player leaves the detection range
-    private void OnTriggerExit(Collider other)
+    void OnTriggerExit(Collider other)
     {
         // If the detected object is tagged as "Player"
         if (other.gameObject.CompareTag("Player"))

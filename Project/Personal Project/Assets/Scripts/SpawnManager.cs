@@ -13,14 +13,14 @@ public class SpawnManager : MonoBehaviour
     public List<Transform> spawnPoints; // Possible spawn points for aliens
 
     // Awake is called when the script instance is being loaded
-    private void Awake()
+    void Awake()
     {
         // Sets up the singleton instance
         Instance = this;
     }
 
     // Start is called before the first frame update
-    private void Start()
+    void Start()
     {
         // Spawns a number of aliens based on the current level stored in PlayerPrefs
         for (int i = 0; i < PlayerPrefs.GetInt("Level", 1); i++)
@@ -75,7 +75,7 @@ public class SpawnManager : MonoBehaviour
     }
 
     // Disables the player's shield and update the User Interface
-    private void DisablePlayerShield()
+    void DisablePlayerShield()
     {
         PlayerHealth.Instance.playerShield = false; // Sets player's shield status to false
         GameManager.Instance.playerShieldText.SetActive(false); // Hides the shield User Interface text

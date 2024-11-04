@@ -7,13 +7,13 @@ public class MovingWall : MonoBehaviour
     // Reference to the NavMeshObstacle component attached to the wall
     private NavMeshObstacle _obstacle;
 
-    private void Start()
+    void Start()
     {
         // Gets the NavMeshObstacle component from the current GameObject
         _obstacle = GetComponent<NavMeshObstacle>();
     }
 
-    private void Update()
+    void Update()
     {
         // Disables and re-enables carving to force the NavMesh to update
         // This allows the NavMesh to account for the new position of the wall

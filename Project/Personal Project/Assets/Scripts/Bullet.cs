@@ -3,7 +3,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     // This method handles what happens when the bullet collides with various objects
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         // Checks if the bullet hits the alien
         if (other.CompareTag("Alien"))
@@ -29,7 +29,7 @@ public class Bullet : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
+    void Update()
     {
         // Destroys the bullet after 1 second to prevent cluttering the scene and keeps the game optimised
         Destroy(gameObject, 1.0f);

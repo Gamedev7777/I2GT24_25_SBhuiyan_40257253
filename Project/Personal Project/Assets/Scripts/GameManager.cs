@@ -15,14 +15,14 @@ public class GameManager : MonoBehaviour
     public List<GameObject> popUpList = new List<GameObject>(); // List of pop-up game objects for different levels
     public GameObject mainMenu; // Reference to the main menu game object
 
-    private void Awake()
+    void Awake()
     {
         // Sets the singleton instance and pauses the game at the start
         Instance = this;
         Time.timeScale = 0; // Pauses the game until the player starts
     }
 
-    private void Start()
+    void Start()
     {
         // Initialises User Interface elements with saved values from PlayerPrefs
         scoreText.text = "Score: " + PlayerPrefs.GetInt("Score", 0).ToString(); // Displays the player's score

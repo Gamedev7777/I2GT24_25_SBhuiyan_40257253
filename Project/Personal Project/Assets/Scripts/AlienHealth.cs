@@ -9,7 +9,7 @@ public class AlienHealth : MonoBehaviour
     // private variables
     private bool _alienDeath = false; // Tracks if the alien is already dead
     private int _health = 10; // Initial health of the alien
-    private void Awake()
+    void Awake()
     {
         // Assigns the instance of this script to the static Instance variable
         Instance = this;
@@ -36,7 +36,7 @@ public class AlienHealth : MonoBehaviour
     }
 
     // Method to handle the death of the alien
-    private void Die()
+    void Die()
     {
         // Sets the alien's death status to true
         _alienDeath = true;

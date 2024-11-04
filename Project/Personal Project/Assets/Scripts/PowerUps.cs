@@ -3,7 +3,7 @@ using UnityEngine;
 public class PowerUps : MonoBehaviour
 {
     // Method triggered when another collider enters the trigger collider attached to the power-up object
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         // Checks if the current gameObject is a Health Power-Up
         if (gameObject.tag == "PowerUpHealth")

@@ -20,14 +20,14 @@ public class AlienController : MonoBehaviour
     private Vector3 _laserDirection; // Direction in which the laser will be fired
 
     // Start is called before the first frame update
-    private void Start()
+    void Start()
     {
         // Initialises the fire timer with the firing interval
         _fireTimer = _fireInterval;
     }
 
     // Update is called once per frame
-    private void Update()
+    void Update()
     {
         // Checks if the player is still alive before performing any actions
         if (!PlayerHealth.Instance.playerDeath)
@@ -63,7 +63,7 @@ public class AlienController : MonoBehaviour
     }
 
     // Function to handle firing of the laser
-    private void FireLaser()
+    void FireLaser()
     {
         // Checks if the laser prefab is assigned
         if (laserPrefab != null)

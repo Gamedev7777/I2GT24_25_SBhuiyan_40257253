@@ -9,7 +9,7 @@ public class PlayerHealth : MonoBehaviour
     public bool playerShield = false; // Variable to check if the player shield is active
     public int health = 50; // Sets the initial health of the player
 
-    private void Awake()
+    void Awake()
     {
         // Assigns the current instance of this script to the static Instance variable
         Instance = this;
@@ -36,7 +36,7 @@ public class PlayerHealth : MonoBehaviour
     }
 
     // Method to handle the player's death
-    private void Die()
+    void Die()
     {
         // Logs that the player is dead
         Debug.Log("Player is dead");
