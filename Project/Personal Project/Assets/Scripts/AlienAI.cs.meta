@@ -4,9 +4,9 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - aiNavMeshAgent: {fileID: -6549805239253676014, guid: d996367f0cc4eeb4e852933ea802fd34, type: 3}
-  - target: {fileID: 5322204910271350095, guid: 09b1b53c54e83c64f88a48e234a90c4e, type: 3}
-  - laserPrefab: {fileID: 1044732288042567498, guid: 3816add329dc9a74f8071abe5b7bc61c, type: 3}
+  - aiNavMeshAgent: {instanceID: 0}
+  - target: {instanceID: 0}
+  - laserPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

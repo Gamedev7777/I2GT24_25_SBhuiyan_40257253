@@ -16,7 +16,7 @@ public class AlienAI : MonoBehaviour
     public float idleTime = 1.0f; // Time to stay idle before transitioning to patrol
     public NavMeshAgent aiNavMeshAgent; // Reference to the NavMeshAgent component for movement
     public List<Transform> waypoints = new List<Transform>(); // List of waypoints for patrolling
-    public Transform target; // Reference to the target transform which is the player
+    public GameObject target; // Reference to the target transform which is the player
     public float chaseDistance = 25.0f; // Distance within which the alien starts chasing the target
     public float attackDistance = 15.0f; // Distance within which the alien starts attacking the target
     public GameObject laserPrefab; // Prefab for the laser
@@ -32,6 +32,11 @@ public class AlienAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        target = GameObject.FindGameObjectWithTag("Player");
+        waypoints[0] = GameObject.Find("Waypoint1").transform;
+        waypoints[1] = GameObject.Find("Waypoint2").transform;
+        waypoints[2] = GameObject.Find("Waypoint3").transform;
+        waypoints[3] = GameObject.Find("Waypoint4").transform;
         aiNavMeshAgent = GetComponent<NavMeshAgent>(); // Gets the NavMeshAgent component attached to the alien
         _fireTimer = _fireInterval; // Initialises the fire timer
     }
@@ -87,7 +92,7 @@ public class AlienAI : MonoBehaviour
         if (target != null)
         {
             // Calculates the distance to the target
-            float distanceTotarget = Vector3.Distance(transform.position, target.position);
+            float distanceTotarget = Vector3.Distance(transform.position, target.transform.position);
             // If within chase distance, transitions to chase state
             if (distanceTotarget <= chaseDistance)
             {
@@ -102,7 +107,7 @@ public class AlienAI : MonoBehaviour
         // Sets the alien's destination to the target's position
         if (target != null)
         {
-            aiNavMeshAgent.SetDestination(target.position);
+            aiNavMeshAgent.SetDestination(target.transform.position);
         }
         else
         {
@@ -112,7 +117,7 @@ public class AlienAI : MonoBehaviour
         }
 
         // Calculates the distance to the target
-        float distanceTotarget = Vector3.Distance(transform.position, target.position);
+        float distanceTotarget = Vector3.Distance(transform.position, target.transform.position);
         // If within attack distance, transitions to attack state
         if (distanceTotarget <= attackDistance)
         {
@@ -138,7 +143,7 @@ public class AlienAI : MonoBehaviour
         }
 
         // Rotates towards the target to face it
-        Vector3 direction = (target.position - transform.position).normalized; // Calculate the direction to the target
+        Vector3 direction = (target.transform.position - transform.position).normalized; // Calculate the direction to the target
         Quaternion lookRotation = Quaternion.LookRotation(direction); // Create a rotation to look at the target
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 3.0f); // Smoothly rotate towards the target
 
@@ -151,7 +156,7 @@ public class AlienAI : MonoBehaviour
         }
 
         // Calculates the distance to the target
-        float distanceTotarget = Vector3.Distance(transform.position, target.position);
+        float distanceTotarget = Vector3.Distance(transform.position, target.transform.position);
         // If the target moves out of attack distance, transitions back to chase state
         if (distanceTotarget > attackDistance)
         {
@@ -165,7 +170,7 @@ public class AlienAI : MonoBehaviour
         if (laserPrefab != null)
         {
             // Calculates the direction of the laser
-            Vector3 laserDirection = (target.position - transform.position).normalized;
+            Vector3 laserDirection = (target.transform.position - transform.position).normalized;
             // Sets the rotation of the laser to face the target
             Quaternion laserRotation = Quaternion.LookRotation(laserDirection);
             // Instantiates the laser at the alien's position with the calculated rotation
@@ -185,7 +190,7 @@ public class AlienAI : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log ("Detected Human"); // Logs to the console for debugging
-            target = other.transform; // Sets the target to the detected player
+            target = other.transform.gameObject; // Sets the target to the detected player
         }
     }
 
