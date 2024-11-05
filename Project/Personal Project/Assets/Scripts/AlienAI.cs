@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+// Enum representing different AI states for the Alien
 public enum AlienAIstate
 {
     idle, // Alien is idle, waiting for a certain amount of time
@@ -25,20 +26,27 @@ public class AlienAI : MonoBehaviour
     private AlienAIstate _currentState = AlienAIstate.idle; // Current state of the alien
     private int _currentWaypointIndex = -1; // Index of the current waypoint for patrolling
     private float _idleTimer = 0.0f; // Timer to keep track of idle time
-    private float _laserSpeed = 50.0f; // Speed of the laser projectile
+    private float _laserSpeed = 30.0f; // Speed of the laser projectile
     private float _fireTimer; // Timer to manage firing intervals in attack state
     private float _fireInterval = 1.0f; // Time interval between laser shots
 
     // Start is called before the first frame update
     void Start()
     {
+        // Finds the player by tag and assigns it as the target
         target = GameObject.FindGameObjectWithTag("Player");
+        
+        // Finds the waypoints by name and assigns them to the list
         waypoints[0] = GameObject.Find("Waypoint1").transform;
         waypoints[1] = GameObject.Find("Waypoint2").transform;
         waypoints[2] = GameObject.Find("Waypoint3").transform;
         waypoints[3] = GameObject.Find("Waypoint4").transform;
-        aiNavMeshAgent = GetComponent<NavMeshAgent>(); // Gets the NavMeshAgent component attached to the alien
-        _fireTimer = _fireInterval; // Initialises the fire timer
+
+        // Gets the NavMeshAgent component attached to the alien
+        aiNavMeshAgent = GetComponent<NavMeshAgent>();
+
+        // Initialises the fire timer
+        _fireTimer = _fireInterval;
     }
 
     // Update is called once per frame
@@ -67,6 +75,7 @@ public class AlienAI : MonoBehaviour
     {
         // Increments the idle timer
         _idleTimer += Time.deltaTime;
+
         // Transitions to patrol state after idle time has elapsed
         if (_idleTimer >= idleTime)
         {
@@ -82,7 +91,7 @@ public class AlienAI : MonoBehaviour
         if ((aiNavMeshAgent.pathStatus == NavMeshPathStatus.PathComplete && aiNavMeshAgent.remainingDistance < 0.5f) ||
             _currentWaypointIndex == -1)
         {
-            // Moves to a random waypoint in the list (loops back to the beginning if at the end)
+            // Moves to a random waypoint in the list
             int randomIndex = UnityEngine.Random.Range(0, waypoints.Count);
             _currentWaypointIndex = randomIndex; // Sets the current waypoint index
             aiNavMeshAgent.SetDestination(waypoints[_currentWaypointIndex].position); // Sets the alien's destination to the selected waypoint
@@ -93,6 +102,7 @@ public class AlienAI : MonoBehaviour
         {
             // Calculates the distance to the target
             float distanceTotarget = Vector3.Distance(transform.position, target.transform.position);
+
             // If within chase distance, transitions to chase state
             if (distanceTotarget <= chaseDistance)
             {
@@ -118,6 +128,7 @@ public class AlienAI : MonoBehaviour
 
         // Calculates the distance to the target
         float distanceTotarget = Vector3.Distance(transform.position, target.transform.position);
+
         // If within attack distance, transitions to attack state
         if (distanceTotarget <= attackDistance)
         {
@@ -157,6 +168,7 @@ public class AlienAI : MonoBehaviour
 
         // Calculates the distance to the target
         float distanceTotarget = Vector3.Distance(transform.position, target.transform.position);
+
         // If the target moves out of attack distance, transitions back to chase state
         if (distanceTotarget > attackDistance)
         {
@@ -179,7 +191,7 @@ public class AlienAI : MonoBehaviour
             Rigidbody laserRb = laser.GetComponent<Rigidbody>();
             // Sets the velocity of the laser to move towards the target
             laserRb.velocity = laserDirection * _laserSpeed;
-            Debug.Log ("Laser Fired"); // Logs to the console for debugging
+            Debug.Log("Laser Fired"); // Logs to the console for debugging
         }
     }
 
@@ -189,7 +201,7 @@ public class AlienAI : MonoBehaviour
         // If the detected object is tagged as "Player"
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log ("Detected Human"); // Logs to the console for debugging
+            Debug.Log("Detected Human"); // Logs to the console for debugging
             target = other.transform.gameObject; // Sets the target to the detected player
         }
     }
@@ -200,7 +212,7 @@ public class AlienAI : MonoBehaviour
         // If the detected object is tagged as "Player"
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log ("No longer detecting Human"); // Logs to the console for debugging
+            Debug.Log("No longer detecting Human"); // Logs to the console for debugging
             target = null; // Clears the target reference
         }
     }
