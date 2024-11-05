@@ -7,11 +7,11 @@ public class SpawnManager : MonoBehaviour
 {
     // public variables
     public static SpawnManager Instance; // Singleton instance of SpawnManager for easy access
-    public GameObject alienPrefab; // Prefab of the alien to be spawned
+    public List<GameObject>  alienPrefab = new List<GameObject>(); // Prefab of the alien to be spawned
     public List<GameObject> alienList = new List<GameObject>(); // List to keep track of all spawned aliens
-    public List<Transform> waypoints; // Waypoints that the aliens will follow
     public List<Transform> spawnPoints; // Possible spawn points for aliens
 
+    private GameObject alienSpawned;
     // Awake is called when the script instance is being loaded
     void Awake()
     {
@@ -28,16 +28,19 @@ public class SpawnManager : MonoBehaviour
             float offset = i * 2; // Offsets to space out the aliens
             int randomIndex = Random.Range(0, spawnPoints.Count); // Randomly selects a spawn point
             Vector3 spawnPos = spawnPoints[randomIndex].position; // Gets the position of the chosen spawn point
-            
-            // Instantiates an alien at the chosen spawn position
-            GameObject alienSpawned = Instantiate(alienPrefab, spawnPos, Quaternion.identity);
-            
-            // Adds the newly spawned alien to the alien list
+            if (PlayerPrefs.GetInt("Level", 1) == 1 || PlayerPrefs.GetInt("Level", 1) == 2)
+            {
+                alienSpawned = Instantiate(alienPrefab[0], spawnPos, Quaternion.identity);
+            }
+            else
+            {
+                alienSpawned = Instantiate(alienPrefab[1], spawnPos, Quaternion.identity);
+            }
+          // Adds the newly spawned alien to the alien list
             alienList.Add(alienSpawned);
             
             // Sets the waypoints for the alien's AI
             AlienAI alienAI = alienSpawned.GetComponent<AlienAI>();
-            alienAI.waypoints = waypoints;
         }
     }
 

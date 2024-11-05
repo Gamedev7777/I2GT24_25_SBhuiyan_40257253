@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -6549805239253676014}
   - component: {fileID: -2977784741101650912}
   m_Layer: 0
-  m_Name: Alien
+  m_Name: Alien2
   m_TagString: Alien
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a2130499917475b41a05ed109f894046, type: 2}
+  - {fileID: 2100000, guid: defeaa53f868e1e40b5bb06220f12bdd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82a99bc1a467525438153d9582ff9b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 15
 --- !u!54 &4979797931089950048
 Rigidbody:
   m_ObjectHideFlags: 0

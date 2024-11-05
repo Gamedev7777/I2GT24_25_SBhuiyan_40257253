@@ -8,7 +8,7 @@ public class AlienHealth : MonoBehaviour
 
     // private variables
     private bool _alienDeath = false; // Tracks if the alien is already dead
-    private int _health = 10; // Initial health of the alien
+    public int health = 10; // Initial health of the alien
     void Awake()
     {
         // Assigns the instance of this script to the static Instance variable
@@ -19,10 +19,10 @@ public class AlienHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         // Reduces health by the damage amount
-        _health -= damage;
+        health -= damage;
 
         // If health is zero or less and the alien is not already dead
-        if (_health <= 0 && !_alienDeath)
+        if (health <= 0 && !_alienDeath)
         {
             // Increases player's score by 100 points
             PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + 100);
