@@ -384,7 +384,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Upgrade
+  m_text: Be Upgraded
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1006,12 +1006,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '"You still keep killing us," said the alien voice. "I am doing it in self-defence.
+  m_text: '"You still keep killing us," said the alien voice. "I am doing it in self-defense.
     You are trying to kill me." "No. We testing you. Killing you is not goal. We
     learn through research. Your son and your daughter in lab. They witnessed what
     you did in the maze. We offer them upgrade so they no longer need to breathe
-    air, drink water and eat food." Your son accepted the upgrade. Your daughter
-    refused. Do you want to be upgraded?" You choose:'
+    air, drink water and eat food. Your son accepted the upgrade. Your daughter refused.
+    Do you want to be upgraded?" You choose: Remain Human or Be Upgraded.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1159,7 +1159,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.96065, y: -159}
+  m_AnchoredPosition: {x: -49.6, y: -195.8}
   m_SizeDelta: {x: 183.83557, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &283406958
@@ -1736,7 +1736,7 @@ MonoBehaviour:
   m_text: '"Why remain human?" Asked the alien. "Because I choose to." You reply.
     "Answer not understand," he said. "I like being the way I am." "Even though humans
     kill each other and kill other species and consume sentient organisms?" "Yes.
-    I am fine with it."'
+    I am ok with all of it."'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2708,8 +2708,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Your daughter, Jill, phones you and says: \u201CDad, where are you? I
-    am in a cage all alone. Have you seen Jack?\u201D You say, \u201CI haven\u2019t
+  m_text: "Your daughter, Jill, phones you and she says: \u201CDad, where are you?
+    I am in a cage all alone. Have you seen Jack?\u201D You say, \u201CI haven\u2019t
     seen Jack. I am in a maze, trying to find a way out.\u201D The line cuts off
     abruptly."
   m_isRightToLeft: 0
@@ -3234,7 +3234,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.96065, y: -229}
+  m_AnchoredPosition: {x: -50.5, y: -122.8}
   m_SizeDelta: {x: 183.83557, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &773459829
@@ -3493,10 +3493,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '"You value you more than you value us," said the alien voice. That is
-    why you kill so many of us. "You got that right. You are the bad guys. You kidnapped
-    us. You shot laser at me." "We not bad. We good. We want to know humans. Understand
-    your nature."'
+  m_text: "\"You value you more than you value us,\" said the alien voice. \u201CThat
+    is why you kill so many of us.\u201D \"You got that right. You are the bad guys.
+    You kidnapped us. You shot laser at me.\" \"We not bad. We good. We want to know
+    humans. Understand your nature.\""
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5487,10 +5487,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: You hear the same guttural voice once again. He says, "Learn language human.
-    Strange species you. Never encountered before. Why do you kill each other and
-    other species?" You say, "What? You can speak English now! Why have you kidnapped
-    us? Why are you shooting laser at me?" He says, "To test you. You answer not
-    question mine" You say, "I don't know. We just do." He says, "Not good answer."
+    Strange species you. Never encountered before. Why you kill each other and other
+    species?" You say, "What? You can speak English now! Why have you kidnapped us?
+    Why are you shooting laser at me?" He says, "To test you. You answer not question
+    mine" You say, "I don't know. We just do." He says, "Not good answer."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7385,7 +7385,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "You here strange sounds coming over the hidden sound system in the maze.
+  m_text: "You hear strange sounds coming over the hidden sound system in the maze.
     A guttural voice says \u201COfkjljoe mpwqoc qzoepllde\u201D. You have no idea
     what that means."
   m_isRightToLeft: 0
