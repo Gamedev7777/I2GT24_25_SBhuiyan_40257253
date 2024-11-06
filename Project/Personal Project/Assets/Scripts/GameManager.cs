@@ -119,8 +119,11 @@ public class GameManager : MonoBehaviour
     }
 
     // Method called when the Play button is pressed from the main menu
-    public void PlayButton()
+    public void PlayButton(int mode)
     {
+        PlayerPrefs.SetInt("Mode", mode);
+        playerHealthText.text =
+            "Player Health: " + SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player.GetComponent<PlayerHealth>().health.ToString();
         mainMenu.SetActive(false); // Hides the main menu
         Time.timeScale = 1; // Resumes the game
     }

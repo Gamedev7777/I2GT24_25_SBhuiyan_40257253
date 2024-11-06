@@ -4,7 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Alien
   - Laser
   - Bullet
   - MovingWall
@@ -15,6 +14,8 @@ TagManager:
   - PowerUp1
   - PowerUp2
   - PowerUp3
+  - Alien1
+  - Alien2
   layers:
   - Default
   - TransparentFX

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
@@ -7,12 +8,32 @@ public class PlayerHealth : MonoBehaviour
     public static PlayerHealth
         Instance; // Creates a static instance of the PlayerHealth class to access its properties from other classes
     public bool playerShield = false; // Variable to check if the player shield is active
-    public int health = 50; // Sets the initial health of the player
+    [HideInInspector]
+    public int health; // Sets the initial health of the player
 
     void Awake()
     {
         // Assigns the current instance of this script to the static Instance variable
         Instance = this;
+    }
+
+    void Start()
+    {
+        if (PlayerPrefs.GetInt("Mode", 0) == 0)
+        {
+            Debug.Log("Easy");
+            health = 60;
+        }
+        else if (PlayerPrefs.GetInt("Mode", 0) == 1)
+        {
+            Debug.Log("Normal");
+            health = 50;
+        }
+        else if (PlayerPrefs.GetInt("Mode", 0) == 2)
+        {
+            Debug.Log("Hard");
+            health = 40;
+        }
     }
 
     // Method to handle when the player takes damage

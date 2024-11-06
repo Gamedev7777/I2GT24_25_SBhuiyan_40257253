@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PowerUps : MonoBehaviour
 {
+    bool powerUpSpeed = false;
     // Method triggered when another collider enters the trigger collider attached to the power-up object
     void OnTriggerEnter(Collider other)
     {
@@ -21,14 +22,16 @@ public class PowerUps : MonoBehaviour
         }
 
         // Checks if the current gameObject is a Speed Power-Up
-        if (gameObject.tag == "PowerUpSpeed")
+        if (gameObject.tag == "PowerUpSpeed" )
         {
             // Checks if the colliding object is the Player
-            if (other.gameObject.tag == "Player")
+            if (other.gameObject.tag == "Player" && !powerUpSpeed)
             {
+                powerUpSpeed = true;
                 // Activates the User Interface element indicating that the speed power-up is active
                 GameManager.Instance.playerSpeedText.SetActive(true);
                 // Doubles the player's speed
+                Debug.Log("PowerUp Speed");
                 SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player.GetComponent<PlayerController>().playerSpeed *= 2.0f;
                 // Destroys the Speed Power-Up object after use
                 Destroy(gameObject);

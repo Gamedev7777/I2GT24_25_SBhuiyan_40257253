@@ -6,7 +6,7 @@ public class Bullet : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         // Checks if the bullet hits the alien
-        if (other.CompareTag("Alien"))
+        if (other.CompareTag("Alien1") || other.CompareTag("Alien2"))
         {
             // Reduces the alien's health by one by calling the TakeDamage method in the AlienHealth component
             other.gameObject.GetComponent<AlienHealth>().TakeDamage(1);
