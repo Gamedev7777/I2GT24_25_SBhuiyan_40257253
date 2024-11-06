@@ -2,6 +2,7 @@ using UnityEngine;
 public class Laser : MonoBehaviour
 
 {
+    public int laserDamage;
     // This method handles what happens when the laser hits various objects
     void OnTriggerEnter(Collider other)
     {
@@ -9,7 +10,7 @@ public class Laser : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             // Reduces the player's health by one
-            PlayerHealth.Instance.TakeDamage(1);
+            PlayerHealth.Instance.TakeDamage(laserDamage);
             // After hitting the player destroys the laser
             Destroy(gameObject);
         }

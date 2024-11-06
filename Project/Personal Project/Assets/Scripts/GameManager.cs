@@ -27,13 +27,15 @@ public class GameManager : MonoBehaviour
         // Initialises User Interface elements with saved values from PlayerPrefs
         scoreText.text = "Score: " + PlayerPrefs.GetInt("Score", 0).ToString(); // Displays the player's score
         playerHealthText.text =
-            "Player Health: " + PlayerHealth.Instance.health.ToString(); // Displays the player's health
+            "Player Health: " + SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player.GetComponent<PlayerHealth>().health.ToString(); // Displays the player's health
         levelNumberText.text =
             "Level Number: " + PlayerPrefs.GetInt("Level", 1).ToString(); // Displays the current level number
-
+        Debug.Log("pretest");
         // Displays the appropriate pop-up based on the current level
         if (PlayerPrefs.GetInt("Level", 1) == 1)
+
         {
+            Debug.Log("test");
             mainMenu.SetActive(true); // Shows main menu if level is 1
             popUpList[0].SetActive(true); // Shows the first story pop-up
         }

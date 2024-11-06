@@ -5,7 +5,7 @@ public class PlayerController : MonoBehaviour
     // public variables
     public float playerSpeed = 5.0f; // Speed at which the player moves
     public GameObject bulletPrefab; // Bullet prefab used for shooting
-    public static PlayerController Instance; // Singleton instance to allow access from other classes
+    
 
     // private variables
     private float _horizontalMovement; // Horizontal movement input
@@ -14,13 +14,7 @@ public class PlayerController : MonoBehaviour
     private float _bulletSpeed = 30.0f; // Speed at which the bullet moves
 
 
-    // Awake is called when the script instance is being loaded
-    // Initialising the instance variable to set up the singleton pattern
-    void Awake()
-    {
-        Instance = this; // Sets this instance as the global instance of the PlayerController
-    }
-
+    
     // Update is called once per frame
     void Update()
     {

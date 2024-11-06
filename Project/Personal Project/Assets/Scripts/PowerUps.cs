@@ -29,7 +29,7 @@ public class PowerUps : MonoBehaviour
                 // Activates the User Interface element indicating that the speed power-up is active
                 GameManager.Instance.playerSpeedText.SetActive(true);
                 // Doubles the player's speed
-                PlayerController.Instance.playerSpeed *= 2.0f;
+                SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player.GetComponent<PlayerController>().playerSpeed *= 2.0f;
                 // Destroys the Speed Power-Up object after use
                 Destroy(gameObject);
             }

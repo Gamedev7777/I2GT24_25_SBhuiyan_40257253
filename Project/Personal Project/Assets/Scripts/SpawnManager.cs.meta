@@ -6,7 +6,7 @@ MonoImporter:
   defaultReferences:
   - alienPrefab: {fileID: 8885761924075523858, guid: d996367f0cc4eeb4e852933ea802fd34, type: 3}
   - playerPrefab: {fileID: 1629886629667194896, guid: 09b1b53c54e83c64f88a48e234a90c4e, type: 3}
-  executionOrder: 0
+  executionOrder: -50
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 
