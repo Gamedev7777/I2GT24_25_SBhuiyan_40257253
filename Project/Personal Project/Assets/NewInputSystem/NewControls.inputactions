@@ -1,5 +1,5 @@
 {
-    "name": "New Controls",
+    "name": "NewControls",
     "maps": [
         {
             "name": "Player",
@@ -20,8 +20,17 @@
                     "id": "87481b3c-c5cc-4d64-af96-fb7e0ab988ee",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Tap",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "FireDirection",
+                    "type": "Value",
+                    "id": "3f0d1805-ccd0-43a0-91f7-d9326bc59a8a",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -81,10 +90,65 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "ea7f409f-12b5-47a7-83da-4ed56697e409",
-                    "path": "<Gamepad>/rightTrigger",
+                    "name": "2D Vector",
+                    "id": "aee85fa9-7e7a-436a-ada4-ac3bafb8180c",
+                    "path": "2DVector",
                     "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FireDirection",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "2edc891c-3088-43a0-961b-55e84b480683",
+                    "path": "<Gamepad>/rightStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FireDirection",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "eb3d8106-fcc1-4cf8-ae76-201508e59e21",
+                    "path": "<Gamepad>/rightStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FireDirection",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "ba11b427-b632-473d-9293-2927a4670981",
+                    "path": "<Gamepad>/rightStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FireDirection",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "5a79db8b-c0f3-4388-9d39-8bef39f6cc0a",
+                    "path": "<Gamepad>/rightStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FireDirection",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "8f269372-360d-4195-9dbe-649eba2f9c6e",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "Tap",
                     "processors": "",
                     "groups": "XboxController",
                     "action": "Fire",

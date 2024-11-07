@@ -42,8 +42,17 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
                     ""id"": ""87481b3c-c5cc-4d64-af96-fb7e0ab988ee"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FireDirection"",
+                    ""type"": ""Value"",
+                    ""id"": ""3f0d1805-ccd0-43a0-91f7-d9326bc59a8a"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -103,10 +112,65 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""ea7f409f-12b5-47a7-83da-4ed56697e409"",
-                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""name"": ""2D Vector"",
+                    ""id"": ""aee85fa9-7e7a-436a-ada4-ac3bafb8180c"",
+                    ""path"": ""2DVector"",
                     ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FireDirection"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""2edc891c-3088-43a0-961b-55e84b480683"",
+                    ""path"": ""<Gamepad>/rightStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FireDirection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""eb3d8106-fcc1-4cf8-ae76-201508e59e21"",
+                    ""path"": ""<Gamepad>/rightStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FireDirection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""ba11b427-b632-473d-9293-2927a4670981"",
+                    ""path"": ""<Gamepad>/rightStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FireDirection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""5a79db8b-c0f3-4388-9d39-8bef39f6cc0a"",
+                    ""path"": ""<Gamepad>/rightStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FireDirection"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8f269372-360d-4195-9dbe-649eba2f9c6e"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": ""XboxController"",
                     ""action"": ""Fire"",
@@ -134,6 +198,7 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
+        m_Player_FireDirection = m_Player.FindAction("FireDirection", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -197,12 +262,14 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Fire;
+    private readonly InputAction m_Player_FireDirection;
     public struct PlayerActions
     {
         private @NewControls m_Wrapper;
         public PlayerActions(@NewControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
+        public InputAction @FireDirection => m_Wrapper.m_Player_FireDirection;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -218,6 +285,9 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
+            @FireDirection.started += instance.OnFireDirection;
+            @FireDirection.performed += instance.OnFireDirection;
+            @FireDirection.canceled += instance.OnFireDirection;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -228,6 +298,9 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
+            @FireDirection.started -= instance.OnFireDirection;
+            @FireDirection.performed -= instance.OnFireDirection;
+            @FireDirection.canceled -= instance.OnFireDirection;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -258,5 +331,6 @@ public partial class @NewControls: IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
+        void OnFireDirection(InputAction.CallbackContext context);
     }
 }

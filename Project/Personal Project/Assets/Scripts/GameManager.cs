@@ -27,7 +27,8 @@ public class GameManager : MonoBehaviour
         // Initialises User Interface elements with saved values from PlayerPrefs
         scoreText.text = "Score: " + PlayerPrefs.GetInt("Score", 0).ToString(); // Displays the player's score
         playerHealthText.text =
-            "Player Health: " + SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player.GetComponent<PlayerHealth>().health.ToString(); // Displays the player's health
+            "Player Health: " + SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player
+                .GetComponent<PlayerHealth>().health.ToString(); // Displays the player's health
         levelNumberText.text =
             "Level Number: " + PlayerPrefs.GetInt("Level", 1).ToString(); // Displays the current level number
         Debug.Log("pretest");
@@ -121,9 +122,19 @@ public class GameManager : MonoBehaviour
     // Method called when the Play button is pressed from the main menu
     public void PlayButton(int mode)
     {
+        Debug.Log ("Mode "+mode);
         PlayerPrefs.SetInt("Mode", mode);
+        SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player.GetComponent<PlayerHealth>().SetPlayerHealth();
+        for (int i = 0; i < SpawnManager.Instance._levelSpawned.GetComponent<Levels>().aliens.Count; i++)
+        {
+            SpawnManager.Instance._levelSpawned.GetComponent<Levels>().aliens[i].GetComponent<AlienHealth>().SetAlienHealth();    
+        }
+        
         playerHealthText.text =
-            "Player Health: " + SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player.GetComponent<PlayerHealth>().health.ToString();
+            "Player Health: " + SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player
+                .GetComponent<PlayerHealth>().health.ToString();
+        Debug.Log("Player Health: " + SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player
+            .GetComponent<PlayerHealth>().health.ToString());
         mainMenu.SetActive(false); // Hides the main menu
         Time.timeScale = 1; // Resumes the game
     }

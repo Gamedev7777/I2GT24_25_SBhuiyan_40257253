@@ -17,26 +17,26 @@ public class PlayerHealth : MonoBehaviour
         Instance = this;
     }
 
-    void Start()
+    public void SetPlayerHealth()
     {
         if (PlayerPrefs.GetInt("Mode", 0) == 0)
         {
-            Debug.Log("Easy");
+            Debug.Log("Easy " + PlayerPrefs.GetInt("Mode", 0));
             health = 60;
         }
         else if (PlayerPrefs.GetInt("Mode", 0) == 1)
         {
-            Debug.Log("Normal");
+            Debug.Log("Normal " + PlayerPrefs.GetInt("Mode", 0));
             health = 50;
         }
         else if (PlayerPrefs.GetInt("Mode", 0) == 2)
         {
-            Debug.Log("Hard");
+            Debug.Log("Hard " + PlayerPrefs.GetInt("Mode", 0));
             health = 40;
         }
     }
 
-    // Method to handle when the player takes damage
+   // Method to handle when the player takes damage
     public void TakeDamage(int damage)
     {
         // Only takes damage if the player shield is not active

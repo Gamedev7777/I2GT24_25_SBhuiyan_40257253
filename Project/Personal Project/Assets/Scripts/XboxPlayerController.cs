@@ -1,19 +1,31 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class XboxPlayerController : MonoBehaviour
 {
     // public variables
     public float playerSpeed = 5.0f; // Speed at which the player moves
     public GameObject bulletPrefab; // Bullet prefab used for shooting
     
-
     // private variables
     private float _horizontalMovement; // Horizontal movement input
     private float _verticalMovement; // Vertical movement input
     private Vector3 _playerMovement; // Player movement vector
     private float _bulletSpeed = 30.0f; // Speed at which the bullet moves
+    private NewControls _xboxController; // Input system reference for Xbox controller
+    private Vector2 _fireDirection; // Stores the direction of fire based on right stick input
+    private bool _canFire = false; // Tracks if the player can fire a bullet
 
-
+    void Start()
+    {
+        // Initialize input system controls
+        _xboxController = new NewControls();
+        // Bind fire action to handling function
+        _xboxController.Player.Fire.performed += HandleXboxControllerFireInput;
+        //_xboxController.Player.Fire.canceled += HandleXboxControllerFireInput;
+        // Enable input controls
+        _xboxController.Enable();
+    }
     
     // Update is called once per frame
     void Update()
@@ -29,15 +41,10 @@ public class PlayerController : MonoBehaviour
         // Moves the player based on the input and playerSpeed
         transform.Translate(playerSpeed * Time.deltaTime * _playerMovement, Space.World);
 
-        // Checks if the left mouse button is pressed to fire a bullet
-        if (Input.GetMouseButtonDown(0))
+        // Checks if the fire button is pressed to fire a bullet
+        if (_canFire)
         {
             FireBullet(); // Calls the function to fire a bullet
-        }
-        else if (Input.GetButtonDown("Fire2"))
-
-        {
-            
         }
     }
 
@@ -50,23 +57,31 @@ public class PlayerController : MonoBehaviour
 
         // Gets the Rigidbody component of the bullet to control its movement
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
-        if (bulletRb != null)
-        {
-            // Creates a ray from the camera to the mouse position
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            // Performs a raycast to determine where the mouse cursor intersects with the game world
-            if (Physics.Raycast(ray, out hit))
-            {
-                // Calculates the direction from the player's position to the target hit point
-                Vector3 direction = (hit.point - transform.position).normalized;
-                // Sets the bullet's velocity in the direction of the target
-                bulletRb.velocity = direction * _bulletSpeed;
-            }
-        }
-
+        
+        // Get the direction from the right stick input
+        _fireDirection = _xboxController.Player.FireDirection.ReadValue<Vector2>();
+        Vector3 bulletDirection = new Vector3(_fireDirection.x, 0, _fireDirection.y).normalized;
+        
+        // Set the bullet's velocity to move in the specified direction
+        bulletRb.velocity = bulletDirection * _bulletSpeed;
+        
+        // Reset firing flag to prevent continuous firing
+        _canFire = false;
+        
         // Destroys the bullet after 1 second to avoid cluttering the scene with unused bullets
         Destroy(bullet, 1.0f);
+    }
+
+    // Handles the input action for firing based on the context of the input
+    void HandleXboxControllerFireInput(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+        {
+            _canFire = true; // Set to true when the fire button is pressed
+        }
+        else if (context.phase == InputActionPhase.Canceled)
+        {
+            _canFire = false; // Set to false when the fire button is released
+        }
     }
 }

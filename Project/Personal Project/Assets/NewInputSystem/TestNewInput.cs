@@ -14,6 +14,7 @@ public class TestNewInput : MonoBehaviour
     {
         // Instantiate the NewControls object to handle input actions
         xboxController = new NewControls();
+        xboxController.Enable();
     }
 
     // Update is called once per frame
@@ -26,5 +27,9 @@ public class TestNewInput : MonoBehaviour
         
         // Print the current movement values to the console for debugging
         print(_movement);
+        if (xboxController.Player.Fire.ReadValue<float>() != 0)
+        {
+            print("You pressed right bumper to fire");
+        }
     }
 }

@@ -14,7 +14,8 @@ public class AlienHealth : MonoBehaviour
         // Assigns the instance of this script to the static Instance variable
         Instance = this;
     }
-    void Start()
+
+    public void SetAlienHealth()
     {
         if (PlayerPrefs.GetInt("Mode", 0) == 0)
         {
@@ -50,6 +51,7 @@ public class AlienHealth : MonoBehaviour
             }
         }
     }
+    
     // Method to reduce health when alien takes damage
     public void TakeDamage(int damage)
     {
