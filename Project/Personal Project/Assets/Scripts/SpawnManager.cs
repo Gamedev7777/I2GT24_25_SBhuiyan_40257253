@@ -18,18 +18,24 @@ public class SpawnManager : MonoBehaviour
         Instance = this;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void SpawnLevel()
     {
-        _levelSpawned = Instantiate(levelPrefabList[PlayerPrefs.GetInt("Level", 1) - 1], new Vector3(0, 0, 0), Quaternion.identity);
-        // Spawns a number of aliens based on the current level stored in PlayerPrefs
-        for (int i = 0; i < _levelSpawned.GetComponent<Levels>().aliens.Count; i++)
+        if (PlayerPrefs.GetInt("Controller", 0) == 0)
         {
-            // Adds the newly spawned alien to the alien list
-            alienList.Add(_levelSpawned.GetComponent<Levels>().aliens[i]);
+            _levelSpawned = Instantiate(levelPrefabList[PlayerPrefs.GetInt("Level", 1) - 1], new Vector3(0, 0, 0), Quaternion.identity);
+            // Spawns a number of aliens based on the current level stored in PlayerPrefs
+            for (int i = 0; i < _levelSpawned.GetComponent<Levels>().aliens.Count; i++)
+            {
+                // Adds the newly spawned alien to the alien list
+                alienList.Add(_levelSpawned.GetComponent<Levels>().aliens[i]);
+            }
+        }
+        else if (PlayerPrefs.GetInt("Controller", 0) == 1)
+        {
+            Debug.Log("Multiplayer");
         }
     }
-
+   
     // Called when the level is completed
     public void LevelComplete()
     {

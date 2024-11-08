@@ -14,7 +14,8 @@ public class GameManager : MonoBehaviour
     public GameObject playerShieldText, playerSpeedText; // User Interface elements for player status (shield and speed)
     public List<GameObject> popUpList = new List<GameObject>(); // List of pop-up game objects for different levels
     public GameObject mainMenu; // Reference to the main menu game object
-
+    public GameObject singleAndMultiplayerMenu;
+    
     void Awake()
     {
         // Sets the singleton instance and pauses the game at the start
@@ -26,18 +27,16 @@ public class GameManager : MonoBehaviour
     {
         // Initialises User Interface elements with saved values from PlayerPrefs
         scoreText.text = "Score: " + PlayerPrefs.GetInt("Score", 0).ToString(); // Displays the player's score
-        playerHealthText.text =
-            "Player Health: " + SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player
-                .GetComponent<PlayerHealth>().health.ToString(); // Displays the player's health
+        
         levelNumberText.text =
             "Level Number: " + PlayerPrefs.GetInt("Level", 1).ToString(); // Displays the current level number
-        Debug.Log("pretest");
+        
         // Displays the appropriate pop-up based on the current level
         if (PlayerPrefs.GetInt("Level", 1) == 1)
 
         {
-            Debug.Log("test");
-            mainMenu.SetActive(true); // Shows main menu if level is 1
+            singleAndMultiplayerMenu.SetActive(true);
+            
             popUpList[0].SetActive(true); // Shows the first story pop-up
         }
         else if (PlayerPrefs.GetInt("Level", 1) == 2)
@@ -119,10 +118,20 @@ public class GameManager : MonoBehaviour
         popUpList[8].SetActive(true); // Shows the upgrade story pop-up
     }
 
+    public void SelectController(int controllerNumber)
+    {
+        PlayerPrefs.SetInt("Controller", controllerNumber);
+        singleAndMultiplayerMenu.SetActive(false);
+        mainMenu.SetActive(true);
+        SpawnManager.Instance.SpawnLevel();
+    }
+    
     // Method called when the Play button is pressed from the main menu
     public void PlayButton(int mode)
     {
-        Debug.Log ("Mode "+mode);
+        playerHealthText.text =
+            "Player Health: " + SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player
+                .GetComponent<PlayerHealth>().health.ToString(); // Displays the player's health   
         PlayerPrefs.SetInt("Mode", mode);
         SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player.GetComponent<PlayerHealth>().SetPlayerHealth();
         for (int i = 0; i < SpawnManager.Instance._levelSpawned.GetComponent<Levels>().aliens.Count; i++)
@@ -133,8 +142,7 @@ public class GameManager : MonoBehaviour
         playerHealthText.text =
             "Player Health: " + SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player
                 .GetComponent<PlayerHealth>().health.ToString();
-        Debug.Log("Player Health: " + SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player
-            .GetComponent<PlayerHealth>().health.ToString());
+        
         mainMenu.SetActive(false); // Hides the main menu
         Time.timeScale = 1; // Resumes the game
     }
