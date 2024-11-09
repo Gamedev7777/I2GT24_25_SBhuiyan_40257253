@@ -44,10 +44,17 @@ public class PlayerHealth : MonoBehaviour
         {
             // Reduces health by the value of damage
             health -= damage;
-
-            // Updates the player's health display text in the GameManager User Interface
-            GameManager.Instance.playerHealthText.text = "Player Health: " + health.ToString();
-
+            
+            
+            if (gameObject.name == "Player" || gameObject.name == "PlayerMultiplayer1")
+            {
+                GameManager.Instance.playerHealthText.text = "Player 1 Health: " + health.ToString();
+            }
+            else if (gameObject.name == "PlayerMultiplayer2")
+            {
+                GameManager.Instance.playerHealthText2.text = "Player 2 Health: " + health.ToString();
+            }
+           
             // If health reaches 0 or less and the player is not already dead, calls the Die method
             if (health <= 0 && !playerDeath)
             {
@@ -59,11 +66,12 @@ public class PlayerHealth : MonoBehaviour
     // Method to handle the player's death
     void Die()
     {
+        SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player.Remove(gameObject);
         // Logs that the player is dead
         Debug.Log("Player is dead");
 
         // Loads the next level or handles level restart in the SpawnManager
-        SpawnManager.Instance.LevelLoad();
+        SpawnManager.Instance.GameOver();
 
         // Sets playerDeath to true to prevent multiple calls to the Die method
         playerDeath = true;

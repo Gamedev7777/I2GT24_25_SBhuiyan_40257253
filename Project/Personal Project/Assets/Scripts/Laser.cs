@@ -9,8 +9,9 @@ public class Laser : MonoBehaviour
         // Checks if the laser hits the player
         if (other.CompareTag("Player"))
         {
-            // Reduces the player's health by one
-            PlayerHealth.Instance.TakeDamage(laserDamage);
+            other.gameObject.GetComponent<PlayerHealth>().TakeDamage(laserDamage);
+            
+            
             // After hitting the player destroys the laser
             Destroy(gameObject);
         }

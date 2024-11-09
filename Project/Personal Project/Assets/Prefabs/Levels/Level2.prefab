@@ -53,7 +53,8 @@ MonoBehaviour:
   aliens:
   - {fileID: 5268541779192677879}
   - {fileID: 6451796699813429961}
-  player: {fileID: 3525328687756570502}
+  player:
+  - {fileID: 3525328687756570502}
 --- !u!1001 &2511306060398874075
 PrefabInstance:
   m_ObjectHideFlags: 0

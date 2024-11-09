@@ -61,7 +61,8 @@ MonoBehaviour:
   - {fileID: 6078122573139484425}
   - {fileID: 6749885108441435972}
   - {fileID: 2787535446721091799}
-  player: {fileID: 3525328687756570502}
+  player:
+  - {fileID: 3525328687756570502}
 --- !u!1001 &1869636499425127437
 PrefabInstance:
   m_ObjectHideFlags: 0
