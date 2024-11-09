@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
         {
             FireBullet(); // Calls the function to fire a bullet
         }
+        HandlePlayerRotation();
     }
 
     Vector3 DetermineDirection(Vector2 _stickInput)
@@ -114,5 +115,23 @@ public class PlayerController : MonoBehaviour
 
         // Destroys the bullet after 1 second to avoid cluttering the scene with unused bullets
         Destroy(bullet, 1.0f);
+    }
+
+    void HandlePlayerRotation()
+    {
+        {
+            // Creates a ray from the camera to the mouse position
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            // Performs a raycast to determine where the mouse cursor intersects with the game world
+            if (Physics.Raycast(ray, out hit))
+            {
+                // Calculates the direction from the player's position to the target hit point
+                Vector3 direction = (hit.point - transform.position).normalized;
+                Quaternion newRotation = Quaternion.LookRotation(direction);
+                transform.rotation = newRotation;
+            }
+        }
     }
 }
