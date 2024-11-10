@@ -53,6 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aliens:
   - {fileID: 4002970867903725414}
+  - {fileID: 8393706554616817598}
   player:
   - {fileID: 1047799878537616746}
   - {fileID: 8662338395636782844}
@@ -116,6 +117,11 @@ PrefabInstance:
 --- !u!4 &7388449343362872039 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7612760468480301643, guid: d996367f0cc4eeb4e852933ea802fd34, type: 3}
+  m_PrefabInstance: {fileID: 1093528944021022892}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8393706554616817598 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8885761924075523858, guid: d996367f0cc4eeb4e852933ea802fd34, type: 3}
   m_PrefabInstance: {fileID: 1093528944021022892}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1680960029732576307

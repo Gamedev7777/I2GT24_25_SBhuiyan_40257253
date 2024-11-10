@@ -130,6 +130,7 @@ public class PlayerController : MonoBehaviour
             {
                 // Calculates the direction from the player's position to the target hit point
                 Vector3 direction = (hit.point - transform.position).normalized;
+                direction.y = 0;
                 Quaternion newRotation = Quaternion.LookRotation(direction);
                 transform.rotation = newRotation;
             }

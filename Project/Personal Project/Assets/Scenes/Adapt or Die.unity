@@ -7907,6 +7907,11 @@ MonoBehaviour:
   levelMultiplayerPrefabList:
   - {fileID: 3203876978175371158, guid: 61dc6f639e543df43b867750444efcf3, type: 3}
   - {fileID: 2900787892316122079, guid: dc957d7f2b0d6594abe632102e15a1ad, type: 3}
+  - {fileID: 8352552701378277754, guid: dfdc9c9f040e8ca428243c9311af83b3, type: 3}
+  - {fileID: 4496965920387930157, guid: a2a406ec7cc721d439b94e6f6c674597, type: 3}
+  - {fileID: 686141561418353355, guid: 0b3645d885713e54fa1da00cb1470d52, type: 3}
+  - {fileID: 1760720799896855742, guid: f662eb4bad42b8b4083fba5ae83e4a46, type: 3}
+  - {fileID: 3586060070356852723, guid: fa52f4c449c031d488814e03ddb799ef, type: 3}
 --- !u!4 &1583832103
 Transform:
   m_ObjectHideFlags: 0
