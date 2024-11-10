@@ -16,39 +16,41 @@ public class AlienHealth : MonoBehaviour
         Instance = this;
     }
 
+    // Method to set the alien's health based on the current game mode
     public void SetAlienHealth()
     {
-        if (PlayerPrefs.GetInt("Mode", 0) == 0)
+        // Checks the game mode from PlayerPrefs and sets health accordingly
+        if (PlayerPrefs.GetInt("Mode", 0) == 0) // Easy mode
         {
             if (gameObject.tag == "Alien1")
             {
-                health = 7;
+                health = 7; // Sets health for Alien1 in easy mode
             }
             else if (gameObject.tag == "Alien2")
             {
-                health = 15;
+                health = 15; // Sets health for Alien2 in easy mode
             }
         }
-        else if (PlayerPrefs.GetInt("Mode", 0) == 1)
+        else if (PlayerPrefs.GetInt("Mode", 0) == 1) // Normal mode
         {
             if (gameObject.tag == "Alien1")
             {
-                health = 10;
+                health = 10; // Sets health for Alien1 in normal mode
             }
             else if (gameObject.tag == "Alien2")
             {
-                health = 20;
+                health = 20; // Sets health for Alien2 in normal mode
             }
         }
-        else if (PlayerPrefs.GetInt("Mode", 0) == 2)
+        else if (PlayerPrefs.GetInt("Mode", 0) == 2) // Hard mode
         {
             if (gameObject.tag == "Alien1")
             {
-                health = 15;
+                health = 15; // Sets health for Alien1 in hard mode
             }
             else if (gameObject.tag == "Alien2")
             {
-                health = 25;
+                health = 25; // Sets health for Alien2 in hard mode
             }
         }
     }
@@ -68,7 +70,7 @@ public class AlienHealth : MonoBehaviour
             // Updates the score text in the GameManager
             GameManager.Instance.scoreText.text = "Score: " + PlayerPrefs.GetInt("Score").ToString();
 
-            // Call the Die method to handle alien's death
+            // Calls the Die method to handle alien's death
             Die();
         }
     }

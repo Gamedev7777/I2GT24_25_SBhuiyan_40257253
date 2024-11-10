@@ -6,8 +6,7 @@ public class PlayerHealth : MonoBehaviour
     // public variables
     public bool playerDeath = false; // Variable to check if the player is dead
 
-    public static PlayerHealth
-        Instance; // Creates a static instance of the PlayerHealth class to access its properties from other classes
+    public static PlayerHealth Instance; // Creates a static instance of the PlayerHealth class to access its properties from other classes
 
     public bool playerShield = false; // Variable to check if the player shield is active
     [HideInInspector] public int health; // Sets the initial health of the player
@@ -18,35 +17,37 @@ public class PlayerHealth : MonoBehaviour
         Instance = this;
     }
 
+    // Method to set the player's health based on the selected difficulty mode
     public void SetPlayerHealth()
     {
-        if (PlayerPrefs.GetInt("Mode", 0) == 0)
+        // Sets the player's health based on the difficulty mode stored in PlayerPrefs
+        if (PlayerPrefs.GetInt("Mode", 0) == 0) // Easy mode
         {
             Debug.Log("Easy " + PlayerPrefs.GetInt("Mode", 0));
-            health = 60;
+            health = 60; // Sets health to 60 in easy mode
         }
-        else if (PlayerPrefs.GetInt("Mode", 0) == 1)
+        else if (PlayerPrefs.GetInt("Mode", 0) == 1) // Normal mode
         {
             Debug.Log("Normal " + PlayerPrefs.GetInt("Mode", 0));
-            health = 50;
+            health = 50; // Sets health to 50 in normal mode
         }
-        else if (PlayerPrefs.GetInt("Mode", 0) == 2)
+        else if (PlayerPrefs.GetInt("Mode", 0) == 2) // Hard mode
         {
             Debug.Log("Hard " + PlayerPrefs.GetInt("Mode", 0));
-            health = 40;
+            health = 40; // Sets health to 40 in hard mode
         }
     }
 
     // Method to handle when the player takes damage
     public void TakeDamage(int damage)
     {
-        // Only takes damage if the player shield is not active
+        // Only takes damage if the player's shield is not active
         if (playerShield == false)
         {
             // Reduces health by the value of damage
             health -= damage;
 
-
+            // Updates the health display in the User Interface based on the player's name
             if (gameObject.name == "Player" || gameObject.name == "PlayerMultiplayer1")
             {
                 GameManager.Instance.playerHealthText.text = "Player 1 Health: " + health.ToString();
@@ -67,10 +68,9 @@ public class PlayerHealth : MonoBehaviour
     // Method to handle the player's death
     void Die()
     {
+        // Removes the player from the list of active players in the level
         SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player.Remove(gameObject);
-        // Logs that the player is dead
-        Debug.Log("Player is dead");
-
+        
         // Loads the next level or handles level restart in the SpawnManager
         SpawnManager.Instance.GameOver();
 

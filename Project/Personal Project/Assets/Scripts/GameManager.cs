@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject playerShieldText, playerSpeedText; // User Interface elements for player status (shield and speed)
     public List<GameObject> popUpList = new List<GameObject>(); // List of pop-up game objects for different levels
     public GameObject mainMenu; // Reference to the main menu game object
-    public GameObject singleAndMultiplayerMenu;
+    public GameObject singleAndMultiplayerMenu; // Reference to the single and multiplayer selection menu
 
     void Awake()
     {
@@ -31,16 +31,14 @@ public class GameManager : MonoBehaviour
         levelNumberText.text =
             "Level Number: " + PlayerPrefs.GetInt("Level", 1).ToString(); // Displays the current level number
 
-
+        // Checks if it is the player's first time playing
         if (PlayerPrefs.GetInt("firstTime", 1) == 1)
         {
-            singleAndMultiplayerMenu.SetActive(true);
+            singleAndMultiplayerMenu.SetActive(true); // Shows the single and multiplayer selection menu
         }
-
 
         // Displays the appropriate pop-up based on the current level
         if (PlayerPrefs.GetInt("Level", 1) == 1)
-
         {
             popUpList[0].SetActive(true); // Shows the first story pop-up
         }
@@ -103,45 +101,47 @@ public class GameManager : MonoBehaviour
             popUpList[6].SetActive(false); // Hides the seventh story pop-up
         }
 
+        // Spawns the level using the SpawnManager
         SpawnManager.Instance.SpawnLevel();
-        if (PlayerPrefs.GetInt("Controller", 0) == 0)
+
+        // Handles player health and User Interface elements based on the controller settings
+        if (PlayerPrefs.GetInt("Controller", 0) == 0) // Single player mode
         {
-            playerHealthText2.gameObject.SetActive(false);
+            playerHealthText2.gameObject.SetActive(false); // Hides the second player's health User Interface
 
-            PlayerPrefs.SetInt("Mode", _mainMode);
+            PlayerPrefs.SetInt("Mode", _mainMode); // Sets the game mode
 
+            // Sets the player health and updates the User Interface text for player 1
             SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>()
                 .SetPlayerHealth();
             playerHealthText.text =
                 "Player 1 Health: " + SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[0]
                     .GetComponent<PlayerHealth>().health.ToString(); // Displays the player's health 
         }
-        else if (PlayerPrefs.GetInt("Controller", 0) == 1)
-
+        else if (PlayerPrefs.GetInt("Controller", 0) == 1) // Multiplayer mode
         {
-            PlayerPrefs.SetInt("Mode", _mainMode);
+            PlayerPrefs.SetInt("Mode", _mainMode); // Sets the game mode
+
+            // Sets the player health and updates the User Interface text for player 1
             SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>()
                 .SetPlayerHealth();
-
-
             playerHealthText.text =
                 "Player 1 Health: " + SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[0]
                     .GetComponent<PlayerHealth>().health.ToString(); // Displays the player's health
 
-
+            // Sets the player health and updates the UI text for player 2
             SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerHealth>()
                 .SetPlayerHealth();
             playerHealthText2.text = "Player 2 Health: " + SpawnManager.Instance._levelSpawned.GetComponent<Levels>()
                 .player[1].GetComponent<PlayerHealth>().health.ToString(); // Displays the player's health
         }
 
-
+        // Sets the health for each alien in the level
         for (int i = 0; i < SpawnManager.Instance._levelSpawned.GetComponent<Levels>().aliens.Count; i++)
         {
             SpawnManager.Instance._levelSpawned.GetComponent<Levels>().aliens[i].GetComponent<AlienHealth>()
                 .SetAlienHealth();
         }
-
 
         // Resumes the game
         Time.timeScale = 1;
@@ -150,7 +150,6 @@ public class GameManager : MonoBehaviour
     // Method to restart the game and reset the score
     public void PlayAgain()
     {
-        Debug.Log("PlayAgain"); // Logs the PlayAgain action
         PlayerPrefs.SetInt("Score", 0); // Resets score to 0
         SceneManager.LoadScene("Adapt or Die"); // Reloads the scene to start again
     }
@@ -159,26 +158,24 @@ public class GameManager : MonoBehaviour
     public void Upgrade()
     {
         PlayerPrefs.SetInt("Level", 1); // Resets level to 1
-        Debug.Log("Upgrade"); // Logs the Upgrade action
         popUpList[8].SetActive(true); // Shows the upgrade story pop-up
     }
 
+    // Method to select the controller type (single or multiplayer)
     public void SelectController(int controllerNumber)
     {
-        PlayerPrefs.SetInt("Controller", controllerNumber);
-        PlayerPrefs.SetInt("firstTime", 0);
-        singleAndMultiplayerMenu.SetActive(false);
-        mainMenu.SetActive(true);
-        //SpawnManager.Instance.SpawnLevel();
+        PlayerPrefs.SetInt("Controller", controllerNumber); // Sets the controller type
+        PlayerPrefs.SetInt("firstTime", 0); // Marks that the first-time setup is complete
+        singleAndMultiplayerMenu.SetActive(false); // Hides the single and multiplayer menu
+        mainMenu.SetActive(true); // Shows the main menu
     }
 
-    int _mainMode;
+    int _mainMode; // Stores the main game mode
 
     // Method called when the Play button is pressed from the main menu
     public void PlayButton(int mode)
     {
-        _mainMode = mode;
-
+        _mainMode = mode; // Sets the game mode
 
         mainMenu.SetActive(false); // Hides the main menu
     }

@@ -8,16 +8,14 @@ public class PlayerMultiplayer1 : MonoBehaviour
     public float playerSpeed = 5.0f; // Speed at which the player moves
     public GameObject bulletPrefab; // Bullet prefab used for shooting
 
-
     // private variables
     private float _horizontalMovement; // Horizontal movement input
     private float _verticalMovement; // Vertical movement input
     private Vector3 _playerMovement; // Player movement vector
     private float _bulletSpeed = 30.0f; // Speed at which the bullet moves
-    private float _fireThreshold = 0.1f;
-    private float _fireCooldown = 0.5f;
-    private float _lastFireTime;
-
+    private float _fireThreshold = 0.1f; // Threshold value for firing
+    private float _fireCooldown = 0.5f; // Cooldown time between firing bullets
+    private float _lastFireTime; // Tracks the time of the last fired bullet
 
     // Update is called once per frame
     void Update()
@@ -33,7 +31,6 @@ public class PlayerMultiplayer1 : MonoBehaviour
         // Moves the player based on the input and playerSpeed
         transform.Translate(playerSpeed * Time.deltaTime * _playerMovement, Space.World);
 
-
         // Checks if the left mouse button is pressed to fire a bullet
         if (Input.GetMouseButtonDown(0))
         {
@@ -41,14 +38,12 @@ public class PlayerMultiplayer1 : MonoBehaviour
         }
     }
 
-
     // Function to fire a bullet from the player's position
     void FireBullet()
     {
         // Instantiates the bullet prefab at the player's current position
         GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-        Debug.Log("Bullet fired"); // Debug log to indicate a bullet was fired
-
+        
         // Gets the Rigidbody component of the bullet to control its movement
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
         if (bulletRb != null)
