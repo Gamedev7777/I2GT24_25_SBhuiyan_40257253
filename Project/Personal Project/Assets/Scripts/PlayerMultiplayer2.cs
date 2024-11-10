@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMultiplayer2 : MonoBehaviour
 {
-     // public variables
+    // public variables
     public float playerSpeed = 5.0f; // Speed at which the player moves
     public GameObject bulletPrefab; // Bullet prefab used for shooting
 
@@ -41,7 +41,6 @@ public class PlayerMultiplayer2 : MonoBehaviour
             FireBulletXbox(aimDirection);
             _lastFireTime = Time.time;
         }
-        
     }
 
     Vector3 DetermineDirection(Vector2 _stickInput)
@@ -82,6 +81,4 @@ public class PlayerMultiplayer2 : MonoBehaviour
         // Destroys the bullet after 1 second to avoid cluttering the scene with unused bullets
         Destroy(bullet, 1.0f);
     }
-
-    
 }

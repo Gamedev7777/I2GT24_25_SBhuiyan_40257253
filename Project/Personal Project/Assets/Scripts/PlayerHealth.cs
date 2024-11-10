@@ -5,11 +5,12 @@ public class PlayerHealth : MonoBehaviour
 {
     // public variables
     public bool playerDeath = false; // Variable to check if the player is dead
+
     public static PlayerHealth
         Instance; // Creates a static instance of the PlayerHealth class to access its properties from other classes
+
     public bool playerShield = false; // Variable to check if the player shield is active
-    [HideInInspector]
-    public int health; // Sets the initial health of the player
+    [HideInInspector] public int health; // Sets the initial health of the player
 
     void Awake()
     {
@@ -36,7 +37,7 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-   // Method to handle when the player takes damage
+    // Method to handle when the player takes damage
     public void TakeDamage(int damage)
     {
         // Only takes damage if the player shield is not active
@@ -44,8 +45,8 @@ public class PlayerHealth : MonoBehaviour
         {
             // Reduces health by the value of damage
             health -= damage;
-            
-            
+
+
             if (gameObject.name == "Player" || gameObject.name == "PlayerMultiplayer1")
             {
                 GameManager.Instance.playerHealthText.text = "Player 1 Health: " + health.ToString();
@@ -54,7 +55,7 @@ public class PlayerHealth : MonoBehaviour
             {
                 GameManager.Instance.playerHealthText2.text = "Player 2 Health: " + health.ToString();
             }
-           
+
             // If health reaches 0 or less and the player is not already dead, calls the Die method
             if (health <= 0 && !playerDeath)
             {

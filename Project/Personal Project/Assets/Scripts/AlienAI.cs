@@ -35,7 +35,7 @@ public class AlienAI : MonoBehaviour
     {
         // Finds the player by tag and assigns it as the target
         target = GameObject.FindGameObjectWithTag("Player");
-        
+
         // Finds the waypoints by name and assigns them to the list
         waypoints[0] = GameObject.Find("Waypoint1").transform;
         waypoints[1] = GameObject.Find("Waypoint2").transform;
@@ -94,7 +94,8 @@ public class AlienAI : MonoBehaviour
             // Moves to a random waypoint in the list
             int randomIndex = UnityEngine.Random.Range(0, waypoints.Count);
             _currentWaypointIndex = randomIndex; // Sets the current waypoint index
-            aiNavMeshAgent.SetDestination(waypoints[_currentWaypointIndex].position); // Sets the alien's destination to the selected waypoint
+            aiNavMeshAgent.SetDestination(waypoints[_currentWaypointIndex]
+                .position); // Sets the alien's destination to the selected waypoint
         }
 
         // Checks if there is a target available
@@ -154,9 +155,12 @@ public class AlienAI : MonoBehaviour
         }
 
         // Rotates towards the target to face it
-        Vector3 direction = (target.transform.position - transform.position).normalized; // Calculate the direction to the target
+        Vector3 direction =
+            (target.transform.position - transform.position).normalized; // Calculate the direction to the target
         Quaternion lookRotation = Quaternion.LookRotation(direction); // Create a rotation to look at the target
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 3.0f); // Smoothly rotate towards the target
+        transform.rotation =
+            Quaternion.Slerp(transform.rotation, lookRotation,
+                Time.deltaTime * 3.0f); // Smoothly rotate towards the target
 
         // Fires laser at intervals based on the fire timer
         _fireTimer -= Time.deltaTime;

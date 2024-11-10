@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
         {
             FireBullet(); // Calls the function to fire a bullet
         }
+
         HandlePlayerRotation();
     }
 

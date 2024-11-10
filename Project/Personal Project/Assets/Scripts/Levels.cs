@@ -13,6 +13,4 @@ public class Levels : MonoBehaviour
     {
         Instance = this;
     }
-
-    
 }

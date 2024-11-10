@@ -31,12 +31,17 @@ public class GameManager : MonoBehaviour
         levelNumberText.text =
             "Level Number: " + PlayerPrefs.GetInt("Level", 1).ToString(); // Displays the current level number
 
+
+        if (PlayerPrefs.GetInt("firstTime", 1) == 1)
+        {
+            singleAndMultiplayerMenu.SetActive(true);
+        }
+
+
         // Displays the appropriate pop-up based on the current level
         if (PlayerPrefs.GetInt("Level", 1) == 1)
 
         {
-            singleAndMultiplayerMenu.SetActive(true);
-
             popUpList[0].SetActive(true); // Shows the first story pop-up
         }
         else if (PlayerPrefs.GetInt("Level", 1) == 2)
@@ -98,6 +103,46 @@ public class GameManager : MonoBehaviour
             popUpList[6].SetActive(false); // Hides the seventh story pop-up
         }
 
+        SpawnManager.Instance.SpawnLevel();
+        if (PlayerPrefs.GetInt("Controller", 0) == 0)
+        {
+            playerHealthText2.gameObject.SetActive(false);
+
+            PlayerPrefs.SetInt("Mode", _mainMode);
+
+            SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>()
+                .SetPlayerHealth();
+            playerHealthText.text =
+                "Player 1 Health: " + SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[0]
+                    .GetComponent<PlayerHealth>().health.ToString(); // Displays the player's health 
+        }
+        else if (PlayerPrefs.GetInt("Controller", 0) == 1)
+
+        {
+            PlayerPrefs.SetInt("Mode", _mainMode);
+            SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>()
+                .SetPlayerHealth();
+
+
+            playerHealthText.text =
+                "Player 1 Health: " + SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[0]
+                    .GetComponent<PlayerHealth>().health.ToString(); // Displays the player's health
+
+
+            SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerHealth>()
+                .SetPlayerHealth();
+            playerHealthText2.text = "Player 2 Health: " + SpawnManager.Instance._levelSpawned.GetComponent<Levels>()
+                .player[1].GetComponent<PlayerHealth>().health.ToString(); // Displays the player's health
+        }
+
+
+        for (int i = 0; i < SpawnManager.Instance._levelSpawned.GetComponent<Levels>().aliens.Count; i++)
+        {
+            SpawnManager.Instance._levelSpawned.GetComponent<Levels>().aliens[i].GetComponent<AlienHealth>()
+                .SetAlienHealth();
+        }
+
+
         // Resumes the game
         Time.timeScale = 1;
     }
@@ -121,48 +166,20 @@ public class GameManager : MonoBehaviour
     public void SelectController(int controllerNumber)
     {
         PlayerPrefs.SetInt("Controller", controllerNumber);
+        PlayerPrefs.SetInt("firstTime", 0);
         singleAndMultiplayerMenu.SetActive(false);
         mainMenu.SetActive(true);
-        SpawnManager.Instance.SpawnLevel();
+        //SpawnManager.Instance.SpawnLevel();
     }
+
+    int _mainMode;
 
     // Method called when the Play button is pressed from the main menu
     public void PlayButton(int mode)
     {
-        if (PlayerPrefs.GetInt("Controller", 0) == 0)
-        {
-            playerHealthText.text =
-                "Player 1 Health: " + SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[0]
-                    .GetComponent<PlayerHealth>().health.ToString(); // Displays the player's health   
-
-            PlayerPrefs.SetInt("Mode", mode);
-
-            SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>()
-                .SetPlayerHealth();
-        }
-        else if (PlayerPrefs.GetInt("Controller", 0) == 1)
-        {
-            playerHealthText.text =
-                "Player 1 Health: " + SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[0]
-                    .GetComponent<PlayerHealth>().health.ToString(); // Displays the player's health
-            SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>()
-                .SetPlayerHealth();
-
-            playerHealthText2.text = "Player 2 Health: " + SpawnManager.Instance._levelSpawned.GetComponent<Levels>()
-                .player[1].GetComponent<PlayerHealth>().health.ToString(); // Displays the player's health
-
-            SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerHealth>()
-                .SetPlayerHealth();
-        }
-
-        for (int i = 0; i < SpawnManager.Instance._levelSpawned.GetComponent<Levels>().aliens.Count; i++)
-        {
-            SpawnManager.Instance._levelSpawned.GetComponent<Levels>().aliens[i].GetComponent<AlienHealth>()
-                .SetAlienHealth();
-        }
+        _mainMode = mode;
 
 
         mainMenu.SetActive(false); // Hides the main menu
-        Time.timeScale = 1; // Resumes the game
     }
 }

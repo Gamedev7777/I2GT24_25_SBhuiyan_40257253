@@ -9,6 +9,7 @@ public class AlienHealth : MonoBehaviour
     // private variables
     private bool _alienDeath = false; // Tracks if the alien is already dead
     public int health = 10; // Initial health of the alien
+
     void Awake()
     {
         // Assigns the instance of this script to the static Instance variable
@@ -51,7 +52,7 @@ public class AlienHealth : MonoBehaviour
             }
         }
     }
-    
+
     // Method to reduce health when alien takes damage
     public void TakeDamage(int damage)
     {
@@ -79,7 +80,7 @@ public class AlienHealth : MonoBehaviour
         _alienDeath = true;
 
         // Logs a message indicating the alien has died
-        Debug.Log ("Aliens are dead");
+        Debug.Log("Aliens are dead");
 
         // Removes the alien from the list of active aliens in the SpawnManager
         SpawnManager.Instance.alienList.Remove(gameObject);

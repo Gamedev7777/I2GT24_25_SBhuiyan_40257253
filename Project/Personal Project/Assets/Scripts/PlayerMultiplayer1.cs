@@ -33,8 +33,6 @@ public class PlayerMultiplayer1 : MonoBehaviour
         // Moves the player based on the input and playerSpeed
         transform.Translate(playerSpeed * Time.deltaTime * _playerMovement, Space.World);
 
-        
-        
 
         // Checks if the left mouse button is pressed to fire a bullet
         if (Input.GetMouseButtonDown(0))
@@ -43,10 +41,6 @@ public class PlayerMultiplayer1 : MonoBehaviour
         }
     }
 
-    
-    
-
-    
 
     // Function to fire a bullet from the player's position
     void FireBullet()

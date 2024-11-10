@@ -11,7 +11,7 @@ public class SpawnManager : MonoBehaviour
     public GameObject _levelSpawned;
     public List<GameObject> levelPrefabList = new List<GameObject>();
     public List<GameObject> levelMultiplayerPrefabList = new List<GameObject>();
-    
+
     // Awake is called when the script instance is being loaded
     void Awake()
     {
@@ -21,9 +21,12 @@ public class SpawnManager : MonoBehaviour
 
     public void SpawnLevel()
     {
+        Debug.Log("Test");
         if (PlayerPrefs.GetInt("Controller", 0) == 0)
         {
-            _levelSpawned = Instantiate(levelPrefabList[PlayerPrefs.GetInt("Level", 1) - 1], new Vector3(0, 0, 0), Quaternion.identity);
+            Debug.Log("Singleplayer " + PlayerPrefs.GetInt("Level", 1));
+            _levelSpawned = Instantiate(levelPrefabList[PlayerPrefs.GetInt("Level", 1) - 1], new Vector3(0, 0, 0),
+                Quaternion.identity);
             // Spawns a number of aliens based on the current level stored in PlayerPrefs
             for (int i = 0; i < _levelSpawned.GetComponent<Levels>().aliens.Count; i++)
             {
@@ -33,8 +36,9 @@ public class SpawnManager : MonoBehaviour
         }
         else if (PlayerPrefs.GetInt("Controller", 0) == 1)
         {
-            Debug.Log("Multiplayer");
-            _levelSpawned = Instantiate(levelMultiplayerPrefabList[PlayerPrefs.GetInt("Level", 1) - 1], new Vector3(0, 0, 0), Quaternion.identity);
+            Debug.Log("Multiplayer " + PlayerPrefs.GetInt("Level", 1));
+            _levelSpawned = Instantiate(levelMultiplayerPrefabList[PlayerPrefs.GetInt("Level", 1) - 1],
+                new Vector3(0, 0, 0), Quaternion.identity);
             // Spawns a number of aliens based on the current level stored in PlayerPrefs
             for (int i = 0; i < _levelSpawned.GetComponent<Levels>().aliens.Count; i++)
             {
@@ -43,7 +47,7 @@ public class SpawnManager : MonoBehaviour
             }
         }
     }
-   
+
     // Called when the level is completed
     public void LevelComplete()
     {
@@ -55,6 +59,7 @@ public class SpawnManager : MonoBehaviour
             {
                 GameManager.Instance.popUpList[7].SetActive(true); // Shows the final level completion pop-up
                 PlayerPrefs.SetInt("Level", 1); // Resets level to 1
+                PlayerPrefs.SetInt("firstTime", 0);
             }
             else
             {
@@ -72,6 +77,7 @@ public class SpawnManager : MonoBehaviour
             Invoke(nameof(LevelLoad), 1.0f); // Loads the next level after a delay of 1 second
         }
     }
+
     // Loads the current level scene
     void LevelLoad()
     {
@@ -94,11 +100,11 @@ public class SpawnManager : MonoBehaviour
         else if (PlayerPrefs.GetInt("Controller", 0) == 1)
         {
             _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>().playerShield = false;
-            
+
             _levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerHealth>().playerShield = false;
         }
-        
-        
+
+
         GameManager.Instance.playerShieldText.SetActive(false); // Hides the shield User Interface text
     }
 }

@@ -1,8 +1,10 @@
 using UnityEngine;
+
 public class Laser : MonoBehaviour
 
 {
     public int laserDamage;
+
     // This method handles what happens when the laser hits various objects
     void OnTriggerEnter(Collider other)
     {
@@ -10,8 +12,8 @@ public class Laser : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.gameObject.GetComponent<PlayerHealth>().TakeDamage(laserDamage);
-            
-            
+
+
             // After hitting the player destroys the laser
             Destroy(gameObject);
         }
@@ -23,8 +25,7 @@ public class Laser : MonoBehaviour
         }
         // Checks if the laser hits a power-up
         else if ((other.CompareTag("PowerUpSpeed") || other.CompareTag("PowerUpShield")) ||
-
-        other.CompareTag("PowerUpHealth"))
+                 other.CompareTag("PowerUpHealth"))
         {
             // When the laser hits a PowerUp destroy the laser
             Destroy(gameObject);
