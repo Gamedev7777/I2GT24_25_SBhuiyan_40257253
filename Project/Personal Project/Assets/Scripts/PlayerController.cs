@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     // public variables
     public float playerSpeed = 5.0f; // Speed at which the player moves
     public GameObject bulletPrefab; // Bullet prefab used for shooting
+    public Animator animator;
 
     // private variables
     private float _horizontalMovement; // Horizontal movement input
@@ -15,6 +16,17 @@ public class PlayerController : MonoBehaviour
     private float _fireThreshold = 0.1f; // Threshold value for firing using controller
     private float _fireCooldown = 0.5f; // Cooldown time between firing bullets
     private float _lastFireTime; // Tracks the time of the last fired bullet
+    private float _timeSinceStopped;
+    private float _stopBufferTime;
+
+    void Start()
+    {
+        _timeSinceStopped = 0.0f;
+        _stopBufferTime = 0.2f;
+        //animator = transform.GetChild(0).GetComponent<Animator>();
+        Debug.Log(transform.GetChild(0).name);
+        transform.GetChild(0).GetComponent<Animation>().Play();
+    }
 
     // Update is called once per frame
     void Update()
@@ -24,11 +36,33 @@ public class PlayerController : MonoBehaviour
         // Gets player input for vertical movement (up/down)
         _verticalMovement = Input.GetAxis("Vertical");
 
+
         // Creates a new movement vector based on the player's input
         _playerMovement = new Vector3(_horizontalMovement, 0, _verticalMovement).normalized;
 
         // Moves the player based on the input and playerSpeed, using Time.deltaTime for frame rate independence
-        transform.Translate(playerSpeed * Time.deltaTime * _playerMovement, Space.World);
+        transform.GetComponent<Rigidbody>().velocity = _playerMovement * playerSpeed;
+
+        Debug.Log("Velocity: " + transform.GetComponent<Rigidbody>().velocity.magnitude);
+        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow) ||
+            Input.GetKey(KeyCode.RightArrow))
+        {
+            _timeSinceStopped = 0.0f;
+            Debug.Log("Walking");
+            // animator.SetFloat("PlayerSpeed", smoothSpeed);
+            //animator.SetFloat("PlayerSpeed", 1.0f);
+        }
+        else
+        {
+            _timeSinceStopped += Time.deltaTime;
+            Debug.Log("Idle");
+            if (_timeSinceStopped > _stopBufferTime)
+            {
+                // animator.SetFloat("PlayerSpeed", 0.0f);
+                //animator.SetFloat("PlayerSpeed", Mathf.Lerp(animator.GetFloat("PlayerSpeed"), 0.0f, 0.1f));
+            }
+        }
+
 
         // Gets input from the right stick for aiming direction (used in controllers)
         float rightStickHorizontal = Input.GetAxis("RightStickHorizontal");
@@ -70,8 +104,10 @@ public class PlayerController : MonoBehaviour
         else if (angle >= 22.5f && angle < 67.5f) return new Vector3(1, 0, 1).normalized; // Diagonal right-forward
         else if (angle >= 67.5f && angle < 112.5f) return Vector3.forward; // Forward direction
         else if (angle >= 112.5f && angle < 157.5f) return new Vector3(-1, 0, 1).normalized; // Diagonal left-forward
-        else if ((angle >= 157.5f && angle < 180f) || (angle < -157f && angle >= -180f)) return Vector3.left; // Left direction
-        else if (angle >= -157.5f && angle < -112.5f) return new Vector3(-1, 0, -1).normalized; // Diagonal left-backward
+        else if ((angle >= 157.5f && angle < 180f) || (angle < -157f && angle >= -180f))
+            return Vector3.left; // Left direction
+        else if (angle >= -157.5f && angle < -112.5f)
+            return new Vector3(-1, 0, -1).normalized; // Diagonal left-backward
         else if (angle >= -112.5f && angle < -67.5f) return Vector3.back; // Backward direction
         else if (angle >= -67.5f && angle < -22.5f) return new Vector3(1, 0, -1).normalized; // Diagonal right-backward
         return Vector3.zero; // Default case (no direction)
