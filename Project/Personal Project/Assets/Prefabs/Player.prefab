@@ -518,7 +518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSpeed: 5
   bulletPrefab: {fileID: 8147742864452067797, guid: b1324a8ecaa827946867d51accd5db8a, type: 3}
-  animator: {fileID: 0}
+  animation: {fileID: 0}
 --- !u!114 &8866173270421773457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1462,9 +1462,12 @@ Animation:
   m_Animation: {fileID: 7400000, guid: 53f402497b7cf5141bc02acde6da01f1, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: 53f402497b7cf5141bc02acde6da01f1, type: 2}
+  - {fileID: 7400000, guid: a64cd57cacb10ab4e9febe37f92f382d, type: 2}
+  - {fileID: 7400000, guid: d03ed36f74b1e304b8372fd93f1fc955, type: 2}
+  - {fileID: 7400000, guid: 2fbdbf6b6ef0d9c4b8986a54c07e2816, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
+  m_AnimatePhysics: 1
   m_CullingType: 0
 --- !u!1 &5115430261341030475
 GameObject:

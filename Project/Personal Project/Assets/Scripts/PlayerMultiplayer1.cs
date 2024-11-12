@@ -17,6 +17,13 @@ public class PlayerMultiplayer1 : MonoBehaviour
     private float _fireCooldown = 0.5f; // Cooldown time between firing bullets
     private float _lastFireTime; // Tracks the time of the last fired bullet
 
+    private Animation animation;
+
+    void Start()
+    {
+     animation = transform.GetChild(0).GetComponent<Animation>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -25,6 +32,18 @@ public class PlayerMultiplayer1 : MonoBehaviour
         // Gets player input for vertical movement (up/down)
         _verticalMovement = Input.GetAxis("Vertical");
 
+        
+        if (_horizontalMovement != 0 || _verticalMovement != 0)
+
+        {
+            animation.Play("RemyWalking");
+        }
+        else
+        {
+            animation.Play("RemyIdle");
+        }
+        
+        
         // Creates a new movement vector based on the player's input
         _playerMovement = new Vector3(_horizontalMovement, 0, _verticalMovement).normalized;
 
@@ -36,6 +55,8 @@ public class PlayerMultiplayer1 : MonoBehaviour
         {
             FireBullet(); // Calls the function to fire a bullet
         }
+        
+        HandlePlayerRotation();
     }
 
     // Function to fire a bullet from the player's position
@@ -64,5 +85,23 @@ public class PlayerMultiplayer1 : MonoBehaviour
 
         // Destroys the bullet after 1 second to avoid cluttering the scene with unused bullets
         Destroy(bullet, 1.0f);
+    }
+    
+    
+    void HandlePlayerRotation()
+    {
+        // Creates a ray from the camera to the mouse position
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        // Performs a raycast to determine where the mouse cursor intersects with the game world
+        if (Physics.Raycast(ray, out hit))
+        {
+            // Calculates the direction from the player's position to the target hit point
+            Vector3 direction = (hit.point - transform.position).normalized;
+            direction.y = 0; // Keeps the player's rotation on the horizontal plane to avoid tilting
+            Quaternion newRotation = Quaternion.LookRotation(direction); // Creates a new rotation to face the target
+            transform.rotation = newRotation; // Applies the new rotation to the player
+        }
     }
 }
