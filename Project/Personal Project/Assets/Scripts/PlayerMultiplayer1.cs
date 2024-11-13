@@ -21,7 +21,7 @@ public class PlayerMultiplayer1 : MonoBehaviour
 
     void Start()
     {
-     animation = transform.GetChild(0).GetComponent<Animation>();
+        animation = transform.GetChild(0).GetComponent<Animation>();
     }
 
     // Update is called once per frame
@@ -32,7 +32,7 @@ public class PlayerMultiplayer1 : MonoBehaviour
         // Gets player input for vertical movement (up/down)
         _verticalMovement = Input.GetAxis("Vertical");
 
-        
+
         if (_horizontalMovement != 0 || _verticalMovement != 0)
 
         {
@@ -42,8 +42,8 @@ public class PlayerMultiplayer1 : MonoBehaviour
         {
             animation.Play("RemyIdle");
         }
-        
-        
+
+
         // Creates a new movement vector based on the player's input
         _playerMovement = new Vector3(_horizontalMovement, 0, _verticalMovement).normalized;
 
@@ -55,7 +55,7 @@ public class PlayerMultiplayer1 : MonoBehaviour
         {
             FireBullet(); // Calls the function to fire a bullet
         }
-        
+
         HandlePlayerRotation();
     }
 
@@ -64,7 +64,7 @@ public class PlayerMultiplayer1 : MonoBehaviour
     {
         // Instantiates the bullet prefab at the player's current position
         GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-        
+
         // Gets the Rigidbody component of the bullet to control its movement
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
         if (bulletRb != null)
@@ -86,8 +86,8 @@ public class PlayerMultiplayer1 : MonoBehaviour
         // Destroys the bullet after 1 second to avoid cluttering the scene with unused bullets
         Destroy(bullet, 1.0f);
     }
-    
-    
+
+
     void HandlePlayerRotation()
     {
         // Creates a ray from the camera to the mouse position

@@ -62,8 +62,10 @@ public class PlayerMultiplayer2 : MonoBehaviour
         else if (angle >= 22.5f && angle < 67.5f) return new Vector3(1, 0, 1).normalized; // Diagonal right-forward
         else if (angle >= 67.5f && angle < 112.5f) return Vector3.forward; // Forward direction
         else if (angle >= 112.5f && angle < 157.5f) return new Vector3(-1, 0, 1).normalized; // Diagonal left-forward
-        else if ((angle >= 157.5f && angle < 180f) || (angle < -157f && angle >= -180f)) return Vector3.left; // Left direction
-        else if (angle >= -157.5f && angle < -112.5f) return new Vector3(-1, 0, -1).normalized; // Diagonal left-backward
+        else if ((angle >= 157.5f && angle < 180f) || (angle < -157f && angle >= -180f))
+            return Vector3.left; // Left direction
+        else if (angle >= -157.5f && angle < -112.5f)
+            return new Vector3(-1, 0, -1).normalized; // Diagonal left-backward
         else if (angle >= -112.5f && angle < -67.5f) return Vector3.back; // Backward direction
         else if (angle >= -67.5f && angle < -22.5f) return new Vector3(1, 0, -1).normalized; // Diagonal right-backward
         return Vector3.zero; // Default case (no direction)
@@ -74,7 +76,7 @@ public class PlayerMultiplayer2 : MonoBehaviour
     {
         // Instantiates the bullet prefab at the player's current position
         GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-        
+
         // Gets the Rigidbody component of the bullet to control its movement
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
 

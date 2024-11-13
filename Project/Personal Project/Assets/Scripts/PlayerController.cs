@@ -55,9 +55,6 @@ public class PlayerController : MonoBehaviour
         transform.GetComponent<Rigidbody>().velocity = _playerMovement * playerSpeed;
 
 
-        
-
-
         // Gets input from the right stick for aiming direction (used in controllers)
         float rightStickHorizontal = Input.GetAxis("RightStickHorizontal");
         float rightStickVertical = Input.GetAxis("RightStickVertical");
@@ -70,8 +67,8 @@ public class PlayerController : MonoBehaviour
             FireBulletXbox(aimDirection);
             _lastFireTime = Time.time; // Updates the last fire time
         }
-        
-        
+
+
         if (_combinedHorizontal != 0 || _combinedVertical != 0)
 
         {
@@ -81,40 +78,38 @@ public class PlayerController : MonoBehaviour
         {
             animation.Play("RemyIdle");
         }
-        
-    // Checks if the left mouse button is pressed to fire a bullet
+
+        // Checks if the left mouse button is pressed to fire a bullet
         if (Input.GetMouseButton(0))
         {
-           PlayShootingAnimation();
-           if (Time.time >= _nextFireTime)
-           {
-               FireBullet(); // Calls the function to fire a bullet  
-               _nextFireTime = Time.time + _fireRate;
-           }
-            
+            PlayShootingAnimation();
+            if (Time.time >= _nextFireTime)
+            {
+                FireBullet(); // Calls the function to fire a bullet  
+                _nextFireTime = Time.time + _fireRate;
+            }
         }
         else
         {
-
             StopShootingAnimation();
-
         }
+
 // Handles player rotation to face the aiming direction, either by mouse or controller input
         HandlePlayerRotation();
     }
+
     void PlayShootingAnimation()
     {
         // Play the shooting animation only if it's not already playing
-        
-        
-            if (!animation.IsPlaying("RemyIdleFiring"))
-            {
-                Debug.Log("Shooting");
-                animation.Play("RemyIdleFiring");
-            }
-        
-        
+
+
+        if (!animation.IsPlaying("RemyIdleFiring"))
+        {
+            Debug.Log("Shooting");
+            animation.Play("RemyIdleFiring");
+        }
     }
+
     void StopShootingAnimation()
     {
         if (animation.IsPlaying("RemyIdleFiring"))
@@ -123,6 +118,7 @@ public class PlayerController : MonoBehaviour
             animation.Stop("RemyIdleFiring");
         }
     }
+
 // Determines the direction based on input from the right stick
     Vector3 DetermineDirection(Vector2 _stickInput)
     {
