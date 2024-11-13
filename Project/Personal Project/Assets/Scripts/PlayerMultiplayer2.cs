@@ -14,10 +14,22 @@ public class PlayerMultiplayer2 : MonoBehaviour
     private Vector3 _playerMovement; // Player movement vector
     private float _bulletSpeed = 30.0f; // Speed at which the bullet moves
     private float _fireThreshold = 0.1f; // Threshold value for firing
-    private float _fireCooldown = 0.5f; // Cooldown time between firing bullets
+    private float _fireCooldown = 0.1f; // Cooldown time between firing bullets
     private float _lastFireTime; // Tracks the time of the last fired bullet
 
+    Animation animation;
+    private Vector3 aimDirection;
+    
+    
+    void Start()
+    {
+        animation = transform.GetChild(0).GetComponent<Animation>();
+    }
     // Update is called once per frame
+    
+    
+    
+    
     void Update()
     {
         // Gets player input for horizontal movement (left/right)
@@ -29,21 +41,126 @@ public class PlayerMultiplayer2 : MonoBehaviour
         _playerMovement = new Vector3(_horizontalMovement, 0, _verticalMovement).normalized;
 
         // Moves the player based on the input and playerSpeed
-        transform.Translate(playerSpeed * Time.deltaTime * _playerMovement, Space.World);
+        transform.GetComponent<Rigidbody>().velocity = _playerMovement * playerSpeed;
 
         // Gets input from the right stick for aiming direction
         float rightStickHorizontal = Input.GetAxis("RightStickHorizontal");
         float rightStickVertical = Input.GetAxis("RightStickVertical");
-        Vector3 aimDirection = DetermineDirection(new Vector2(rightStickHorizontal, rightStickVertical));
+        aimDirection = DetermineDirection(new Vector2(rightStickHorizontal, rightStickVertical));
 
-        // Fires a bullet if aiming direction is provided and cooldown time has passed
-        if (aimDirection != Vector3.zero && Time.time >= _lastFireTime + _fireCooldown)
+
+
+
+        
+        if ((_horizontalMovement == 0 && _verticalMovement == 0) && (aimDirection != Vector3.zero))
         {
-            FireBulletXbox(aimDirection);
-            _lastFireTime = Time.time; // Updates the last fire time
+            if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
+            {
+                Debug.Log("Running and firing");
+                animation.Play("RemyRunningFiring");
+            }
+            else
+            {
+                Debug.Log("Walking and firing");
+
+                animation.Play("RemyWalkingFiring");
+            }
+            
+            // Fires a bullet if aiming direction is provided and cooldown time has passed
+            if (Time.time >= _lastFireTime + _fireCooldown)
+            {
+                FireBulletXbox(aimDirection);
+                _lastFireTime = Time.time; // Updates the last fire time
+            }
+        }
+        else
+        {
+            if (_horizontalMovement != 0 || _verticalMovement != 0)
+            {
+                if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
+                {
+                    Debug.Log("Running");
+                    animation.Play("RemyRunning");
+                }
+                else
+                {
+                    Debug.Log("Walking");
+                    animation.Play("RemyWalking");    
+                }
+                
+            }
+            else
+            {
+                Debug.Log("Idle");
+                animation.Play("RemyIdle");
+            }
+            
+            
+            
+            if (aimDirection != Vector3.zero)
+            {
+                Debug.Log("Start firing");
+                PlayShootingAnimation();
+                if (Time.time >= _lastFireTime + _fireCooldown)
+                {
+                    FireBulletXbox(aimDirection);
+                    _lastFireTime = Time.time; // Updates the last fire time
+                }
+                
+            }
+            else
+            {
+                Debug.Log("Stop firing");
+                StopShootingAnimation();
+            }
+        }
+        
+        
+        
+        HandlePlayerRotation();
+        
+    }
+
+    void HandlePlayerRotation()
+    {
+       
+        
+        
+            
+            Vector3 direction = aimDirection.normalized;
+            direction.y = 0; // Keeps the player's rotation on the horizontal plane to avoid tilting
+            Quaternion newRotation = Quaternion.LookRotation(direction); // Creates a new rotation to face the target
+            transform.rotation = newRotation; // Applies the new rotation to the player
+        
+    }
+    
+    
+    
+    
+    
+    void PlayShootingAnimation()
+    {
+        // Play the shooting animation only if it's not already playing
+
+
+        if (!animation.IsPlaying("RemyIdleFiring"))
+        {
+            Debug.Log("Shooting");
+            animation.Play("RemyIdleFiring");
         }
     }
 
+    void StopShootingAnimation()
+    {
+        if (animation.IsPlaying("RemyIdleFiring"))
+        {
+            Debug.Log("Not Shooting");
+            animation.Stop("RemyIdleFiring");
+        }
+    }
+    
+    
+    
     // Determines the direction based on input from the right stick
     Vector3 DetermineDirection(Vector2 _stickInput)
     {

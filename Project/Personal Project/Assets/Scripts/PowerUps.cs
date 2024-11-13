@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class PowerUps : MonoBehaviour
 {
+    void Start()
+    {
+       PlayerPrefs.SetInt("SpeedPowerUp", 0);
+    }
     // Method triggered when another collider enters the trigger collider attached to the power-up object
     void OnTriggerEnter(Collider other)
     {
@@ -62,12 +66,14 @@ public class PowerUps : MonoBehaviour
                 // Doubles the player's speed in single-player mode
                 if (PlayerPrefs.GetInt("Controller", 0) == 0)
                 {
+                    PlayerPrefs.SetInt("SpeedPowerUp", 1);
                     SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[0]
                         .GetComponent<PlayerController>().playerSpeed *= 2.0f;
                 }
                 // Doubles both players' speed in multiplayer mode
                 else if (PlayerPrefs.GetInt("Controller", 0) == 1)
                 {
+                    PlayerPrefs.SetInt("SpeedPowerUp", 1);
                     SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[0]
                         .GetComponent<PlayerMultiplayer1>().playerSpeed *= 2.0f;
                     SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[1]

@@ -16,7 +16,8 @@ public class PlayerMultiplayer1 : MonoBehaviour
     private float _fireThreshold = 0.1f; // Threshold value for firing
     private float _fireCooldown = 0.5f; // Cooldown time between firing bullets
     private float _lastFireTime; // Tracks the time of the last fired bullet
-
+    private float _nextFireTime = 0.0f;
+    private float _fireRate = 0.1f;
     private Animation animation;
 
     void Start()
@@ -33,32 +34,105 @@ public class PlayerMultiplayer1 : MonoBehaviour
         _verticalMovement = Input.GetAxis("Vertical");
 
 
-        if (_horizontalMovement != 0 || _verticalMovement != 0)
-
-        {
-            animation.Play("RemyWalking");
-        }
-        else
-        {
-            animation.Play("RemyIdle");
-        }
+       
 
 
         // Creates a new movement vector based on the player's input
         _playerMovement = new Vector3(_horizontalMovement, 0, _verticalMovement).normalized;
 
-        // Moves the player based on the input and playerSpeed
-        transform.Translate(playerSpeed * Time.deltaTime * _playerMovement, Space.World);
+        
+        // Moves the player based on the input and playerSpeed, using Time.deltaTime for frame rate independence
+        transform.GetComponent<Rigidbody>().velocity = _playerMovement * playerSpeed;
+        
+        
 
-        // Checks if the left mouse button is pressed to fire a bullet
-        if (Input.GetMouseButtonDown(0))
+        
+        if ((_horizontalMovement != 0 || _verticalMovement != 0) && Input.GetMouseButton(0))
         {
-            FireBullet(); // Calls the function to fire a bullet
-        }
+            if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
+            {
+                Debug.Log("Running and firing");
+                animation.Play("RemyRunningFiring");
+            }
+            else
+            {
+                Debug.Log("Walking and firing");
 
+                animation.Play("RemyWalkingFiring");
+            }
+
+            if (Time.time >= _nextFireTime)
+            {
+                FireBullet(); // Calls the function to fire a bullet  
+                _nextFireTime = Time.time + _fireRate;
+            }
+        }
+        else
+        {
+            if (_horizontalMovement != 0 || _verticalMovement != 0)
+            {
+                if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
+                {
+                    Debug.Log("Running");
+                    animation.Play("RemyRunning");
+                }
+                else
+                {
+                    Debug.Log("Walking");
+                    animation.Play("RemyWalking");    
+                }
+                
+            }
+            else
+            {
+                Debug.Log("Idle");
+                animation.Play("RemyIdle");
+            }
+            
+            
+            if (Input.GetMouseButton(0))
+            {
+                Debug.Log("Start firing");
+                PlayShootingAnimation();
+                if (Time.time >= _nextFireTime)
+                {
+                    FireBullet(); // Calls the function to fire a bullet  
+                    _nextFireTime = Time.time + _fireRate;
+                }
+            }
+            else
+            {
+                Debug.Log("Stop firing");
+                StopShootingAnimation();
+            }
+        }
+        
+        
         HandlePlayerRotation();
     }
 
+    void PlayShootingAnimation()
+    {
+        // Play the shooting animation only if it's not already playing
+
+
+        if (!animation.IsPlaying("RemyIdleFiring"))
+        {
+            Debug.Log("Shooting");
+            animation.Play("RemyIdleFiring");
+        }
+    }
+
+    void StopShootingAnimation()
+    {
+        if (animation.IsPlaying("RemyIdleFiring"))
+        {
+            Debug.Log("Not Shooting");
+            animation.Stop("RemyIdleFiring");
+        }
+    }
+    
+    
     // Function to fire a bullet from the player's position
     void FireBullet()
     {

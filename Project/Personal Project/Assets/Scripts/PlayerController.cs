@@ -61,40 +61,108 @@ public class PlayerController : MonoBehaviour
 
         Vector3 aimDirection = DetermineDirection(new Vector2(rightStickHorizontal, rightStickVertical));
 
-        // Fires a bullet if aiming direction is provided and cooldown time has passed
-        if (aimDirection != Vector3.zero && Time.time >= _lastFireTime + _fireCooldown)
-        {
-            FireBulletXbox(aimDirection);
-            _lastFireTime = Time.time; // Updates the last fire time
-        }
+        
 
-
-        if (_combinedHorizontal != 0 || _combinedVertical != 0)
-
+        if ((_combinedHorizontal != 0 || _combinedVertical != 0) && Input.GetMouseButton(0))
         {
-            animation.Play("RemyWalking");
-        }
-        else
-        {
-            animation.Play("RemyIdle");
-        }
+            if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
+            {
+                Debug.Log("Running and firing");
+                animation.Play("RemyRunningFiring");
+            }
+            else
+            {
+                Debug.Log("Walking and firing");
 
-        // Checks if the left mouse button is pressed to fire a bullet
-        if (Input.GetMouseButton(0))
-        {
-            PlayShootingAnimation();
+                animation.Play("RemyWalkingFiring");
+            }
+
             if (Time.time >= _nextFireTime)
             {
                 FireBullet(); // Calls the function to fire a bullet  
                 _nextFireTime = Time.time + _fireRate;
             }
         }
+        else if ((_combinedHorizontal == 0 && _combinedVertical == 0) && (aimDirection != Vector3.zero))
+        {
+            if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
+            {
+                Debug.Log("Running and firing");
+                animation.Play("RemyRunningFiring");
+            }
+            else
+            {
+                Debug.Log("Walking and firing");
+
+                animation.Play("RemyWalkingFiring");
+            }
+            
+            // Fires a bullet if aiming direction is provided and cooldown time has passed
+            if (Time.time >= _lastFireTime + _fireCooldown)
+            {
+                FireBulletXbox(aimDirection);
+                _lastFireTime = Time.time; // Updates the last fire time
+            }
+        }
         else
         {
-            StopShootingAnimation();
+            if (_combinedHorizontal != 0 || _combinedVertical != 0)
+            {
+                if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
+                {
+                    Debug.Log("Running");
+                    animation.Play("RemyRunning");
+                }
+                else
+                {
+                    Debug.Log("Walking");
+                    animation.Play("RemyWalking");    
+                }
+                
+            }
+            else
+            {
+                Debug.Log("Idle");
+                animation.Play("RemyIdle");
+            }
+            
+            
+            if (Input.GetMouseButton(0))
+            {
+                Debug.Log("Start firing");
+                PlayShootingAnimation();
+                if (Time.time >= _nextFireTime)
+                {
+                    FireBullet(); // Calls the function to fire a bullet  
+                    _nextFireTime = Time.time + _fireRate;
+                }
+            }
+            else if (aimDirection != Vector3.zero)
+            {
+                Debug.Log("Start firing");
+                PlayShootingAnimation();
+                if (Time.time >= _lastFireTime + _fireCooldown)
+                {
+                    FireBulletXbox(aimDirection);
+                    _lastFireTime = Time.time; // Updates the last fire time
+                }
+                
+            }
+            else
+            {
+                Debug.Log("Stop firing");
+                StopShootingAnimation();
+            }
         }
+        
+        
+        
+        
+        
 
-// Handles player rotation to face the aiming direction, either by mouse or controller input
+        
+
+        // Handles player rotation to face the aiming direction, either by mouse or controller input
         HandlePlayerRotation();
     }
 
