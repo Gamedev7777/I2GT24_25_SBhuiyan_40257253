@@ -22,11 +22,11 @@ public class SpawnManager : MonoBehaviour
     // Method to spawn the level
     public void SpawnLevel()
     {
-        Debug.Log("Test");
+        
         // Checks if the game is in single-player mode
         if (PlayerPrefs.GetInt("Controller", 0) == 0)
         {
-            Debug.Log("Singleplayer " + PlayerPrefs.GetInt("Level", 1));
+            
             // Instantiates the appropriate level prefab based on the current level stored in PlayerPrefs
             _levelSpawned = Instantiate(levelPrefabList[PlayerPrefs.GetInt("Level", 1) - 1], new Vector3(0, 0, 0),
                 Quaternion.identity);
@@ -40,7 +40,7 @@ public class SpawnManager : MonoBehaviour
         // Checks if the game is in multiplayer mode
         else if (PlayerPrefs.GetInt("Controller", 0) == 1)
         {
-            Debug.Log("Multiplayer " + PlayerPrefs.GetInt("Level", 1));
+            
             // Instantiates the appropriate level prefab for multiplayer mode
             _levelSpawned = Instantiate(levelMultiplayerPrefabList[PlayerPrefs.GetInt("Level", 1) - 1],
                 new Vector3(0, 0, 0), Quaternion.identity);

@@ -30,9 +30,14 @@ public class AlienAI : MonoBehaviour
     private float _fireTimer; // Timer to manage firing intervals in attack state
     private float _fireInterval = 1.0f; // Time interval between laser shots
 
+    private Animation animation; // Reference to the Animation component of the Alien
+
     // Start is called before the first frame update
     void Start()
     {
+        // Gets the animation component from the first child of the alien game object
+        animation = transform.GetChild(0).GetComponent<Animation>();
+
         // Finds the player by tag and assigns it as the target
         target = GameObject.FindGameObjectWithTag("Player");
 
@@ -42,10 +47,10 @@ public class AlienAI : MonoBehaviour
         waypoints[2] = GameObject.Find("Waypoint3").transform;
         waypoints[3] = GameObject.Find("Waypoint4").transform;
 
-        // Gets the NavMeshAgent component attached to the alien
+        // Gets the NavMeshAgent component attached to the alien for navigation
         aiNavMeshAgent = GetComponent<NavMeshAgent>();
 
-        // Initialises the fire timer
+        // Initializes the fire timer with the interval value
         _fireTimer = _fireInterval;
     }
 
@@ -56,15 +61,19 @@ public class AlienAI : MonoBehaviour
         switch (_currentState)
         {
             case AlienAIstate.idle:
+                Debug.Log("idle");
                 HandleIdleState(); // Handles behaviour when the alien is idle
                 break;
             case AlienAIstate.patrol:
+                Debug.Log("patrol");
                 HandlePatrolState(); // Handles behaviour when the alien is patrolling
                 break;
             case AlienAIstate.chase:
+                Debug.Log("chase");
                 HandleChaseState(); // Handles behaviour when the alien is chasing the target
                 break;
             case AlienAIstate.attack:
+                Debug.Log("attack");
                 HandleAttackState(); // Handles behaviour when the alien is attacking the target
                 break;
         }
@@ -75,6 +84,16 @@ public class AlienAI : MonoBehaviour
     {
         // Increments the idle timer
         _idleTimer += Time.deltaTime;
+
+        // Plays idle animation based on the alien type
+        if (gameObject.tag == "Alien2")
+        {
+            animation.Play("ZlorpSoldierIdle");
+        }
+        else if (gameObject.tag == "Alien1")
+        {
+            animation.Play("ZlorpIdle");
+        }
 
         // Transitions to patrol state after idle time has elapsed
         if (_idleTimer >= idleTime)
@@ -87,29 +106,48 @@ public class AlienAI : MonoBehaviour
     // Handles the patrol state behaviour
     void HandlePatrolState()
     {
-        // If the alien is not currently moving or if it has not been assigned a waypoint
+        // If the alien has reached the current waypoint or has not been assigned a waypoint
         if ((aiNavMeshAgent.pathStatus == NavMeshPathStatus.PathComplete && aiNavMeshAgent.remainingDistance < 0.5f) ||
             _currentWaypointIndex == -1)
         {
             // Moves to a random waypoint in the list
             int randomIndex = UnityEngine.Random.Range(0, waypoints.Count);
             _currentWaypointIndex = randomIndex; // Sets the current waypoint index
-            aiNavMeshAgent.SetDestination(waypoints[_currentWaypointIndex]
-                .position); // Sets the alien's destination to the selected waypoint
+            aiNavMeshAgent.SetDestination(waypoints[_currentWaypointIndex].position); // Sets the alien's destination to the selected waypoint
+
+            // Plays walking animation based on the alien type
+            if (gameObject.tag == "Alien2")
+            {
+                animation.Play("ZlorpSoldierWalking");
+            }
+            else if (gameObject.tag == "Alien1")
+            {
+                animation.Play("ZlorpWalking");
+            }
         }
 
         // Checks if there is a target available
         if (target != null)
         {
             // Calculates the distance to the target
-            float distanceTotarget = Vector3.Distance(transform.position, target.transform.position);
+            float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
 
             // If within chase distance, transitions to chase state
-            if (distanceTotarget <= chaseDistance)
+            if (distanceToTarget <= chaseDistance)
             {
                 _currentState = AlienAIstate.chase; // Switches to chase state
             }
         }
+    }
+
+    // Checks if the alien is currently moving
+    private bool IsMoving()
+    {
+        float speedThreshold = 0.1f; // Minimum speed to consider as movement
+        float distanceThreshold = 0.1f; // Minimum remaining distance to consider as moving
+
+        return aiNavMeshAgent.velocity.magnitude > speedThreshold &&
+               aiNavMeshAgent.remainingDistance > distanceThreshold;
     }
 
     // Handles the chase state behaviour
@@ -119,6 +157,16 @@ public class AlienAI : MonoBehaviour
         if (target != null)
         {
             aiNavMeshAgent.SetDestination(target.transform.position);
+
+            // Plays walking animation based on the alien type
+            if (gameObject.tag == "Alien2")
+            {
+                animation.Play("ZlorpSoldierWalking");
+            }
+            else if (gameObject.tag == "Alien1")
+            {
+                animation.Play("ZlorpWalking");
+            }
         }
         else
         {
@@ -128,16 +176,16 @@ public class AlienAI : MonoBehaviour
         }
 
         // Calculates the distance to the target
-        float distanceTotarget = Vector3.Distance(transform.position, target.transform.position);
+        float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
 
         // If within attack distance, transitions to attack state
-        if (distanceTotarget <= attackDistance)
+        if (distanceToTarget <= attackDistance)
         {
             _currentState = AlienAIstate.attack; // Switches to attack state
             return;
         }
         // If the target moves out of the chase distance, transitions back to patrol state
-        else if (distanceTotarget > chaseDistance)
+        else if (distanceToTarget > chaseDistance)
         {
             _currentState = AlienAIstate.patrol; // Switches to patrol state
         }
@@ -155,28 +203,84 @@ public class AlienAI : MonoBehaviour
         }
 
         // Rotates towards the target to face it
-        Vector3 direction =
-            (target.transform.position - transform.position).normalized; // Calculate the direction to the target
+        Vector3 direction = (target.transform.position - transform.position).normalized; // Calculate the direction to the target
         Quaternion lookRotation = Quaternion.LookRotation(direction); // Create a rotation to look at the target
-        transform.rotation =
-            Quaternion.Slerp(transform.rotation, lookRotation,
-                Time.deltaTime * 3.0f); // Smoothly rotate towards the target
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 3.0f); // Smoothly rotate towards the target
 
         // Fires laser at intervals based on the fire timer
         _fireTimer -= Time.deltaTime;
-        if (_fireTimer <= 0)
+
+        // Plays the appropriate shooting or walking animation
+        if (_fireTimer <= 0 && IsMoving())
         {
-            FireLaser(); // Fires a laser towards the target
-            _fireTimer = _fireInterval; // Resets the fire timer
+            if (gameObject.tag == "Alien2")
+            {
+                animation.Play("ZlorpSoldierWalkingFiring");
+            }
+            else if (gameObject.tag == "Alien1")
+            {
+                animation.Play("ZlorpWalkingFiring");
+            }
+        }
+        else
+        {
+            if (_fireTimer <= 0)
+            {
+                PlayShootingAnimation(); // Plays the shooting animation
+                FireLaser(); // Fires a laser towards the target
+                _fireTimer = _fireInterval; // Resets the fire timer
+            }
+            else
+            {
+                StopShootingAnimation(); // Stops the shooting animation
+            }
         }
 
         // Calculates the distance to the target
-        float distanceTotarget = Vector3.Distance(transform.position, target.transform.position);
+        float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
 
         // If the target moves out of attack distance, transitions back to chase state
-        if (distanceTotarget > attackDistance)
+        if (distanceToTarget > attackDistance)
         {
             _currentState = AlienAIstate.chase; // Switches to chase state
+        }
+    }
+
+    // Plays the shooting animation if it is not already playing
+    void PlayShootingAnimation()
+    {
+        if (gameObject.tag == "Alien2")
+        {
+            if (!animation.IsPlaying("ZlorpSoldierIdleFiring"))
+            {
+                animation.Play("ZlorpSoldierIdleFiring");
+            }
+        }
+        else if (gameObject.tag == "Alien1")
+        {
+            if (!animation.IsPlaying("ZlorpIdleFiring"))
+            {
+                animation.Play("ZlorpIdleFiring");
+            }
+        }
+    }
+
+    // Stops the shooting animation if it is playing
+    void StopShootingAnimation()
+    {
+        if (gameObject.tag == "Alien2")
+        {
+            if (!animation.IsPlaying("ZlorpSoldierIdleFiring"))
+            {
+                animation.Stop("ZlorpSoldierIdleFiring");
+            }
+        }
+        else if (gameObject.tag == "Alien1")
+        {
+            if (!animation.IsPlaying("ZlorpIdleFiring"))
+            {
+                animation.Stop("ZlorpIdleFiring");
+            }
         }
     }
 
@@ -187,14 +291,19 @@ public class AlienAI : MonoBehaviour
         {
             // Calculates the direction of the laser
             Vector3 laserDirection = (target.transform.position - transform.position).normalized;
+
             // Sets the rotation of the laser to face the target
             Quaternion laserRotation = Quaternion.LookRotation(laserDirection);
+
             // Instantiates the laser at the alien's position with the calculated rotation
             GameObject laser = Instantiate(laserPrefab, transform.position, laserRotation);
+
             // Gets the Rigidbody component of the laser to apply velocity
             Rigidbody laserRb = laser.GetComponent<Rigidbody>();
+
             // Sets the velocity of the laser to move towards the target
             laserRb.velocity = laserDirection * _laserSpeed;
+
             Debug.Log("Laser Fired"); // Logs to the console for debugging
         }
     }

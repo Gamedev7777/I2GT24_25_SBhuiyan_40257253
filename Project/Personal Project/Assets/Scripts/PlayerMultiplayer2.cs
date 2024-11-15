@@ -14,20 +14,19 @@ public class PlayerMultiplayer2 : MonoBehaviour
     private Vector3 _playerMovement; // Player movement vector
     private float _bulletSpeed = 30.0f; // Speed at which the bullet moves
     private float _fireThreshold = 0.1f; // Threshold value for firing
-    private float _fireCooldown = 0.1f; // Cooldown time between firing bullets
+    private float _fireCooldown = 0.2f; // Cooldown time between firing bullets
     private float _lastFireTime; // Tracks the time of the last fired bullet
 
-    Animation animation;
-    private Vector3 aimDirection;
-
+    private Animation animation; // Player animation component
+    private Vector3 aimDirection; // Direction the player is aiming
 
     void Start()
     {
+        // Get the Animation component attached to the player's child object (typically the character model)
         animation = transform.GetChild(0).GetComponent<Animation>();
     }
+
     // Update is called once per frame
-
-
     void Update()
     {
         // Gets player input for horizontal movement (left/right)
@@ -37,7 +36,7 @@ public class PlayerMultiplayer2 : MonoBehaviour
 
         // Creates a new movement vector based on the player's input
         _playerMovement = new Vector3(_horizontalMovement, 0, _verticalMovement).normalized;
-        
+
         // Moves the player based on the input and playerSpeed
         transform.GetComponent<Rigidbody>().velocity = _playerMovement * playerSpeed;
 
@@ -46,11 +45,10 @@ public class PlayerMultiplayer2 : MonoBehaviour
         float rightStickVertical = Input.GetAxis("RightStickVertical");
         aimDirection = DetermineDirection(new Vector2(rightStickHorizontal, rightStickVertical));
 
-        
-
-
+        // Determines if the player is both moving and aiming, and handles animation and firing
         if ((_horizontalMovement != 0 && _verticalMovement != 0) && (aimDirection != Vector3.zero))
         {
+            // Check if the speed power-up is active and play appropriate animation
             if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
             {
                 Debug.Log("Running and firing");
@@ -59,7 +57,6 @@ public class PlayerMultiplayer2 : MonoBehaviour
             else
             {
                 Debug.Log("Walking and firing");
-
                 animation.Play("ClaireWalkingFiring");
             }
 
@@ -72,8 +69,10 @@ public class PlayerMultiplayer2 : MonoBehaviour
         }
         else
         {
+            // Handles movement when player is not aiming
             if (_horizontalMovement != 0 || _verticalMovement != 0)
             {
+                // Check if the speed power-up is active and play appropriate animation
                 if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
                 {
                     Debug.Log("Running");
@@ -87,11 +86,12 @@ public class PlayerMultiplayer2 : MonoBehaviour
             }
             else
             {
+                // Player is idle
                 Debug.Log("Idle");
                 animation.Play("ClaireIdle");
             }
 
-
+            // Handles firing when the player is stationary or just aiming
             if (aimDirection != Vector3.zero)
             {
                 Debug.Log("Start firing");
@@ -109,10 +109,11 @@ public class PlayerMultiplayer2 : MonoBehaviour
             }
         }
 
-
+        // Handles the rotation of the player based on movement or aiming direction
         HandlePlayerRotation();
     }
 
+    // Rotates the player to face the movement or aiming direction
     void HandlePlayerRotation()
     {
         Vector3 direction;
@@ -130,12 +131,9 @@ public class PlayerMultiplayer2 : MonoBehaviour
         transform.rotation = newRotation; // Applies the new rotation to the player
     }
 
-
+    // Plays the shooting animation if it is not already playing
     void PlayShootingAnimation()
     {
-        // Play the shooting animation only if it's not already playing
-
-
         if (!animation.IsPlaying("ClaireIdleFiring"))
         {
             Debug.Log("Shooting");
@@ -143,6 +141,7 @@ public class PlayerMultiplayer2 : MonoBehaviour
         }
     }
 
+    // Stops the shooting animation if it is currently playing
     void StopShootingAnimation()
     {
         if (animation.IsPlaying("ClaireIdleFiring"))
@@ -152,11 +151,10 @@ public class PlayerMultiplayer2 : MonoBehaviour
         }
     }
 
-
     // Determines the direction based on input from the right stick
     Vector3 DetermineDirection(Vector2 _stickInput)
     {
-        // If the input magnitude is below the threshold, returns zero vector which is no direction
+        // If the input magnitude is below the threshold, returns zero vector which means no direction
         if (_stickInput.sqrMagnitude < _fireThreshold * _fireThreshold)
         {
             return Vector3.zero; // No firing direction
