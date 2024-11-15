@@ -16,13 +16,12 @@ public class PlayerMultiplayer2 : MonoBehaviour
     private float _fireThreshold = 0.1f; // Threshold value for firing
     private float _fireCooldown = 0.2f; // Cooldown time between firing bullets
     private float _lastFireTime; // Tracks the time of the last fired bullet
-
     private Animation animation; // Player animation component
     private Vector3 aimDirection; // Direction the player is aiming
 
     void Start()
     {
-        // Get the Animation component attached to the player's child object (typically the character model)
+        // Gets the Animation component attached to the player's child object
         animation = transform.GetChild(0).GetComponent<Animation>();
     }
 
@@ -48,16 +47,14 @@ public class PlayerMultiplayer2 : MonoBehaviour
         // Determines if the player is both moving and aiming, and handles animation and firing
         if ((_horizontalMovement != 0 && _verticalMovement != 0) && (aimDirection != Vector3.zero))
         {
-            // Check if the speed power-up is active and play appropriate animation
+            // Checks if the speed power-up is active and plays appropriate animation
             if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
             {
-                Debug.Log("Running and firing");
                 animation.Play("ClaireRunningFiring");
             }
             else
             {
-                Debug.Log("Walking and firing");
-                animation.Play("ClaireWalkingFiring");
+               animation.Play("ClaireWalkingFiring");
             }
 
             // Fires a bullet if aiming direction is provided and cooldown time has passed
@@ -72,29 +69,25 @@ public class PlayerMultiplayer2 : MonoBehaviour
             // Handles movement when player is not aiming
             if (_horizontalMovement != 0 || _verticalMovement != 0)
             {
-                // Check if the speed power-up is active and play appropriate animation
+                // Checks if the speed power-up is active and plays appropriate animation
                 if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
                 {
-                    Debug.Log("Running");
                     animation.Play("ClaireRunning");
                 }
                 else
                 {
-                    Debug.Log("Walking");
                     animation.Play("ClaireWalking");
                 }
             }
             else
             {
                 // Player is idle
-                Debug.Log("Idle");
                 animation.Play("ClaireIdle");
             }
 
             // Handles firing when the player is stationary or just aiming
             if (aimDirection != Vector3.zero)
             {
-                Debug.Log("Start firing");
                 PlayShootingAnimation();
                 if (Time.time >= _lastFireTime + _fireCooldown)
                 {
@@ -104,7 +97,6 @@ public class PlayerMultiplayer2 : MonoBehaviour
             }
             else
             {
-                Debug.Log("Stop firing");
                 StopShootingAnimation();
             }
         }

@@ -25,7 +25,7 @@ public class AlienAI : MonoBehaviour
     // Private variables
     private AlienAIstate _currentState = AlienAIstate.idle; // Current state of the alien
     private int _currentWaypointIndex = -1; // Index of the current waypoint for patrolling
-    private float _idleTimer = 0.0f; // Timer to keep track of idle time
+    private float _idleTimer = 1.0f; // Timer to keep track of idle time
     private float _laserSpeed = 30.0f; // Speed of the laser projectile
     private float _fireTimer; // Timer to manage firing intervals in attack state
     private float _fireInterval = 1.0f; // Time interval between laser shots
@@ -203,9 +203,9 @@ public class AlienAI : MonoBehaviour
         }
 
         // Rotates towards the target to face it
-        Vector3 direction = (target.transform.position - transform.position).normalized; // Calculate the direction to the target
-        Quaternion lookRotation = Quaternion.LookRotation(direction); // Create a rotation to look at the target
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 3.0f); // Smoothly rotate towards the target
+        Vector3 direction = (target.transform.position - transform.position).normalized; // Calculates the direction to the target
+        Quaternion lookRotation = Quaternion.LookRotation(direction); // Creates a rotation to look at the target
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 3.0f); // Smoothly rotates towards the target
 
         // Fires laser at intervals based on the fire timer
         _fireTimer -= Time.deltaTime;
