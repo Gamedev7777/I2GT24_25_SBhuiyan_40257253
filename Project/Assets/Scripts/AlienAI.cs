@@ -29,14 +29,13 @@ public class AlienAI : MonoBehaviour
     private float _laserSpeed = 30.0f; // Speed of the laser projectile
     private float _fireTimer; // Timer to manage firing intervals in attack state
     private float _fireInterval = 1.0f; // Time interval between laser shots
-
-    private Animation animation; // Reference to the Animation component of the Alien
+    private Animation _animation; // Reference to the Animation component of the Alien
 
     // Start is called before the first frame update
     void Start()
     {
         // Gets the animation component from the first child of the alien game object
-        animation = transform.GetChild(0).GetComponent<Animation>();
+        _animation = transform.GetChild(0).GetComponent<Animation>();
 
         // Finds the player by tag and assigns it as the target
         target = GameObject.FindGameObjectWithTag("Player");
@@ -88,11 +87,11 @@ public class AlienAI : MonoBehaviour
         // Plays idle animation based on the alien type
         if (gameObject.tag == "Alien2")
         {
-            animation.Play("ZlorpSoldierIdle");
+            _animation.Play("ZlorpSoldierIdle");
         }
         else if (gameObject.tag == "Alien1")
         {
-            animation.Play("ZlorpIdle");
+            _animation.Play("ZlorpIdle");
         }
 
         // Transitions to patrol state after idle time has elapsed
@@ -118,11 +117,11 @@ public class AlienAI : MonoBehaviour
             // Plays walking animation based on the alien type
             if (gameObject.tag == "Alien2")
             {
-                animation.Play("ZlorpSoldierWalking");
+                _animation.Play("ZlorpSoldierWalking");
             }
             else if (gameObject.tag == "Alien1")
             {
-                animation.Play("ZlorpWalking");
+                _animation.Play("ZlorpWalking");
             }
         }
 
@@ -161,11 +160,11 @@ public class AlienAI : MonoBehaviour
             // Plays walking animation based on the alien type
             if (gameObject.tag == "Alien2")
             {
-                animation.Play("ZlorpSoldierWalking");
+                _animation.Play("ZlorpSoldierWalking");
             }
             else if (gameObject.tag == "Alien1")
             {
-                animation.Play("ZlorpWalking");
+                _animation.Play("ZlorpWalking");
             }
         }
         else
@@ -215,11 +214,11 @@ public class AlienAI : MonoBehaviour
         {
             if (gameObject.tag == "Alien2")
             {
-                animation.Play("ZlorpSoldierWalkingFiring");
+                _animation.Play("ZlorpSoldierWalkingFiring");
             }
             else if (gameObject.tag == "Alien1")
             {
-                animation.Play("ZlorpWalkingFiring");
+                _animation.Play("ZlorpWalkingFiring");
             }
         }
         else
@@ -251,16 +250,16 @@ public class AlienAI : MonoBehaviour
     {
         if (gameObject.tag == "Alien2")
         {
-            if (!animation.IsPlaying("ZlorpSoldierIdleFiring"))
+            if (!_animation.IsPlaying("ZlorpSoldierIdleFiring"))
             {
-                animation.Play("ZlorpSoldierIdleFiring");
+                _animation.Play("ZlorpSoldierIdleFiring");
             }
         }
         else if (gameObject.tag == "Alien1")
         {
-            if (!animation.IsPlaying("ZlorpIdleFiring"))
+            if (!_animation.IsPlaying("ZlorpIdleFiring"))
             {
-                animation.Play("ZlorpIdleFiring");
+                _animation.Play("ZlorpIdleFiring");
             }
         }
     }
@@ -270,16 +269,16 @@ public class AlienAI : MonoBehaviour
     {
         if (gameObject.tag == "Alien2")
         {
-            if (!animation.IsPlaying("ZlorpSoldierIdleFiring"))
+            if (!_animation.IsPlaying("ZlorpSoldierIdleFiring"))
             {
-                animation.Stop("ZlorpSoldierIdleFiring");
+                _animation.Stop("ZlorpSoldierIdleFiring");
             }
         }
         else if (gameObject.tag == "Alien1")
         {
-            if (!animation.IsPlaying("ZlorpIdleFiring"))
+            if (!_animation.IsPlaying("ZlorpIdleFiring"))
             {
-                animation.Stop("ZlorpIdleFiring");
+                _animation.Stop("ZlorpIdleFiring");
             }
         }
     }
@@ -303,8 +302,6 @@ public class AlienAI : MonoBehaviour
 
             // Sets the velocity of the laser to move towards the target
             laserRb.velocity = laserDirection * _laserSpeed;
-
-            Debug.Log("Laser Fired"); // Logs to the console for debugging
         }
     }
 
@@ -314,7 +311,6 @@ public class AlienAI : MonoBehaviour
         // If the detected object is tagged as "Player"
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Detected Human"); // Logs to the console for debugging
             target = other.transform.gameObject; // Sets the target to the detected player
         }
     }
@@ -325,7 +321,6 @@ public class AlienAI : MonoBehaviour
         // If the detected object is tagged as "Player"
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log("No longer detecting Human"); // Logs to the console for debugging
             target = null; // Clears the target reference
         }
     }
