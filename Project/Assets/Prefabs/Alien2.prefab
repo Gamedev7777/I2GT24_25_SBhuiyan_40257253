@@ -853,6 +853,7 @@ Transform:
   m_Children:
   - {fileID: 1954664545460340793}
   - {fileID: 2735405280696041933}
+  - {fileID: 5293102365300374580}
   m_Father: {fileID: 8100749444213171344}
   m_LocalEulerAnglesHint: {x: -71.335, y: -166.934, z: 276.723}
 --- !u!1 &2907445016918623975
@@ -2264,6 +2265,37 @@ Transform:
   - {fileID: 5461853208928204080}
   m_Father: {fileID: 8744872686223987504}
   m_LocalEulerAnglesHint: {x: 79.21847, y: -37.630203, z: -44.90047}
+--- !u!1 &8051900837287640400
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5293102365300374580}
+  m_Layer: 0
+  m_Name: LaserSpawnPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5293102365300374580
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8051900837287640400}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.077, z: 0.493}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1891569018843765861}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8072516827177310519
 GameObject:
   m_ObjectHideFlags: 0
@@ -2546,6 +2578,7 @@ MonoBehaviour:
   chaseDistance: 40
   attackDistance: 30
   laserPrefab: {fileID: 1044732288042567498, guid: 52d679941095bdb4a92f5e7de20b8865, type: 3}
+  laserSpawnPosition: {fileID: 5293102365300374580}
 --- !u!65 &3253351027169584594
 BoxCollider:
   m_ObjectHideFlags: 0

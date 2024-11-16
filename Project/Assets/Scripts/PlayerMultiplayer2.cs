@@ -7,7 +7,7 @@ public class PlayerMultiplayer2 : MonoBehaviour
     // public variables
     public float playerSpeed = 5.0f; // Speed at which the player moves
     public GameObject bulletPrefab; // Bullet prefab used for shooting
-
+    public Transform bulletSpawnPosition;
     // private variables
     private float _horizontalMovement; // Horizontal movement input
     private float _verticalMovement; // Vertical movement input
@@ -174,7 +174,7 @@ public class PlayerMultiplayer2 : MonoBehaviour
     void FireBulletXbox(Vector3 _direction)
     {
         // Instantiates the bullet prefab at the player's current position
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, Quaternion.identity);
 
         // Gets the Rigidbody component of the bullet to control its movement
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
