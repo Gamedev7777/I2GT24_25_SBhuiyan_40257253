@@ -9,6 +9,7 @@ public enum AlienAIstate
     patrol, // Alien is patrolling between waypoints
     chase, // Alien is chasing the target
     attack // Alien is attacking the target
+    
 }
 
 public class AlienAI : MonoBehaviour
@@ -21,6 +22,7 @@ public class AlienAI : MonoBehaviour
     public float chaseDistance = 25.0f; // Distance within which the alien starts chasing the target
     public float attackDistance = 15.0f; // Distance within which the alien starts attacking the target
     public GameObject laserPrefab; // Prefab for the laser
+    public Transform laserSpawnPosition;
 
     // Private variables
     private AlienAIstate _currentState = AlienAIstate.idle; // Current state of the alien
@@ -295,7 +297,7 @@ public class AlienAI : MonoBehaviour
             Quaternion laserRotation = Quaternion.LookRotation(laserDirection);
 
             // Instantiates the laser at the alien's position with the calculated rotation
-            GameObject laser = Instantiate(laserPrefab, transform.position, laserRotation);
+            GameObject laser = Instantiate(laserPrefab, laserSpawnPosition.position, laserRotation);
 
             // Gets the Rigidbody component of the laser to apply velocity
             Rigidbody laserRb = laser.GetComponent<Rigidbody>();

@@ -822,6 +822,37 @@ Transform:
   - {fileID: 6365060140564280363}
   m_Father: {fileID: 9204913831991077979}
   m_LocalEulerAnglesHint: {x: 48.651093, y: 22.592083, z: 29.456652}
+--- !u!1 &3503763916852149822
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7415937115209564057}
+  m_Layer: 0
+  m_Name: LaserSpawnPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7415937115209564057
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3503763916852149822}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 122152983054113583}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3533476056880360558
 GameObject:
   m_ObjectHideFlags: 0
@@ -1640,6 +1671,7 @@ Transform:
   m_Children:
   - {fileID: 8434884789018288801}
   - {fileID: 7867175855236456885}
+  - {fileID: 7415937115209564057}
   m_Father: {fileID: 5237481619256235985}
   m_LocalEulerAnglesHint: {x: -73.799, y: -252.748, z: 339.636}
 --- !u!1 &7785129236568732616
@@ -2050,6 +2082,7 @@ MonoBehaviour:
   chaseDistance: 30
   attackDistance: 20
   laserPrefab: {fileID: 1044732288042567498, guid: 3816add329dc9a74f8071abe5b7bc61c, type: 3}
+  laserSpawnPosition: {fileID: 7415937115209564057}
 --- !u!65 &1285758814697496491
 BoxCollider:
   m_ObjectHideFlags: 0

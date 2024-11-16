@@ -81,9 +81,6 @@ public class AlienHealth : MonoBehaviour
         // Sets the alien's death status to true
         _alienDeath = true;
 
-        // Logs a message indicating the alien has died
-        Debug.Log("Aliens are dead");
-
         // Removes the alien from the list of active aliens in the SpawnManager
         SpawnManager.Instance.alienList.Remove(gameObject);
 

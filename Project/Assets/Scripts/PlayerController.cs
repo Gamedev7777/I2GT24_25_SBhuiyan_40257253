@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletPrefab; // Bullet prefab used for shooting
     public Animation animation; // Player's animation component
 
+    public Transform bulletSpawnPosition;
     // private variables
     private float _horizontalMovementKeyboard; // Horizontal movement input from keyboard
     private float _verticalMovementKeyboard; // Vertical movement input from keyboard
@@ -223,7 +224,7 @@ public class PlayerController : MonoBehaviour
     void FireBullet()
     {
         // Instantiates the bullet prefab at the player's current position
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, Quaternion.identity);
 
         // Gets the Rigidbody component of the bullet to control its movement
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
