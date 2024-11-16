@@ -8,6 +8,8 @@ public class PlayerMultiplayer2 : MonoBehaviour
     public float playerSpeed = 5.0f; // Speed at which the player moves
     public GameObject bulletPrefab; // Bullet prefab used for shooting
     public Transform bulletSpawnPosition;
+
+    public AudioClip fireSound;
     // private variables
     private float _horizontalMovement; // Horizontal movement input
     private float _verticalMovement; // Vertical movement input
@@ -173,6 +175,7 @@ public class PlayerMultiplayer2 : MonoBehaviour
     // Fires a bullet in a specific direction based on controller input
     void FireBulletXbox(Vector3 _direction)
     {
+        AudioSource.PlayClipAtPoint(fireSound, Camera.main.transform.position);
         // Instantiates the bullet prefab at the player's current position
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, Quaternion.identity);
 

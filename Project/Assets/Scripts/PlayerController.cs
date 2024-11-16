@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private float _nextFireTime = 0.1f; // Tracks the time when the player can fire the next bullet using mouse input
     private float _fireRate = 0.2f; // Fire rate used for mouse input firing
 
+    public AudioClip fireSound;
 
     void Start()
     {
@@ -204,6 +205,7 @@ public class PlayerController : MonoBehaviour
     // Fires a bullet in a specific direction based on controller input
     void FireBulletXbox(Vector3 _direction)
     {
+        AudioSource.PlayClipAtPoint(fireSound, Camera.main.transform.position);
         // Instantiates the bullet prefab at the player's current position
         GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
 
@@ -223,6 +225,7 @@ public class PlayerController : MonoBehaviour
     // Fires a bullet from the player's position using mouse input
     void FireBullet()
     {
+        AudioSource.PlayClipAtPoint(fireSound, Camera.main.transform.position);
         // Instantiates the bullet prefab at the player's current position
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, Quaternion.identity);
 

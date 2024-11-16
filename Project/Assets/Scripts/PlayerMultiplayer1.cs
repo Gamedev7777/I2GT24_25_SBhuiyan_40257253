@@ -19,7 +19,7 @@ public class PlayerMultiplayer1 : MonoBehaviour
     private float _nextFireTime = 0.1f; // Time when the player can next fire
     private float _fireRate = 0.2f; // Rate at which bullets can be fired
     private Animation animation; // Reference to the Animation component of the player model
-
+    public AudioClip fireSound;
     void Start()
     {
         // Gets the Animation component from the player's child GameObject
@@ -122,6 +122,7 @@ public class PlayerMultiplayer1 : MonoBehaviour
     // Method to fire a bullet from the player's position
     void FireBullet()
     {
+        AudioSource.PlayClipAtPoint(fireSound, Camera.main.transform.position);
         // Instantiates the bullet prefab at the player's current position
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, Quaternion.identity);
 

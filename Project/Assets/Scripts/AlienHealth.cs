@@ -9,7 +9,7 @@ public class AlienHealth : MonoBehaviour
     // private variables
     private bool _alienDeath = false; // Tracks if the alien is already dead
     public int health = 10; // Initial health of the alien
-
+    public ParticleSystem alienDeathFX;
     void Awake()
     {
         // Assigns the instance of this script to the static Instance variable
@@ -60,7 +60,7 @@ public class AlienHealth : MonoBehaviour
     {
         // Reduces health by the damage amount
         health -= damage;
-
+    Debug.Log(gameObject.name + " " + health);
         // If health is zero or less and the alien is not already dead
         if (health <= 0 && !_alienDeath)
         {
@@ -69,9 +69,9 @@ public class AlienHealth : MonoBehaviour
 
             // Updates the score text in the GameManager
             GameManager.Instance.scoreText.text = "Score: " + PlayerPrefs.GetInt("Score").ToString();
-
+            alienDeathFX.Play();
             // Calls the Die method to handle alien's death
-            Die();
+            Invoke(nameof(Die),0.3f);
         }
     }
 

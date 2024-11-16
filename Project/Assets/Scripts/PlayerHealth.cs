@@ -10,6 +10,7 @@ public class PlayerHealth : MonoBehaviour
 
     public bool playerShield = false; // Variable to check if the player shield is active
     [HideInInspector] public int health; // Sets the initial health of the player
+    public ParticleSystem playerDeathFX;
 
     void Awake()
     {
@@ -46,6 +47,7 @@ public class PlayerHealth : MonoBehaviour
         {
             // Reduces health by the value of damage
             health -= damage;
+           
 
             // Updates the health display in the User Interface based on the player's name
             if (gameObject.name == "Player" || gameObject.name == "PlayerMultiplayer1")
@@ -60,7 +62,8 @@ public class PlayerHealth : MonoBehaviour
             // If health reaches 0 or less and the player is not already dead, calls the Die method
             if (health <= 0 && !playerDeath)
             {
-                Die();
+                playerDeathFX.Play();
+                Invoke(nameof(Die),0.3f);
             }
         }
     }
