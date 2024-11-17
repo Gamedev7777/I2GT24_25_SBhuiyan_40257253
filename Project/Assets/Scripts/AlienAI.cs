@@ -9,7 +9,6 @@ public enum AlienAIstate
     patrol, // Alien is patrolling between waypoints
     chase, // Alien is chasing the target
     attack // Alien is attacking the target
-    
 }
 
 public class AlienAI : MonoBehaviour
@@ -204,9 +203,21 @@ public class AlienAI : MonoBehaviour
             return;
         }
 
+        // Checks for direct line of sight to the player using a raycast
+        RaycastHit hit;
+        Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
+        if (Physics.Raycast(transform.position, directionToTarget, out hit))
+        {
+            if (hit.collider.gameObject != target)
+            {
+                // If there is no direct line of sight, transition back to chase state
+                _currentState = AlienAIstate.chase;
+                return;
+            }
+        }
+
         // Rotates towards the target to face it
-        Vector3 direction = (target.transform.position - transform.position).normalized; // Calculates the direction to the target
-        Quaternion lookRotation = Quaternion.LookRotation(direction); // Creates a rotation to look at the target
+        Quaternion lookRotation = Quaternion.LookRotation(directionToTarget); // Creates a rotation to look at the target
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 3.0f); // Smoothly rotates towards the target
 
         // Fires laser at intervals based on the fire timer
@@ -295,9 +306,11 @@ public class AlienAI : MonoBehaviour
             Vector3 laserDirection = (target.transform.position - transform.position).normalized;
 
             // Sets the rotation of the laser to face the target
-                Quaternion laserRotation = Quaternion.LookRotation(laserDirection);
+            Quaternion laserRotation = Quaternion.LookRotation(laserDirection);
 
-                AudioSource.PlayClipAtPoint(laserSound, Camera.main.transform.position, 0.4f);
+            // Plays the laser sound effect at the camera's position with 40% of the original volume
+            AudioSource.PlayClipAtPoint(laserSound, Camera.main.transform.position, 0.4f);
+            
             // Instantiates the laser at the alien's position with the calculated rotation
             GameObject laser = Instantiate(laserPrefab, laserSpawnPosition.position, laserRotation);
 
