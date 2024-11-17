@@ -11,7 +11,7 @@ public class PlayerHealth : MonoBehaviour
     public bool playerShield = false; // Variable to check if the player shield is active
     [HideInInspector] public int health; // Sets the initial health of the player
     public ParticleSystem playerDeathFX;
-
+    public AudioClip playerDeathSound;
     void Awake()
     {
         // Assigns the current instance of this script to the static Instance variable
@@ -62,6 +62,7 @@ public class PlayerHealth : MonoBehaviour
             // If health reaches 0 or less and the player is not already dead, calls the Die method
             if (health <= 0 && !playerDeath)
             {
+                AudioSource.PlayClipAtPoint(playerDeathSound, Camera.main.transform.position);
                 playerDeathFX.Play();
                 Invoke(nameof(Die),0.3f);
             }

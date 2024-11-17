@@ -2378,6 +2378,7 @@ MonoBehaviour:
   playerShield: 0
   health: 50
   playerDeathFX: {fileID: 3970911878292971574}
+  playerDeathSound: {fileID: 8300000, guid: 7c2de8e149d8346748fb31ed14cc7986, type: 3}
 --- !u!54 &4433730531345346193
 Rigidbody:
   m_ObjectHideFlags: 0

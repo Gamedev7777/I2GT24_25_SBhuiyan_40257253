@@ -6849,6 +6849,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   alienDeathFX: {fileID: 8246457590125048573}
+  alienDeathSound: {fileID: 8300000, guid: 07f1ca4d96bca46dbbaa5f4483f7a48a, type: 3}
 --- !u!54 &4979797931089950048
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6922,6 +6923,7 @@ MonoBehaviour:
   attackDistance: 20
   laserPrefab: {fileID: 1044732288042567498, guid: 3816add329dc9a74f8071abe5b7bc61c, type: 3}
   laserSpawnPosition: {fileID: 7415937115209564057}
+  laserSound: {fileID: 8300000, guid: 2a921313c927f45238a0b8baabe3ab12, type: 3}
 --- !u!65 &1285758814697496491
 BoxCollider:
   m_ObjectHideFlags: 0

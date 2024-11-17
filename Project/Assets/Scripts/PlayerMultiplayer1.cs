@@ -122,7 +122,7 @@ public class PlayerMultiplayer1 : MonoBehaviour
     // Method to fire a bullet from the player's position
     void FireBullet()
     {
-        AudioSource.PlayClipAtPoint(fireSound, Camera.main.transform.position);
+        AudioSource.PlayClipAtPoint(fireSound, Camera.main.transform.position, 0.4f);
         // Instantiates the bullet prefab at the player's current position
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, Quaternion.identity);
 

@@ -10,6 +10,7 @@ public class AlienHealth : MonoBehaviour
     private bool _alienDeath = false; // Tracks if the alien is already dead
     public int health = 10; // Initial health of the alien
     public ParticleSystem alienDeathFX;
+    public AudioClip alienDeathSound;
     void Awake()
     {
         // Assigns the instance of this script to the static Instance variable
@@ -69,6 +70,7 @@ public class AlienHealth : MonoBehaviour
 
             // Updates the score text in the GameManager
             GameManager.Instance.scoreText.text = "Score: " + PlayerPrefs.GetInt("Score").ToString();
+            AudioSource.PlayClipAtPoint(alienDeathSound, Camera.main.transform.position);
             alienDeathFX.Play();
             // Calls the Die method to handle alien's death
             Invoke(nameof(Die),0.3f);

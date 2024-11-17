@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,12 +11,17 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public static GameManager Instance; // Singleton instance of GameManager
     public TextMeshProUGUI playerHealthText, playerHealthText2;
-    public TextMeshProUGUI levelNumberText;
+    public TextMeshProUGUI levelNumberText, avatarText;
     public GameObject playerShieldText, playerSpeedText; // User Interface elements for player status (shield and speed)
     public List<GameObject> popUpList = new List<GameObject>(); // List of pop-up game objects for different levels
     public GameObject mainMenu; // Reference to the main menu game object
     public GameObject singleAndMultiplayerMenu; // Reference to the single and multiplayer selection menu
-
+    public List<AudioClip> musicList = new List<AudioClip>();
+    private int musicIndex;
+    public AudioSource musicAudioSource;
+    public Slider volumeSlider;
+    public GameObject chooseAvatarButton;
+    
     void Awake()
     {
         // Sets the singleton instance and pauses the game at the start
@@ -23,8 +29,43 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0; // Pauses the game until the player starts
     }
 
+
+
+    public void ChangeMusicVolume()
+    {
+        AudioListener.volume = volumeSlider.value;
+    }
+
+
+
+    public void ChooseBackgroundMusic()
+    {
+        if (musicIndex == 0)
+        {
+            musicIndex++;
+            musicAudioSource.clip = musicList[musicIndex];
+            musicAudioSource.Play();
+        }
+        else if (musicIndex == 1)
+        {
+            musicIndex++;
+            musicAudioSource.clip = musicList[musicIndex];
+            musicAudioSource.Play();
+        }
+        else if (musicIndex == 2)
+        {
+            musicIndex = 0;
+            musicAudioSource.clip = musicList[musicIndex];
+            musicAudioSource.Play();
+        }
+    }
+    
+    
+    
     void Start()
     {
+        ChooseBackgroundMusic();
+        
         // Initialises User Interface elements with saved values from PlayerPrefs
         scoreText.text = "Score: " + PlayerPrefs.GetInt("Score", 0).ToString(); // Displays the player's score
 
@@ -161,6 +202,21 @@ public class GameManager : MonoBehaviour
         popUpList[8].SetActive(true); // Shows the upgrade story pop-up
     }
 
+    public void ChooseAvatar()
+    {
+        if (PlayerPrefs.GetInt("Avatar", 0) == 0)
+        {
+            PlayerPrefs.SetInt("Avatar", 1);
+            avatarText.text = "Choose Remy";
+        }
+        else if (PlayerPrefs.GetInt("Avatar", 0) == 1)
+        {
+            PlayerPrefs.SetInt("Avatar", 0);
+            avatarText.text = "Choose Claire";
+        }
+    }
+    
+    
     // Method to select the controller type (single or multiplayer)
     public void SelectController(int controllerNumber)
     {
@@ -168,6 +224,10 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("firstTime", 0); // Marks that the first-time setup is complete
         singleAndMultiplayerMenu.SetActive(false); // Hides the single and multiplayer menu
         mainMenu.SetActive(true); // Shows the main menu
+        if (controllerNumber == 0)
+        {
+            chooseAvatarButton.SetActive(true);
+        }
     }
 
     int _mainMode; // Stores the main game mode

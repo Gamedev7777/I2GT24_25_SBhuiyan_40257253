@@ -23,6 +23,7 @@ public class AlienAI : MonoBehaviour
     public float attackDistance = 15.0f; // Distance within which the alien starts attacking the target
     public GameObject laserPrefab; // Prefab for the laser
     public Transform laserSpawnPosition;
+    public AudioClip laserSound;
 
     // Private variables
     private AlienAIstate _currentState = AlienAIstate.idle; // Current state of the alien
@@ -294,8 +295,9 @@ public class AlienAI : MonoBehaviour
             Vector3 laserDirection = (target.transform.position - transform.position).normalized;
 
             // Sets the rotation of the laser to face the target
-            Quaternion laserRotation = Quaternion.LookRotation(laserDirection);
+                Quaternion laserRotation = Quaternion.LookRotation(laserDirection);
 
+                AudioSource.PlayClipAtPoint(laserSound, Camera.main.transform.position, 0.4f);
             // Instantiates the laser at the alien's position with the calculated rotation
             GameObject laser = Instantiate(laserPrefab, laserSpawnPosition.position, laserRotation);
 

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PowerUps : MonoBehaviour
 {
+    public AudioClip powerUpSound;
     void Start()
     {
         // Initialises the Speed Power-Up status to zero at the beginning of the game
@@ -14,6 +15,7 @@ public class PowerUps : MonoBehaviour
         // Checks if the colliding object is the Player
         if (other.gameObject.tag == "Player")
         {
+            AudioSource.PlayClipAtPoint(powerUpSound, Camera.main.transform.position);
             // Processes Health Power-Up
             if (gameObject.tag == "PowerUpHealth")
             {
