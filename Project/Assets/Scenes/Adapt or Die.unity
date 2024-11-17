@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 321a9e3bfd43eb842953d6b628299983, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -5940,14 +5940,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.701531, y: -0.0054625827, z: -0.0043474454, w: 0.7126047}
-  m_LocalPosition: {x: -0.07, y: 40.53, z: -1.76}
+  m_LocalRotation: {x: 0.72119874, y: -0.01379715, z: -0.013524176, w: 0.6924588}
+  m_LocalPosition: {x: -5.7, y: 35.4, z: 1.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 810155640}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 88.801, y: -41.582, z: -41.492}
+  m_LocalEulerAnglesHint: {x: 86.787, y: -136.461, z: -136.438}
 --- !u!114 &963194229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9637,8 +9637,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4293468942
-  m_fontColor: {r: 0.05490196, g: 0.13725491, b: 0.9137255, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -10315,7 +10315,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1711.1, y: -156}
+  m_AnchoredPosition: {x: 212, y: -206}
   m_SizeDelta: {x: 410.2478, y: 153.1651}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1961268817
@@ -10355,8 +10355,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4291660109
-  m_fontColor: {r: 0.3019608, g: 0.5372549, b: 0.8039216, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
