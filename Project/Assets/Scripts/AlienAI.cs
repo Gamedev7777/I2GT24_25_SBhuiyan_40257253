@@ -18,8 +18,8 @@ public class AlienAI : MonoBehaviour
     public NavMeshAgent aiNavMeshAgent; // Reference to the NavMeshAgent component for movement
     public List<Transform> waypoints = new List<Transform>(); // List of waypoints for patrolling
     public GameObject target; // Reference to the target transform which is the player
-    public float chaseDistance = 25.0f; // Distance within which the alien starts chasing the target
-    public float attackDistance = 15.0f; // Distance within which the alien starts attacking the target
+    public float chaseDistance = 40.0f; // Distance within which the alien starts chasing the target
+    public float attackDistance = 30.0f; // Distance within which the alien starts attacking the target
     public GameObject laserPrefab; // Prefab for the laser
     public Transform laserSpawnPosition;
     public AudioClip laserSound;
@@ -30,7 +30,7 @@ public class AlienAI : MonoBehaviour
     private float _idleTimer = 1.0f; // Timer to keep track of idle time
     private float _laserSpeed = 30.0f; // Speed of the laser projectile
     private float _fireTimer; // Timer to manage firing intervals in attack state
-    private float _fireInterval = 1.0f; // Time interval between laser shots
+    private float _fireInterval = 0.5f; // Time interval between laser shots
     private Animation _animation; // Reference to the Animation component of the Alien
 
     // Start is called before the first frame update
