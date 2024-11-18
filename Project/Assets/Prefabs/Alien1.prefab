@@ -6810,7 +6810,7 @@ GameObject:
   - component: {fileID: 4979797931089950048}
   - component: {fileID: -6549805239253676014}
   - component: {fileID: -2977784741101650912}
-  - component: {fileID: 6814428077275332969}
+  - component: {fileID: 5357514074920717617}
   m_Layer: 0
   m_Name: Alien1
   m_TagString: Alien1
@@ -6924,8 +6924,8 @@ MonoBehaviour:
   laserPrefab: {fileID: 1044732288042567498, guid: 3816add329dc9a74f8071abe5b7bc61c, type: 3}
   laserSpawnPosition: {fileID: 7415937115209564057}
   laserSound: {fileID: 8300000, guid: 2a921313c927f45238a0b8baabe3ab12, type: 3}
---- !u!135 &6814428077275332969
-SphereCollider:
+--- !u!65 &5357514074920717617
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -6939,12 +6939,12 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 18
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.8136139, y: 2.3630674, z: 1}
+  m_Center: {x: 0.110946655, y: 0.6815337, z: 0}
 --- !u!1 &8939767974224132178
 GameObject:
   m_ObjectHideFlags: 0

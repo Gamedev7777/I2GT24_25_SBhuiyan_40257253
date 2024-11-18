@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     public GameObject highscoreMenu;
     public TMP_InputField playerNameInputField;
     public TextMeshProUGUI highscoreText;
+    public TextMeshProUGUI currentHighscoreText;
     
     void Awake()
     {
@@ -68,6 +69,7 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
+        currentHighscoreText.text = "Highscore: " + PlayerPrefs.GetString("PlayerName") + " " + PlayerPrefs.GetInt("Highscore");
         ChooseBackgroundMusic();
         
         // Initialises User Interface elements with saved values from PlayerPrefs
@@ -208,6 +210,14 @@ public class GameManager : MonoBehaviour
         
     }
 
+    public void SaveHighscore()
+    {
+        PlayerPrefs.SetInt("Highscore", PlayerPrefs.GetInt("Score", 0));
+        PlayerPrefs.SetString("PlayerName", playerNameInputField.text);
+        highscoreMenu.SetActive(false);
+        PlayerPrefs.SetInt("Score", 0); // Resets score to 0
+        SceneManager.LoadScene("Adapt or Die"); // Reloads the scene to start again
+    }
     // Method to upgrade the player and show the upgrade story pop-up
     public void Upgrade()
     {

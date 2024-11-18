@@ -60,7 +60,8 @@ public class AlienHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         // Reduces health by the damage amount
-        health -= damage;
+        //health -= damage;
+        health -= 10;
     Debug.Log(gameObject.name + " " + health);
         // If health is zero or less and the alien is not already dead
         if (health <= 0 && !_alienDeath)

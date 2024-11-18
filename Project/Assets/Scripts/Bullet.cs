@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
         {
             // Reduces the alien's health by one by calling the TakeDamage method in the AlienHealth component
             other.gameObject.GetComponent<AlienHealth>().TakeDamage(1);
+            Debug.Log("damage taken");
             Destroy(gameObject);
         }
     }
