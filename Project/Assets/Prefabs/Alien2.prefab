@@ -7415,8 +7415,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   target: {fileID: 0}
-  chaseDistance: 40
-  attackDistance: 30
+  chaseDistance: 10
+  attackDistance: 5
   laserPrefab: {fileID: 1044732288042567498, guid: 52d679941095bdb4a92f5e7de20b8865, type: 3}
   laserSpawnPosition: {fileID: 5293102365300374580}
   laserSound: {fileID: 8300000, guid: 2a921313c927f45238a0b8baabe3ab12, type: 3}

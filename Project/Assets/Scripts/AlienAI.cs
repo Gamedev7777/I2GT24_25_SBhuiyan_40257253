@@ -18,7 +18,7 @@ public class AlienAI : MonoBehaviour
     public NavMeshAgent aiNavMeshAgent; // Reference to the NavMeshAgent component for movement
     public List<Transform> waypoints = new List<Transform>(); // List of waypoints for patrolling
     public GameObject target; // Reference to the target transform which is the player
-    public float chaseDistance = 40.0f; // Distance within which the alien starts chasing the target
+    public float chaseDistance = 10.0f; // Distance within which the alien starts chasing the target
     public float attackDistance = 30.0f; // Distance within which the alien starts attacking the target
     public GameObject laserPrefab; // Prefab for the laser
     public Transform laserSpawnPosition;
@@ -134,7 +134,7 @@ public class AlienAI : MonoBehaviour
             float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
 
             // If within chase distance, transitions to chase state
-            if (distanceToTarget <= chaseDistance)
+            if (distanceToTarget >= chaseDistance)
             {
                 _currentState = AlienAIstate.chase; // Switches to chase state
             }
@@ -202,10 +202,10 @@ public class AlienAI : MonoBehaviour
             _currentState = AlienAIstate.patrol;
             return;
         }
-
+        Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
         // Checks for direct line of sight to the player using a raycast
         RaycastHit hit;
-        Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
+        
         if (Physics.Raycast(transform.position, directionToTarget, out hit))
         {
             if (hit.collider.gameObject != target)
@@ -328,9 +328,22 @@ public class AlienAI : MonoBehaviour
         // If the detected object is tagged as "Player"
         if (other.gameObject.CompareTag("Player"))
         {
-            target = other.transform.gameObject; // Sets the target to the detected player
-        }
+            // RaycastHit hit;
+            // Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
+            // if (Physics.Raycast(transform.position, directionToTarget, out hit))
+            // {
+            //     if (hit.collider.gameObject.CompareTag("Player"))
+            //     {
+            //         // If there is no direct line of sight, transition back to chase state
+            //         _currentState = AlienAIstate.chase;
+            //         // Sets the target to the detected player
+            //     }
+            // }
+         target = other.transform.gameObject;  
+        } 
     }
+    
+    
 
     // Handles trigger exit events such as when the player leaves the detection range
     void OnTriggerExit(Collider other)
