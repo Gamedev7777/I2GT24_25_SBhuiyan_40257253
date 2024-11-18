@@ -21,6 +21,10 @@ public class GameManager : MonoBehaviour
     public AudioSource musicAudioSource;
     public Slider volumeSlider;
     public GameObject chooseAvatarButton;
+    public TextMeshProUGUI chosenAvatarText;
+    public GameObject highscoreMenu;
+    public TMP_InputField playerNameInputField;
+    public TextMeshProUGUI highscoreText;
     
     void Awake()
     {
@@ -191,8 +195,17 @@ public class GameManager : MonoBehaviour
     // Method to restart the game and reset the score
     public void PlayAgain()
     {
-        PlayerPrefs.SetInt("Score", 0); // Resets score to 0
-        SceneManager.LoadScene("Adapt or Die"); // Reloads the scene to start again
+        if (PlayerPrefs.GetInt("Highscore", 0) < PlayerPrefs.GetInt("Score", 0))
+        {
+            highscoreMenu.SetActive(true);
+            highscoreText.text = "New High Score: " + PlayerPrefs.GetInt("Score", 0).ToString();
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Score", 0); // Resets score to 0
+            SceneManager.LoadScene("Adapt or Die"); // Reloads the scene to start again
+        }
+        
     }
 
     // Method to upgrade the player and show the upgrade story pop-up
@@ -208,11 +221,13 @@ public class GameManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("Avatar", 1);
             avatarText.text = "Choose Remy";
+            chosenAvatarText.text = "Claire chosen";
         }
         else if (PlayerPrefs.GetInt("Avatar", 0) == 1)
         {
             PlayerPrefs.SetInt("Avatar", 0);
             avatarText.text = "Choose Claire";
+            chosenAvatarText.text = "Remy chosen";
         }
     }
     

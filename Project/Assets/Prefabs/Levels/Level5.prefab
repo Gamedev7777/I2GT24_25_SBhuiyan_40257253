@@ -61,6 +61,8 @@ MonoBehaviour:
   - {fileID: 6749885108441435972}
   player:
   - {fileID: 3525328687756570502}
+  remy: {fileID: 7250747921195595492}
+  claire: {fileID: 76729501887247884}
 --- !u!1001 &1869636499425127437
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -247,9 +249,19 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09b1b53c54e83c64f88a48e234a90c4e, type: 3}
+--- !u!1 &76729501887247884 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2837944588344856986, guid: 09b1b53c54e83c64f88a48e234a90c4e, type: 3}
+  m_PrefabInstance: {fileID: 2770556556817835926}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3525328687756570502 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1629886629667194896, guid: 09b1b53c54e83c64f88a48e234a90c4e, type: 3}
+  m_PrefabInstance: {fileID: 2770556556817835926}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7250747921195595492 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4822557312248074610, guid: 09b1b53c54e83c64f88a48e234a90c4e, type: 3}
   m_PrefabInstance: {fileID: 2770556556817835926}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &8047575916765897433 stripped
