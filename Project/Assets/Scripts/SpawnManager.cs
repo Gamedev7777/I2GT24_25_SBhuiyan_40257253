@@ -56,9 +56,11 @@ public class SpawnManager : MonoBehaviour
     // Called when the level is completed
     public void LevelComplete()
     {
+        
         // Checks if all aliens have been eliminated
         if (alienList.Count <= 0)
         {
+            AudioListener.volume = 0;
             // If the player has completed all 7 levels, shows the final pop-up and reset the level
             if (PlayerPrefs.GetInt("Level", 1) == 7)
             {

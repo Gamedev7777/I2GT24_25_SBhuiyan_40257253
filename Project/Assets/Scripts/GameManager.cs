@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     public TMP_InputField playerNameInputField;
     public TextMeshProUGUI highscoreText;
     public TextMeshProUGUI currentHighscoreText;
+    int _mainMode; // Stores the main game mode
+    
     
     void Awake()
     {
@@ -69,7 +71,8 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
-        currentHighscoreText.text = "Highscore: " + PlayerPrefs.GetString("PlayerName") + " " + PlayerPrefs.GetInt("Highscore");
+        AudioListener.volume = volumeSlider.value;
+        currentHighscoreText.text = "Highscore: " + PlayerPrefs.GetString("PlayerName") + " " + PlayerPrefs.GetInt("Highscore") +" "+ PlayerPrefs.GetString("HighscoreMode");
         ChooseBackgroundMusic();
         
         // Initialises User Interface elements with saved values from PlayerPrefs
@@ -190,7 +193,7 @@ public class GameManager : MonoBehaviour
             SpawnManager.Instance._levelSpawned.GetComponent<Levels>().aliens[i].GetComponent<AlienHealth>()
                 .SetAlienHealth();
         }
-
+        AudioListener.volume = volumeSlider.value;
         // Resumes the game
         Time.timeScale = 1;
     }
@@ -209,6 +212,22 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("Highscore", PlayerPrefs.GetInt("Score", 0));
         PlayerPrefs.SetString("PlayerName", playerNameInputField.text);
+        
+        if (PlayerPrefs.GetInt("Mode", 0) == 0) // Easy mode
+        {
+            PlayerPrefs.SetString("HighscoreMode", "Easy");
+        }
+        else if (PlayerPrefs.GetInt("Mode", 0) == 1) // Normal mode
+        {
+            PlayerPrefs.SetString("HighscoreMode", "Normal");
+        }
+        else if (PlayerPrefs.GetInt("Mode", 0) == 2) // Hard mode
+        {
+            PlayerPrefs.SetString("HighscoreMode", "Hard");
+        }
+        
+        
+        
         highscoreMenu.SetActive(false);
 
         if (PlayerPrefs.GetInt("Upgraded", 0) == 1)
@@ -220,8 +239,7 @@ public class GameManager : MonoBehaviour
             popUpList[7].SetActive(true); // Shows the final level completion pop-up
         }
         
-        
-        
+          
         
         
         
@@ -232,6 +250,7 @@ public class GameManager : MonoBehaviour
     // Method to upgrade the player and show the upgrade story pop-up
     public void Upgrade()
     {
+        AudioListener.volume = 0;
         PlayerPrefs.SetInt("Level", 1); // Resets level to 1
         PlayerPrefs.SetInt("Upgraded", 1);
         if (PlayerPrefs.GetInt("Highscore", 0) < PlayerPrefs.GetInt("Score", 0))
@@ -275,8 +294,6 @@ public class GameManager : MonoBehaviour
             chooseAvatarButton.SetActive(true);
         }
     }
-
-    int _mainMode; // Stores the main game mode
 
     // Method called when the Play button is pressed from the main menu
     public void PlayButton(int mode)
