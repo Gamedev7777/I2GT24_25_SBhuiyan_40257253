@@ -9,8 +9,8 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.CompareTag("Alien1") || other.gameObject.CompareTag("Alien2"))
         {
             // Reduces the alien's health by one by calling the TakeDamage method in the AlienHealth component
-            other.gameObject.GetComponent<AlienHealth>().TakeDamage(1);
-            Debug.Log("damage taken");
+            other.gameObject.GetComponentInParent<AlienHealth>().TakeDamage(1);
+            Debug.Log("one health point deducted");
             Destroy(gameObject);
         }
     }

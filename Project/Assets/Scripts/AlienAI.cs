@@ -186,10 +186,10 @@ public class AlienAI : MonoBehaviour
             return;
         }
         // If the target moves out of the chase distance, transitions back to patrol state
-        else if (distanceToTarget > chaseDistance)
-        {
-            _currentState = AlienAIstate.patrol; // Switches to patrol state
-        }
+        // else if (distanceToTarget > chaseDistance)
+        // {
+        //     _currentState = AlienAIstate.patrol; // Switches to patrol state
+        // }
     }
 
     // Handles the attack state behaviour
@@ -253,7 +253,7 @@ public class AlienAI : MonoBehaviour
         float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
 
         // If the target moves out of attack distance, transitions back to chase state
-        if (distanceToTarget > attackDistance)
+        if (distanceToTarget > chaseDistance)
         {
             _currentState = AlienAIstate.chase; // Switches to chase state
         }
@@ -328,17 +328,6 @@ public class AlienAI : MonoBehaviour
         // If the detected object is tagged as "Player"
         if (other.gameObject.CompareTag("Player"))
         {
-            // RaycastHit hit;
-            // Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
-            // if (Physics.Raycast(transform.position, directionToTarget, out hit))
-            // {
-            //     if (hit.collider.gameObject.CompareTag("Player"))
-            //     {
-            //         // If there is no direct line of sight, transition back to chase state
-            //         _currentState = AlienAIstate.chase;
-            //         // Sets the target to the detected player
-            //     }
-            // }
          target = other.transform.gameObject;  
         } 
     }
