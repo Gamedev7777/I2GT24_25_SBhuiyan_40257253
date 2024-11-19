@@ -62,9 +62,21 @@ public class SpawnManager : MonoBehaviour
             // If the player has completed all 7 levels, shows the final pop-up and reset the level
             if (PlayerPrefs.GetInt("Level", 1) == 7)
             {
-                GameManager.Instance.popUpList[7].SetActive(true); // Shows the final level completion pop-up
+                if (PlayerPrefs.GetInt("Highscore", 0) < PlayerPrefs.GetInt("Score", 0))
+                {
+                    GameManager.Instance.highscoreMenu.SetActive(true);
+                    GameManager.Instance.highscoreText.text = "New High Score: " + PlayerPrefs.GetInt("Score", 0).ToString();
+                }
+                else
+                {
+                    GameManager.Instance.popUpList[7].SetActive(true); // Shows the final level completion pop-up
+                }
+               
+                
+                
                 PlayerPrefs.SetInt("Level", 1); // Resets level to 1
                 PlayerPrefs.SetInt("firstTime", 0); // Marks that the first-time setup is complete
+                PlayerPrefs.SetInt("Upgraded", 0);
             }
             else
             {
