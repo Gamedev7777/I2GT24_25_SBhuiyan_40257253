@@ -67,7 +67,7 @@ public class SpawnManager : MonoBehaviour
                 if (PlayerPrefs.GetInt("Highscore", 0) < PlayerPrefs.GetInt("Score", 0))
                 {
                     GameManager.Instance.highscoreMenu.SetActive(true);
-                    GameManager.Instance.highscoreText.text = "New High Score: " + PlayerPrefs.GetInt("Score", 0).ToString();
+                    GameManager.Instance.highscoreText.text = "New High Score: " + PlayerPrefs.GetInt("Score", 0);
                 }
                 else
                 {

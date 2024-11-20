@@ -27,7 +27,8 @@ public class GameManager : MonoBehaviour
     public TMP_InputField playerNameInputField;
     public TextMeshProUGUI highscoreText;
     public TextMeshProUGUI currentHighscoreText;
-    private int _level, _highScore;
+    private int _level;
+    
     
     
     void Awake()
@@ -73,9 +74,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         _level = PlayerPrefs.GetInt("Level", 1);
-        _highScore = PlayerPrefs.GetInt("HighScore", 0);
         AudioListener.volume = volumeSlider.value;
-        currentHighscoreText.text = "Highscore: " + PlayerPrefs.GetString("PlayerName") + " " + _highScore +" "+ PlayerPrefs.GetString("HighscoreMode");
+        currentHighscoreText.text = "Highscore: " + PlayerPrefs.GetString("PlayerName") + " " + PlayerPrefs.GetInt("Highscore") +" "+ PlayerPrefs.GetString("HighscoreMode");
         ChooseBackgroundMusic();
         
         // Initialises User Interface elements with saved values from PlayerPrefs
@@ -181,6 +181,8 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("firstTime", 1);
         PlayerPrefs.SetInt("Score", 0); // Resets score to 0
         SceneManager.LoadScene("Adapt or Die"); // Reloads the scene to start again
+        
+        
     }
 
     public void SaveHighscore()
@@ -220,7 +222,7 @@ public class GameManager : MonoBehaviour
         AudioListener.volume = 0;
         PlayerPrefs.SetInt("Level", 1); // Resets level to 1
         PlayerPrefs.SetInt("Upgraded", 1);
-        if (_highScore < PlayerPrefs.GetInt("Score", 0))
+        if (PlayerPrefs.GetInt("Highscore", 0) < PlayerPrefs.GetInt("Score", 0))
         {
             highscoreMenu.SetActive(true);
             highscoreText.text = "New High Score: " + PlayerPrefs.GetInt("Score", 0).ToString();
