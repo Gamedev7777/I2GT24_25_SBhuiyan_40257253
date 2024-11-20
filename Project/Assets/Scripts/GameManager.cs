@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 
 public class GameManager : MonoBehaviour
 {
@@ -26,7 +28,7 @@ public class GameManager : MonoBehaviour
     public TMP_InputField playerNameInputField;
     public TextMeshProUGUI highscoreText;
     public TextMeshProUGUI currentHighscoreText;
-    int _mainMode; // Stores the main game mode
+    
     
     
     void Awake()
@@ -160,7 +162,7 @@ public class GameManager : MonoBehaviour
         {
             playerHealthText2.gameObject.SetActive(false); // Hides the second player's health User Interface
 
-            PlayerPrefs.SetInt("Mode", _mainMode); // Sets the game mode
+            PlayerPrefs.SetInt("Mode", PlayerPrefs.GetInt("Mode", 0)); // Sets the game mode
 
             // Sets the player health and updates the User Interface text for player 1
             SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>()
@@ -171,7 +173,7 @@ public class GameManager : MonoBehaviour
         }
         else if (PlayerPrefs.GetInt("Controller", 0) == 1) // Multiplayer mode
         {
-            PlayerPrefs.SetInt("Mode", _mainMode); // Sets the game mode
+            PlayerPrefs.SetInt("Mode", PlayerPrefs.GetInt("Mode", 0)); // Sets the game mode
 
             // Sets the player health and updates the User Interface text for player 1
             SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>()
@@ -215,14 +217,17 @@ public class GameManager : MonoBehaviour
         
         if (PlayerPrefs.GetInt("Mode", 0) == 0) // Easy mode
         {
+            Debug.Log("Highscore Easy");
             PlayerPrefs.SetString("HighscoreMode", "Easy");
         }
         else if (PlayerPrefs.GetInt("Mode", 0) == 1) // Normal mode
         {
+            Debug.Log("Highscore Normal");
             PlayerPrefs.SetString("HighscoreMode", "Normal");
         }
         else if (PlayerPrefs.GetInt("Mode", 0) == 2) // Hard mode
         {
+            Debug.Log("Highscore Hard");
             PlayerPrefs.SetString("HighscoreMode", "Hard");
         }
         
@@ -298,8 +303,7 @@ public class GameManager : MonoBehaviour
     // Method called when the Play button is pressed from the main menu
     public void PlayButton(int mode)
     {
-        _mainMode = mode; // Sets the game mode
-
+        PlayerPrefs.SetInt("Mode", mode);
         mainMenu.SetActive(false); // Hides the main menu
     }
 }
