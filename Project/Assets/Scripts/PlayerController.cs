@@ -1,7 +1,4 @@
-using System;
-using System.Diagnostics;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 public class PlayerController : MonoBehaviour
 {
@@ -28,16 +25,17 @@ public class PlayerController : MonoBehaviour
     private float _lastFireTime; // Tracks the time of the last fired bullet using controller
     private float _nextFireTime = 0.1f; // Tracks the time when the player can fire the next bullet using mouse input
     private float _fireRate = 0.2f; // Fire rate used for mouse input firing
-
+    private int _avatar;
     public AudioClip fireSound;
 
     void Start()
     {
-        if (PlayerPrefs.GetInt("Avatar", 0) == 0)
+        _avatar = PlayerPrefs.GetInt("Avatar", 0);
+        if (_avatar == 0)
         {
             animation = transform.GetChild(0).GetComponent<Animation>();
         }
-        else if (PlayerPrefs.GetInt("Avatar", 0) == 1)
+        else if (_avatar == 1)
         {
             animation = transform.GetChild(1).GetComponent<Animation>();
         }
@@ -81,11 +79,11 @@ public class PlayerController : MonoBehaviour
             // Plays appropriate firing animation based on whether the speed power-up is active
             if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
             {
-                if (PlayerPrefs.GetInt("Avatar", 0) == 0)
+                if (_avatar == 0)
                 {
                     animation.Play("RemyRunningFiring");
                 }
-                else if (PlayerPrefs.GetInt("Avatar", 0) == 1)
+                else if (_avatar == 1)
                 {
                     animation.Play("ClaireRunningFiring");
                 }
@@ -93,11 +91,11 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                if (PlayerPrefs.GetInt("Avatar", 0) == 0)
+                if (_avatar == 0)
                 {
                     animation.Play("RemyWalkingFiring");
                 }
-                else if (PlayerPrefs.GetInt("Avatar", 0) == 1)
+                else if (_avatar == 1)
                 {
                     animation.Play("ClaireWalkingFiring");
                 }
@@ -116,22 +114,22 @@ public class PlayerController : MonoBehaviour
             // Plays appropriate firing animation based on whether the speed power-up is active
             if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
             {
-                if (PlayerPrefs.GetInt("Avatar", 0) == 0)
+                if (_avatar == 0)
                 {
                     animation.Play("RemyRunningFiring");
                 }
-                else if (PlayerPrefs.GetInt("Avatar", 0) == 1)
+                else if (_avatar == 1)
                 {
                     animation.Play("ClaireRunningFiring");
                 }
             }
             else
             {
-                if (PlayerPrefs.GetInt("Avatar", 0) == 0)
+                if (_avatar == 0)
                 {
                     animation.Play("RemyWalkingFiring");
                 }
-                else if (PlayerPrefs.GetInt("Avatar", 0) == 1)
+                else if (_avatar == 1)
                 {
                     animation.Play("ClaireWalkingFiring");
                 }
@@ -153,22 +151,22 @@ public class PlayerController : MonoBehaviour
                 // Plays appropriate walking or running animation based on power-up
                 if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
                 {
-                    if (PlayerPrefs.GetInt("Avatar", 0) == 0)
+                    if (_avatar == 0)
                     {
                         animation.Play("RemyRunning");
                     }
-                    else if (PlayerPrefs.GetInt("Avatar", 0) == 1)
+                    else if (_avatar == 1)
                     {
                         animation.Play("ClaireRunning");
                     }
                 }
                 else
                 {
-                    if (PlayerPrefs.GetInt("Avatar", 0) == 0)
+                    if (_avatar == 0)
                     {
                         animation.Play("RemyWalking");
                     }
-                    else if (PlayerPrefs.GetInt("Avatar", 0) == 1)
+                    else if (_avatar == 1)
                     {
                         animation.Play("ClaireWalking");
                     }
@@ -176,11 +174,11 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                if (PlayerPrefs.GetInt("Avatar", 0) == 0)
+                if (_avatar == 0)
                 {
                     animation.Play("RemyIdle");
                 }
-                else if (PlayerPrefs.GetInt("Avatar", 0) == 1)
+                else if (_avatar == 1)
                 {
                     animation.Play("ClaireIdle");
                 }
@@ -220,14 +218,14 @@ public class PlayerController : MonoBehaviour
     // Plays the shooting animation if it is not already playing
     void PlayShootingAnimation()
     {
-        if (PlayerPrefs.GetInt("Avatar", 0) == 0)
+        if (_avatar == 0)
         {
             if (!animation.IsPlaying("RemyIdleFiring"))
             {
                 animation.Play("RemyIdleFiring");
             }
         }
-        else if (PlayerPrefs.GetInt("Avatar", 0) == 1)
+        else if (_avatar == 1)
         {
             if (!animation.IsPlaying("ClaireIdleFiring"))
             {
@@ -240,14 +238,14 @@ public class PlayerController : MonoBehaviour
     // Stops the shooting animation if it is playing
     void StopShootingAnimation()
     {
-        if (PlayerPrefs.GetInt("Avatar", 0) == 0)
+        if (_avatar == 0)
         {
             if (animation.IsPlaying("RemyIdleFiring"))
             {
                 animation.Stop("RemyIdleFiring");
             }   
         }
-        else if (PlayerPrefs.GetInt("Avatar", 0) == 1)
+        else if (_avatar == 1)
         {
             if (animation.IsPlaying("ClaireIdleFiring"))
             {
@@ -289,7 +287,7 @@ public class PlayerController : MonoBehaviour
     {
         AudioSource.PlayClipAtPoint(fireSound, Camera.main.transform.position, 0.4f);
         
-        if (PlayerPrefs.GetInt("Avatar", 0) == 0)
+        if (_avatar == 0)
         {
             GameObject bullet = Instantiate(bulletPrefab, remyBulletSpawnPosition.position, Quaternion.identity);
 
@@ -305,7 +303,7 @@ public class PlayerController : MonoBehaviour
             // Destroys the bullet after 1 second to avoid cluttering the scene with unused bullets
             Destroy(bullet, 1.0f);   
         }
-        else if (PlayerPrefs.GetInt("Avatar", 0) == 1)
+        else if (_avatar == 1)
         {
             GameObject bullet = Instantiate(bulletPrefab, claireBulletSpawnPosition.position, Quaternion.identity);
 
@@ -332,7 +330,7 @@ public class PlayerController : MonoBehaviour
         AudioSource.PlayClipAtPoint(fireSound, Camera.main.transform.position, 0.4f);
         
         
-        if (PlayerPrefs.GetInt("Avatar", 0) == 0)
+        if (_avatar == 0)
         {
             // Instantiates the bullet prefab at the player's current position
             GameObject bullet = Instantiate(bulletPrefab, remyBulletSpawnPosition.position, Quaternion.identity);
@@ -357,7 +355,7 @@ public class PlayerController : MonoBehaviour
             Destroy(bullet, 1.0f);
 
         }
-        else if (PlayerPrefs.GetInt("Avatar", 0) == 1)
+        else if (_avatar == 1)
         {
             GameObject bullet = Instantiate(bulletPrefab, claireBulletSpawnPosition.position, Quaternion.identity);
             // Gets the Rigidbody component of the bullet to control its movement

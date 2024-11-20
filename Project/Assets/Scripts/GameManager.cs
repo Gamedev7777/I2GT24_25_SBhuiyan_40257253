@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
@@ -28,7 +27,7 @@ public class GameManager : MonoBehaviour
     public TMP_InputField playerNameInputField;
     public TextMeshProUGUI highscoreText;
     public TextMeshProUGUI currentHighscoreText;
-    
+    private int _level, _highScore;
     
     
     void Awake()
@@ -73,15 +72,17 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
+        _level = PlayerPrefs.GetInt("Level", 1);
+        _highScore = PlayerPrefs.GetInt("HighScore", 0);
         AudioListener.volume = volumeSlider.value;
-        currentHighscoreText.text = "Highscore: " + PlayerPrefs.GetString("PlayerName") + " " + PlayerPrefs.GetInt("Highscore") +" "+ PlayerPrefs.GetString("HighscoreMode");
+        currentHighscoreText.text = "Highscore: " + PlayerPrefs.GetString("PlayerName") + " " + _highScore +" "+ PlayerPrefs.GetString("HighscoreMode");
         ChooseBackgroundMusic();
         
         // Initialises User Interface elements with saved values from PlayerPrefs
         scoreText.text = "Score: " + PlayerPrefs.GetInt("Score", 0).ToString(); // Displays the player's score
 
         levelNumberText.text =
-            "Level Number: " + PlayerPrefs.GetInt("Level", 1).ToString(); // Displays the current level number
+            "Level Number: " + _level; // Displays the current level number
 
         // Checks if it is the player's first time playing
         if (PlayerPrefs.GetInt("firstTime", 1) == 1)
@@ -90,31 +91,31 @@ public class GameManager : MonoBehaviour
         }
 
         // Displays the appropriate pop-up based on the current level
-        if (PlayerPrefs.GetInt("Level", 1) == 1)
+        if (_level == 1)
         {
             popUpList[0].SetActive(true); // Shows the first story pop-up
         }
-        else if (PlayerPrefs.GetInt("Level", 1) == 2)
+        else if (_level == 2)
         {
             popUpList[1].SetActive(true); // Shows the second story pop-up for level 2
         }
-        else if (PlayerPrefs.GetInt("Level", 1) == 3)
+        else if (_level == 3)
         {
             popUpList[2].SetActive(true); // Shows the third story pop-up for level 3
         }
-        else if (PlayerPrefs.GetInt("Level", 1) == 4)
+        else if (_level == 4)
         {
             popUpList[3].SetActive(true); // Shows the fourth story pop-up for level 4
         }
-        else if (PlayerPrefs.GetInt("Level", 1) == 5)
+        else if (_level == 5)
         {
             popUpList[4].SetActive(true); // Shows the fifth story pop-up for level 5
         }
-        else if (PlayerPrefs.GetInt("Level", 1) == 6)
+        else if (_level == 6)
         {
             popUpList[5].SetActive(true); // Shows the sixth story pop-up for level 6
         }
-        else if (PlayerPrefs.GetInt("Level", 1) == 7)
+        else if (_level == 7)
         {
             popUpList[6].SetActive(true); // Shows the seventh story pop-up for level 7
         }
@@ -123,37 +124,11 @@ public class GameManager : MonoBehaviour
     // Method called when the Start button is pressed
     public void StartButton()
     {
-        // Hides the appropriate pop-up based on the current level
-        if (PlayerPrefs.GetInt("Level", 1) == 1)
+        for (int i = 0; i < popUpList.Count - 2; i++)
         {
-            popUpList[0].SetActive(false); // Hides the first story pop-up
+            popUpList[i].SetActive(false);
         }
-        else if (PlayerPrefs.GetInt("Level", 1) == 2)
-        {
-            popUpList[1].SetActive(false); // Hides the second story pop-up
-        }
-        else if (PlayerPrefs.GetInt("Level", 1) == 3)
-        {
-            popUpList[2].SetActive(false); // Hides the third story pop-up
-        }
-        else if (PlayerPrefs.GetInt("Level", 1) == 4)
-        {
-            popUpList[3].SetActive(false); // Hides the fourth story pop-up
-        }
-        else if (PlayerPrefs.GetInt("Level", 1) == 5)
-        {
-            popUpList[4].SetActive(false); // Hides the fifth story pop-up
-        }
-        else if (PlayerPrefs.GetInt("Level", 1) == 6)
-        {
-            Debug.Log("remain human");
-            popUpList[5].SetActive(false); // Hides the sixth story pop-up
-        }
-        else if (PlayerPrefs.GetInt("Level", 1) == 7)
-        {
-            popUpList[6].SetActive(false); // Hides the seventh story pop-up
-        }
-
+        
         // Spawns the level using the SpawnManager
         SpawnManager.Instance.SpawnLevel();
 
@@ -203,11 +178,9 @@ public class GameManager : MonoBehaviour
     // Method to restart the game and reset the score
     public void PlayAgain()
     {
-        
+        PlayerPrefs.SetInt("firstTime", 1);
         PlayerPrefs.SetInt("Score", 0); // Resets score to 0
         SceneManager.LoadScene("Adapt or Die"); // Reloads the scene to start again
-        
-        
     }
 
     public void SaveHighscore()
@@ -217,17 +190,14 @@ public class GameManager : MonoBehaviour
         
         if (PlayerPrefs.GetInt("Mode", 0) == 0) // Easy mode
         {
-            Debug.Log("Highscore Easy");
             PlayerPrefs.SetString("HighscoreMode", "Easy");
         }
         else if (PlayerPrefs.GetInt("Mode", 0) == 1) // Normal mode
         {
-            Debug.Log("Highscore Normal");
             PlayerPrefs.SetString("HighscoreMode", "Normal");
         }
         else if (PlayerPrefs.GetInt("Mode", 0) == 2) // Hard mode
         {
-            Debug.Log("Highscore Hard");
             PlayerPrefs.SetString("HighscoreMode", "Hard");
         }
         
@@ -243,14 +213,6 @@ public class GameManager : MonoBehaviour
         {
             popUpList[7].SetActive(true); // Shows the final level completion pop-up
         }
-        
-          
-        
-        
-        
-        
-        
-        
     }
     // Method to upgrade the player and show the upgrade story pop-up
     public void Upgrade()
@@ -258,7 +220,7 @@ public class GameManager : MonoBehaviour
         AudioListener.volume = 0;
         PlayerPrefs.SetInt("Level", 1); // Resets level to 1
         PlayerPrefs.SetInt("Upgraded", 1);
-        if (PlayerPrefs.GetInt("Highscore", 0) < PlayerPrefs.GetInt("Score", 0))
+        if (_highScore < PlayerPrefs.GetInt("Score", 0))
         {
             highscoreMenu.SetActive(true);
             highscoreText.text = "New High Score: " + PlayerPrefs.GetInt("Score", 0).ToString();
