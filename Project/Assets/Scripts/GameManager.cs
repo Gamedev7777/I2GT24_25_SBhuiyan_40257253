@@ -261,6 +261,7 @@ public class GameManager : MonoBehaviour
         if (controllerNumber == 0)
         {
             chooseAvatarButton.SetActive(true);
+            chosenAvatarText.gameObject.SetActive(true);
         }
     }
 
