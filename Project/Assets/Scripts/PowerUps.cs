@@ -98,6 +98,11 @@ public class PowerUps : MonoBehaviour
             // Single-player mode: activates Player 1's shield
             SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>()
                 .playerShield = true;
+            
+            SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerController>()
+                .remyShield.SetActive(true);   
+            SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerController>()
+                .claireShield.SetActive(true); 
         }
         else if (PlayerPrefs.GetInt("Controller", 0) == 1)
         {
@@ -106,6 +111,12 @@ public class PowerUps : MonoBehaviour
                 .playerShield = true;
             SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerHealth>()
                 .playerShield = true;
+            
+            
+            SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer1>().remyShield.SetActive(true); 
+            
+            SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerMultiplayer2>()
+                .claireShield.SetActive(true); 
         }
 
         // Activates the Shield Power-Up User Interface indicator

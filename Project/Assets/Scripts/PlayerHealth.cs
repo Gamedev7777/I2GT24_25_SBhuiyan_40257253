@@ -6,7 +6,7 @@ public class PlayerHealth : MonoBehaviour
     // public variables
     public bool playerDeath = false; // Variable to check if the player is dead
 
-    public static PlayerHealth Instance; // Creates a static instance of the PlayerHealth class to access its properties from other classes
+    public static PlayerHealth instance; // Creates a static instance of the PlayerHealth class to access its properties from other classes
 
     public bool playerShield = false; // Variable to check if the player shield is active
     [HideInInspector] public int health; // Sets the initial health of the player
@@ -14,8 +14,8 @@ public class PlayerHealth : MonoBehaviour
     public AudioClip playerDeathSound;
     void Awake()
     {
-        // Assigns the current instance of this script to the static Instance variable
-        Instance = this;
+        // Assigns the current instance of this script to the static instance variable
+        instance = this;
     }
 
     // Method to set the player's health based on the selected difficulty mode

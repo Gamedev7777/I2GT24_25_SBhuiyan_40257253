@@ -20,6 +20,8 @@ public class PlayerMultiplayer1 : MonoBehaviour
     private float _fireRate = 0.2f; // Rate at which bullets can be fired
     private Animation animation; // Reference to the Animation component of the player model
     public AudioClip fireSound;
+    public GameObject remyShield;
+    
     void Start()
     {
         // Gets the Animation component from the player's child GameObject

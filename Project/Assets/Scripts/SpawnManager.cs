@@ -120,6 +120,10 @@ public class SpawnManager : MonoBehaviour
         {
             // Disables the shield for player 1
             _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>().playerShield = false;
+            
+            _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerController>().remyShield.SetActive(false);
+            
+            _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerController>().claireShield.SetActive(false);
         }
         // Checks if the game is in multiplayer mode
         else if (PlayerPrefs.GetInt("Controller", 0) == 1)
@@ -127,6 +131,10 @@ public class SpawnManager : MonoBehaviour
             // Disables the shield for both players
             _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>().playerShield = false;
             _levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerHealth>().playerShield = false;
+            
+            _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer1>().remyShield.SetActive(false);
+            
+            _levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerMultiplayer2>().claireShield.SetActive(false);
         }
 
         // Hides the shield User Interface text

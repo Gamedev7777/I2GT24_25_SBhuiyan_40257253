@@ -20,7 +20,8 @@ public class PlayerMultiplayer2 : MonoBehaviour
     private float _lastFireTime; // Tracks the time of the last fired bullet
     private Animation animation; // Player animation component
     private Vector3 aimDirection; // Direction the player is aiming
-
+    public GameObject claireShield;
+    
     void Start()
     {
         // Gets the Animation component attached to the player's child object

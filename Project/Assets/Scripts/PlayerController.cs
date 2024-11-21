@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private float _fireRate = 0.2f; // Fire rate used for mouse input firing
     private int _avatar;
     public AudioClip fireSound;
+    public GameObject remyShield, claireShield;
 
     void Start()
     {
