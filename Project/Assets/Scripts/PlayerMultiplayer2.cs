@@ -178,7 +178,7 @@ public class PlayerMultiplayer2 : MonoBehaviour
     {
         AudioSource.PlayClipAtPoint(fireSound, Camera.main.transform.position, 0.4f);
         // Instantiates the bullet prefab at the player's current position
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, Quaternion.identity);
+        GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, bulletSpawnPosition.rotation);
 
         // Gets the Rigidbody component of the bullet to control its movement
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();

@@ -12,6 +12,8 @@ public class SpawnManager : MonoBehaviour
     public List<GameObject> levelPrefabList = new List<GameObject>(); // List of level prefabs for single-player mode
     public List<GameObject> levelMultiplayerPrefabList = new List<GameObject>(); // List of level prefabs for multiplayer mode
     public AudioClip shieldDisabledSound;
+    public Camera fakeCamera;
+    
     // Awake is called when the script instance is being loaded
     void Awake()
     {
@@ -22,7 +24,7 @@ public class SpawnManager : MonoBehaviour
     // Method to spawn the level
     public void SpawnLevel()
     {
-        
+        fakeCamera.gameObject.SetActive(false);
         // Checks if the game is in single-player mode
         if (PlayerPrefs.GetInt("Controller", 0) == 0)
         {

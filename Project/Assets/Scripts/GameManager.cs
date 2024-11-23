@@ -3,7 +3,6 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Debug = UnityEngine.Debug;
 
 public class GameManager : MonoBehaviour
 {
@@ -73,6 +72,7 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
+        
         _level = PlayerPrefs.GetInt("Level", 1);
         AudioListener.volume = volumeSlider.value;
         currentHighscoreText.text = "Highscore: " + PlayerPrefs.GetString("PlayerName") + " " + PlayerPrefs.GetInt("Highscore") +" "+ PlayerPrefs.GetString("HighscoreMode");

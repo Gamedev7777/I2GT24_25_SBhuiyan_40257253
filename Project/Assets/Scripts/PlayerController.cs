@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     private int _avatar;
     public AudioClip fireSound;
     public GameObject remyShield, claireShield;
-
+    private Vector3 _localMovement;
     void Start()
     {
         _avatar = PlayerPrefs.GetInt("Avatar", 0);
@@ -63,9 +63,9 @@ public class PlayerController : MonoBehaviour
 
         // Creates a new movement vector based on the player's input
         _playerMovement = new Vector3(_combinedHorizontal, 0, _combinedVertical).normalized;
-
+        _localMovement = transform.TransformDirection(_playerMovement);
         // Moves the player based on the input and playerSpeed, using Time.deltaTime for frame rate independence
-        transform.GetComponent<Rigidbody>().velocity = _playerMovement * playerSpeed;
+        transform.GetComponent<Rigidbody>().velocity = _localMovement * playerSpeed;
 
         // Gets input from the right stick for aiming direction (used in controllers)
         float rightStickHorizontal = Input.GetAxis("RightStickHorizontal");
@@ -213,7 +213,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Handles player rotation to face the aiming direction, either by mouse or controller input
-        HandlePlayerRotation();
+       HandlePlayerRotation();
     }
 
     // Plays the shooting animation if it is not already playing
@@ -334,7 +334,7 @@ public class PlayerController : MonoBehaviour
         if (_avatar == 0)
         {
             // Instantiates the bullet prefab at the player's current position
-            GameObject bullet = Instantiate(bulletPrefab, remyBulletSpawnPosition.position, Quaternion.identity);
+            GameObject bullet = Instantiate(bulletPrefab, remyBulletSpawnPosition.position, remyBulletSpawnPosition.rotation);
          
             // Gets the Rigidbody component of the bullet to control its movement
             Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
@@ -358,7 +358,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (_avatar == 1)
         {
-            GameObject bullet = Instantiate(bulletPrefab, claireBulletSpawnPosition.position, Quaternion.identity);
+            GameObject bullet = Instantiate(bulletPrefab, claireBulletSpawnPosition.position, claireBulletSpawnPosition.rotation);
             // Gets the Rigidbody component of the bullet to control its movement
             Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
             if (bulletRb != null)
@@ -393,18 +393,38 @@ public class PlayerController : MonoBehaviour
     // Handles player rotation based on the mouse cursor position
     void HandlePlayerRotation()
     {
-        // Creates a ray from the camera to the mouse position
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
+        // // Creates a ray from the camera to the mouse position
+        // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        // RaycastHit hit;
+        //
+        // // Performs a raycast to determine where the mouse cursor intersects with the game world
+        // if (Physics.Raycast(ray, out hit))
+        // {
+        //     // Calculates the direction from the player's position to the target hit point
+        //     Vector3 direction = (hit.point - transform.position).normalized;
+        //     direction.y = 0; // Keeps the player's rotation on the horizontal plane to avoid tilting
+        //     Quaternion newRotation = Quaternion.LookRotation(direction); // Creates a new rotation to face the target
+        //     transform.rotation = newRotation; // Applies the new rotation to the player
+        // }
+        
+        
+        
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-        // Performs a raycast to determine where the mouse cursor intersects with the game world
-        if (Physics.Raycast(ray, out hit))
-        {
-            // Calculates the direction from the player's position to the target hit point
-            Vector3 direction = (hit.point - transform.position).normalized;
-            direction.y = 0; // Keeps the player's rotation on the horizontal plane to avoid tilting
-            Quaternion newRotation = Quaternion.LookRotation(direction); // Creates a new rotation to face the target
-            transform.rotation = newRotation; // Applies the new rotation to the player
-        }
+            if (Physics.Raycast(ray, out hit))
+            {
+
+                Vector3 targetDirection = hit.point - transform.position;
+                targetDirection.y = 0;
+
+
+                Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+
+
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 2.0f);
+            }
+        
+
     }
 }
