@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public GameObject mainMenu; // Reference to the main menu game object
     public GameObject singleAndMultiplayerMenu; // Reference to the single and multiplayer selection menu
     public List<AudioClip> musicList = new List<AudioClip>();
-    private int musicIndex;
+    private int _musicIndex;
     public AudioSource musicAudioSource;
     public Slider volumeSlider;
     public GameObject chooseAvatarButton;
@@ -48,22 +48,22 @@ public class GameManager : MonoBehaviour
 
     public void ChooseBackgroundMusic()
     {
-        if (musicIndex == 0)
+        if (_musicIndex == 0)
         {
-            musicIndex++;
-            musicAudioSource.clip = musicList[musicIndex];
+            _musicIndex++;
+            musicAudioSource.clip = musicList[_musicIndex];
             musicAudioSource.Play();
         }
-        else if (musicIndex == 1)
+        else if (_musicIndex == 1)
         {
-            musicIndex++;
-            musicAudioSource.clip = musicList[musicIndex];
+            _musicIndex++;
+            musicAudioSource.clip = musicList[_musicIndex];
             musicAudioSource.Play();
         }
-        else if (musicIndex == 2)
+        else if (_musicIndex == 2)
         {
-            musicIndex = 0;
-            musicAudioSource.clip = musicList[musicIndex];
+            _musicIndex = 0;
+            musicAudioSource.clip = musicList[_musicIndex];
             musicAudioSource.Play();
         }
     }
