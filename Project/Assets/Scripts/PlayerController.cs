@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
         // Determines the aiming direction from the controller's right stick input
         Vector3 aimDirection = DetermineDirection(new Vector2(rightStickHorizontal, rightStickVertical));
-
+        Vector3 worldAimDirection = transform.TransformDirection(aimDirection);
         // Checks if player is moving and firing using mouse input
         if ((_combinedHorizontal != 0 || _combinedVertical != 0) && Input.GetMouseButton(0))
         {
@@ -109,13 +109,13 @@ public class PlayerController : MonoBehaviour
                 _nextFireTime = Time.time + _fireRate;
             }
         }
-        // Checks if player is not moving but aiming with controller input
-        else if ((_combinedHorizontal == 0 && _combinedVertical == 0) && (aimDirection != Vector3.zero))
+        // Checks if the player is moving and aiming with the Xbox Controller
+        else if ((_combinedHorizontal != 0 || _combinedVertical != 0) && (aimDirection != Vector3.zero))
         {
-            Vector3 worldAimDirection = transform.TransformDirection(aimDirection);
             worldAimDirection.y = 0;
             Quaternion targetRotation = Quaternion.LookRotation(worldAimDirection);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * 360);
+            Debug.Log("Line 118");
             
             // Plays appropriate firing animation based on whether the speed power-up is active
             if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
@@ -133,24 +133,46 @@ public class PlayerController : MonoBehaviour
             {
                 if (_avatar == 0)
                 {
+                    Debug.Log("Line 136");
                     animation.Play("RemyWalkingFiring");
                 }
                 else if (_avatar == 1)
                 {
+                    Debug.Log("Line 141");
                     animation.Play("ClaireWalkingFiring");
                 }
                 
             }
-
+            
+            //PlayShootingAnimation();
             // Fires a bullet if aiming direction is provided and cooldown time has passed
             if (Time.time >= _lastFireTime + _fireCooldown)
             {
-                FireBulletXbox(aimDirection);
+                Debug.Log("Line 151");
+                FireBulletXbox(worldAimDirection);
+                _lastFireTime = Time.time;
+            }
+            
+        }   
+        // Checks if player is not moving but aiming with controller input
+        else if ((_combinedHorizontal == 0 && _combinedVertical == 0) && (aimDirection != Vector3.zero))
+        {
+            
+            worldAimDirection.y = 0;
+            Quaternion targetRotation = Quaternion.LookRotation(worldAimDirection);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * 360);
+            
+            PlayShootingAnimation();
+            // Fires a bullet if aiming direction is provided and cooldown time has passed
+            if (Time.time >= _lastFireTime + _fireCooldown)
+            {
+                FireBulletXbox(worldAimDirection);
                 _lastFireTime = Time.time;
             }
         }
         else
         {
+            StopShootingAnimation();
             // Checks if player is moving without firing
             if (_combinedHorizontal != 0 || _combinedVertical != 0)
             {
@@ -203,10 +225,11 @@ public class PlayerController : MonoBehaviour
             // Handles firing animations for controller input if the player is idle
             else if (aimDirection != Vector3.zero)
             {
+                
                 PlayShootingAnimation();
                 if (Time.time >= _lastFireTime + _fireCooldown)
                 {
-                    FireBulletXbox(aimDirection);
+                    FireBulletXbox(worldAimDirection);
                     _lastFireTime = Time.time;
                 }
             }
@@ -262,41 +285,62 @@ public class PlayerController : MonoBehaviour
     }
 
   
+    // Vector3 DetermineDirection(Vector2 _stickInput)
+    // {
+    //     // If the input magnitude is below the threshold, return zero vector (no direction)
+    //     if (_stickInput.sqrMagnitude < _fireThreshold * _fireThreshold)
+    //     {
+    //         return Vector3.zero; // No firing direction if stick input is minimal
+    //     }
+    //
+    //     // Normalize the stick input to get a consistent direction
+    //     _stickInput.Normalize();
+    //
+    //     // Convert the input to an angle
+    //     float angle = Mathf.Atan2(_stickInput.y, _stickInput.x) * Mathf.Rad2Deg;
+    //
+    //     // Map the angle to a direction using a smooth and continuous approach
+    //     // Right (0°)
+    //     if (angle >= -22.5f && angle < 22.5f) return Vector3.right;
+    //     // Forward-right (45°)
+    //     else if (angle >= 22.5f && angle < 67.5f) return new Vector3(1, 0, 1).normalized;
+    //     // Forward (90°)
+    //     else if (angle >= 67.5f && angle < 112.5f) return Vector3.forward;
+    //     // Forward-left (135°)
+    //     else if (angle >= 112.5f && angle < 157.5f) return new Vector3(-1, 0, 1).normalized;
+    //     // Left (180° or -180°)
+    //     else if ((angle >= 157.5f && angle < 180f) || (angle < -157.5f && angle >= -180f))
+    //         return Vector3.left;
+    //     // Back-left (-135°)
+    //     else if (angle >= -157.5f && angle < -112.5f)
+    //         return new Vector3(-1, 0, -1).normalized;
+    //     // Backward (-90°)
+    //     else if (angle >= -112.5f && angle < -67.5f) return Vector3.back;
+    //     // Back-right (-45°)
+    //     else if (angle >= -67.5f && angle < -22.5f) return new Vector3(1, 0, -1).normalized;
+    //
+    //     return Vector3.zero; // Default case (no direction)
+    // }
+    
     Vector3 DetermineDirection(Vector2 _stickInput)
     {
-        // If the input magnitude is below the threshold, return zero vector (no direction)
         if (_stickInput.sqrMagnitude < _fireThreshold * _fireThreshold)
-        {
-            return Vector3.zero; // No firing direction if stick input is minimal
-        }
+            return Vector3.zero;
 
-        // Normalize the stick input to get a consistent direction
         _stickInput.Normalize();
-
-        // Convert the input to an angle
         float angle = Mathf.Atan2(_stickInput.y, _stickInput.x) * Mathf.Rad2Deg;
 
-        // Map the angle to a direction using a smooth and continuous approach
-        // Right (0°)
+        // Correcting direction determination to properly detect left direction
         if (angle >= -22.5f && angle < 22.5f) return Vector3.right;
-        // Forward-right (45°)
         else if (angle >= 22.5f && angle < 67.5f) return new Vector3(1, 0, 1).normalized;
-        // Forward (90°)
         else if (angle >= 67.5f && angle < 112.5f) return Vector3.forward;
-        // Forward-left (135°)
         else if (angle >= 112.5f && angle < 157.5f) return new Vector3(-1, 0, 1).normalized;
-        // Left (180° or -180°)
-        else if ((angle >= 157.5f && angle < 180f) || (angle < -157.5f && angle >= -180f))
-            return Vector3.left;
-        // Back-left (-135°)
-        else if (angle >= -157.5f && angle < -112.5f)
-            return new Vector3(-1, 0, -1).normalized;
-        // Backward (-90°)
+        else if ((angle >= 157.5f && angle <= 180f) || (angle < -157.5f && angle >= -180f)) return Vector3.left;
+        else if (angle >= -157.5f && angle < -112.5f) return new Vector3(-1, 0, -1).normalized;
         else if (angle >= -112.5f && angle < -67.5f) return Vector3.back;
-        // Back-right (-45°)
         else if (angle >= -67.5f && angle < -22.5f) return new Vector3(1, 0, -1).normalized;
 
-        return Vector3.zero; // Default case (no direction)
+        return Vector3.zero;
     }
 
     // Fires a bullet in a specific direction based on controller input
