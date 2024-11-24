@@ -112,6 +112,11 @@ public class PlayerController : MonoBehaviour
         // Checks if player is not moving but aiming with controller input
         else if ((_combinedHorizontal == 0 && _combinedVertical == 0) && (aimDirection != Vector3.zero))
         {
+            Vector3 worldAimDirection = transform.TransformDirection(aimDirection);
+            worldAimDirection.y = 0;
+            Quaternion targetRotation = Quaternion.LookRotation(worldAimDirection);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * 360);
+            
             // Plays appropriate firing animation based on whether the speed power-up is active
             if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
             {
@@ -256,30 +261,41 @@ public class PlayerController : MonoBehaviour
         
     }
 
-    // Determines the direction based on input from the right stick
+  
     Vector3 DetermineDirection(Vector2 _stickInput)
     {
-        // If the input magnitude is below the threshold, returns zero vector (no direction)
+        // If the input magnitude is below the threshold, return zero vector (no direction)
         if (_stickInput.sqrMagnitude < _fireThreshold * _fireThreshold)
         {
             return Vector3.zero; // No firing direction if stick input is minimal
         }
 
-        // Normalises the stick input to get a consistent direction
+        // Normalize the stick input to get a consistent direction
         _stickInput.Normalize();
 
-        // Converts the input angle to a direction vector for bullet firing
+        // Convert the input to an angle
         float angle = Mathf.Atan2(_stickInput.y, _stickInput.x) * Mathf.Rad2Deg;
-        if (angle >= -22.5f && angle < 22.5f) return Vector3.right; // Right direction
-        else if (angle >= 22.5f && angle < 67.5f) return new Vector3(1, 0, 1).normalized; // Diagonal right-forward
-        else if (angle >= 67.5f && angle < 112.5f) return Vector3.forward; // Forward direction
-        else if (angle >= 112.5f && angle < 157.5f) return new Vector3(-1, 0, 1).normalized; // Diagonal left-forward
-        else if ((angle >= 157.5f && angle < 180f) || (angle < -157f && angle >= -180f))
-            return Vector3.left; // Left direction
+
+        // Map the angle to a direction using a smooth and continuous approach
+        // Right (0°)
+        if (angle >= -22.5f && angle < 22.5f) return Vector3.right;
+        // Forward-right (45°)
+        else if (angle >= 22.5f && angle < 67.5f) return new Vector3(1, 0, 1).normalized;
+        // Forward (90°)
+        else if (angle >= 67.5f && angle < 112.5f) return Vector3.forward;
+        // Forward-left (135°)
+        else if (angle >= 112.5f && angle < 157.5f) return new Vector3(-1, 0, 1).normalized;
+        // Left (180° or -180°)
+        else if ((angle >= 157.5f && angle < 180f) || (angle < -157.5f && angle >= -180f))
+            return Vector3.left;
+        // Back-left (-135°)
         else if (angle >= -157.5f && angle < -112.5f)
-            return new Vector3(-1, 0, -1).normalized; // Diagonal left-backward
-        else if (angle >= -112.5f && angle < -67.5f) return Vector3.back; // Backward direction
-        else if (angle >= -67.5f && angle < -22.5f) return new Vector3(1, 0, -1).normalized; // Diagonal right-backward
+            return new Vector3(-1, 0, -1).normalized;
+        // Backward (-90°)
+        else if (angle >= -112.5f && angle < -67.5f) return Vector3.back;
+        // Back-right (-45°)
+        else if (angle >= -67.5f && angle < -22.5f) return new Vector3(1, 0, -1).normalized;
+
         return Vector3.zero; // Default case (no direction)
     }
 
@@ -393,22 +409,6 @@ public class PlayerController : MonoBehaviour
     // Handles player rotation based on the mouse cursor position
     void HandlePlayerRotation()
     {
-        // // Creates a ray from the camera to the mouse position
-        // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        // RaycastHit hit;
-        //
-        // // Performs a raycast to determine where the mouse cursor intersects with the game world
-        // if (Physics.Raycast(ray, out hit))
-        // {
-        //     // Calculates the direction from the player's position to the target hit point
-        //     Vector3 direction = (hit.point - transform.position).normalized;
-        //     direction.y = 0; // Keeps the player's rotation on the horizontal plane to avoid tilting
-        //     Quaternion newRotation = Quaternion.LookRotation(direction); // Creates a new rotation to face the target
-        //     transform.rotation = newRotation; // Applies the new rotation to the player
-        // }
-        
-        
-        
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
