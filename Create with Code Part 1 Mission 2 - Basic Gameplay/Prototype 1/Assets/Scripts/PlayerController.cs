@@ -5,27 +5,32 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // private variables
-    private float speed = 10.0f;
-    private float turnSpeed = 45.0f;
-    private float horizontalInput;
-    private float forwardInput;
+    //private float _speed = 10.0f;
+    [SerializeField] private float _horsePower = 0;
+    [SerializeField] private GameObject centerOfMass;
+    private float _turnSpeed = 45.0f;
+    private float _horizontalInput;
+    private float _verticalInput;
+    private Rigidbody _playerRb;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        _playerRb = GetComponent<Rigidbody>();
+        _playerRb.centerOfMass = centerOfMass.transform.position;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // This is where we get player input
-        horizontalInput = Input.GetAxis("Horizontal");
-        forwardInput = Input.GetAxis("Vertical");
+        _horizontalInput = Input.GetAxis("Horizontal");
+        _verticalInput = Input.GetAxis("Vertical");
 
         // Move the vehicle forward or backward
-        transform.Translate(Vector3.forward * Time.deltaTime * speed * forwardInput);
+        //transform.Translate(Vector3.forward * Time.deltaTime * speed * forwardInput);
+        _playerRb.AddRelativeForce(Vector3.forward * _verticalInput * _horsePower);
         // Turn the vehicle left or right
-        transform.Rotate(Vector3.up, turnSpeed * horizontalInput * Time.deltaTime);
+        transform.Rotate(Vector3.up, _turnSpeed * _horizontalInput * Time.deltaTime);
     }
 }
