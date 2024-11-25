@@ -97,7 +97,12 @@ public class SpawnManager : MonoBehaviour
         // Checks if all players have been eliminated
         if (_levelSpawned.GetComponent<Levels>().player.Count <= 0)
         {
+            fakeCamera.gameObject.SetActive(true);
             Invoke(nameof(LevelLoad), 1.0f); // Loads the next level after a delay of 1 second
+        }
+        else
+        {
+            
         }
     }
 

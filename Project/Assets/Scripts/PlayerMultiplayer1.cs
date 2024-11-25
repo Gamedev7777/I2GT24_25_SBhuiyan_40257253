@@ -21,6 +21,7 @@ public class PlayerMultiplayer1 : MonoBehaviour
     private Animation animation; // Reference to the Animation component of the player model
     public AudioClip fireSound;
     public GameObject remyShield;
+    private Vector3 _localMovement;
     
     void Start()
     {
@@ -38,9 +39,9 @@ public class PlayerMultiplayer1 : MonoBehaviour
 
         // Creates a new movement vector based on the player's input, normalizing for diagonal movement
         _playerMovement = new Vector3(_horizontalMovement, 0, _verticalMovement).normalized;
-
+        _localMovement = transform.TransformDirection(_playerMovement);
         // Moves the player based on the input and playerSpeed, using Time.deltaTime for frame rate independence
-        transform.GetComponent<Rigidbody>().velocity = _playerMovement * playerSpeed;
+        transform.GetComponent<Rigidbody>().velocity = _localMovement * playerSpeed;
 
         // If player is moving and holding the left mouse button, play the firing movement animation and fire bullet
         if ((_horizontalMovement != 0 || _verticalMovement != 0) && Input.GetMouseButton(0))
@@ -64,6 +65,7 @@ public class PlayerMultiplayer1 : MonoBehaviour
         }
         else // Handles different player states when not both moving and firing
         {
+            StopShootingAnimation();
             // If player is moving but not firing, plays movement animations
             if (_horizontalMovement != 0 || _verticalMovement != 0)
             {
@@ -151,20 +153,41 @@ public class PlayerMultiplayer1 : MonoBehaviour
     }
 
     // Method to handle player rotation to face the mouse cursor
+    // void HandlePlayerRotation()
+    // {
+    //     // Creates a ray from the camera to the mouse position
+    //     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //     RaycastHit hit;
+    //
+    //     // Performs a raycast to determine where the mouse cursor intersects with the game world
+    //     if (Physics.Raycast(ray, out hit))
+    //     {
+    //         // Calculates the direction from the player's position to the target hit point
+    //         Vector3 direction = (hit.point - transform.position).normalized;
+    //         direction.y = 0; // Keeps the player's rotation on the horizontal plane to avoid tilting
+    //         Quaternion newRotation = Quaternion.LookRotation(direction); // Creates a new rotation to face the target
+    //         transform.rotation = newRotation; // Applies the new rotation to the player
+    //     }
+    // }
+    
     void HandlePlayerRotation()
     {
-        // Creates a ray from the camera to the mouse position
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        // Performs a raycast to determine where the mouse cursor intersects with the game world
         if (Physics.Raycast(ray, out hit))
         {
-            // Calculates the direction from the player's position to the target hit point
-            Vector3 direction = (hit.point - transform.position).normalized;
-            direction.y = 0; // Keeps the player's rotation on the horizontal plane to avoid tilting
-            Quaternion newRotation = Quaternion.LookRotation(direction); // Creates a new rotation to face the target
-            transform.rotation = newRotation; // Applies the new rotation to the player
+
+            Vector3 targetDirection = hit.point - transform.position;
+            targetDirection.y = 0;
+
+
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+
+
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 1.75f);
         }
+        
+
     }
 }

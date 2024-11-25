@@ -46,7 +46,8 @@ public class PlayerHealth : MonoBehaviour
         if (playerShield == false)
         {
             // Reduces health by the value of damage
-            health -= damage;
+            //health -= damage;
+            health -= 10;
            
 
             // Updates the health display in the User Interface based on the player's name
@@ -80,7 +81,7 @@ public class PlayerHealth : MonoBehaviour
 
         // Sets playerDeath to true to prevent multiple calls to the Die method
         playerDeath = true;
-        SpawnManager.Instance.fakeCamera.gameObject.SetActive(true);
+        
         // Destroys the player game object
         Destroy(gameObject);
     }

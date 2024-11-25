@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip fireSound;
     public GameObject remyShield, claireShield;
     private Vector3 _localMovement;
+    
     void Start()
     {
         _avatar = PlayerPrefs.GetInt("Avatar", 0);
@@ -114,7 +115,7 @@ public class PlayerController : MonoBehaviour
             worldAimDirection.y = 0;
             Quaternion targetRotation = Quaternion.LookRotation(worldAimDirection);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * 360);
-            Debug.Log("Line 118");
+            
             
             // Plays appropriate firing animation based on whether the speed power-up is active
             if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
@@ -132,12 +133,10 @@ public class PlayerController : MonoBehaviour
             {
                 if (_avatar == 0)
                 {
-                    Debug.Log("Line 136");
                     playerAnimation.Play("RemyWalkingFiring");
                 }
                 else if (_avatar == 1)
                 {
-                    Debug.Log("Line 141");
                     playerAnimation.Play("ClaireWalkingFiring");
                 }
                 
@@ -147,7 +146,6 @@ public class PlayerController : MonoBehaviour
             // Fires a bullet if aiming direction is provided and cooldown time has passed
             if (Time.time >= _lastFireTime + _fireCooldown)
             {
-                Debug.Log("Line 151");
                 FireBulletXbox(worldAimDirection);
                 _lastFireTime = Time.time;
             }
@@ -349,7 +347,7 @@ public class PlayerController : MonoBehaviour
         
         if (_avatar == 0)
         {
-            GameObject bullet = Instantiate(bulletPrefab, remyBulletSpawnPosition.position, Quaternion.identity);
+            GameObject bullet = Instantiate(bulletPrefab, remyBulletSpawnPosition.position, remyBulletSpawnPosition.rotation);
 
             // Gets the Rigidbody component of the bullet to control its movement
             Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
@@ -365,7 +363,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (_avatar == 1)
         {
-            GameObject bullet = Instantiate(bulletPrefab, claireBulletSpawnPosition.position, Quaternion.identity);
+            GameObject bullet = Instantiate(bulletPrefab, claireBulletSpawnPosition.position, claireBulletSpawnPosition.rotation);
 
             // Gets the Rigidbody component of the bullet to control its movement
             Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();

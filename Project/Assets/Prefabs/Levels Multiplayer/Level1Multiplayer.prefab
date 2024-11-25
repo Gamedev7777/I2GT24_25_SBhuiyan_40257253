@@ -371,6 +371,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2264085105814612383}
     m_Modifications:
+    - target: {fileID: 4433730531345346193, guid: e172448055a582a48ab2c8485cd3454f, type: 3}
+      propertyPath: m_Drag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4433730531345346193, guid: e172448055a582a48ab2c8485cd3454f, type: 3}
+      propertyPath: m_Mass
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 4433730531345346193, guid: e172448055a582a48ab2c8485cd3454f, type: 3}
+      propertyPath: m_Constraints
+      value: 84
+      objectReference: {fileID: 0}
     - target: {fileID: 6803376935443222263, guid: e172448055a582a48ab2c8485cd3454f, type: 3}
       propertyPath: m_Name
       value: PlayerMultiplayer1
@@ -503,6 +515,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2264085105814612383}
     m_Modifications:
+    - target: {fileID: 162415806927950402, guid: 175e8f136dfb7f649a9b8bf8782155fa, type: 3}
+      propertyPath: m_Drag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 162415806927950402, guid: 175e8f136dfb7f649a9b8bf8782155fa, type: 3}
+      propertyPath: m_Mass
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 162415806927950402, guid: 175e8f136dfb7f649a9b8bf8782155fa, type: 3}
+      propertyPath: m_Constraints
+      value: 84
+      objectReference: {fileID: 0}
     - target: {fileID: 4097222979449223744, guid: 175e8f136dfb7f649a9b8bf8782155fa, type: 3}
       propertyPath: m_Name
       value: PlayerMultiplayer2
