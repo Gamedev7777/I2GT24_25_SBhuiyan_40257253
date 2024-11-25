@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
     // public variables
     public float playerSpeed = 5.0f; // Speed at which the player moves
     public GameObject bulletPrefab; // Bullet prefab used for shooting
-    public Animation animation; // Player's animation component
+    public Animation playerAnimation; // Player's animation component
 
     public Transform remyBulletSpawnPosition;
 
@@ -34,14 +35,12 @@ public class PlayerController : MonoBehaviour
         _avatar = PlayerPrefs.GetInt("Avatar", 0);
         if (_avatar == 0)
         {
-            animation = transform.GetChild(0).GetComponent<Animation>();
+            playerAnimation = transform.GetChild(0).GetComponent<Animation>();
         }
         else if (_avatar == 1)
         {
-            animation = transform.GetChild(1).GetComponent<Animation>();
+            playerAnimation = transform.GetChild(1).GetComponent<Animation>();
         }
-        
-        
     }
 
     // Update is called once per frame
@@ -82,11 +81,11 @@ public class PlayerController : MonoBehaviour
             {
                 if (_avatar == 0)
                 {
-                    animation.Play("RemyRunningFiring");
+                    playerAnimation.Play("RemyRunningFiring");
                 }
                 else if (_avatar == 1)
                 {
-                    animation.Play("ClaireRunningFiring");
+                    playerAnimation.Play("ClaireRunningFiring");
                 }
                 
             }
@@ -94,11 +93,11 @@ public class PlayerController : MonoBehaviour
             {
                 if (_avatar == 0)
                 {
-                    animation.Play("RemyWalkingFiring");
+                    playerAnimation.Play("RemyWalkingFiring");
                 }
                 else if (_avatar == 1)
                 {
-                    animation.Play("ClaireWalkingFiring");
+                    playerAnimation.Play("ClaireWalkingFiring");
                 }
             }
 
@@ -122,11 +121,11 @@ public class PlayerController : MonoBehaviour
             {
                 if (_avatar == 0)
                 {
-                    animation.Play("RemyRunningFiring");
+                    playerAnimation.Play("RemyRunningFiring");
                 }
                 else if (_avatar == 1)
                 {
-                    animation.Play("ClaireRunningFiring");
+                    playerAnimation.Play("ClaireRunningFiring");
                 }
             }
             else
@@ -134,12 +133,12 @@ public class PlayerController : MonoBehaviour
                 if (_avatar == 0)
                 {
                     Debug.Log("Line 136");
-                    animation.Play("RemyWalkingFiring");
+                    playerAnimation.Play("RemyWalkingFiring");
                 }
                 else if (_avatar == 1)
                 {
                     Debug.Log("Line 141");
-                    animation.Play("ClaireWalkingFiring");
+                    playerAnimation.Play("ClaireWalkingFiring");
                 }
                 
             }
@@ -181,22 +180,22 @@ public class PlayerController : MonoBehaviour
                 {
                     if (_avatar == 0)
                     {
-                        animation.Play("RemyRunning");
+                        playerAnimation.Play("RemyRunning");
                     }
                     else if (_avatar == 1)
                     {
-                        animation.Play("ClaireRunning");
+                        playerAnimation.Play("ClaireRunning");
                     }
                 }
                 else
                 {
                     if (_avatar == 0)
                     {
-                        animation.Play("RemyWalking");
+                        playerAnimation.Play("RemyWalking");
                     }
                     else if (_avatar == 1)
                     {
-                        animation.Play("ClaireWalking");
+                        playerAnimation.Play("ClaireWalking");
                     }
                 }
             }
@@ -204,11 +203,11 @@ public class PlayerController : MonoBehaviour
             {
                 if (_avatar == 0)
                 {
-                    animation.Play("RemyIdle");
+                    playerAnimation.Play("RemyIdle");
                 }
                 else if (_avatar == 1)
                 {
-                    animation.Play("ClaireIdle");
+                    playerAnimation.Play("ClaireIdle");
                 }
             }
 
@@ -249,16 +248,16 @@ public class PlayerController : MonoBehaviour
     {
         if (_avatar == 0)
         {
-            if (!animation.IsPlaying("RemyIdleFiring"))
+            if (!playerAnimation.IsPlaying("RemyIdleFiring"))
             {
-                animation.Play("RemyIdleFiring");
+                playerAnimation.Play("RemyIdleFiring");
             }
         }
         else if (_avatar == 1)
         {
-            if (!animation.IsPlaying("ClaireIdleFiring"))
+            if (!playerAnimation.IsPlaying("ClaireIdleFiring"))
             {
-                animation.Play("ClaireIdleFiring");
+                playerAnimation.Play("ClaireIdleFiring");
             }
         }
         
@@ -269,16 +268,16 @@ public class PlayerController : MonoBehaviour
     {
         if (_avatar == 0)
         {
-            if (animation.IsPlaying("RemyIdleFiring"))
+            if (playerAnimation.IsPlaying("RemyIdleFiring"))
             {
-                animation.Stop("RemyIdleFiring");
+                playerAnimation.Stop("RemyIdleFiring");
             }   
         }
         else if (_avatar == 1)
         {
-            if (animation.IsPlaying("ClaireIdleFiring"))
+            if (playerAnimation.IsPlaying("ClaireIdleFiring"))
             {
-                animation.Stop("ClaireIdleFiring");
+                playerAnimation.Stop("ClaireIdleFiring");
             }
         }
         

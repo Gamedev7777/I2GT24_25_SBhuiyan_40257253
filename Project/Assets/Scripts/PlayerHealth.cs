@@ -80,7 +80,7 @@ public class PlayerHealth : MonoBehaviour
 
         // Sets playerDeath to true to prevent multiple calls to the Die method
         playerDeath = true;
-
+        SpawnManager.Instance.fakeCamera.gameObject.SetActive(true);
         // Destroys the player game object
         Destroy(gameObject);
     }
