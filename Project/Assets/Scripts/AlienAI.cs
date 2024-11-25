@@ -58,6 +58,7 @@ public class AlienAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(target);
         // Executes behaviour based on the current state
         switch (_currentState)
         {
@@ -309,7 +310,7 @@ public class AlienAI : MonoBehaviour
             Quaternion laserRotation = Quaternion.LookRotation(laserDirection);
 
             // Plays the laser sound effect at the camera's position with 40% of the original volume
-            AudioSource.PlayClipAtPoint(laserSound, Camera.main.transform.position, 0.4f);
+            AudioSource.PlayClipAtPoint(laserSound, SpawnManager.Instance.transform.position, 0.4f);
             
             // Instantiates the laser at the alien's position with the calculated rotation
             GameObject laser = Instantiate(laserPrefab, laserSpawnPosition.position, laserRotation);
@@ -323,24 +324,26 @@ public class AlienAI : MonoBehaviour
     }
 
     // Handles trigger enter events such as when the alien detects a player
-    void OnTriggerEnter(Collider other)
-    {
-        // If the detected object is tagged as "Player"
-        if (other.gameObject.CompareTag("Player"))
-        {
-         target = other.transform.gameObject;  
-        } 
-    }
+    // void OnTriggerEnter(Collider other)
+    // {
+    //     // If the detected object is tagged as "Player"
+    //     if (other.gameObject.CompareTag("Player"))
+    //     {
+    //         Debug.Log("enter");
+    //      target = other.transform.gameObject;  
+    //     } 
+    // }
     
     
 
     // Handles trigger exit events such as when the player leaves the detection range
-    void OnTriggerExit(Collider other)
-    {
-        // If the detected object is tagged as "Player"
-        if (other.gameObject.CompareTag("Player"))
-        {
-            target = null; // Clears the target reference
-        }
-    }
+    // void OnTriggerExit(Collider other)
+    // {
+    //     // If the detected object is tagged as "Player"
+    //     if (other.gameObject.CompareTag("Player"))
+    //     {
+    //         Debug.Log("exit");
+    //         target = null; // Clears the target reference
+    //     }
+    // }
 }

@@ -67,7 +67,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4117636032803149265}
   - component: {fileID: 3683566723100486576}
-  - component: {fileID: 801707790835321428}
   - component: {fileID: 3529899634543170439}
   m_Layer: 0
   m_Name: RemyCamera
@@ -142,14 +141,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &801707790835321428
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6617536963800012382}
-  m_Enabled: 1
 --- !u!114 &3529899634543170439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,7 +211,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6984244177389880482}
   - component: {fileID: 174190788161827778}
-  - component: {fileID: 6578247486049382883}
   - component: {fileID: 2226694913571104452}
   m_Layer: 0
   m_Name: ClaireCamera
@@ -295,14 +285,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &6578247486049382883
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8932633196681266704}
-  m_Enabled: 1
 --- !u!114 &2226694913571104452
 MonoBehaviour:
   m_ObjectHideFlags: 0

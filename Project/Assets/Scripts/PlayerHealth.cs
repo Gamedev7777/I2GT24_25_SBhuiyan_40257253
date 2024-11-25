@@ -24,17 +24,17 @@ public class PlayerHealth : MonoBehaviour
         // Sets the player's health based on the difficulty mode stored in PlayerPrefs
         if (PlayerPrefs.GetInt("Mode", 0) == 0) // Easy mode
         {
-            Debug.Log("Easy " + PlayerPrefs.GetInt("Mode", 0));
+           
             health = 60; // Sets health to 60 in easy mode
         }
         else if (PlayerPrefs.GetInt("Mode", 0) == 1) // Normal mode
         {
-            Debug.Log("Normal " + PlayerPrefs.GetInt("Mode", 0));
+          
             health = 50; // Sets health to 50 in normal mode
         }
         else if (PlayerPrefs.GetInt("Mode", 0) == 2) // Hard mode
         {
-            Debug.Log("Hard " + PlayerPrefs.GetInt("Mode", 0));
+            
             health = 40; // Sets health to 40 in hard mode
         }
     }
@@ -46,8 +46,8 @@ public class PlayerHealth : MonoBehaviour
         if (playerShield == false)
         {
             // Reduces health by the value of damage
-            //health -= damage;
-            health -= 10;
+            health -= damage;
+            //health -= 10;
            
 
             // Updates the health display in the User Interface based on the player's name
@@ -63,7 +63,7 @@ public class PlayerHealth : MonoBehaviour
             // If health reaches 0 or less and the player is not already dead, calls the Die method
             if (health <= 0 && !playerDeath)
             {
-                AudioSource.PlayClipAtPoint(playerDeathSound, Camera.main.transform.position);
+                AudioSource.PlayClipAtPoint(playerDeathSound, SpawnManager.Instance.transform.position);
                 playerDeathFX.Play();
                 Invoke(nameof(Die),0.3f);
             }
@@ -84,5 +84,13 @@ public class PlayerHealth : MonoBehaviour
         
         // Destroys the player game object
         Destroy(gameObject);
+        if (Camera.main != null)
+        {
+            Camera.main.rect = new Rect(0, 0, 1, 1);
+        }
+        
+        
+        SpawnManager.Instance.AssignAlienTargetForMultiplayer();
+        
     }
 }

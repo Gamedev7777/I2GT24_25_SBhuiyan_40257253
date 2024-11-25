@@ -100,12 +100,29 @@ public class SpawnManager : MonoBehaviour
             fakeCamera.gameObject.SetActive(true);
             Invoke(nameof(LevelLoad), 1.0f); // Loads the next level after a delay of 1 second
         }
-        else
-        {
-            
-        }
     }
 
+    public void AssignAlienTargetForMultiplayer()
+    {
+        Invoke(nameof(ProcessAlienTarget), 1.0f);
+    }
+
+    void ProcessAlienTarget()
+    {
+        var aliens = FindObjectsOfType<AlienAI>();
+        
+        foreach (var alien in aliens)
+        {
+            Debug.Log("loop");
+            Debug.Log(alien);
+            alien.target = GameObject.FindGameObjectWithTag("Player");
+            Debug.Log(alien.target);
+        }
+    }
+    
+    
+    
+    
     // Loads the current level scene
     void LevelLoad()
     {
@@ -121,7 +138,7 @@ public class SpawnManager : MonoBehaviour
     // Disables the player's shield and updates the User Interface
     void DisablePlayerShield()
     {
-        AudioSource.PlayClipAtPoint(shieldDisabledSound, Camera.main.transform.position);
+        AudioSource.PlayClipAtPoint(shieldDisabledSound, transform.position);
         // Checks if the game is in single-player mode
         if (PlayerPrefs.GetInt("Controller", 0) == 0)
         {

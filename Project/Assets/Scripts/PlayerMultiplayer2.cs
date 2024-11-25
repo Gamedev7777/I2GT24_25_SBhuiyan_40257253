@@ -211,7 +211,7 @@ public class PlayerMultiplayer2 : MonoBehaviour
     // Fires a bullet in a specific direction based on controller input
     void FireBulletXbox(Vector3 _direction)
     {
-        AudioSource.PlayClipAtPoint(fireSound, Camera.main.transform.position, 0.4f);
+        AudioSource.PlayClipAtPoint(fireSound, SpawnManager.Instance.transform.position, 0.4f);
         // Instantiates the bullet prefab at the player's current position
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, bulletSpawnPosition.rotation);
 

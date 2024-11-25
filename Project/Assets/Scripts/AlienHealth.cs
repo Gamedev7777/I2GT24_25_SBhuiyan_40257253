@@ -60,8 +60,8 @@ public class AlienHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         // Reduces health by the damage amount
-        //health -= damage;
-        health -= 10;
+        health -= damage;
+        //health -= 10;
     
         // If health is zero or less and the alien is not already dead
         if (health <= 0 && !_alienDeath)
@@ -71,7 +71,7 @@ public class AlienHealth : MonoBehaviour
 
             // Updates the score text in the GameManager
             GameManager.Instance.scoreText.text = "Score: " + PlayerPrefs.GetInt("Score").ToString();
-            AudioSource.PlayClipAtPoint(alienDeathSound, Camera.main.transform.position);
+            AudioSource.PlayClipAtPoint(alienDeathSound, SpawnManager.Instance.transform.position);
             alienDeathFX.Play();
             // Calls the Die method to handle alien's death
             Invoke(nameof(Die),0.3f);

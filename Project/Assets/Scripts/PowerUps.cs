@@ -15,7 +15,7 @@ public class PowerUps : MonoBehaviour
         // Checks if the colliding object is the Player
         if (other.gameObject.tag == "Player")
         {
-            AudioSource.PlayClipAtPoint(powerUpSound, Camera.main.transform.position);
+            AudioSource.PlayClipAtPoint(powerUpSound, SpawnManager.Instance.transform.position);
             // Processes Health Power-Up
             if (gameObject.tag == "PowerUpHealth")
             {
