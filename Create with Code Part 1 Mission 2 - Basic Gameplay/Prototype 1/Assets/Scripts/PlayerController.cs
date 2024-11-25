@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float horsePower = 0;
     [SerializeField] private GameObject centerOfMass;
     [SerializeField] private TextMeshProUGUI speedometerText;
+    [SerializeField] private TextMeshProUGUI rpmText;
+    [SerializeField] private float rpm;
     private const float _turnSpeed = 45.0f;
     private float _horizontalInput;
     private float _verticalInput;
@@ -34,5 +36,7 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(Vector3.up, _turnSpeed * _horizontalInput * Time.deltaTime);
         speed = Mathf.RoundToInt(_playerRb.velocity.magnitude * 2.237f); // This shows speed in miles per hour
         speedometerText.SetText("Speed: " + speed + "mph");
+        rpm = Mathf.RoundToInt((speed % 30) * 40);
+        rpmText.SetText("RPM: " + rpm);
     }
 }
