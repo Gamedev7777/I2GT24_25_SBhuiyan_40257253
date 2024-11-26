@@ -2,19 +2,28 @@ using UnityEngine;
 
 public class AlienHealth : MonoBehaviour
 {
-    // public variable
-    // Singleton instance of the AlienHealth class
-    public static AlienHealth Instance;
+    // public variables
+    // Singleton instance of the AlienHealth class (accessible globally)
+    public static AlienHealth instance;
 
-    // private variables
-    private bool _alienDeath = false; // Tracks if the alien is already dead
-    public int health = 10; // Initial health of the alien
+    // Initial health of the alien, configurable in the inspector
+    public int health = 10;
+
+    // Particle effect to play on alien death
     public ParticleSystem alienDeathFX;
+
+    // Audio clip to play on alien death
     public AudioClip alienDeathSound;
+    
+    // private variable
+    // Tracks if the alien is already dead, to prevent duplicate death actions
+    private bool _alienDeath = false;
+
+    // Awake is called when the script instance is being loaded
     void Awake()
     {
-        // Assigns the instance of this script to the static Instance variable
-        Instance = this;
+        // Assigns the instance of this script to the static instance variable
+        instance = this;
     }
 
     // Method to set the alien's health based on the current game mode
@@ -61,7 +70,6 @@ public class AlienHealth : MonoBehaviour
     {
         // Reduces health by the damage amount
         health -= damage;
-        //health -= 10;
     
         // If health is zero or less and the alien is not already dead
         if (health <= 0 && !_alienDeath)
@@ -70,27 +78,32 @@ public class AlienHealth : MonoBehaviour
             PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + 100);
 
             // Updates the score text in the GameManager
-            GameManager.Instance.scoreText.text = "Score: " + PlayerPrefs.GetInt("Score").ToString();
-            AudioSource.PlayClipAtPoint(alienDeathSound, SpawnManager.Instance.transform.position);
+            GameManager.instance.scoreText.text = "Score: " + PlayerPrefs.GetInt("Score").ToString();
+
+            // Plays the death sound at the SpawnManager's position
+            AudioSource.PlayClipAtPoint(alienDeathSound, SpawnManager.instance.transform.position);
+
+            // Plays the death particle effect
             alienDeathFX.Play();
-            // Calls the Die method to handle alien's death
-            Invoke(nameof(Die),0.3f);
+
+            // Calls the Die method to handle alien's death after a slight delay
+            Invoke(nameof(Die), 0.3f);
         }
     }
 
     // Method to handle the death of the alien
     void Die()
     {
-        // Sets the alien's death status to true
+        // Sets the alien's death status to true to avoid duplicate death processing
         _alienDeath = true;
 
         // Removes the alien from the list of active aliens in the SpawnManager
-        SpawnManager.Instance.alienList.Remove(gameObject);
+        SpawnManager.instance.alienList.Remove(gameObject);
 
         // Calls the LevelComplete method from the SpawnManager to check if the level is complete
-        SpawnManager.Instance.LevelComplete();
+        SpawnManager.instance.LevelComplete();
 
-        // Destroys the alien game object
+        // Destroys the alien game object, removing it from the game
         Destroy(gameObject);
     }
 }

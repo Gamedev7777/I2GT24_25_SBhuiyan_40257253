@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
+    // public variable
     public int laserDamage; // Damage value of the laser
 
     // This method handles what happens when the laser hits various objects
@@ -22,7 +23,7 @@ public class Laser : MonoBehaviour
             // Destroys the laser when it hits a wall so it does not pass through it
             Destroy(gameObject);
         }
-        // Checks if the laser has hit a power-up
+        // Checks if the laser has hit a power-up (speed, shield, or health)
         else if ((other.CompareTag("PowerUpSpeed") || other.CompareTag("PowerUpShield")) ||
                  other.CompareTag("PowerUpHealth"))
         {

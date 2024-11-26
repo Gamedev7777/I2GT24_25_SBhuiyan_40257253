@@ -20,9 +20,9 @@ public class AlienAI : MonoBehaviour
     public GameObject target; // Reference to the target transform which is the player
     public float chaseDistance = 10.0f; // Distance within which the alien starts chasing the target
     public float attackDistance = 30.0f; // Distance within which the alien starts attacking the target
-    public GameObject laserPrefab; // Prefab for the laser
-    public Transform laserSpawnPosition;
-    public AudioClip laserSound;
+    public GameObject laserPrefab; // Prefab for the laser projectile
+    public Transform laserSpawnPosition; // Position from which the laser will be fired
+    public AudioClip laserSound; // Sound clip to be played when the laser is fired
 
     // Private variables
     private AlienAIstate _currentState = AlienAIstate.idle; // Current state of the alien
@@ -51,14 +51,16 @@ public class AlienAI : MonoBehaviour
         // Gets the NavMeshAgent component attached to the alien for navigation
         aiNavMeshAgent = GetComponent<NavMeshAgent>();
 
-        // Initializes the fire timer with the interval value
+        // Initialises the fire timer with the interval value
         _fireTimer = _fireInterval;
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Logs the target object for debugging purposes
         Debug.Log(target);
+
         // Executes behaviour based on the current state
         switch (_currentState)
         {
@@ -184,13 +186,7 @@ public class AlienAI : MonoBehaviour
         if (distanceToTarget <= attackDistance)
         {
             _currentState = AlienAIstate.attack; // Switches to attack state
-            return;
         }
-        // If the target moves out of the chase distance, transitions back to patrol state
-        // else if (distanceToTarget > chaseDistance)
-        // {
-        //     _currentState = AlienAIstate.patrol; // Switches to patrol state
-        // }
     }
 
     // Handles the attack state behaviour
@@ -203,15 +199,17 @@ public class AlienAI : MonoBehaviour
             _currentState = AlienAIstate.patrol;
             return;
         }
+
+        // Calculates the direction to the target for rotation and attack
         Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
+
         // Checks for direct line of sight to the player using a raycast
         RaycastHit hit;
-        
         if (Physics.Raycast(transform.position, directionToTarget, out hit))
         {
             if (hit.collider.gameObject != target)
             {
-                // If there is no direct line of sight, transition back to chase state
+                // If there is no direct line of sight, transitions back to chase state
                 _currentState = AlienAIstate.chase;
                 return;
             }
@@ -310,7 +308,7 @@ public class AlienAI : MonoBehaviour
             Quaternion laserRotation = Quaternion.LookRotation(laserDirection);
 
             // Plays the laser sound effect at the camera's position with 40% of the original volume
-            AudioSource.PlayClipAtPoint(laserSound, SpawnManager.Instance.transform.position, 0.4f);
+            AudioSource.PlayClipAtPoint(laserSound, SpawnManager.instance.transform.position, 0.4f);
             
             // Instantiates the laser at the alien's position with the calculated rotation
             GameObject laser = Instantiate(laserPrefab, laserSpawnPosition.position, laserRotation);
@@ -322,28 +320,4 @@ public class AlienAI : MonoBehaviour
             laserRb.velocity = laserDirection * _laserSpeed;
         }
     }
-
-    // Handles trigger enter events such as when the alien detects a player
-    // void OnTriggerEnter(Collider other)
-    // {
-    //     // If the detected object is tagged as "Player"
-    //     if (other.gameObject.CompareTag("Player"))
-    //     {
-    //         Debug.Log("enter");
-    //      target = other.transform.gameObject;  
-    //     } 
-    // }
-    
-    
-
-    // Handles trigger exit events such as when the player leaves the detection range
-    // void OnTriggerExit(Collider other)
-    // {
-    //     // If the detected object is tagged as "Player"
-    //     if (other.gameObject.CompareTag("Player"))
-    //     {
-    //         Debug.Log("exit");
-    //         target = null; // Clears the target reference
-    //     }
-    // }
 }

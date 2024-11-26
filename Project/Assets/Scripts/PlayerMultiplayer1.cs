@@ -1,16 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMultiplayer1 : MonoBehaviour
 {
     // Public variables
-    public float playerSpeed = 5.0f; // Speed at which the player moves
+    public float playerSpeed = 6.0f; // Speed at which the player moves
     public GameObject bulletPrefab; // Bullet prefab used for shooting
-    public Transform bulletSpawnPosition;
-    public LayerMask groundLayer;
-    public AudioClip fireSound;
-    public GameObject remyShield;
+    public Transform bulletSpawnPosition; // Position from where the bullet is fired
+    public LayerMask groundLayer; // Layer mask for ground to detect player rotation
+    public AudioClip fireSound; // Audio clip played when firing a bullet
+    public GameObject remyShield; // Shield object
+
     // Private variables
     private float _horizontalMovement; // Stores horizontal movement input from player
     private float _verticalMovement; // Stores vertical movement input from player
@@ -20,10 +19,10 @@ public class PlayerMultiplayer1 : MonoBehaviour
     private float _fireCooldown = 0.5f; // Cooldown time between firing bullets
     private float _lastFireTime; // Tracks the time of the last fired bullet
     private float _nextFireTime = 0.1f; // Time when the player can next fire
-    private float _fireRate = 0.2f; // Rate at which bullets can be fired
+    private float _fireRate = 0.1f; // Rate at which bullets can be fired
     private Animation animation; // Reference to the Animation component of the player model
-    private Vector3 _localMovement;
-    
+    private Vector3 _localMovement; // Player's movement relative to their current rotation
+
     void Start()
     {
         // Gets the Animation component from the player's child GameObject
@@ -40,7 +39,9 @@ public class PlayerMultiplayer1 : MonoBehaviour
 
         // Creates a new movement vector based on the player's input, normalizing for diagonal movement
         _playerMovement = new Vector3(_horizontalMovement, 0, _verticalMovement).normalized;
+        // Converts the movement to be relative to the player's current rotation
         _localMovement = transform.TransformDirection(_playerMovement);
+
         // Moves the player based on the input and playerSpeed, using Time.deltaTime for frame rate independence
         transform.GetComponent<Rigidbody>().velocity = _localMovement * playerSpeed;
 
@@ -61,7 +62,7 @@ public class PlayerMultiplayer1 : MonoBehaviour
             if (Time.time >= _nextFireTime)
             {
                 FireBullet(); // Calls the function to fire a bullet  
-                _nextFireTime = Time.time + _fireRate;
+                _nextFireTime = Time.time + _fireRate; // Updates the next time the player can fire
             }
         }
         else // Handles different player states when not both moving and firing
@@ -92,7 +93,7 @@ public class PlayerMultiplayer1 : MonoBehaviour
                 if (Time.time >= _nextFireTime)
                 {
                     FireBullet(); // Calls the function to fire a bullet
-                    _nextFireTime = Time.time + _fireRate;
+                    _nextFireTime = Time.time + _fireRate; // Updates the next time the player can fire
                 }
             }
             else
@@ -118,6 +119,7 @@ public class PlayerMultiplayer1 : MonoBehaviour
     // Method to stop the shooting animation when player stops firing
     void StopShootingAnimation()
     {
+        // Stops the shooting animation if it is currently playing
         if (animation.IsPlaying("RemyIdleFiring"))
         {
            animation.Stop("RemyIdleFiring");
@@ -127,7 +129,9 @@ public class PlayerMultiplayer1 : MonoBehaviour
     // Method to fire a bullet from the player's position
     void FireBullet()
     {
-        AudioSource.PlayClipAtPoint(fireSound, SpawnManager.Instance.transform.position, 0.4f);
+        // Plays the fire sound effect at the position of the SpawnManager
+        AudioSource.PlayClipAtPoint(fireSound, SpawnManager.instance.transform.position, 0.4f);
+        
         // Instantiates the bullet prefab at the player's current position
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, bulletSpawnPosition.rotation);
 
@@ -153,42 +157,27 @@ public class PlayerMultiplayer1 : MonoBehaviour
         Destroy(bullet, 1.0f);
     }
 
-    // Method to handle player rotation to face the mouse cursor
-    // void HandlePlayerRotation()
-    // {
-    //     // Creates a ray from the camera to the mouse position
-    //     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //     RaycastHit hit;
-    //
-    //     // Performs a raycast to determine where the mouse cursor intersects with the game world
-    //     if (Physics.Raycast(ray, out hit))
-    //     {
-    //         // Calculates the direction from the player's position to the target hit point
-    //         Vector3 direction = (hit.point - transform.position).normalized;
-    //         direction.y = 0; // Keeps the player's rotation on the horizontal plane to avoid tilting
-    //         Quaternion newRotation = Quaternion.LookRotation(direction); // Creates a new rotation to face the target
-    //         transform.rotation = newRotation; // Applies the new rotation to the player
-    //     }
-    // }
-    
+    // Method to handle the player's rotation towards the mouse cursor
     void HandlePlayerRotation()
     {
+        // Creates a ray from the camera to the mouse position
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
+        // Checks if the ray hits a point on the ground layer
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
         {
-
+            // Calculates the direction from the player to the point hit by the ray
             Vector3 targetDirection = hit.point - transform.position;
-            targetDirection.y = 0;
+            targetDirection.y = 0; // Ensures the rotation remains only on the horizontal plane
 
+            // If the target direction is significant, rotate towards it
             if (targetDirection.magnitude > 0.1f)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+                // Smoothly rotates the player towards the target direction
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 1.6f);
             }
         }
-        
-
     }
 }

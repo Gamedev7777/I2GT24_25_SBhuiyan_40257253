@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
@@ -7,10 +6,12 @@ public class PlayerController : MonoBehaviour
     public float playerSpeed = 5.0f; // Speed at which the player moves
     public GameObject bulletPrefab; // Bullet prefab used for shooting
     public Animation playerAnimation; // Player's animation component
-
-    public Transform remyBulletSpawnPosition;
-    public LayerMask groundLayer;
-    public Transform claireBulletSpawnPosition;
+    public Transform remyBulletSpawnPosition; // Position where Remy's bullet is spawned
+    public LayerMask groundLayer; // Layer mask for detecting ground collision during aiming
+    public Transform claireBulletSpawnPosition; // Position where Claire's bullet is spawned
+    public AudioClip fireSound; // Sound effect played when firing a bullet
+    public GameObject remyShield, claireShield; // GameObjects representing shields for Remy and Claire
+    
     // private variables
     private float _horizontalMovementKeyboard; // Horizontal movement input from keyboard
     private float _verticalMovementKeyboard; // Vertical movement input from keyboard
@@ -18,28 +19,26 @@ public class PlayerController : MonoBehaviour
     private float _verticalMovementXbox; // Vertical movement input from Xbox controller
     private Vector3 _playerMovement; // Player movement vector
     private float _bulletSpeed = 30.0f; // Speed at which the bullet moves
-
-    private float
-        _fireThreshold = 0.1f; // Threshold value for firing using controller (to prevent unintentional small movements)
-
+    private float _fireThreshold = 0.1f; // Threshold value for firing using controller (to prevent unintentional small movements)
     private float _fireCooldown = 0.2f; // Cooldown time between firing bullets for controller input
     private float _lastFireTime; // Tracks the time of the last fired bullet using controller
     private float _nextFireTime = 0.1f; // Tracks the time when the player can fire the next bullet using mouse input
-    private float _fireRate = 0.2f; // Fire rate used for mouse input firing
-    private int _avatar;
-    public AudioClip fireSound;
-    public GameObject remyShield, claireShield;
-    private Vector3 _localMovement;
-    
+    private float _fireRate = 0.1f; // Fire rate used for mouse input firing
+    private int _avatar; // Stores the current avatar type (0 for Remy, 1 for Claire)
+    private Vector3 _localMovement; // Local player movement direction based on player's transform
+
     void Start()
     {
+        // Load the selected avatar from PlayerPrefs, default to Remy (0)
         _avatar = PlayerPrefs.GetInt("Avatar", 0);
         if (_avatar == 0)
         {
+            // Get the animation component for Remy
             playerAnimation = transform.GetChild(0).GetComponent<Animation>();
         }
         else if (_avatar == 1)
         {
+            // Get the animation component for Claire
             playerAnimation = transform.GetChild(1).GetComponent<Animation>();
         }
     }
@@ -74,6 +73,7 @@ public class PlayerController : MonoBehaviour
         // Determines the aiming direction from the controller's right stick input
         Vector3 aimDirection = DetermineDirection(new Vector2(rightStickHorizontal, rightStickVertical));
         Vector3 worldAimDirection = transform.TransformDirection(aimDirection);
+
         // Checks if player is moving and firing using mouse input
         if ((_combinedHorizontal != 0 || _combinedVertical != 0) && Input.GetMouseButton(0))
         {
@@ -88,7 +88,6 @@ public class PlayerController : MonoBehaviour
                 {
                     playerAnimation.Play("ClaireRunningFiring");
                 }
-                
             }
             else
             {
@@ -112,11 +111,10 @@ public class PlayerController : MonoBehaviour
         // Checks if the player is moving and aiming with the Xbox Controller
         else if ((_combinedHorizontal != 0 || _combinedVertical != 0) && (aimDirection != Vector3.zero))
         {
-            worldAimDirection.y = 0;
+            worldAimDirection.y = 0; // Keeps the aiming direction on the horizontal plane
             Quaternion targetRotation = Quaternion.LookRotation(worldAimDirection);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * 360);
-            
-            
+
             // Plays appropriate firing animation based on whether the speed power-up is active
             if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
             {
@@ -139,27 +137,24 @@ public class PlayerController : MonoBehaviour
                 {
                     playerAnimation.Play("ClaireWalkingFiring");
                 }
-                
             }
-            
-            //PlayShootingAnimation();
+
             // Fires a bullet if aiming direction is provided and cooldown time has passed
             if (Time.time >= _lastFireTime + _fireCooldown)
             {
                 FireBulletXbox(worldAimDirection);
                 _lastFireTime = Time.time;
             }
-            
-        }   
+        }
         // Checks if player is not moving but aiming with controller input
         else if ((_combinedHorizontal == 0 && _combinedVertical == 0) && (aimDirection != Vector3.zero))
         {
-            
-            worldAimDirection.y = 0;
+            worldAimDirection.y = 0; // Keeps the aiming direction on the horizontal plane
             Quaternion targetRotation = Quaternion.LookRotation(worldAimDirection);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * 360);
-            
+
             PlayShootingAnimation();
+
             // Fires a bullet if aiming direction is provided and cooldown time has passed
             if (Time.time >= _lastFireTime + _fireCooldown)
             {
@@ -170,6 +165,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             StopShootingAnimation();
+
             // Checks if player is moving without firing
             if (_combinedHorizontal != 0 || _combinedVertical != 0)
             {
@@ -199,6 +195,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                // Play idle animation when player is not moving
                 if (_avatar == 0)
                 {
                     playerAnimation.Play("RemyIdle");
@@ -222,7 +219,6 @@ public class PlayerController : MonoBehaviour
             // Handles firing animations for controller input if the player is idle
             else if (aimDirection != Vector3.zero)
             {
-                
                 PlayShootingAnimation();
                 if (Time.time >= _lastFireTime + _fireCooldown)
                 {
@@ -237,8 +233,8 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // Handles player rotation to face the aiming direction, either by mouse or controller input
-       HandlePlayerRotation();
+        // Handles player rotation to face the aiming direction, either by mouse or Xbox controller input
+        HandlePlayerRotation();
     }
 
     // Plays the shooting animation if it is not already playing
@@ -258,7 +254,6 @@ public class PlayerController : MonoBehaviour
                 playerAnimation.Play("ClaireIdleFiring");
             }
         }
-        
     }
 
     // Stops the shooting animation if it is playing
@@ -269,7 +264,7 @@ public class PlayerController : MonoBehaviour
             if (playerAnimation.IsPlaying("RemyIdleFiring"))
             {
                 playerAnimation.Stop("RemyIdleFiring");
-            }   
+            }
         }
         else if (_avatar == 1)
         {
@@ -278,47 +273,9 @@ public class PlayerController : MonoBehaviour
                 playerAnimation.Stop("ClaireIdleFiring");
             }
         }
-        
     }
 
-  
-    // Vector3 DetermineDirection(Vector2 _stickInput)
-    // {
-    //     // If the input magnitude is below the threshold, return zero vector (no direction)
-    //     if (_stickInput.sqrMagnitude < _fireThreshold * _fireThreshold)
-    //     {
-    //         return Vector3.zero; // No firing direction if stick input is minimal
-    //     }
-    //
-    //     // Normalize the stick input to get a consistent direction
-    //     _stickInput.Normalize();
-    //
-    //     // Convert the input to an angle
-    //     float angle = Mathf.Atan2(_stickInput.y, _stickInput.x) * Mathf.Rad2Deg;
-    //
-    //     // Map the angle to a direction using a smooth and continuous approach
-    //     // Right (0°)
-    //     if (angle >= -22.5f && angle < 22.5f) return Vector3.right;
-    //     // Forward-right (45°)
-    //     else if (angle >= 22.5f && angle < 67.5f) return new Vector3(1, 0, 1).normalized;
-    //     // Forward (90°)
-    //     else if (angle >= 67.5f && angle < 112.5f) return Vector3.forward;
-    //     // Forward-left (135°)
-    //     else if (angle >= 112.5f && angle < 157.5f) return new Vector3(-1, 0, 1).normalized;
-    //     // Left (180° or -180°)
-    //     else if ((angle >= 157.5f && angle < 180f) || (angle < -157.5f && angle >= -180f))
-    //         return Vector3.left;
-    //     // Back-left (-135°)
-    //     else if (angle >= -157.5f && angle < -112.5f)
-    //         return new Vector3(-1, 0, -1).normalized;
-    //     // Backward (-90°)
-    //     else if (angle >= -112.5f && angle < -67.5f) return Vector3.back;
-    //     // Back-right (-45°)
-    //     else if (angle >= -67.5f && angle < -22.5f) return new Vector3(1, 0, -1).normalized;
-    //
-    //     return Vector3.zero; // Default case (no direction)
-    // }
-    
+    // Determines the direction for aiming based on controller stick input
     Vector3 DetermineDirection(Vector2 _stickInput)
     {
         if (_stickInput.sqrMagnitude < _fireThreshold * _fireThreshold)
@@ -343,11 +300,13 @@ public class PlayerController : MonoBehaviour
     // Fires a bullet in a specific direction based on controller input
     void FireBulletXbox(Vector3 _direction)
     {
-        AudioSource.PlayClipAtPoint(fireSound, SpawnManager.Instance.transform.position, 0.4f);
-        
+        AudioSource.PlayClipAtPoint(fireSound, SpawnManager.instance.transform.position, 0.4f);
+
         if (_avatar == 0)
         {
-            GameObject bullet = Instantiate(bulletPrefab, remyBulletSpawnPosition.position, remyBulletSpawnPosition.rotation);
+            // Instantiates the bullet prefab at Remy's spawn position
+            GameObject bullet = Instantiate(bulletPrefab, remyBulletSpawnPosition.position,
+                remyBulletSpawnPosition.rotation);
 
             // Gets the Rigidbody component of the bullet to control its movement
             Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
@@ -358,12 +317,14 @@ public class PlayerController : MonoBehaviour
                 bulletRb.velocity = _direction * _bulletSpeed;
             }
 
-            // Destroys the bullet after 1 second to avoid cluttering the scene with unused bullets
-            Destroy(bullet, 1.0f);   
+            // Destroys the bullet after 0.5 second to avoid cluttering the scene with unused bullets
+            Destroy(bullet, 0.5f);
         }
         else if (_avatar == 1)
         {
-            GameObject bullet = Instantiate(bulletPrefab, claireBulletSpawnPosition.position, claireBulletSpawnPosition.rotation);
+            // Instantiates the bullet prefab at Claire's spawn position
+            GameObject bullet = Instantiate(bulletPrefab, claireBulletSpawnPosition.position,
+                claireBulletSpawnPosition.rotation);
 
             // Gets the Rigidbody component of the bullet to control its movement
             Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
@@ -374,25 +335,23 @@ public class PlayerController : MonoBehaviour
                 bulletRb.velocity = _direction * _bulletSpeed;
             }
 
-            // Destroys the bullet after 1 second to avoid cluttering the scene with unused bullets
-            Destroy(bullet, 1.0f);
+            // Destroys the bullet after 0.5 second to avoid cluttering the scene with unused bullets
+            Destroy(bullet, 0.5f);
         }
-        
-        // Instantiates the bullet prefab at the player's current position
         
     }
 
     // Fires a bullet from the player's position using mouse input
     void FireBullet()
     {
-        AudioSource.PlayClipAtPoint(fireSound, SpawnManager.Instance.transform.position, 0.4f);
-        
-        
+        AudioSource.PlayClipAtPoint(fireSound, SpawnManager.instance.transform.position, 0.4f);
+
         if (_avatar == 0)
         {
-            // Instantiates the bullet prefab at the player's current position
-            GameObject bullet = Instantiate(bulletPrefab, remyBulletSpawnPosition.position, remyBulletSpawnPosition.rotation);
-         
+            // Instantiates the bullet prefab at Remy's spawn position
+            GameObject bullet = Instantiate(bulletPrefab, remyBulletSpawnPosition.position,
+                remyBulletSpawnPosition.rotation);
+
             // Gets the Rigidbody component of the bullet to control its movement
             Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
             if (bulletRb != null)
@@ -410,12 +369,15 @@ public class PlayerController : MonoBehaviour
                     bulletRb.velocity = direction * _bulletSpeed;
                 }
             }
-            Destroy(bullet, 1.0f);
 
+            // Destroys the bullet after 0.5 second to avoid cluttering the scene with unused bullets
+            Destroy(bullet, 0.5f);
         }
         else if (_avatar == 1)
         {
-            GameObject bullet = Instantiate(bulletPrefab, claireBulletSpawnPosition.position, claireBulletSpawnPosition.rotation);
+            // Instantiates the bullet prefab at Claire's spawn position
+            GameObject bullet = Instantiate(bulletPrefab, claireBulletSpawnPosition.position,
+                claireBulletSpawnPosition.rotation);
             // Gets the Rigidbody component of the bullet to control its movement
             Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
             if (bulletRb != null)
@@ -433,39 +395,31 @@ public class PlayerController : MonoBehaviour
                     bulletRb.velocity = direction * _bulletSpeed;
                 }
             }
-            Destroy(bullet, 1.0f);
-            
+
+            // Destroys the bullet after 0.5 second to avoid cluttering the scene with unused bullets
+            Destroy(bullet, 0.5f);
         }
-        
-        
-        
-        
-
-        
-
-        // Destroys the bullet after 1 second to avoid cluttering the scene with unused bullets
-        
     }
 
     // Handles player rotation based on the mouse cursor position
     void HandlePlayerRotation()
     {
+        // Casts a ray from the camera to the mouse cursor position to determine aiming direction
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
         {
-
+            // Calculate the direction from the player's position to the hit point
             Vector3 targetDirection = hit.point - transform.position;
-            targetDirection.y = 0;
+            targetDirection.y = 0; // Keep the direction on the horizontal plane
 
             if (targetDirection.magnitude > 0.1f)
             {
+                // Set the player's rotation smoothly to face the target direction
                 Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 1.6f);
             }
         }
-        
-
     }
 }

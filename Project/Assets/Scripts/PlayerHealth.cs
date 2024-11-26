@@ -1,17 +1,15 @@
-using System;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    // public variables
-    public bool playerDeath = false; // Variable to check if the player is dead
+    // Public variables
+    public bool playerDeath = false; // Variable to indicate if the player is dead
+    public static PlayerHealth instance; // Static instance of the PlayerHealth class for easy access
+    public bool playerShield = false; // Variable to indicate if the player's shield is active
+    [HideInInspector] public int health; // The player's current health (initial value set in SetPlayerHealth)
+    public ParticleSystem playerDeathFX; // Particle system effect for player death
+    public AudioClip playerDeathSound; // Audio clip to play when the player dies
 
-    public static PlayerHealth instance; // Creates a static instance of the PlayerHealth class to access its properties from other classes
-
-    public bool playerShield = false; // Variable to check if the player shield is active
-    [HideInInspector] public int health; // Sets the initial health of the player
-    public ParticleSystem playerDeathFX;
-    public AudioClip playerDeathSound;
     void Awake()
     {
         // Assigns the current instance of this script to the static instance variable
@@ -24,17 +22,14 @@ public class PlayerHealth : MonoBehaviour
         // Sets the player's health based on the difficulty mode stored in PlayerPrefs
         if (PlayerPrefs.GetInt("Mode", 0) == 0) // Easy mode
         {
-           
             health = 60; // Sets health to 60 in easy mode
         }
         else if (PlayerPrefs.GetInt("Mode", 0) == 1) // Normal mode
         {
-          
             health = 50; // Sets health to 50 in normal mode
         }
         else if (PlayerPrefs.GetInt("Mode", 0) == 2) // Hard mode
         {
-            
             health = 40; // Sets health to 40 in hard mode
         }
     }
@@ -47,25 +42,28 @@ public class PlayerHealth : MonoBehaviour
         {
             // Reduces health by the value of damage
             health -= damage;
-            //health -= 10;
-           
 
             // Updates the health display in the User Interface based on the player's name
             if (gameObject.name == "Player" || gameObject.name == "PlayerMultiplayer1")
             {
-                GameManager.Instance.playerHealthText.text = "Player 1 Health: " + health.ToString();
+                GameManager.instance.playerHealthText.text = "Player 1 Health: " + health.ToString();
             }
             else if (gameObject.name == "PlayerMultiplayer2")
             {
-                GameManager.Instance.playerHealthText2.text = "Player 2 Health: " + health.ToString();
+                GameManager.instance.playerHealthText2.text = "Player 2 Health: " + health.ToString();
             }
 
             // If health reaches 0 or less and the player is not already dead, calls the Die method
             if (health <= 0 && !playerDeath)
             {
-                AudioSource.PlayClipAtPoint(playerDeathSound, SpawnManager.Instance.transform.position);
+                // Plays the player death sound at the SpawnManager's position
+                AudioSource.PlayClipAtPoint(playerDeathSound, SpawnManager.instance.transform.position);
+
+                // Plays the particle effect for player death
                 playerDeathFX.Play();
-                Invoke(nameof(Die),0.3f);
+
+                // Calls the Die method after a delay of 0.3 seconds
+                Invoke(nameof(Die), 0.3f);
             }
         }
     }
@@ -74,23 +72,24 @@ public class PlayerHealth : MonoBehaviour
     void Die()
     {
         // Removes the player from the list of active players in the level
-        SpawnManager.Instance._levelSpawned.GetComponent<Levels>().player.Remove(gameObject);
-        
+        SpawnManager.instance._levelSpawned.GetComponent<Levels>().player.Remove(gameObject);
+
         // Loads the next level or handles level restart in the SpawnManager
-        SpawnManager.Instance.GameOver();
+        SpawnManager.instance.GameOver();
 
         // Sets playerDeath to true to prevent multiple calls to the Die method
         playerDeath = true;
-        
+
         // Destroys the player game object
         Destroy(gameObject);
+
+        // Resets the main camera's viewport if it is not null
         if (Camera.main != null)
         {
             Camera.main.rect = new Rect(0, 0, 1, 1);
         }
-        
-        
-        SpawnManager.Instance.AssignAlienTargetForMultiplayer();
-        
+
+        // Assigns a new target for alien enemies in multiplayer mode
+        SpawnManager.instance.AssignAlienTargetForMultiplayer();
     }
 }

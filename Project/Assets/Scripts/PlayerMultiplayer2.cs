@@ -1,28 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMultiplayer2 : MonoBehaviour
 {
     // public variables
-    public float playerSpeed = 5.0f; // Speed at which the player moves
+    public float playerSpeed = 6.0f; // Speed at which the player moves
     public GameObject bulletPrefab; // Bullet prefab used for shooting
-    public Transform bulletSpawnPosition;
+    public Transform bulletSpawnPosition; // Position from where the bullet will spawn
+    public GameObject claireShield; // Shield for the player, not currently used in this script
+    public AudioClip fireSound; // Sound effect played when firing
 
-    public AudioClip fireSound;
     // private variables
     private float _horizontalMovement; // Horizontal movement input
     private float _verticalMovement; // Vertical movement input
     private Vector3 _playerMovement; // Player movement vector
     private float _bulletSpeed = 30.0f; // Speed at which the bullet moves
     private float _fireThreshold = 0.1f; // Threshold value for firing
-    private float _fireCooldown = 0.2f; // Cooldown time between firing bullets
+    private float _fireCooldown = 0.1f; // Cooldown time between firing bullets
     private float _lastFireTime; // Tracks the time of the last fired bullet
     private Animation animation; // Player animation component
-    
-    public GameObject claireShield;
-    private Vector3 _localMovement;
-    
+    private Vector3 _localMovement; // Player movement in local space
+
     void Start()
     {
         // Gets the Animation component attached to the player's child object
@@ -52,19 +49,20 @@ public class PlayerMultiplayer2 : MonoBehaviour
         // Determines if the player is both moving and aiming, and handles animation and firing
         if ((_horizontalMovement != 0 && _verticalMovement != 0) && (aimDirection != Vector3.zero))
         {
+            // Keeps the aim direction aligned on the horizontal plane
             worldAimDirection.y = 0;
             Quaternion targetRotation = Quaternion.LookRotation(worldAimDirection);
+            // Rotates the player towards the aim direction
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * 360);
-           
-            
+
             // Checks if the speed power-up is active and plays appropriate animation
             if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
             {
-                animation.Play("ClaireRunningFiring");
+                animation.Play("ClaireRunningFiring"); // Plays running while firing animation
             }
             else
             {
-               animation.Play("ClaireWalkingFiring");
+                animation.Play("ClaireWalkingFiring"); // Plays walking while firing animation
             }
 
             // Fires a bullet if aiming direction is provided and cooldown time has passed
@@ -82,27 +80,29 @@ public class PlayerMultiplayer2 : MonoBehaviour
                 // Checks if the speed power-up is active and plays appropriate animation
                 if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
                 {
-                    animation.Play("ClaireRunning");
+                    animation.Play("ClaireRunning"); // Plays running animation
                 }
                 else
                 {
-                    animation.Play("ClaireWalking");
+                    animation.Play("ClaireWalking"); // Plays walking animation
                 }
             }
             else
             {
                 // Player is idle
-                animation.Play("ClaireIdle");
+                animation.Play("ClaireIdle"); // Plays idle animation
             }
 
             // Handles firing when the player is stationary or just aiming
             if (aimDirection != Vector3.zero)
             {
+                // Keeps the aim direction aligned on the horizontal plane
                 worldAimDirection.y = 0;
                 Quaternion targetRotation = Quaternion.LookRotation(worldAimDirection);
+                // Rotates the player towards the aim direction
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * 360);
-                
-                
+
+                // Plays shooting animation if aiming
                 PlayShootingAnimation();
                 if (Time.time >= _lastFireTime + _fireCooldown)
                 {
@@ -112,39 +112,19 @@ public class PlayerMultiplayer2 : MonoBehaviour
             }
             else
             {
+                // Stops shooting animation if not aiming
                 StopShootingAnimation();
             }
         }
-
-        // Handles the rotation of the player based on movement or aiming direction
-        //HandlePlayerRotation();
     }
-
-    // Rotates the player to face the movement or aiming direction
-    // void HandlePlayerRotation()
-    // {
-    //     Vector3 direction;
-    //     if (aimDirection != Vector3.zero)
-    //     {
-    //         direction = aimDirection.normalized;
-    //     }
-    //     else
-    //     {
-    //         direction = _playerMovement;
-    //     }
-    //
-    //     direction.y = 0; // Keeps the player's rotation on the horizontal plane to avoid tilting
-    //     Quaternion newRotation = Quaternion.LookRotation(direction); // Creates a new rotation to face the target
-    //     transform.rotation = newRotation; // Applies the new rotation to the player
-    // }
 
     // Plays the shooting animation if it is not already playing
     void PlayShootingAnimation()
     {
         if (!animation.IsPlaying("ClaireIdleFiring"))
         {
-            Debug.Log("Shooting");
-            animation.Play("ClaireIdleFiring");
+            Debug.Log("Shooting"); // Logs shooting status
+            animation.Play("ClaireIdleFiring"); // Plays idle firing animation
         }
     }
 
@@ -153,41 +133,14 @@ public class PlayerMultiplayer2 : MonoBehaviour
     {
         if (animation.IsPlaying("ClaireIdleFiring"))
         {
-            Debug.Log("Not Shooting");
-            animation.Stop("ClaireIdleFiring");
+            animation.Stop("ClaireIdleFiring"); // Stops idle firing animation
         }
     }
 
-    // Determines the direction based on input from the right stick
-    // Vector3 DetermineDirection(Vector2 _stickInput)
-    // {
-    //     // If the input magnitude is below the threshold, returns zero vector which means no direction
-    //     if (_stickInput.sqrMagnitude < _fireThreshold * _fireThreshold)
-    //     {
-    //         return Vector3.zero; // No firing direction
-    //     }
-    //
-    //     // Normalizes the stick input to get a direction which ensures consistent speed
-    //     _stickInput.Normalize();
-    //
-    //     // Converts the input angle to a direction vector based on the stick position
-    //     float angle = Mathf.Atan2(_stickInput.y, _stickInput.x) * Mathf.Rad2Deg;
-    //     if (angle >= -22.5f && angle < 22.5f) return Vector3.right; // Right direction
-    //     else if (angle >= 22.5f && angle < 67.5f) return new Vector3(1, 0, 1).normalized; // Diagonal right-forward
-    //     else if (angle >= 67.5f && angle < 112.5f) return Vector3.forward; // Forward direction
-    //     else if (angle >= 112.5f && angle < 157.5f) return new Vector3(-1, 0, 1).normalized; // Diagonal left-forward
-    //     else if ((angle >= 157.5f && angle < 180f) || (angle < -157f && angle >= -180f))
-    //         return Vector3.left; // Left direction
-    //     else if (angle >= -157.5f && angle < -112.5f)
-    //         return new Vector3(-1, 0, -1).normalized; // Diagonal left-backward
-    //     else if (angle >= -112.5f && angle < -67.5f) return Vector3.back; // Backward direction
-    //     else if (angle >= -67.5f && angle < -22.5f) return new Vector3(1, 0, -1).normalized; // Diagonal right-backward
-    //     return Vector3.zero; // Default case (no direction)
-    // }
-
-    
+    // Determines the direction based on the input from the right stick
     Vector3 DetermineDirection(Vector2 _stickInput)
     {
+        // Checks if the stick input magnitude is below the threshold to ignore minor movements
         if (_stickInput.sqrMagnitude < _fireThreshold * _fireThreshold)
             return Vector3.zero;
 
@@ -206,12 +159,13 @@ public class PlayerMultiplayer2 : MonoBehaviour
 
         return Vector3.zero;
     }
-    
-    
+
     // Fires a bullet in a specific direction based on controller input
     void FireBulletXbox(Vector3 _direction)
     {
-        AudioSource.PlayClipAtPoint(fireSound, SpawnManager.Instance.transform.position, 0.4f);
+        // Plays the fire sound effect at the SpawnManager's position
+        AudioSource.PlayClipAtPoint(fireSound, SpawnManager.instance.transform.position, 0.4f);
+        
         // Instantiates the bullet prefab at the player's current position
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, bulletSpawnPosition.rotation);
 
@@ -223,7 +177,6 @@ public class PlayerMultiplayer2 : MonoBehaviour
             // Sets the bullet's velocity in the specified direction
             bulletRb.velocity = _direction * _bulletSpeed;
         }
-
         // Destroys the bullet after 1 second to avoid cluttering the scene with unused bullets
         Destroy(bullet, 1.0f);
     }
