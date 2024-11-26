@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public Animation playerAnimation; // Player's animation component
 
     public Transform remyBulletSpawnPosition;
-
+    public LayerMask groundLayer;
     public Transform claireBulletSpawnPosition;
     // private variables
     private float _horizontalMovementKeyboard; // Horizontal movement input from keyboard
@@ -450,21 +450,21 @@ public class PlayerController : MonoBehaviour
     // Handles player rotation based on the mouse cursor position
     void HandlePlayerRotation()
     {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
+        {
+
+            Vector3 targetDirection = hit.point - transform.position;
+            targetDirection.y = 0;
+
+            if (targetDirection.magnitude > 0.1f)
             {
-
-                Vector3 targetDirection = hit.point - transform.position;
-                targetDirection.y = 0;
-
-
                 Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-
-
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 1.6f);
             }
+        }
         
 
     }

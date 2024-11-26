@@ -8,6 +8,9 @@ public class PlayerMultiplayer1 : MonoBehaviour
     public float playerSpeed = 5.0f; // Speed at which the player moves
     public GameObject bulletPrefab; // Bullet prefab used for shooting
     public Transform bulletSpawnPosition;
+    public LayerMask groundLayer;
+    public AudioClip fireSound;
+    public GameObject remyShield;
     // Private variables
     private float _horizontalMovement; // Stores horizontal movement input from player
     private float _verticalMovement; // Stores vertical movement input from player
@@ -19,8 +22,6 @@ public class PlayerMultiplayer1 : MonoBehaviour
     private float _nextFireTime = 0.1f; // Time when the player can next fire
     private float _fireRate = 0.2f; // Rate at which bullets can be fired
     private Animation animation; // Reference to the Animation component of the player model
-    public AudioClip fireSound;
-    public GameObject remyShield;
     private Vector3 _localMovement;
     
     void Start()
@@ -175,17 +176,17 @@ public class PlayerMultiplayer1 : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
         {
 
             Vector3 targetDirection = hit.point - transform.position;
             targetDirection.y = 0;
 
-
-            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-
-
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 1.6f);
+            if (targetDirection.magnitude > 0.1f)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 1.6f);
+            }
         }
         
 

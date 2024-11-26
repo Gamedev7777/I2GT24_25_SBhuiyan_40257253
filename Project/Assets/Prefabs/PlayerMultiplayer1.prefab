@@ -2652,6 +2652,9 @@ MonoBehaviour:
   bulletSpawnPosition: {fileID: 4069030600222752439}
   fireSound: {fileID: 8300000, guid: eb8998f3b3d3a49db96a634bf39ed153, type: 3}
   remyShield: {fileID: 1364508542738122318}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!65 &6422527387034232347
 BoxCollider:
   m_ObjectHideFlags: 0
