@@ -1786,7 +1786,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -28.2465}
+  m_AnchoredPosition: {x: 0, y: -28.246582}
   m_SizeDelta: {x: 471.4333, y: 50.4929}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &165844319
@@ -2273,12 +2273,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '"You still keep killing us," said the alien voice. "I am doing it in self-defense.
-    You are trying to kill me." "No. We testing you. Killing you is not goal. We
-    learn through research. Your son and your daughter in lab. They witnessed what
-    you did in the maze. We offer them upgrade so they no longer need to breathe
-    air, drink water and eat food. Your son accepted the upgrade. Your daughter refused.
-    Do you want to be upgraded?" You choose: Remain Human or Be Upgraded.'
+  m_text: '"You keep killing us! Your violence - so fascinating" said the alien voice.
+    "I am doing it in self-defence. You are trying to kill me." "No. We testing you.
+    Killing you is not goal. In lab, your son and daughter watch you. We offer them
+    upgrade to become immortal - no need breathe air, drink water and eat food. Your
+    son acceps, your daughter refuses. Now, you choose: Remain Human or Be Upgraded.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5067,8 +5066,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 13, y: 146}
-  m_SizeDelta: {x: 1319.4191, y: 448.3491}
+  m_AnchoredPosition: {x: -5, y: 77.08072}
+  m_SizeDelta: {x: 1109.2992, y: 310.5105}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &487468327
 MonoBehaviour:
@@ -5090,10 +5089,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '"Why remain human?" Asked the alien. "Because I choose to." You reply.
-    "Answer not understand," he said. "I like being the way I am." "Even though humans
-    kill each other and kill other species and consume sentient organisms?" "Yes.
-    I am ok with all of it."'
+  m_text: '"Why remain human?" The alien sounds puzzled.  "Because I choose to."
+    You reply. "Answer not understand," he said. "I like being the way I am," you
+    explain. "Even though humans kill each other and kill other species and consume
+    sentient organisms?" "Yes, we are flawed but I still prefer being human to being
+    upgraded." "How intriguing you are! Must test more," he replied.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6238,7 +6238,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2.96065, y: -95}
+  m_AnchoredPosition: {x: -37, y: -95}
   m_SizeDelta: {x: 183.83557, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &634845889
@@ -6659,10 +6659,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Your daughter, Jill, phones you and she says: \u201CDad, where are you?
-    I am in a cage all alone. Have you seen Jack?\u201D You say, \u201CI haven\u2019t
-    seen Jack. I am in a maze, trying to find a way out.\u201D The line cuts off
-    abruptly."
+  m_text: "After killing the first alien, you suddenly hear Jill's voice: \u201CDad!
+    Dad! Where are you? I... I am in a cage all alone. I am so scared. Have you seen
+    Jack?\u201D You say, \u201CI haven\u2019t seen Jack. I am in a maze. I will find
+    you and Jack. Do your deep breathing exercises.\u201D The line cuts off abruptly.
+    You wonder if you will ever see Jack and Jill again."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7772,10 +7773,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\"You value you more than you value us,\" said the alien voice. \u201CThat
-    is why you kill so many of us.\u201D \"You got that right. You are the bad guys.
-    You kidnapped us. You shot laser at me.\" \"We not bad. We good. We want to know
-    humans. Understand your nature.\""
+  m_text: "\"You value you more than you value us,\" the alien voice laced with accusation.
+    \u201CThat is why you kill so many of us.\u201D \"You got that right. You are
+    the bad guys. You kidnapped us. Separated me from my children. You shot lasers
+    at me.\" \"We not bad. We good. We want to know humans. Understand your nature.\"
+    \"By trying to kill me?\" You shout. \"No, by testing you.\" The alien explained.
+    \"You too test other species in labs. We resurrect dead specimens. You do not.\""
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10119,8 +10122,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 63.380096, y: 135}
-  m_SizeDelta: {x: 1091.1543, y: 473.8151}
+  m_AnchoredPosition: {x: 14.6323, y: 47.5901}
+  m_SizeDelta: {x: 993.6587, y: 298.9954}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1186383951
 MonoBehaviour:
@@ -10142,11 +10145,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You hear the same guttural voice once again. He says, "Learn language human.
-    Strange species you. Never encountered before. Why you kill each other and other
-    species?" You say, "What? You can speak English now! Why have you kidnapped us?
-    Why are you shooting laser at me?" He says, "To test you. You answer not question
-    mine" You say, "I don't know. We just do." He says, "Not good answer."
+  m_text: The same guttural voice returns. He says, "Learn language human. Strange
+    species you. Never before encountered. Why you kill each other and other species?"
+    You say, "What? You can speak English now! Why have you kidnapped us? Why are
+    you shooting lasers at me?" He says, "To test you. You answer not question mine"
+    You say, "I don't know. We just do." He says, "Not good answer."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -13363,8 +13366,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 13, y: 146}
-  m_SizeDelta: {x: 1319.4191, y: 448.3491}
+  m_AnchoredPosition: {x: -2, y: 67.83542}
+  m_SizeDelta: {x: 1094.1708, y: 292.0199}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1729619070
 MonoBehaviour:
@@ -13386,12 +13389,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '"Testing finished. We will now reunite you with your upgraded son and
-    human daughter." The alien said. You are teleported to another room where your
-    son and daughter are waiting for you. Your son looks human but he is luminous.
-    He is hovering in the air and is smiling at you. Your daughter is also happy
-    to see you. You go to them and you have a group hug. There is an alien in the
-    room who asks you, "What like you next to do?"'
+  m_text: "You are teleported into a room where your son and daughter wait. Jack
+    is a radiant being of light, hovering in the air. Jill stands beside him, tears
+    streaming as she runs to you. You all hug each other. An alien watches silently
+    from the corner of the room. His voice breaks the silence:\n\r\n\"Testing\u2026
+    complete. You reunited. What like you next to do?\"\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -13727,8 +13729,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 13, y: 146}
-  m_SizeDelta: {x: 1319.4191, y: 448.3491}
+  m_AnchoredPosition: {x: -60.1216, y: 119.1047}
+  m_SizeDelta: {x: 1045.4227, y: 303.7867}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1805362974
 MonoBehaviour:
@@ -13750,9 +13752,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "You hear strange sounds coming over the hidden sound system in the maze.
-    A guttural voice says \u201COfkjljoe mpwqoc qzoepllde\u201D. You have no idea
-    what that means."
+  m_text: "As you press forward, the silence of the maze is shattered by an eerie,
+    guttural voice broadcasted over hidden speakers. The words are unintelligible,
+    a chaotic jumble of alien sounds:  \r\n\r\n\"Ofkjljoe mpwqoc qzoepllde!\" \r\n\r\nYou
+    pause, heart pounding. What are they saying? What do they want?  \r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -14743,8 +14746,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 13, y: 53}
-  m_SizeDelta: {x: 1319.4191, y: 448.3491}
+  m_AnchoredPosition: {x: 30, y: 0}
+  m_SizeDelta: {x: 1040.3798, y: 369.3438}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1992094314
 MonoBehaviour:
@@ -14766,15 +14769,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You are teleported to another room where you are placed inside a shimmering
-    humming energy field where you feel yourself being upgraded at the subatomic
-    level into an energy being that does not need to breathe air, drink water and
-    eat food to live. Then you are teleported to another room where your son and
-    daughter are waiting for you. Your son looks human but he is luminous, just like
-    you. He is hovering in the air and is smiling at you. Your daughter is also happy
-    to see you. You go to them and you have a group hug. You ask the alien in the
-    room, "What about all the aliens I killed?" "Resurrected all were. Had you died,
-    resurrected, you too. Thank you for asking. What like you next to do?"
+  m_text: 'You are teleported into a shimmering energy field. The humming sound grows
+    louder as your body transforms at a subatomic level. You feel yourself becoming
+    something more - luminous, weightless, and beyond human needs. When the process
+    ends, you float effortlessly. The alien voice returns, calm and clinical. "Upgrade
+    complete.  You now like us. Efficient. Eternal." Your son, Jack, also looks like
+    you. Your daughter, Jill, remains human. "Testing... complete. You reunited.
+    What like you next to do?" Asked the alien.
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -15414,10 +15417,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You and your son and daughter, along with other humans have been teleported
-    by aliens into a space ship. You find yourself separated from your children and
-    placed inside a maze. The maze has aliens that shoot laser at you. You must adapt
-    or you will die.
+  m_text: You and your son, Jack, and daughter, Jill, are eating dinner together.
+    You are suddenly caught in a beam of light. You float off through the ceiling,
+    the loft and the roof to a space ship high up in the sky. Your children are separated
+    from you and you find yourself in a maze. The maze has aliens that shoot lasers
+    at you. You find yourself holding a rifle. You must adapt or you will die.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
