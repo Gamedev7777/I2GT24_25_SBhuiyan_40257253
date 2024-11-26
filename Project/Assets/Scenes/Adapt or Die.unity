@@ -6957,7 +6957,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &702603839
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14771,11 +14771,11 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'You are teleported into a shimmering energy field. The humming sound grows
     louder as your body transforms at a subatomic level. You feel yourself becoming
-    something more - luminous, weightless, and beyond human needs. When the process
-    ends, you float effortlessly. The alien voice returns, calm and clinical. "Upgrade
-    complete.  You now like us. Efficient. Eternal." Your son, Jack, also looks like
-    you. Your daughter, Jill, remains human. "Testing... complete. You reunited.
-    What like you next to do?" Asked the alien.
+    something more - luminous, weightless, and beyond biological needs. When the
+    process ends, you float effortlessly. The alien voice returns, calm and clinical.
+    "Upgrade complete.  You now like us. Efficient. Eternal." Your son, Jack, also
+    looks like you. Your daughter, Jill, remains human. You all hug. "Testing...
+    complete. You reunited. What like you next to do?" Asked the alien.
 
 '
   m_isRightToLeft: 0
