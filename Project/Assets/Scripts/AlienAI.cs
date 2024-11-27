@@ -161,7 +161,18 @@ public class AlienAI : MonoBehaviour
         if (target != null)
         {
             aiNavMeshAgent.SetDestination(target.transform.position);
-
+            
+            Quaternion targetRotation = Quaternion.LookRotation(aiNavMeshAgent.velocity.normalized);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 1000f * Time.deltaTime);
+            
+            
+            
+           // Vector3 directionToTarget = transform.forward.normalized;
+            
+           // Quaternion lookRotation = Quaternion.LookRotation(directionToTarget); // Creates a rotation to look at the target
+        
+           // transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, 1000f * Time.deltaTime);
+            
             // Plays walking animation based on the alien type
             if (gameObject.tag == "Alien2")
             {
@@ -217,8 +228,11 @@ public class AlienAI : MonoBehaviour
 
         // Rotates towards the target to face it
         Quaternion lookRotation = Quaternion.LookRotation(directionToTarget); // Creates a rotation to look at the target
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 3.0f); // Smoothly rotates towards the target
-
+        
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, 1000f * Time.deltaTime);
+        
+        
+        
         // Fires laser at intervals based on the fire timer
         _fireTimer -= Time.deltaTime;
 
