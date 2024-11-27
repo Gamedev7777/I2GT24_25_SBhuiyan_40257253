@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     private float _fireRate = 0.1f; // Fire rate used for mouse input firing
     private int _avatar; // Stores the current avatar type (0 for Remy, 1 for Claire)
     private Vector3 _localMovement; // Local player movement direction based on player's transform
-
+    private Vector3 lastMousePosition;
     void Start()
     {
         // Load the selected avatar from PlayerPrefs, default to Remy (0)
@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // Gets player input for horizontal movement (left/right) from keyboard
         _horizontalMovementKeyboard = Input.GetAxis("Horizontal");
@@ -356,18 +356,7 @@ public class PlayerController : MonoBehaviour
             Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
             if (bulletRb != null)
             {
-                // Creates a ray from the camera to the mouse position to determine where the bullet should go
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-
-                // Performs a raycast to determine where the mouse cursor intersects with the game world
-                if (Physics.Raycast(ray, out hit))
-                {
-                    // Calculates the direction from the player's position to the target hit point
-                    Vector3 direction = (hit.point - transform.position).normalized;
-                    // Sets the bullet's velocity in the direction of the target
-                    bulletRb.velocity = direction * _bulletSpeed;
-                }
+                bulletRb.velocity = transform.forward * _bulletSpeed;
             }
 
             // Destroys the bullet after 0.5 second to avoid cluttering the scene with unused bullets
@@ -401,25 +390,32 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    
+    
     // Handles player rotation based on the mouse cursor position
     void HandlePlayerRotation()
     {
-        // Casts a ray from the camera to the mouse cursor position to determine aiming direction
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
+        Vector3 currentMousePosition = Input.mousePosition;
+        if (currentMousePosition != lastMousePosition)
         {
-            // Calculate the direction from the player's position to the hit point
-            Vector3 targetDirection = hit.point - transform.position;
-            targetDirection.y = 0; // Keep the direction on the horizontal plane
-
-            if (targetDirection.magnitude > 0.1f)
+            Ray ray = Camera.main.ScreenPointToRay(currentMousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
             {
-                // Set the player's rotation smoothly to face the target direction
-                Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 1.6f);
+                Vector3 targetDirection = hit.point - transform.position;
+                targetDirection.y = 0;
+                if (targetDirection.magnitude > 0.1f)
+                {
+                   Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+                  transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 1000f * Time.deltaTime);
+                   
+                }
             }
+                
         }
+        
+        lastMousePosition = currentMousePosition;
+        
     }
+    
 }

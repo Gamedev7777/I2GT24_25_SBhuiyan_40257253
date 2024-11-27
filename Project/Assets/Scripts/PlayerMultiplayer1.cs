@@ -22,7 +22,7 @@ public class PlayerMultiplayer1 : MonoBehaviour
     private float _fireRate = 0.1f; // Rate at which bullets can be fired
     private Animation animation; // Reference to the Animation component of the player model
     private Vector3 _localMovement; // Player's movement relative to their current rotation
-
+    private Vector3 lastMousePosition;
     void Start()
     {
         // Gets the Animation component from the player's child GameObject
@@ -139,18 +139,8 @@ public class PlayerMultiplayer1 : MonoBehaviour
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
         if (bulletRb != null)
         {
-            // Creates a ray from the camera to the mouse position
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            // Performs a raycast to determine where the mouse cursor intersects with the game world
-            if (Physics.Raycast(ray, out hit))
-            {
-                // Calculates the direction from the player's position to the target hit point
-                Vector3 direction = (hit.point - transform.position).normalized;
-                // Sets the bullet's velocity in the direction of the target
-                bulletRb.velocity = direction * _bulletSpeed;
-            }
+        
+                bulletRb.velocity = transform.forward * _bulletSpeed;
         }
 
         // Destroys the bullet after 1 second to avoid cluttering the scene with unused bullets
@@ -160,24 +150,26 @@ public class PlayerMultiplayer1 : MonoBehaviour
     // Method to handle the player's rotation towards the mouse cursor
     void HandlePlayerRotation()
     {
-        // Creates a ray from the camera to the mouse position
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        // Checks if the ray hits a point on the ground layer
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
+        Vector3 currentMousePosition = Input.mousePosition;
+        if (currentMousePosition != lastMousePosition)
         {
-            // Calculates the direction from the player to the point hit by the ray
-            Vector3 targetDirection = hit.point - transform.position;
-            targetDirection.y = 0; // Ensures the rotation remains only on the horizontal plane
-
-            // If the target direction is significant, rotate towards it
-            if (targetDirection.magnitude > 0.1f)
+            Ray ray = Camera.main.ScreenPointToRay(currentMousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
             {
-                Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-                // Smoothly rotates the player towards the target direction
-                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 1.6f);
+                Vector3 targetDirection = hit.point - transform.position;
+                targetDirection.y = 0;
+                if (targetDirection.magnitude > 0.1f)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 1000f * Time.deltaTime);
+                   
+                }
             }
+                
         }
+        
+        lastMousePosition = currentMousePosition;
+        
     }
 }
