@@ -148,28 +148,49 @@ public class PlayerMultiplayer1 : MonoBehaviour
     }
 
     // Method to handle the player's rotation towards the mouse cursor
+    // void HandlePlayerRotation()
+    // {
+    //     Vector3 currentMousePosition = Input.mousePosition;
+    //     if (currentMousePosition != lastMousePosition)
+    //     {
+    //         Ray ray = Camera.main.ScreenPointToRay(currentMousePosition);
+    //         RaycastHit hit;
+    //         if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
+    //         {
+    //             Vector3 targetDirection = hit.point - transform.position;
+    //             targetDirection.y = 0;
+    //             if (targetDirection.magnitude > 0.1f)
+    //             {
+    //                 Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+    //                 transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 1000f * Time.deltaTime);
+    //                
+    //             }
+    //         }
+    //             
+    //     }
+    //     
+    //     lastMousePosition = currentMousePosition;
+    //     
+    // }
     void HandlePlayerRotation()
     {
+        // Get the current and previous mouse positions
         Vector3 currentMousePosition = Input.mousePosition;
-        if (currentMousePosition != lastMousePosition)
+
+        // Calculate the change in mouse position (delta)
+        Vector3 mouseDelta = currentMousePosition - lastMousePosition;
+
+        // Check if there is any movement
+        if (mouseDelta.magnitude > 0.1f)
         {
-            Ray ray = Camera.main.ScreenPointToRay(currentMousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
-            {
-                Vector3 targetDirection = hit.point - transform.position;
-                targetDirection.y = 0;
-                if (targetDirection.magnitude > 0.1f)
-                {
-                    Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 1000f * Time.deltaTime);
-                   
-                }
-            }
-                
+            // Calculate the rotation speed based on mouse delta (change in position)
+            float rotationSpeed = mouseDelta.x;
+
+            // Apply rotation based on the mouse movement (horizontal direction)
+            transform.Rotate(0, rotationSpeed * Time.deltaTime * 200f, 0); // Adjust rotation speed if needed
         }
-        
+
+        // Update the last mouse position
         lastMousePosition = currentMousePosition;
-        
     }
 }
