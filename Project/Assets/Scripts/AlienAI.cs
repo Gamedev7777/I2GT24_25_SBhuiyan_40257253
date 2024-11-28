@@ -32,6 +32,7 @@ public class AlienAI : MonoBehaviour
     private float _fireTimer; // Timer to manage firing intervals in attack state
     private float _fireInterval = 0.5f; // Time interval between laser shots
     private Animation _animation; // Reference to the Animation component of the Alien
+    private float distanceToTarget;
 
     // Start is called before the first frame update
     void Start()
@@ -139,6 +140,7 @@ public class AlienAI : MonoBehaviour
             // If within chase distance, transitions to chase state
             if (distanceToTarget >= chaseDistance)
             {
+                Debug.Log("chase 1");
                 _currentState = AlienAIstate.chase; // Switches to chase state
             }
         }
@@ -191,11 +193,12 @@ public class AlienAI : MonoBehaviour
         }
 
         // Calculates the distance to the target
-        float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
+        distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
 
         // If within attack distance, transitions to attack state
         if (distanceToTarget <= attackDistance)
         {
+            Debug.Log("Attack 1");
             _currentState = AlienAIstate.attack; // Switches to attack state
         }
     }
@@ -213,13 +216,14 @@ public class AlienAI : MonoBehaviour
 
         // Calculates the direction to the target for rotation and attack
         Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
-
+        distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
         // Checks for direct line of sight to the player using a raycast
         RaycastHit hit;
         if (Physics.Raycast(transform.position, directionToTarget, out hit))
         {
-            if (hit.collider.gameObject != target)
+            if (hit.collider.gameObject != target && distanceToTarget > attackDistance) 
             {
+                Debug.Log("Chase 2");
                 // If there is no direct line of sight, transitions back to chase state
                 _currentState = AlienAIstate.chase;
                 return;
@@ -263,11 +267,12 @@ public class AlienAI : MonoBehaviour
         }
 
         // Calculates the distance to the target
-        float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
+        distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
 
         // If the target moves out of attack distance, transitions back to chase state
         if (distanceToTarget > chaseDistance)
         {
+            Debug.Log("Chase 3");
             _currentState = AlienAIstate.chase; // Switches to chase state
         }
     }
