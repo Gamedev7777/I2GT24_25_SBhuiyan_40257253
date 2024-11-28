@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // public variables
-    public float playerSpeed = 5.0f; // Speed at which the player moves
+    public float playerSpeed = 6.0f; // Speed at which the player moves
     public GameObject bulletPrefab; // Bullet prefab used for shooting
     public Animation playerAnimation; // Player's animation component
     public Transform remyBulletSpawnPosition; // Position where Remy's bullet is spawned
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     private float _fireCooldown = 0.2f; // Cooldown time between firing bullets for controller input
     private float _lastFireTime; // Tracks the time of the last fired bullet using controller
     private float _nextFireTime = 0.1f; // Tracks the time when the player can fire the next bullet using mouse input
-    private float _fireRate = 0.1f; // Fire rate used for mouse input firing
+    private float _fireRate = 0.2f; // Fire rate used for mouse input firing
     private int _avatar; // Stores the current avatar type (0 for Remy, 1 for Claire)
     private Vector3 _localMovement; // Local player movement direction based on player's transform
     private Vector3 lastMousePosition;

@@ -19,7 +19,7 @@ public class PlayerMultiplayer1 : MonoBehaviour
     private float _fireCooldown = 0.5f; // Cooldown time between firing bullets
     private float _lastFireTime; // Tracks the time of the last fired bullet
     private float _nextFireTime = 0.1f; // Time when the player can next fire
-    private float _fireRate = 0.1f; // Rate at which bullets can be fired
+    private float _fireRate = 0.2f; // Rate at which bullets can be fired
     private Animation animation; // Reference to the Animation component of the player model
     private Vector3 _localMovement; // Player's movement relative to their current rotation
     private Vector3 lastMousePosition;
