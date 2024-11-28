@@ -61,9 +61,9 @@ public class PlayerHealth : MonoBehaviour
 
                 // Plays the particle effect for player death
                 playerDeathFX.Play();
-
+                playerDeath = true;
                 // Calls the Die method after a delay of 0.3 seconds
-                Invoke(nameof(Die), 0.3f);
+                Invoke(nameof(Die), 0.7f);
             }
         }
     }
@@ -78,7 +78,7 @@ public class PlayerHealth : MonoBehaviour
         SpawnManager.instance.GameOver();
 
         // Sets playerDeath to true to prevent multiple calls to the Die method
-        playerDeath = true;
+       
 
         // Destroys the player game object
         Destroy(gameObject);
