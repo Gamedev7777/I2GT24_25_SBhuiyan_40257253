@@ -12,17 +12,17 @@ public class Bullet : MonoBehaviour
             if (PlayerPrefs.GetInt("Mode", 0) == 0) // Easy mode
             {
                 // Reduces the alien's health by 10 in easy mode
-                other.gameObject.GetComponentInParent<AlienHealth>().TakeDamage(10);
+                other.gameObject.GetComponentInParent<AlienHealth>().TakeDamage(5);
             }
             else if (PlayerPrefs.GetInt("Mode", 0) == 1) // Normal mode
             {
                 // Reduces the alien's health by 5 in normal mode
-                other.gameObject.GetComponentInParent<AlienHealth>().TakeDamage(5);
+                other.gameObject.GetComponentInParent<AlienHealth>().TakeDamage(3);
             }
             else if (PlayerPrefs.GetInt("Mode", 0) == 2) // Hard mode
             {
                 // Reduces the alien's health by 2 in hard mode
-                other.gameObject.GetComponentInParent<AlienHealth>().TakeDamage(2);
+                other.gameObject.GetComponentInParent<AlienHealth>().TakeDamage(1);
             }
             
             // Destroys the bullet after it collides with the alien

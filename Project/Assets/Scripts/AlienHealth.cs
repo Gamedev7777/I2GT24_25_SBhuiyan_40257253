@@ -6,9 +6,11 @@ public class AlienHealth : MonoBehaviour
     // Singleton instance of the AlienHealth class (accessible globally)
     public static AlienHealth instance;
 
+    public Transform healthBar;
     // Initial health of the alien, configurable in the inspector
     public int health = 10;
 
+    private float maxHealth;
     // Particle effect to play on alien death
     public ParticleSystem alienDeathFX;
 
@@ -63,6 +65,8 @@ public class AlienHealth : MonoBehaviour
                 health = 25; // Sets health for Alien2 in hard mode
             }
         }
+
+        maxHealth = health;
     }
 
     // Method to reduce health when alien takes damage
@@ -70,7 +74,9 @@ public class AlienHealth : MonoBehaviour
     {
         // Reduces health by the damage amount
         health -= damage;
-    
+        
+        float healthPercentage = health / maxHealth;
+        healthBar.localScale = new Vector3(healthPercentage, 0.1031f, 1);
         // If health is zero or less and the alien is not already dead
         if (health <= 0 && !_alienDeath)
         {
