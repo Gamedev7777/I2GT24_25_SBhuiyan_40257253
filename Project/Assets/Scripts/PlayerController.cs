@@ -10,8 +10,7 @@ public class PlayerController : MonoBehaviour
     public Transform claireBulletSpawnPosition; // Position where Claire's bullet is spawned
     public AudioClip fireSound; // Sound effect played when firing a bullet
     public GameObject remyShield, claireShield; // GameObjects representing shields for Remy and Claire
-    public GameObject cityMap;
-
+    
     // private variables
     private float _horizontalMovementKeyboard; // Horizontal movement input from keyboard
     private float _verticalMovementKeyboard; // Vertical movement input from keyboard
@@ -41,8 +40,6 @@ public class PlayerController : MonoBehaviour
             // Get the animation component for Claire
             playerAnimation = transform.GetChild(1).GetComponent<Animation>();
         }
-
-        cityMap.transform.GetChild(0).GetComponent<bl_MiniMap>().m_Target = gameObject;
     }
 
     // Update is called once per frame
