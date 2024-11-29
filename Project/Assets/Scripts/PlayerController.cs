@@ -395,7 +395,6 @@ public class PlayerController : MonoBehaviour
         float mouseDelta = Input.GetAxis("Mouse X");
         
         transform.Rotate(0, 200f * mouseDelta * Time.deltaTime, 0); // Adjust rotation speed if needed
-        Debug.Log(mouseDelta);
     }
     
 }

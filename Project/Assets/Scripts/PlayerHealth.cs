@@ -9,7 +9,9 @@ public class PlayerHealth : MonoBehaviour
     [HideInInspector] public int health; // The player's current health (initial value set in SetPlayerHealth)
     public ParticleSystem playerDeathFX; // Particle system effect for player death
     public AudioClip playerDeathSound; // Audio clip to play when the player dies
-
+    public Transform healthBar;
+    private float maxHealth;
+    
     void Awake()
     {
         // Assigns the current instance of this script to the static instance variable
@@ -32,6 +34,7 @@ public class PlayerHealth : MonoBehaviour
         {
             health = 40; // Sets health to 40 in hard mode
         }
+        maxHealth = health;
     }
 
     // Method to handle when the player takes damage
@@ -42,7 +45,9 @@ public class PlayerHealth : MonoBehaviour
         {
             // Reduces health by the value of damage
             health -= damage;
-
+            var healthPercentage = health / maxHealth;
+            
+            healthBar.localScale = new Vector3(healthPercentage, 0.1031f, 1);
             // Updates the health display in the User Interface based on the player's name
             if (gameObject.name == "Player" || gameObject.name == "PlayerMultiplayer1")
             {
