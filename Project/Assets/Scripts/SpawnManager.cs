@@ -65,11 +65,15 @@ public class SpawnManager : MonoBehaviour
                 // Checks if the player has achieved a new high score
                 if (PlayerPrefs.GetInt("Highscore", 0) < PlayerPrefs.GetInt("Score", 0))
                 {
+                    Cursor.lockState = CursorLockMode.None; // Lock the cursor to the center of the game window.
+                    Cursor.visible = true;
                     GameManager.instance.highscoreMenu.SetActive(true); // Shows high score menu
                     GameManager.instance.highscoreText.text = "New High Score: " + PlayerPrefs.GetInt("Score", 0);
                 }
                 else
                 {
+                    Cursor.lockState = CursorLockMode.None; // Lock the cursor to the center of the game window.
+                    Cursor.visible = true;
                     GameManager.instance.popUpList[7].SetActive(true); // Shows the final level completion pop-up
                 }
 

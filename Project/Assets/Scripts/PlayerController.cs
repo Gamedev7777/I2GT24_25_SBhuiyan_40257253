@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletPrefab; // Bullet prefab used for shooting
     public Animation playerAnimation; // Player's animation component
     public Transform remyBulletSpawnPosition; // Position where Remy's bullet is spawned
-    public LayerMask groundLayer; // Layer mask for detecting ground collision during aiming
     public Transform claireBulletSpawnPosition; // Position where Claire's bullet is spawned
     public AudioClip fireSound; // Sound effect played when firing a bullet
     public GameObject remyShield, claireShield; // GameObjects representing shields for Remy and Claire
@@ -396,7 +395,7 @@ public class PlayerController : MonoBehaviour
         float mouseDelta = Input.GetAxis("Mouse X");
         
         transform.Rotate(0, 200f * mouseDelta * Time.deltaTime, 0); // Adjust rotation speed if needed
-        
+        Debug.Log(mouseDelta);
     }
     
 }
