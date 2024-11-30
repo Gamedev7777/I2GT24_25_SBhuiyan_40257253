@@ -15,7 +15,7 @@ public class PlayerMultiplayer2 : MonoBehaviour
     private Vector3 _playerMovement; // Player movement vector
     private float _bulletSpeed = 30.0f; // Speed at which the bullet moves
     private float _fireThreshold = 0.1f; // Threshold value for firing
-    private float _fireCooldown = 0.1f; // Cooldown time between firing bullets
+    private float _fireCooldown = 0.2f; // Cooldown time between firing bullets
     private float _lastFireTime; // Tracks the time of the last fired bullet
     private Animation animation; // Player animation component
     private Vector3 _localMovement; // Player movement in local space
