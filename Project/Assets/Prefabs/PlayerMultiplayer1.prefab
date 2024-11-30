@@ -7350,7 +7350,7 @@ GameObject:
   - component: {fileID: 6236894753915650524}
   - component: {fileID: 4433730531345346193}
   - component: {fileID: 3915228649263357899}
-  - component: {fileID: 6422527387034232347}
+  - component: {fileID: 6923760239887204938}
   m_Layer: 0
   m_Name: PlayerMultiplayer1
   m_TagString: Player
@@ -7420,7 +7420,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 116
   m_CollisionDetection: 2
 --- !u!114 &3915228649263357899
 MonoBehaviour:
@@ -7442,8 +7442,8 @@ MonoBehaviour:
     m_Bits: 64
   fireSound: {fileID: 8300000, guid: eb8998f3b3d3a49db96a634bf39ed153, type: 3}
   remyShield: {fileID: 1364508542738122318}
---- !u!65 &6422527387034232347
-BoxCollider:
+--- !u!136 &6923760239887204938
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -7460,9 +7460,11 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.0972581, y: 2.3558583, z: 1.3845749}
-  m_Center: {x: 0, y: 0.67792916, z: 0}
+  serializedVersion: 2
+  m_Radius: 0.75999516
+  m_Height: 2.44693
+  m_Direction: 1
+  m_Center: {x: 0.026376426, y: 0.72346497, z: 0}
 --- !u!1 &6843725364790513629
 GameObject:
   m_ObjectHideFlags: 0
