@@ -53,16 +53,37 @@ public class PowerUps : MonoBehaviour
         }
         else if (PlayerPrefs.GetInt("Controller", 0) == 1)
         {
-            // Multiplayer mode: increase health for both Player 1 and Player 2 by 20 and updates User Interface
-            var player1 = SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>();
-            var player2 = SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerHealth>();
-
-            player1.health += 20;
-            player2.health += 20;
-
-            // Updates both Player 1 and Player 2's health text in the User Interface
-            GameManager.instance.playerHealthText.text = "Player 1 Health: " + player1.health;
-            GameManager.instance.playerHealthText2.text = "Player 2 Health: " + player2.health;
+            PlayerHealth player1;
+            PlayerHealth player2;
+            
+            if (SpawnManager.instance._levelSpawned.GetComponent<Levels>().player.Count > 1)
+            {
+                // Multiplayer mode: increase health for both Player 1 and Player 2 by 20 and updates User Interface
+                player1 = SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>();
+                player2 = SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerHealth>();
+                
+                player1.health += 20;
+                player2.health += 20;
+                
+                // Updates both Player 1 and Player 2's health text in the User Interface
+                GameManager.instance.playerHealthText.text = "Player 1 Health: " + player1.health;
+                GameManager.instance.playerHealthText2.text = "Player 2 Health: " + player2.health;
+            }
+            else
+            {
+                if (SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].name == "PlayerMultiplayer1")
+                {
+                    player1 = SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>();
+                    player1.health += 20;
+                    GameManager.instance.playerHealthText.text = "Player 1 Health: " + player1.health;
+                }
+                else if(SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].name == "PlayerMultiplayer2")
+                {
+                    player2 = SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>();
+                    player2.health += 20;
+                    GameManager.instance.playerHealthText.text = "Player 2 Health: " + player2.health;
+                }
+            }
         }
 
         // Destroys the Health Power-Up object after applying its effect
@@ -86,11 +107,29 @@ public class PowerUps : MonoBehaviour
         }
         else if (PlayerPrefs.GetInt("Controller", 0) == 1)
         {
-            // Multiplayer mode: doubles speed for both Player 1 and Player 2
-            SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0]
-                .GetComponent<PlayerMultiplayer1>().playerSpeed *= 2.0f;
-            SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[1]
-                .GetComponent<PlayerMultiplayer2>().playerSpeed *= 2.0f;
+            if (SpawnManager.instance._levelSpawned.GetComponent<Levels>().player.Count > 1)
+            {
+                // Multiplayer mode: doubles speed for both Player 1 and Player 2
+                SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0]
+                    .GetComponent<PlayerMultiplayer1>().playerSpeed *= 2.0f;
+                SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[1]
+                    .GetComponent<PlayerMultiplayer2>().playerSpeed *= 2.0f;
+            }
+            else
+            {
+                if (SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].name == "PlayerMultiplayer1")
+                {
+                    // Multiplayer mode: doubles speed for both Player 1 and Player 2
+                    SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0]
+                        .GetComponent<PlayerMultiplayer1>().playerSpeed *= 2.0f;
+                    
+                }
+                else if(SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].name == "PlayerMultiplayer2")
+                {
+                    SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0]
+                        .GetComponent<PlayerMultiplayer2>().playerSpeed *= 2.0f;
+                }
+            }
         }
 
         // Destroys the Speed Power-Up object after applying its effect
@@ -114,19 +153,47 @@ public class PowerUps : MonoBehaviour
         }
         else if (PlayerPrefs.GetInt("Controller", 0) == 1)
         {
-            // Multiplayer mode: activates shields for both Player 1 and Player 2
-            SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>()
-                .playerShield = true;
-            SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerHealth>()
-                .playerShield = true;
+            if (SpawnManager.instance._levelSpawned.GetComponent<Levels>().player.Count > 1)
+            {
+                // Multiplayer mode: activates shields for both Player 1 and Player 2
+                SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>()
+                    .playerShield = true;
+                SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerHealth>()
+                    .playerShield = true;
 
-            // Activates shield visual for Player 1
-            SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer1>()
-                .remyShield.SetActive(true);
+                // Activates shield visual for Player 1
+                SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer1>()
+                    .remyShield.SetActive(true);
 
-            // Activates shield visual for Player 2
-            SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerMultiplayer2>()
-                .claireShield.SetActive(true);
+                // Activates shield visual for Player 2
+                SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerMultiplayer2>()
+                    .claireShield.SetActive(true);
+            }
+            else
+            {
+                if (SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].name == "PlayerMultiplayer1")
+                {
+                    // Multiplayer mode: activates shields for both Player 1 and Player 2
+                    SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>()
+                        .playerShield = true;
+                    
+
+                    // Activates shield visual for Player 1
+                    SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer1>()
+                        .remyShield.SetActive(true);
+
+                    
+                }
+                else if(SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].name == "PlayerMultiplayer2")
+                {
+                    // Multiplayer mode: activates shields for both Player 1 and Player 2
+                    SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>()
+                        .playerShield = true;
+                    // Activates shield visual for Player 2
+                    SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer2>()
+                        .claireShield.SetActive(true);
+                }
+            }
         }
 
         // Activates the Shield Power-Up User Interface indicator

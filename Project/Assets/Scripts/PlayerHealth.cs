@@ -43,8 +43,16 @@ public class PlayerHealth : MonoBehaviour
         // Only takes damage if the player's shield is not active
         if (playerShield == false)
         {
-            // Reduces health by the value of damage
-            health -= damage;
+            if (health <= 0)
+            {
+                health = 0;
+            }
+            else
+            {
+                health -= damage;
+               //health -= 20;
+            }
+            
             var healthPercentage = health / maxHealth;
             
             healthBar.localScale = new Vector3(healthPercentage, 0.1031f, 1);
@@ -63,7 +71,16 @@ public class PlayerHealth : MonoBehaviour
             {
                 // Plays the player death sound at the SpawnManager's position
                 AudioSource.PlayClipAtPoint(playerDeathSound, SpawnManager.instance.transform.position);
-
+                if (PlayerPrefs.GetInt("Controller", 0) == 0) // Single player mode
+                {
+                    transform.GetChild(0).gameObject.SetActive(false);
+                    transform.GetChild(1).gameObject.SetActive(false);
+                }
+                else
+                {
+                    transform.GetChild(0).gameObject.SetActive(false);
+                }
+                
                 // Plays the particle effect for player death
                 playerDeathFX.Play();
                 playerDeath = true;

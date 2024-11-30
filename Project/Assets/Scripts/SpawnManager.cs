@@ -147,13 +147,35 @@ public class SpawnManager : MonoBehaviour
         // Checks if the game is in multiplayer mode
         else if (PlayerPrefs.GetInt("Controller", 0) == 1)
         {
-            // Disables the shield for both players
-            _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>().playerShield = false;
-            _levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerHealth>().playerShield = false;
+            if (_levelSpawned.GetComponent<Levels>().player.Count > 1)
+            {
+                // Disables the shield for both players
+                _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>().playerShield = false;
+                _levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerHealth>().playerShield = false;
 
-            _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer1>().remyShield.SetActive(false);
+                _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer1>().remyShield.SetActive(false);
 
-            _levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerMultiplayer2>().claireShield.SetActive(false);
+                _levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerMultiplayer2>().claireShield.SetActive(false);
+            }
+            else
+            {
+                if (_levelSpawned.GetComponent<Levels>().player[0].name == "PlayerMultiplayer1")
+                {
+                    // Disables the shield for both players
+                    _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>().playerShield = false;
+                    
+
+                    _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer1>().remyShield.SetActive(false);
+
+                   
+                    
+                }
+                else if(_levelSpawned.GetComponent<Levels>().player[0].name == "PlayerMultiplayer2")
+                {
+                    _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>().playerShield = false;
+                    _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer2>().claireShield.SetActive(false);
+                }
+            }
         }
 
         // Hides the shield User Interface text
