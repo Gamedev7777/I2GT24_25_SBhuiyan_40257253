@@ -49,7 +49,7 @@ public class PlayerHealth : MonoBehaviour
             }
             else
             {
-                health -= damage;
+               health -= damage;
                //health -= 20;
             }
             

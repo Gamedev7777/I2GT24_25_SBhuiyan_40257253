@@ -41,7 +41,7 @@ public class AlienAI : MonoBehaviour
         _animation = transform.GetChild(0).GetComponent<Animation>();
 
         // Finds the player by tag and assigns it as the target
-        target = GameObject.FindGameObjectWithTag("Player");
+       // target = GameObject.FindGameObjectWithTag("Player");
 
         // Finds the waypoints by name and assigns them to the list
         waypoints[0] = GameObject.Find("Waypoint1").transform;
