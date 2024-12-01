@@ -27,74 +27,29 @@ public class PlayerMultiplayer2 : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        // Gets player input for horizontal movement (left/right)
-        _horizontalMovement = Input.GetAxis("HorizontalPlayer2Xbox");
-        // Gets player input for vertical movement (up/down)
-        _verticalMovement = Input.GetAxis("VerticalPlayer2Xbox");
-
-        // Creates a new movement vector based on the player's input
-        _playerMovement = new Vector3(_horizontalMovement, 0, _verticalMovement).normalized;
-        _localMovement = transform.TransformDirection(_playerMovement);
-        // Moves the player based on the input and playerSpeed
-        transform.GetComponent<Rigidbody>().velocity = _localMovement * playerSpeed;
-
-        // Gets input from the right stick for aiming direction
-        float rightStickHorizontal = Input.GetAxis("RightStickHorizontal");
-        float rightStickVertical = Input.GetAxis("RightStickVertical");
-        Vector3 aimDirection = DetermineDirection(new Vector2(rightStickHorizontal, rightStickVertical));
-        Vector3 worldAimDirection = transform.TransformDirection(aimDirection);
-
-        // Determines if the player is both moving and aiming, and handles animation and firing
-        if ((_horizontalMovement != 0 && _verticalMovement != 0) && (aimDirection != Vector3.zero))
+        if (PlayerPrefs.GetInt("Cutscene", 1) == 0)
         {
-            // Keeps the aim direction aligned on the horizontal plane
-            worldAimDirection.y = 0;
-            Quaternion targetRotation = Quaternion.LookRotation(worldAimDirection);
-            // Rotates the player towards the aim direction
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * 360);
+            // Gets player input for horizontal movement (left/right)
+            _horizontalMovement = Input.GetAxis("HorizontalPlayer2Xbox");
+            // Gets player input for vertical movement (up/down)
+            _verticalMovement = Input.GetAxis("VerticalPlayer2Xbox");
 
-            // Checks if the speed power-up is active and plays appropriate animation
-            if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
-            {
-                animation.Play("ClaireRunningFiring"); // Plays running while firing animation
-            }
-            else
-            {
-                animation.Play("ClaireWalkingFiring"); // Plays walking while firing animation
-            }
+            // Creates a new movement vector based on the player's input
+            _playerMovement = new Vector3(_horizontalMovement, 0, _verticalMovement).normalized;
+            _localMovement = transform.TransformDirection(_playerMovement);
+            // Moves the player based on the input and playerSpeed
+            transform.GetComponent<Rigidbody>().velocity = _localMovement * playerSpeed;
 
-            // Fires a bullet if aiming direction is provided and cooldown time has passed
-            if (Time.time >= _lastFireTime + _fireCooldown)
-            {
-                FireBulletXbox(worldAimDirection);
-                _lastFireTime = Time.time; // Updates the last fire time
-            }
-        }
-        else
-        {
-            // Handles movement when player is not aiming
-            if (_horizontalMovement != 0 || _verticalMovement != 0)
-            {
-                // Checks if the speed power-up is active and plays appropriate animation
-                if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
-                {
-                    animation.Play("ClaireRunning"); // Plays running animation
-                }
-                else
-                {
-                    animation.Play("ClaireWalking"); // Plays walking animation
-                }
-            }
-            else
-            {
-                // Player is idle
-                animation.Play("ClaireIdle"); // Plays idle animation
-            }
+            // Gets input from the right stick for aiming direction
+            float rightStickHorizontal = Input.GetAxis("RightStickHorizontal");
+            float rightStickVertical = Input.GetAxis("RightStickVertical");
+            Vector3 aimDirection = DetermineDirection(new Vector2(rightStickHorizontal, rightStickVertical));
+            Vector3 worldAimDirection = transform.TransformDirection(aimDirection);
 
-            // Handles firing when the player is stationary or just aiming
-            if (aimDirection != Vector3.zero)
+            // Determines if the player is both moving and aiming, and handles animation and firing
+            if ((_horizontalMovement != 0 && _verticalMovement != 0) && (aimDirection != Vector3.zero))
             {
                 // Keeps the aim direction aligned on the horizontal plane
                 worldAimDirection.y = 0;
@@ -102,8 +57,17 @@ public class PlayerMultiplayer2 : MonoBehaviour
                 // Rotates the player towards the aim direction
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * 360);
 
-                // Plays shooting animation if aiming
-                PlayShootingAnimation();
+                // Checks if the speed power-up is active and plays appropriate animation
+                if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
+                {
+                    animation.Play("ClaireRunningFiring"); // Plays running while firing animation
+                }
+                else
+                {
+                    animation.Play("ClaireWalkingFiring"); // Plays walking while firing animation
+                }
+
+                // Fires a bullet if aiming direction is provided and cooldown time has passed
                 if (Time.time >= _lastFireTime + _fireCooldown)
                 {
                     FireBulletXbox(worldAimDirection);
@@ -112,9 +76,53 @@ public class PlayerMultiplayer2 : MonoBehaviour
             }
             else
             {
-                // Stops shooting animation if not aiming
-                StopShootingAnimation();
+                // Handles movement when player is not aiming
+                if (_horizontalMovement != 0 || _verticalMovement != 0)
+                {
+                    // Checks if the speed power-up is active and plays appropriate animation
+                    if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
+                    {
+                        animation.Play("ClaireRunning"); // Plays running animation
+                    }
+                    else
+                    {
+                        animation.Play("ClaireWalking"); // Plays walking animation
+                    }
+                }
+                else
+                {
+                    // Player is idle
+                    animation.Play("ClaireIdle"); // Plays idle animation
+                }
+
+                // Handles firing when the player is stationary or just aiming
+                if (aimDirection != Vector3.zero)
+                {
+                    // Keeps the aim direction aligned on the horizontal plane
+                    worldAimDirection.y = 0;
+                    Quaternion targetRotation = Quaternion.LookRotation(worldAimDirection);
+                    // Rotates the player towards the aim direction
+                    transform.rotation =
+                        Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * 360);
+
+                    // Plays shooting animation if aiming
+                    PlayShootingAnimation();
+                    if (Time.time >= _lastFireTime + _fireCooldown)
+                    {
+                        FireBulletXbox(worldAimDirection);
+                        _lastFireTime = Time.time; // Updates the last fire time
+                    }
+                }
+                else
+                {
+                    // Stops shooting animation if not aiming
+                    StopShootingAnimation();
+                }
             }
+        }
+        else
+        {
+            animation.Play("ClaireIdle"); // Plays idle animation
         }
     }
 
@@ -165,7 +173,7 @@ public class PlayerMultiplayer2 : MonoBehaviour
     {
         // Plays the fire sound effect at the SpawnManager's position
         AudioSource.PlayClipAtPoint(fireSound, SpawnManager.instance.transform.position, 0.4f);
-        
+
         // Instantiates the bullet prefab at the player's current position
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, bulletSpawnPosition.rotation);
 
@@ -177,6 +185,7 @@ public class PlayerMultiplayer2 : MonoBehaviour
             // Sets the bullet's velocity in the specified direction
             bulletRb.velocity = _direction * _bulletSpeed;
         }
+
         // Destroys the bullet after 1 second to avoid cluttering the scene with unused bullets
         Destroy(bullet, 1.0f);
     }

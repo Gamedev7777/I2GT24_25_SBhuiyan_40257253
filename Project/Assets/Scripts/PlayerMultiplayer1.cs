@@ -30,9 +30,11 @@ public class PlayerMultiplayer1 : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        // Gets player input for horizontal movement (A/D or Left/Right keys)
+        if (PlayerPrefs.GetInt("Cutscene", 1) == 0)
+        {
+            // Gets player input for horizontal movement (A/D or Left/Right keys)
         _horizontalMovement = Input.GetAxis("Horizontal");
         // Gets player input for vertical movement (W/S or Up/Down keys)
         _verticalMovement = Input.GetAxis("Vertical");
@@ -104,6 +106,11 @@ public class PlayerMultiplayer1 : MonoBehaviour
 
         // Handles the rotation of the player based on the mouse position
         HandlePlayerRotation();
+        }
+        else
+        {
+            animation.Play("RemyIdle"); // Plays the idle animation
+        }
     }
 
     // Method to play the shooting animation when player starts firing while idle
@@ -139,8 +146,7 @@ public class PlayerMultiplayer1 : MonoBehaviour
         Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
         if (bulletRb != null)
         {
-        
-                bulletRb.velocity = transform.forward * _bulletSpeed;
+            bulletRb.velocity = transform.forward * _bulletSpeed;
         }
 
         // Destroys the bullet after 1 second to avoid cluttering the scene with unused bullets

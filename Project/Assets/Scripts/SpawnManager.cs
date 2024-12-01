@@ -23,6 +23,14 @@ public class SpawnManager : MonoBehaviour
     // Method to spawn the level
     public void SpawnLevel()
     {
+        if (PlayerPrefs.GetInt("Level", 1) == 1)
+        {
+            PlayerPrefs.SetInt("Cutscene",0);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Cutscene",1);
+        }
         fakeCamera.gameObject.SetActive(false); // Deactivate the fake camera
         // Checks if the game is in single-player mode
         if (PlayerPrefs.GetInt("Controller", 0) == 0)

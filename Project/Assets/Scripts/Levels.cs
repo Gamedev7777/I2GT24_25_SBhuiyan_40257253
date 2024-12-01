@@ -66,6 +66,6 @@ public class Levels : MonoBehaviour
             Cursor.lockState = CursorLockMode.None; // Lock the cursor to the center of the game window.
             Cursor.visible = true;
         }
-    
 
+        
 }

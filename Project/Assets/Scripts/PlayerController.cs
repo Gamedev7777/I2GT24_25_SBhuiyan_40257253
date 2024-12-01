@@ -45,7 +45,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        // Gets player input for horizontal movement (left/right) from keyboard
+        if (PlayerPrefs.GetInt("Cutscene", 1) == 0)
+        {
+            // Gets player input for horizontal movement (left/right) from keyboard
         _horizontalMovementKeyboard = Input.GetAxis("Horizontal");
         // Gets player input for vertical movement (up/down) from keyboard
         _verticalMovementKeyboard = Input.GetAxis("Vertical");
@@ -234,6 +236,19 @@ public class PlayerController : MonoBehaviour
 
         // Handles player rotation to face the aiming direction, either by mouse or Xbox controller input
         HandlePlayerRotation();
+        }
+        else
+        {
+            // Play idle animation when player is not moving
+            if (_avatar == 0)
+            {
+                playerAnimation.Play("RemyIdle");
+            }
+            else if (_avatar == 1)
+            {
+                playerAnimation.Play("ClaireIdle");
+            }
+        }
     }
 
     // Plays the shooting animation if it is not already playing

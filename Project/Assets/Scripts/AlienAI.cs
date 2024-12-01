@@ -59,9 +59,6 @@ public class AlienAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Logs the target object for debugging purposes
-        Debug.Log(target);
-
         // Executes behaviour based on the current state
         switch (_currentState)
         {
@@ -101,7 +98,7 @@ public class AlienAI : MonoBehaviour
         }
 
         // Transitions to patrol state after idle time has elapsed
-        if (_idleTimer >= idleTime)
+        if (_idleTimer >= idleTime && PlayerPrefs.GetInt("Cutscene",1) == 0)
         {
             _currentState = AlienAIstate.patrol; // Switches to patrol state
             _idleTimer = 0.0f; // Resets the idle timer
@@ -116,7 +113,7 @@ public class AlienAI : MonoBehaviour
             _currentWaypointIndex == -1)
         {
             // Moves to a random waypoint in the list
-            int randomIndex = UnityEngine.Random.Range(0, waypoints.Count);
+            int randomIndex = Random.Range(0, waypoints.Count);
             _currentWaypointIndex = randomIndex; // Sets the current waypoint index
             aiNavMeshAgent.SetDestination(waypoints[_currentWaypointIndex].position); // Sets the alien's destination to the selected waypoint
 
@@ -130,7 +127,7 @@ public class AlienAI : MonoBehaviour
                 _animation.Play("ZlorpWalking");
             }
         }
-
+        Debug.Log(target);
         // Checks if there is a target available
         if (target != null)
         {
@@ -167,13 +164,6 @@ public class AlienAI : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(aiNavMeshAgent.velocity.normalized);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 1000f * Time.deltaTime);
             
-            
-            
-           // Vector3 directionToTarget = transform.forward.normalized;
-            
-           // Quaternion lookRotation = Quaternion.LookRotation(directionToTarget); // Creates a rotation to look at the target
-        
-           // transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, 1000f * Time.deltaTime);
             
             // Plays walking animation based on the alien type
             if (gameObject.tag == "Alien2")
