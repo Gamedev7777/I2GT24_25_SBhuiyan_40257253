@@ -2173,7 +2173,7 @@ MonoBehaviour:
     Killing you is not goal. In lab, your family watch you. We offer them upgrade
     to become immortal - no need breathe air, drink water and eat food. Your son
     accepts, your wife and daughter refuses. Now, you choose: Remain Human or Be
-    Upgraded.'
+    Upgraded."'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6568,9 +6568,10 @@ MonoBehaviour:
       m_Calls: []
   m_text: "After killing the first alien, you suddenly hear Jill's voice over hidden
     speakers: \u201CDad! Dad! Where are you? I... I am in a cage all alone. I am
-    so scared. Have you seen Mum and Jack?\u201D You say, \u201CI haven\u2019t seen
-    them. I am in a maze. I will find all of you. Do your deep breathing exercises.\u201D
-    The line cuts off abruptly. You wonder if you will ever see your family again."
+    so scared. Have you seen Mum and Jack?\u201D You say, \u201COh, Jill! I haven\u2019t
+    seen them. I am in a maze. I will find all of you. It's ok to be scared. Do your
+    deep breathing exercises.\u201D The line cuts off abruptly. You wonder if you
+    will ever see your family again."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10063,11 +10064,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: The same guttural voice returns. He says, "Learn language human. Strange
-    species you. Never before encountered. Why you kill each other and other species?"
-    You say, "What? You can speak English now! Why have you kidnapped us? Why are
-    you shooting lasers at me?" He says, "To test you. You answer not question mine"
-    You say, "I don't know. We just do." He says, "Not good answer."
+  m_text: The same guttural voice returns. He says, "Learn language of humans. Strange
+    species you. Never before encountered. Reviewed your history. Why you kill each
+    other and other species?" You say, "What? You can speak English now! Why have
+    you kidnapped us? Why are you shooting lasers at me?" He says, "To test you.
+    You answer not question mine" You say, "I don't know. We just do." He says, "Not
+    good answer."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -13893,8 +13895,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "As you press forward, the silence of the maze is shattered by an eerie,
     guttural voice broadcasted over hidden speakers. The words are unintelligible,
-    a chaotic jumble of alien sounds:  \r\n\r\n\"Ofkjljoe mpwqoc qzoepllde!\" \r\n\r\nYou
-    pause, heart pounding. What are they saying? What do they want?  \r\n"
+    a chaotic jumble of alien sounds:  \r\n\r\n\"Offkiljoe mopveqoc qezoplid!\"\n\r\nYou
+    pause, your heart is pounding. What are they saying? What do they want?\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -15557,9 +15559,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You and your wife, Claire, son, Jack, and daughter, Jill, are eating dinner
-    together. You are suddenly caught in a beam of light. You float off through the
-    ceiling, the loft and the roof to a spaceship high up in the sky. Your children
+  m_text: You and your wife, Claire, your son, Jack, and daughter, Jill, are eating
+    dinner together. You are suddenly caught in a beam of light. You float off through
+    the ceiling, the loft and the roof to a spaceship high up in the sky. Your children
     are separated from you and you find yourself in a maze. The maze has aliens that
     shoot lasers at you. You find yourself holding a rifle. You must adapt or you
     will die.
