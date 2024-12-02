@@ -239,15 +239,30 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            if (PlayerPrefs.GetInt("Level", 1) == 4)
+            {
+                if (_avatar == 0)
+                {
+                    playerAnimation.Play("RemyTalking");
+                }
+                else if (_avatar == 1)
+                {
+                    playerAnimation.Play("ClaireTalking");
+                }
+            }
+            else
+            {
+                if (_avatar == 0)
+                {
+                    playerAnimation.Play("RemyIdle");
+                }
+                else if (_avatar == 1)
+                {
+                    playerAnimation.Play("ClaireIdle");
+                }
+            }
             // Play idle animation when player is not moving
-            if (_avatar == 0)
-            {
-                playerAnimation.Play("RemyIdle");
-            }
-            else if (_avatar == 1)
-            {
-                playerAnimation.Play("ClaireIdle");
-            }
+            
         }
     }
 

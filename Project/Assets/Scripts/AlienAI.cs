@@ -97,11 +97,23 @@ public class AlienAI : MonoBehaviour
             _animation.Play("ZlorpIdle");
         }
 
+        if (PlayerPrefs.GetInt("Cutscene", 1) == 0)
+        {
+            if (PlayerPrefs.GetInt("Level", 1) == 4)
+            {
+                _animation.Play("ZlorpSoldierTalking");
+            }
+        }
         // Transitions to patrol state after idle time has elapsed
         if (_idleTimer >= idleTime && PlayerPrefs.GetInt("Cutscene",1) == 0)
         {
             _currentState = AlienAIstate.patrol; // Switches to patrol state
             _idleTimer = 0.0f; // Resets the idle timer
+        }
+        else
+        {
+            
+            
         }
     }
 
