@@ -239,7 +239,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (PlayerPrefs.GetInt("Level", 1) == 4)
+            if (PlayerPrefs.GetInt("Level", 1) == 4 || PlayerPrefs.GetInt("Level", 1) == 5)
             {
                 if (_avatar == 0)
                 {

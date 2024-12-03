@@ -90,7 +90,7 @@ public class AlienAI : MonoBehaviour
         // Plays idle animation based on the alien type
         if (gameObject.tag == "Alien2")
         {
-            if (PlayerPrefs.GetInt("Cutscene", 1) == 1 && PlayerPrefs.GetInt("Level", 1) == 4)
+            if (PlayerPrefs.GetInt("Cutscene", 1) == 1 && (PlayerPrefs.GetInt("Level", 1) == 4 || PlayerPrefs.GetInt("Level", 1) == 5) )
             {
                 Debug.Log("Talking");
                 _animation.Play("ZlorpSoldierTalking");
