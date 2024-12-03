@@ -63,7 +63,7 @@ public class AlienAI : MonoBehaviour
         switch (_currentState)
         {
             case AlienAIstate.idle:
-                Debug.Log("idle");
+//                Debug.Log("idle");
                 HandleIdleState(); // Handles behaviour when the alien is idle
                 break;
             case AlienAIstate.patrol:
@@ -90,30 +90,27 @@ public class AlienAI : MonoBehaviour
         // Plays idle animation based on the alien type
         if (gameObject.tag == "Alien2")
         {
-            _animation.Play("ZlorpSoldierIdle");
+            if (PlayerPrefs.GetInt("Cutscene", 1) == 1 && PlayerPrefs.GetInt("Level", 1) == 4)
+            {
+                Debug.Log("Talking");
+                _animation.Play("ZlorpSoldierTalking");
+            }
+            else
+            {
+                Debug.Log("idle");
+                _animation.Play("ZlorpSoldierIdle");
+            }
         }
         else if (gameObject.tag == "Alien1")
         {
             _animation.Play("ZlorpIdle");
         }
-
-        if (PlayerPrefs.GetInt("Cutscene", 1) == 0)
-        {
-            if (PlayerPrefs.GetInt("Level", 1) == 4)
-            {
-                _animation.Play("ZlorpSoldierTalking");
-            }
-        }
-        // Transitions to patrol state after idle time has elapsed
+        
         if (_idleTimer >= idleTime && PlayerPrefs.GetInt("Cutscene",1) == 0)
         {
+            Debug.Log("patrol");
             _currentState = AlienAIstate.patrol; // Switches to patrol state
             _idleTimer = 0.0f; // Resets the idle timer
-        }
-        else
-        {
-            
-            
         }
     }
 
