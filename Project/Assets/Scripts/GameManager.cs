@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance; // Singleton instance of GameManager
     public TextMeshProUGUI playerHealthText, playerHealthText2; // User Interface for player 1 and player 2 health
     public TextMeshProUGUI levelNumberText, avatarText; // User Interface for level number and avatar selection text
-    public GameObject playerShieldText, playerSpeedText; // User Interface elements for player status (shield and speed)
+    public GameObject playerShieldText, playerSpeedText, videoCamera; // User Interface elements for player status (shield and speed)
     public List<GameObject> popUpList = new List<GameObject>(); // List of pop-up game objects for different levels
     public GameObject mainMenu; // Reference to the main menu game object
     public GameObject singleAndMultiplayerMenu; // Reference to the single and multiplayer selection menu
@@ -95,19 +95,23 @@ public class GameManager : MonoBehaviour
         }
         else if (_level == 2)
         {
-            popUpList[1].SetActive(true); // Shows the second story pop-up for level 2
+            // popUpList[1].SetActive(true); // Shows the second story pop-up for level 2
+            StartButton();
         }
         else if (_level == 3)
         {
-            popUpList[2].SetActive(true); // Shows the third story pop-up for level 3
+            // popUpList[2].SetActive(true); // Shows the third story pop-up for level 3
+            StartButton();
         }
         else if (_level == 4)
         {
-            popUpList[3].SetActive(true); // Shows the fourth story pop-up for level 4
+            // popUpList[3].SetActive(true); // Shows the fourth story pop-up for level 4
+            StartButton();
         }
         else if (_level == 5)
         {
-            popUpList[4].SetActive(true); // Shows the fifth story pop-up for level 5
+            // popUpList[4].SetActive(true); // Shows the fifth story pop-up for level 5
+            StartButton();
         }
         else if (_level == 6)
         {
@@ -122,6 +126,7 @@ public class GameManager : MonoBehaviour
     // Method called when the Start button is pressed
     public void StartButton()
     {
+        videoCamera.SetActive(false);
         // Deactivates level pop-ups except for the final ones
         for (int i = 0; i < popUpList.Count - 2; i++)
         {
