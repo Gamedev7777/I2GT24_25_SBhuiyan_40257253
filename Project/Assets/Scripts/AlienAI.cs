@@ -41,7 +41,7 @@ public class AlienAI : MonoBehaviour
         _animation = transform.GetChild(0).GetComponent<Animation>();
 
         // Finds the player by tag and assigns it as the target
-       // target = GameObject.FindGameObjectWithTag("Player");
+        // target = GameObject.FindGameObjectWithTag("Player");
 
         // Finds the waypoints by name and assigns them to the list
         waypoints[0] = GameObject.Find("Waypoint1").transform;
@@ -90,7 +90,9 @@ public class AlienAI : MonoBehaviour
         // Plays idle animation based on the alien type
         if (gameObject.tag == "Alien2")
         {
-            if (PlayerPrefs.GetInt("Cutscene", 1) == 1 && (PlayerPrefs.GetInt("Level", 1) == 4 || PlayerPrefs.GetInt("Level", 1) == 5) )
+            if (PlayerPrefs.GetInt("Cutscene", 1) == 1 &&
+                (PlayerPrefs.GetInt("Level", 1) == 4 || PlayerPrefs.GetInt("Level", 1) == 5 ||
+                PlayerPrefs.GetInt("Level", 1) == 6))
             {
                 Debug.Log("Talking");
                 _animation.Play("ZlorpSoldierTalking");
@@ -101,12 +103,14 @@ public class AlienAI : MonoBehaviour
                 _animation.Play("ZlorpSoldierIdle");
             }
         }
+
+
         else if (gameObject.tag == "Alien1")
         {
             _animation.Play("ZlorpIdle");
         }
-        
-        if (_idleTimer >= idleTime && PlayerPrefs.GetInt("Cutscene",1) == 0)
+
+        if (_idleTimer >= idleTime && PlayerPrefs.GetInt("Cutscene", 1) == 0)
         {
             Debug.Log("patrol");
             _currentState = AlienAIstate.patrol; // Switches to patrol state
@@ -124,7 +128,8 @@ public class AlienAI : MonoBehaviour
             // Moves to a random waypoint in the list
             int randomIndex = Random.Range(0, waypoints.Count);
             _currentWaypointIndex = randomIndex; // Sets the current waypoint index
-            aiNavMeshAgent.SetDestination(waypoints[_currentWaypointIndex].position); // Sets the alien's destination to the selected waypoint
+            aiNavMeshAgent.SetDestination(waypoints[_currentWaypointIndex]
+                .position); // Sets the alien's destination to the selected waypoint
 
             // Plays walking animation based on the alien type
             if (gameObject.tag == "Alien2")
@@ -136,6 +141,7 @@ public class AlienAI : MonoBehaviour
                 _animation.Play("ZlorpWalking");
             }
         }
+
         Debug.Log(target);
         // Checks if there is a target available
         if (target != null)
@@ -169,11 +175,11 @@ public class AlienAI : MonoBehaviour
         if (target != null)
         {
             aiNavMeshAgent.SetDestination(target.transform.position);
-            
+
             Quaternion targetRotation = Quaternion.LookRotation(aiNavMeshAgent.velocity.normalized);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 1000f * Time.deltaTime);
-            
-            
+
+
             // Plays walking animation based on the alien type
             if (gameObject.tag == "Alien2")
             {
@@ -220,7 +226,7 @@ public class AlienAI : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, directionToTarget, out hit))
         {
-            if (hit.collider.gameObject != target && distanceToTarget > attackDistance) 
+            if (hit.collider.gameObject != target && distanceToTarget > attackDistance)
             {
                 Debug.Log("Chase 2");
                 // If there is no direct line of sight, transitions back to chase state
@@ -230,12 +236,12 @@ public class AlienAI : MonoBehaviour
         }
 
         // Rotates towards the target to face it
-        Quaternion lookRotation = Quaternion.LookRotation(directionToTarget); // Creates a rotation to look at the target
-        
+        Quaternion
+            lookRotation = Quaternion.LookRotation(directionToTarget); // Creates a rotation to look at the target
+
         transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, 1000f * Time.deltaTime);
-        
-        
-        
+
+
         // Fires laser at intervals based on the fire timer
         _fireTimer -= Time.deltaTime;
 
@@ -327,7 +333,7 @@ public class AlienAI : MonoBehaviour
 
             // Plays the laser sound effect at the camera's position with 40% of the original volume
             AudioSource.PlayClipAtPoint(laserSound, SpawnManager.instance.transform.position, 0.4f);
-            
+
             // Instantiates the laser at the alien's position with the calculated rotation
             GameObject laser = Instantiate(laserPrefab, laserSpawnPosition.position, laserRotation);
 
