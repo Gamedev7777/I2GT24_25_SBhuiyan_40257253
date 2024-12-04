@@ -92,7 +92,7 @@ public class AlienAI : MonoBehaviour
         {
             if (PlayerPrefs.GetInt("Cutscene", 1) == 1 &&
                 (PlayerPrefs.GetInt("Level", 1) == 4 || PlayerPrefs.GetInt("Level", 1) == 5 ||
-                PlayerPrefs.GetInt("Level", 1) == 6))
+                PlayerPrefs.GetInt("Level", 1) == 6 || PlayerPrefs.GetInt("Level", 1) == 7))
             {
                 Debug.Log("Talking");
                 _animation.Play("ZlorpSoldierTalking");
