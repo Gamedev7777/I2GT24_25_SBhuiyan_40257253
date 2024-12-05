@@ -75,8 +75,9 @@ public class SpawnManager : MonoBehaviour
                 {
                     Cursor.lockState = CursorLockMode.None; // Lock the cursor to the center of the game window.
                     Cursor.visible = true;
-                    GameManager.instance.highscoreMenu.SetActive(true); // Shows high score menu
-                    GameManager.instance.highscoreText.text = "New High Score: " + PlayerPrefs.GetInt("Score", 0);
+                    GameManager.instance.popUpList[7].SetActive(true); // Shows the upgrade story pop-up
+                    GameManager.instance.videoPlayer8.gameObject.SetActive(true);
+                    
                 }
                 else
                 {

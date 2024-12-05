@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class GameManager : MonoBehaviour
     public TMP_InputField playerNameInputField; // Input field for player name in high score menu
     public TextMeshProUGUI highscoreText; // User Interface text for displaying new high score
     public TextMeshProUGUI currentHighscoreText; // User Interface text for displaying current high score
-
+    public VideoPlayer videoPlayer8, videoPlayer9;
     // private variables
     private int _level; // Holds the current level number
     private int _musicIndex; // Holds the current music index for changing background music
@@ -182,9 +183,22 @@ public class GameManager : MonoBehaviour
     // Method to restart the game and reset the score
     public void PlayAgain()
     {
-        PlayerPrefs.SetInt("firstTime", 1); // Marks as first time playing
-        PlayerPrefs.SetInt("Score", 0); // Resets score to 0
-        SceneManager.LoadScene("Adapt or Die"); // Reloads the scene to start again
+        if (PlayerPrefs.GetInt("Highscore", 0) < PlayerPrefs.GetInt("Score", 0))
+        {
+            highscoreMenu.SetActive(true); // Displays the high score menu if new high score is achieved
+            highscoreText.text = "New High Score: " + PlayerPrefs.GetInt("Score", 0);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Level", 1); // Resets level to 1
+            PlayerPrefs.SetInt("firstTime", 0); // Marks that the first-time setup is complete
+            PlayerPrefs.SetInt("Upgraded", 0); // Resets upgrade state
+            
+            
+            PlayerPrefs.SetInt("Score", 0); // Resets score to 0
+            SceneManager.LoadScene("Adapt or Die"); // Reloads the scene to start again
+        }
+        SpawnManager.instance.fakeCamera.gameObject.SetActive(true);
     }
 
     // Method to save the high score and player information
@@ -211,7 +225,9 @@ public class GameManager : MonoBehaviour
 
         if (PlayerPrefs.GetInt("Upgraded", 0) == 1)
         {
-            popUpList[8].SetActive(true); // Shows the upgrade story pop-up
+            PlayerPrefs.SetInt("firstTime", 1); // Marks as first time playing
+            PlayerPrefs.SetInt("Score", 0); // Resets score to 0
+            SceneManager.LoadScene("Adapt or Die"); // Reloads the scene to start again
         }
         else
         {
@@ -225,15 +241,12 @@ public class GameManager : MonoBehaviour
         AudioListener.volume = 0; // Mutes volume during upgrade
         PlayerPrefs.SetInt("Level", 1); // Resets level to 1
         PlayerPrefs.SetInt("Upgraded", 1); // Marks player as upgraded
-        if (PlayerPrefs.GetInt("Highscore", 0) < PlayerPrefs.GetInt("Score", 0))
-        {
-            highscoreMenu.SetActive(true); // Displays the high score menu if new high score is achieved
-            highscoreText.text = "New High Score: " + PlayerPrefs.GetInt("Score", 0).ToString();
-        }
-        else
-        {
+        
+        
+            popUpList[5].SetActive(false);
             popUpList[8].SetActive(true); // Shows the upgrade story pop-up
-        }
+            videoPlayer9.gameObject.SetActive(true);
+        
     }
 
     // Method to toggle between avatars
