@@ -223,16 +223,16 @@ public class GameManager : MonoBehaviour
 
         highscoreMenu.SetActive(false); // Hides the high score menu
 
-        if (PlayerPrefs.GetInt("Upgraded", 0) == 1)
+       // if (PlayerPrefs.GetInt("Upgraded", 0) == 1)
         {
             PlayerPrefs.SetInt("firstTime", 1); // Marks as first time playing
             PlayerPrefs.SetInt("Score", 0); // Resets score to 0
             SceneManager.LoadScene("Adapt or Die"); // Reloads the scene to start again
         }
-        else
-        {
-            popUpList[7].SetActive(true); // Shows the final level completion pop-up
-        }
+        // else
+        // {
+        //     popUpList[7].SetActive(true); // Shows the final level completion pop-up
+        // }
     }
 
     // Method to upgrade the player and show the upgrade story pop-up
