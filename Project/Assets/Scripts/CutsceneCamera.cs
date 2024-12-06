@@ -12,5 +12,11 @@ public class CutsceneCamera : MonoBehaviour
         mainCam.SetActive(true);
         gameObject.SetActive(false);
         PlayerPrefs.SetInt("Cutscene",0);
+        for (int i = 0; i < GameManager.instance.popUpList.Count - 2; i++)
+        {
+            GameManager.instance.popUpList[i].SetActive(false);
+        }
+        Cursor.lockState = CursorLockMode.Locked; // Unlock the cursor, allowing free movement outside the game window.
+        Cursor.visible = false;
     }
 }

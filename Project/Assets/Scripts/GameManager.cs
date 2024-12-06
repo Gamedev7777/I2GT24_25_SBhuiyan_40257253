@@ -96,43 +96,66 @@ public class GameManager : MonoBehaviour
         }
         else if (_level == 2)
         {
-            // popUpList[1].SetActive(true); // Shows the second story pop-up for level 2
+            popUpList[1].SetActive(true); // Shows the second story pop-up for level 2
             StartButton();
         }
         else if (_level == 3)
         {
-            // popUpList[2].SetActive(true); // Shows the third story pop-up for level 3
+            popUpList[2].SetActive(true); // Shows the third story pop-up for level 3
             StartButton();
         }
         else if (_level == 4)
         {
-            // popUpList[3].SetActive(true); // Shows the fourth story pop-up for level 4
+            popUpList[3].SetActive(true); // Shows the fourth story pop-up for level 4
             StartButton();
         }
         else if (_level == 5)
         {
-            // popUpList[4].SetActive(true); // Shows the fifth story pop-up for level 5
+            popUpList[4].SetActive(true); // Shows the fifth story pop-up for level 5
             StartButton();
         }
         else if (_level == 6)
         {
             popUpList[5].SetActive(true); // Shows the sixth story pop-up for level 6
+            StartButton();
         }
         else if (_level == 7)
         {
             popUpList[6].SetActive(true); // Shows the seventh story pop-up for level 7
+            StartButton();
         }
     }
 
+    public void SkipCutscene()
+    {
+        var cutsceneCamera = SpawnManager.instance._levelSpawned.GetComponentInChildren<CutsceneCamera>();
+        cutsceneCamera.SwitchCameras();
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
     // Method called when the Start button is pressed
     public void StartButton()
     {
         videoCamera.SetActive(false);
         // Deactivates level pop-ups except for the final ones
-        for (int i = 0; i < popUpList.Count - 2; i++)
+        if (PlayerPrefs.GetInt("Level", 1) == 1) 
         {
-            popUpList[i].SetActive(false);
+            for (int i = 0; i < popUpList.Count - 2; i++)
+            {
+                popUpList[i].SetActive(false);
+            }
+            Cursor.lockState = CursorLockMode.Locked; // Unlock the cursor, allowing free movement outside the game window.
+            Cursor.visible = false;
         }
+        
 
         // Spawns the level using the SpawnManager
         SpawnManager.instance.SpawnLevel();
@@ -242,7 +265,8 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("Level", 1); // Resets level to 1
         PlayerPrefs.SetInt("Upgraded", 1); // Marks player as upgraded
         
-        
+        Destroy(SpawnManager.instance._levelSpawned);
+        videoCamera.SetActive(true);
             popUpList[5].SetActive(false);
             popUpList[8].SetActive(true); // Shows the upgrade story pop-up
             videoPlayer9.gameObject.SetActive(true);

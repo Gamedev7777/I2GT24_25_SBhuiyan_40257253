@@ -53,11 +53,11 @@ public class Levels : MonoBehaviour
     
         // This method is called when the GameObject is enabled.
         // It unlocks the mouse cursor by setting the cursor lock state to None.
-        private void OnEnable()
-        {
-            Cursor.lockState = CursorLockMode.Locked; // Unlock the cursor, allowing free movement outside the game window.
-            Cursor.visible = false;
-        }
+        // private void OnEnable()
+        // {
+        //     Cursor.lockState = CursorLockMode.Locked; // Unlock the cursor, allowing free movement outside the game window.
+        //     Cursor.visible = false;
+        // }
 
         // This method is called when the GameObject is disabled.
         // It locks the mouse cursor by setting the cursor lock state to Locked.
