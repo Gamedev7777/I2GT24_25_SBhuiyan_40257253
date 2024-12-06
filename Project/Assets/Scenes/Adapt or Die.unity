@@ -10337,6 +10337,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 256660865}
     m_Modifications:
+    - target: {fileID: 174904, guid: 3e541691191f44de8b9db8a516d098f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 197138, guid: 3e541691191f44de8b9db8a516d098f3, type: 3}
       propertyPath: m_Name
       value: GlassRoof

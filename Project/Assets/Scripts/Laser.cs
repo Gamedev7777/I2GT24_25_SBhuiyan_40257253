@@ -17,15 +17,10 @@ public class Laser : MonoBehaviour
             // After hitting the player, destroys the laser
             Destroy(gameObject);
         }
-        // Checks if the laser has hit a fixed or moving wall
-        else if ((other.CompareTag("FixedWall")) || other.CompareTag("MovingWall"))
-        {
-            // Destroys the laser when it hits a wall so it does not pass through it
-            Destroy(gameObject);
-        }
-        // Checks if the laser has hit a power-up (speed, shield, or health)
-        else if ((other.CompareTag("PowerUpSpeed") || other.CompareTag("PowerUpShield")) ||
-                 other.CompareTag("PowerUpHealth"))
+        
+        // Checks if the laser has hit a power-up (speed, shield, or health) or fixed wall
+        else if (other.CompareTag("PowerUpSpeed") || other.CompareTag("PowerUpShield") ||
+                 other.CompareTag("PowerUpHealth") || other.CompareTag("FixedWall"))
         {
             // When the laser hits a power-up, destroys the laser
             Destroy(gameObject);
