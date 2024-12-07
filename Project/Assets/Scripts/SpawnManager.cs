@@ -9,7 +9,10 @@ public class SpawnManager : MonoBehaviour
     public List<GameObject> alienList = new List<GameObject>(); // List to keep track of all spawned aliens
     public GameObject _levelSpawned; // Reference to the currently spawned level
     public List<GameObject> levelPrefabList = new List<GameObject>(); // List of level prefabs for single-player mode
-    public List<GameObject> levelMultiplayerPrefabList = new List<GameObject>(); // List of level prefabs for multiplayer mode
+
+    public List<GameObject>
+        levelMultiplayerPrefabList = new List<GameObject>(); // List of level prefabs for multiplayer mode
+
     public AudioClip shieldDisabledSound; // Sound played when the shield is disabled
     public Camera fakeCamera; // Reference to the fake camera used during the transition
 
@@ -25,12 +28,13 @@ public class SpawnManager : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("Level", 1) == 1)
         {
-            PlayerPrefs.SetInt("Cutscene",0);
+            PlayerPrefs.SetInt("Cutscene", 0);
         }
         else
         {
-            PlayerPrefs.SetInt("Cutscene",1);
+            PlayerPrefs.SetInt("Cutscene", 1);
         }
+
         fakeCamera.gameObject.SetActive(false); // Deactivate the fake camera
         // Checks if the game is in single-player mode
         if (PlayerPrefs.GetInt("Controller", 0) == 0)
@@ -79,7 +83,6 @@ public class SpawnManager : MonoBehaviour
                     GameManager.instance.videoCamera.SetActive(true);
                     GameManager.instance.popUpList[7].SetActive(true); // Shows the upgrade story pop-up
                     GameManager.instance.videoPlayer8.gameObject.SetActive(true);
-                    
                 }
                 else
                 {
@@ -153,7 +156,8 @@ public class SpawnManager : MonoBehaviour
 
             _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerController>().remyShield.SetActive(false);
 
-            _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerController>().claireShield.SetActive(false);
+            _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerController>().claireShield
+                .SetActive(false);
         }
         // Checks if the game is in multiplayer mode
         else if (PlayerPrefs.GetInt("Controller", 0) == 1)
@@ -164,9 +168,11 @@ public class SpawnManager : MonoBehaviour
                 _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>().playerShield = false;
                 _levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerHealth>().playerShield = false;
 
-                _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer1>().remyShield.SetActive(false);
+                _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer1>().remyShield
+                    .SetActive(false);
 
-                _levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerMultiplayer2>().claireShield.SetActive(false);
+                _levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerMultiplayer2>().claireShield
+                    .SetActive(false);
             }
             else
             {
@@ -174,17 +180,16 @@ public class SpawnManager : MonoBehaviour
                 {
                     // Disables the shield for both players
                     _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>().playerShield = false;
-                    
 
-                    _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer1>().remyShield.SetActive(false);
 
-                   
-                    
+                    _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer1>().remyShield
+                        .SetActive(false);
                 }
-                else if(_levelSpawned.GetComponent<Levels>().player[0].name == "PlayerMultiplayer2")
+                else if (_levelSpawned.GetComponent<Levels>().player[0].name == "PlayerMultiplayer2")
                 {
                     _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>().playerShield = false;
-                    _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer2>().claireShield.SetActive(false);
+                    _levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer2>().claireShield
+                        .SetActive(false);
                 }
             }
         }

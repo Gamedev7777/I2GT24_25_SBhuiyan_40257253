@@ -11,7 +11,7 @@ public class PlayerHealth : MonoBehaviour
     public AudioClip playerDeathSound; // Audio clip to play when the player dies
     public Transform healthBar;
     private float maxHealth;
-    
+
     void Awake()
     {
         // Assigns the current instance of this script to the static instance variable
@@ -34,6 +34,7 @@ public class PlayerHealth : MonoBehaviour
         {
             health = 40; // Sets health to 40 in hard mode
         }
+
         maxHealth = health;
     }
 
@@ -49,12 +50,12 @@ public class PlayerHealth : MonoBehaviour
             }
             else
             {
-               health -= damage;
-               //health -= 20;
+                health -= damage;
+                //health -= 20;
             }
-            
+
             var healthPercentage = health / maxHealth;
-            
+
             healthBar.localScale = new Vector3(healthPercentage, 0.1031f, 1);
             // Updates the health display in the User Interface based on the player's name
             if (gameObject.name == "Player" || gameObject.name == "PlayerMultiplayer1")
@@ -80,7 +81,7 @@ public class PlayerHealth : MonoBehaviour
                 {
                     transform.GetChild(0).gameObject.SetActive(false);
                 }
-                
+
                 // Plays the particle effect for player death
                 playerDeathFX.Play();
                 playerDeath = true;
@@ -100,7 +101,7 @@ public class PlayerHealth : MonoBehaviour
         SpawnManager.instance.GameOver();
 
         // Sets playerDeath to true to prevent multiple calls to the Die method
-       
+
 
         // Destroys the player game object
         Destroy(gameObject);

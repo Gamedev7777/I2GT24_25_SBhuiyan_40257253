@@ -13,7 +13,10 @@ public class GameManager : MonoBehaviour
     public static GameManager instance; // Singleton instance of GameManager
     public TextMeshProUGUI playerHealthText, playerHealthText2; // User Interface for player 1 and player 2 health
     public TextMeshProUGUI levelNumberText, avatarText; // User Interface for level number and avatar selection text
-    public GameObject playerShieldText, playerSpeedText, videoCamera; // User Interface elements for player status (shield and speed)
+
+    public GameObject
+        playerShieldText, playerSpeedText, videoCamera; // User Interface elements for player status (shield and speed)
+
     public List<GameObject> popUpList = new List<GameObject>(); // List of pop-up game objects for different levels
     public GameObject mainMenu; // Reference to the main menu game object
     public GameObject singleAndMultiplayerMenu; // Reference to the single and multiplayer selection menu
@@ -26,7 +29,9 @@ public class GameManager : MonoBehaviour
     public TMP_InputField playerNameInputField; // Input field for player name in high score menu
     public TextMeshProUGUI highscoreText; // User Interface text for displaying new high score
     public TextMeshProUGUI currentHighscoreText; // User Interface text for displaying current high score
+
     public VideoPlayer videoPlayer8, videoPlayer9;
+
     // private variables
     private int _level; // Holds the current level number
     private int _musicIndex; // Holds the current music index for changing background music
@@ -130,24 +135,25 @@ public class GameManager : MonoBehaviour
     {
         var cutsceneCamera = SpawnManager.instance._levelSpawned.GetComponentInChildren<CutsceneCamera>();
         cutsceneCamera.SwitchCameras();
-        
     }
-    
+
     // Method called when the Start button is pressed
     public void StartButton()
     {
         videoCamera.SetActive(false);
         // Deactivates level pop-ups except for the final ones
-        if (PlayerPrefs.GetInt("Level", 1) == 1) 
+        if (PlayerPrefs.GetInt("Level", 1) == 1)
         {
             for (int i = 0; i < popUpList.Count - 2; i++)
             {
                 popUpList[i].SetActive(false);
             }
-            Cursor.lockState = CursorLockMode.Locked; // Unlock the cursor, allowing free movement outside the game window.
+
+            Cursor.lockState =
+                CursorLockMode.Locked; // Unlock the cursor, allowing free movement outside the game window.
             Cursor.visible = false;
         }
-        
+
 
         // Spawns the level using the SpawnManager
         SpawnManager.instance.SpawnLevel();
@@ -208,11 +214,12 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("Level", 1); // Resets level to 1
             PlayerPrefs.SetInt("firstTime", 0); // Marks that the first-time setup is complete
             PlayerPrefs.SetInt("Upgraded", 0); // Resets upgrade state
-            
-            
+
+
             PlayerPrefs.SetInt("Score", 0); // Resets score to 0
             SceneManager.LoadScene("Adapt or Die"); // Reloads the scene to start again
         }
+
         SpawnManager.instance.fakeCamera.gameObject.SetActive(true);
     }
 
@@ -238,7 +245,7 @@ public class GameManager : MonoBehaviour
 
         highscoreMenu.SetActive(false); // Hides the high score menu
 
-       // if (PlayerPrefs.GetInt("Upgraded", 0) == 1)
+        // if (PlayerPrefs.GetInt("Upgraded", 0) == 1)
         {
             PlayerPrefs.SetInt("firstTime", 1); // Marks as first time playing
             PlayerPrefs.SetInt("Score", 0); // Resets score to 0
@@ -256,13 +263,12 @@ public class GameManager : MonoBehaviour
         AudioListener.volume = 0; // Mutes volume during upgrade
         PlayerPrefs.SetInt("Level", 1); // Resets level to 1
         PlayerPrefs.SetInt("Upgraded", 1); // Marks player as upgraded
-        
+
         Destroy(SpawnManager.instance._levelSpawned);
         videoCamera.SetActive(true);
-            popUpList[5].SetActive(false);
-            popUpList[8].SetActive(true); // Shows the upgrade story pop-up
-            videoPlayer9.gameObject.SetActive(true);
-        
+        popUpList[5].SetActive(false);
+        popUpList[8].SetActive(true); // Shows the upgrade story pop-up
+        videoPlayer9.gameObject.SetActive(true);
     }
 
     // Method to toggle between avatars

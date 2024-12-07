@@ -15,7 +15,7 @@ public class Levels : MonoBehaviour
 
     // References to player avatars: Remy and Claire
     public GameObject remy, claire;
-    
+
     // Called when the script instance is being loaded
     void Awake()
     {
@@ -28,7 +28,7 @@ public class Levels : MonoBehaviour
     {
         // Check the player's preference (using PlayerPrefs) to determine which avatar to activate
         // Default value is 0 if no value is found
-        
+
         if (PlayerPrefs.GetInt("Controller", 0) == 0)
         {
             // Check the player's avatar selection (0 for Remy, 1 for Claire)
@@ -46,26 +46,21 @@ public class Levels : MonoBehaviour
             }
         }
     }
-    
 
 
-    
-    
-        // This method is called when the GameObject is enabled.
-        // It unlocks the mouse cursor by setting the cursor lock state to None.
-        // private void OnEnable()
-        // {
-        //     Cursor.lockState = CursorLockMode.Locked; // Unlock the cursor, allowing free movement outside the game window.
-        //     Cursor.visible = false;
-        // }
+    // This method is called when the GameObject is enabled.
+    // It unlocks the mouse cursor by setting the cursor lock state to None.
+    // private void OnEnable()
+    // {
+    //     Cursor.lockState = CursorLockMode.Locked; // Unlock the cursor, allowing free movement outside the game window.
+    //     Cursor.visible = false;
+    // }
 
-        // This method is called when the GameObject is disabled.
-        // It locks the mouse cursor by setting the cursor lock state to Locked.
-        private void OnDisable()
-        {
-            Cursor.lockState = CursorLockMode.None; // Lock the cursor to the center of the game window.
-            Cursor.visible = true;
-        }
-
-        
+    // This method is called when the GameObject is disabled.
+    // It locks the mouse cursor by setting the cursor lock state to Locked.
+    private void OnDisable()
+    {
+        Cursor.lockState = CursorLockMode.None; // Lock the cursor to the center of the game window.
+        Cursor.visible = true;
+    }
 }

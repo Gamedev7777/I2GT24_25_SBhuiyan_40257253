@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
                 // Reduces the alien's health by 2 in hard mode
                 other.gameObject.GetComponentInParent<AlienHealth>().TakeDamage(1);
             }
-            
+
             // Destroys the bullet after it collides with the alien
             Destroy(gameObject);
         }

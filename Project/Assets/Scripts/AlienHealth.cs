@@ -7,16 +7,18 @@ public class AlienHealth : MonoBehaviour
     public static AlienHealth instance;
 
     public Transform healthBar;
+
     // Initial health of the alien, configurable in the inspector
     public int health = 10;
 
     private float maxHealth;
+
     // Particle effect to play on alien death
     public ParticleSystem alienDeathFX;
 
     // Audio clip to play on alien death
     public AudioClip alienDeathSound;
-    
+
     // private variable
     // Tracks if the alien is already dead, to prevent duplicate death actions
     private bool _alienDeath = false;
@@ -74,7 +76,7 @@ public class AlienHealth : MonoBehaviour
     {
         // Reduces health by the damage amount
         health -= damage;
-        
+
         float healthPercentage = health / maxHealth;
         healthBar.localScale = new Vector3(healthPercentage, 0.1031f, 1);
         // If health is zero or less and the alien is not already dead
