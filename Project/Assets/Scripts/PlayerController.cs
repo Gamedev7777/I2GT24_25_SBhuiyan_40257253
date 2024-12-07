@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public Transform claireBulletSpawnPosition; // Position where Claire's bullet is spawned
     public AudioClip fireSound; // Sound effect played when firing a bullet
     public GameObject remyShield, claireShield; // GameObjects representing shields for Remy and Claire
-    
+
     // private variables
     private float _horizontalMovementKeyboard; // Horizontal movement input from keyboard
     private float _verticalMovementKeyboard; // Vertical movement input from keyboard
@@ -18,7 +18,10 @@ public class PlayerController : MonoBehaviour
     private float _verticalMovementXbox; // Vertical movement input from Xbox controller
     private Vector3 _playerMovement; // Player movement vector
     private float _bulletSpeed = 30.0f; // Speed at which the bullet moves
-    private float _fireThreshold = 0.1f; // Threshold value for firing using controller (to prevent unintentional small movements)
+
+    private float
+        _fireThreshold = 0.1f; // Threshold value for firing using controller (to prevent unintentional small movements)
+
     private float _fireCooldown = 0.2f; // Cooldown time between firing bullets for controller input
     private float _lastFireTime; // Tracks the time of the last fired bullet using controller
     private float _nextFireTime = 0.1f; // Tracks the time when the player can fire the next bullet using mouse input
@@ -26,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private int _avatar; // Stores the current avatar type (0 for Remy, 1 for Claire)
     private Vector3 _localMovement; // Local player movement direction based on player's transform
     private Vector3 lastMousePosition;
+
     void Start()
     {
         // Load the selected avatar from PlayerPrefs, default to Remy (0)
@@ -48,179 +52,115 @@ public class PlayerController : MonoBehaviour
         if (PlayerPrefs.GetInt("Cutscene", 1) == 0)
         {
             // Gets player input for horizontal movement (left/right) from keyboard
-        _horizontalMovementKeyboard = Input.GetAxis("Horizontal");
-        // Gets player input for vertical movement (up/down) from keyboard
-        _verticalMovementKeyboard = Input.GetAxis("Vertical");
+            _horizontalMovementKeyboard = Input.GetAxis("Horizontal");
+            // Gets player input for vertical movement (up/down) from keyboard
+            _verticalMovementKeyboard = Input.GetAxis("Vertical");
 
-        // Gets player input for horizontal movement (left/right) from Xbox controller
-        _horizontalMovementXbox = Input.GetAxis("HorizontalPlayer2Xbox");
-        // Gets player input for vertical movement (up/down) from Xbox controller
-        _verticalMovementXbox = Input.GetAxis("VerticalPlayer2Xbox");
+            // Gets player input for horizontal movement (left/right) from Xbox controller
+            _horizontalMovementXbox = Input.GetAxis("HorizontalPlayer2Xbox");
+            // Gets player input for vertical movement (up/down) from Xbox controller
+            _verticalMovementXbox = Input.GetAxis("VerticalPlayer2Xbox");
 
-        // Combines both keyboard and controller inputs for movement
-        float _combinedHorizontal = _horizontalMovementKeyboard + _horizontalMovementXbox;
-        float _combinedVertical = _verticalMovementKeyboard + _verticalMovementXbox;
+            // Combines both keyboard and controller inputs for movement
+            float _combinedHorizontal = _horizontalMovementKeyboard + _horizontalMovementXbox;
+            float _combinedVertical = _verticalMovementKeyboard + _verticalMovementXbox;
 
-        // Creates a new movement vector based on the player's input
-        _playerMovement = new Vector3(_combinedHorizontal, 0, _combinedVertical).normalized;
-        _localMovement = transform.TransformDirection(_playerMovement);
-        // Moves the player based on the input and playerSpeed, using Time.deltaTime for frame rate independence
-        transform.GetComponent<Rigidbody>().velocity = _localMovement * playerSpeed;
+            // Creates a new movement vector based on the player's input
+            _playerMovement = new Vector3(_combinedHorizontal, 0, _combinedVertical).normalized;
+            _localMovement = transform.TransformDirection(_playerMovement);
+            // Moves the player based on the input and playerSpeed, using Time.deltaTime for frame rate independence
+            transform.GetComponent<Rigidbody>().velocity = _localMovement * playerSpeed;
 
-        // Gets input from the right stick for aiming direction (used in controllers)
-        float rightStickHorizontal = Input.GetAxis("RightStickHorizontal");
-        float rightStickVertical = Input.GetAxis("RightStickVertical");
+            // Gets input from the right stick for aiming direction (used in controllers)
+            float rightStickHorizontal = Input.GetAxis("RightStickHorizontal");
+            float rightStickVertical = Input.GetAxis("RightStickVertical");
 
-        // Determines the aiming direction from the controller's right stick input
-        Vector3 aimDirection = DetermineDirection(new Vector2(rightStickHorizontal, rightStickVertical));
-        Vector3 worldAimDirection = transform.TransformDirection(aimDirection);
+            // Determines the aiming direction from the controller's right stick input
+            Vector3 aimDirection = DetermineDirection(new Vector2(rightStickHorizontal, rightStickVertical));
+            Vector3 worldAimDirection = transform.TransformDirection(aimDirection);
 
-        // Checks if player is moving and firing using mouse input
-        if ((_combinedHorizontal != 0 || _combinedVertical != 0) && Input.GetMouseButton(0))
-        {
-            // Plays appropriate firing animation based on whether the speed power-up is active
-            if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
+            // Checks if player is moving and firing using mouse input
+            if ((_combinedHorizontal != 0 || _combinedVertical != 0) && Input.GetMouseButton(0))
             {
-                if (_avatar == 0)
-                {
-                    playerAnimation.Play("RemyRunningFiring");
-                }
-                else if (_avatar == 1)
-                {
-                    playerAnimation.Play("ClaireRunningFiring");
-                }
-            }
-            else
-            {
-                if (_avatar == 0)
-                {
-                    playerAnimation.Play("RemyWalkingFiring");
-                }
-                else if (_avatar == 1)
-                {
-                    playerAnimation.Play("ClaireWalkingFiring");
-                }
-            }
-
-            // Fires a bullet if the cooldown period has elapsed
-            if (Time.time >= _nextFireTime)
-            {
-                FireBullet();
-                _nextFireTime = Time.time + _fireRate;
-            }
-        }
-        // Checks if the player is moving and aiming with the Xbox Controller
-        else if ((_combinedHorizontal != 0 || _combinedVertical != 0) && (aimDirection != Vector3.zero))
-        {
-            worldAimDirection.y = 0; // Keeps the aiming direction on the horizontal plane
-            Quaternion targetRotation = Quaternion.LookRotation(worldAimDirection);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * 360);
-
-            // Plays appropriate firing animation based on whether the speed power-up is active
-            if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
-            {
-                if (_avatar == 0)
-                {
-                    playerAnimation.Play("RemyRunningFiring");
-                }
-                else if (_avatar == 1)
-                {
-                    playerAnimation.Play("ClaireRunningFiring");
-                }
-            }
-            else
-            {
-                if (_avatar == 0)
-                {
-                    playerAnimation.Play("RemyWalkingFiring");
-                }
-                else if (_avatar == 1)
-                {
-                    playerAnimation.Play("ClaireWalkingFiring");
-                }
-            }
-
-            // Fires a bullet if aiming direction is provided and cooldown time has passed
-            if (Time.time >= _lastFireTime + _fireCooldown)
-            {
-                FireBulletXbox(worldAimDirection);
-                _lastFireTime = Time.time;
-            }
-        }
-        // Checks if player is not moving but aiming with controller input
-        else if ((_combinedHorizontal == 0 && _combinedVertical == 0) && (aimDirection != Vector3.zero))
-        {
-            worldAimDirection.y = 0; // Keeps the aiming direction on the horizontal plane
-            Quaternion targetRotation = Quaternion.LookRotation(worldAimDirection);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * 360);
-
-            PlayShootingAnimation();
-
-            // Fires a bullet if aiming direction is provided and cooldown time has passed
-            if (Time.time >= _lastFireTime + _fireCooldown)
-            {
-                FireBulletXbox(worldAimDirection);
-                _lastFireTime = Time.time;
-            }
-        }
-        else
-        {
-            StopShootingAnimation();
-
-            // Checks if player is moving without firing
-            if (_combinedHorizontal != 0 || _combinedVertical != 0)
-            {
-                // Plays appropriate walking or running animation based on power-up
+                // Plays appropriate firing animation based on whether the speed power-up is active
                 if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
                 {
                     if (_avatar == 0)
                     {
-                        playerAnimation.Play("RemyRunning");
+                        playerAnimation.Play("RemyRunningFiring");
                     }
                     else if (_avatar == 1)
                     {
-                        playerAnimation.Play("ClaireRunning");
+                        playerAnimation.Play("ClaireRunningFiring");
                     }
                 }
                 else
                 {
                     if (_avatar == 0)
                     {
-                        playerAnimation.Play("RemyWalking");
+                        playerAnimation.Play("RemyWalkingFiring");
                     }
                     else if (_avatar == 1)
                     {
-                        playerAnimation.Play("ClaireWalking");
+                        playerAnimation.Play("ClaireWalkingFiring");
                     }
                 }
-            }
-            else
-            {
-                // Play idle animation when player is not moving
-                if (_avatar == 0)
-                {
-                    playerAnimation.Play("RemyIdle");
-                }
-                else if (_avatar == 1)
-                {
-                    playerAnimation.Play("ClaireIdle");
-                }
-            }
 
-            // Handles firing animations for mouse input if the player is idle
-            if (Input.GetMouseButton(0))
-            {
-                PlayShootingAnimation();
+                // Fires a bullet if the cooldown period has elapsed
                 if (Time.time >= _nextFireTime)
                 {
                     FireBullet();
                     _nextFireTime = Time.time + _fireRate;
                 }
             }
-            // Handles firing animations for controller input if the player is idle
-            else if (aimDirection != Vector3.zero)
+            // Checks if the player is moving and aiming with the Xbox Controller
+            else if ((_combinedHorizontal != 0 || _combinedVertical != 0) && (aimDirection != Vector3.zero))
             {
+                worldAimDirection.y = 0; // Keeps the aiming direction on the horizontal plane
+                Quaternion targetRotation = Quaternion.LookRotation(worldAimDirection);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * 360);
+
+                // Plays appropriate firing animation based on whether the speed power-up is active
+                if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
+                {
+                    if (_avatar == 0)
+                    {
+                        playerAnimation.Play("RemyRunningFiring");
+                    }
+                    else if (_avatar == 1)
+                    {
+                        playerAnimation.Play("ClaireRunningFiring");
+                    }
+                }
+                else
+                {
+                    if (_avatar == 0)
+                    {
+                        playerAnimation.Play("RemyWalkingFiring");
+                    }
+                    else if (_avatar == 1)
+                    {
+                        playerAnimation.Play("ClaireWalkingFiring");
+                    }
+                }
+
+                // Fires a bullet if aiming direction is provided and cooldown time has passed
+                if (Time.time >= _lastFireTime + _fireCooldown)
+                {
+                    FireBulletXbox(worldAimDirection);
+                    _lastFireTime = Time.time;
+                }
+            }
+            // Checks if player is not moving but aiming with controller input
+            else if ((_combinedHorizontal == 0 && _combinedVertical == 0) && (aimDirection != Vector3.zero))
+            {
+                worldAimDirection.y = 0; // Keeps the aiming direction on the horizontal plane
+                Quaternion targetRotation = Quaternion.LookRotation(worldAimDirection);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * 360);
+
                 PlayShootingAnimation();
+
+                // Fires a bullet if aiming direction is provided and cooldown time has passed
                 if (Time.time >= _lastFireTime + _fireCooldown)
                 {
                     FireBulletXbox(worldAimDirection);
@@ -229,17 +169,82 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                // Stops the firing animation if no input is detected
                 StopShootingAnimation();
-            }
-        }
 
-        // Handles player rotation to face the aiming direction, either by mouse or Xbox controller input
-        HandlePlayerRotation();
+                // Checks if player is moving without firing
+                if (_combinedHorizontal != 0 || _combinedVertical != 0)
+                {
+                    // Plays appropriate walking or running animation based on power-up
+                    if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
+                    {
+                        if (_avatar == 0)
+                        {
+                            playerAnimation.Play("RemyRunning");
+                        }
+                        else if (_avatar == 1)
+                        {
+                            playerAnimation.Play("ClaireRunning");
+                        }
+                    }
+                    else
+                    {
+                        if (_avatar == 0)
+                        {
+                            playerAnimation.Play("RemyWalking");
+                        }
+                        else if (_avatar == 1)
+                        {
+                            playerAnimation.Play("ClaireWalking");
+                        }
+                    }
+                }
+                else
+                {
+                    // Play idle animation when player is not moving
+                    if (_avatar == 0)
+                    {
+                        playerAnimation.Play("RemyIdle");
+                    }
+                    else if (_avatar == 1)
+                    {
+                        playerAnimation.Play("ClaireIdle");
+                    }
+                }
+
+                // Handles firing animations for mouse input if the player is idle
+                if (Input.GetMouseButton(0))
+                {
+                    PlayShootingAnimation();
+                    if (Time.time >= _nextFireTime)
+                    {
+                        FireBullet();
+                        _nextFireTime = Time.time + _fireRate;
+                    }
+                }
+                // Handles firing animations for controller input if the player is idle
+                else if (aimDirection != Vector3.zero)
+                {
+                    PlayShootingAnimation();
+                    if (Time.time >= _lastFireTime + _fireCooldown)
+                    {
+                        FireBulletXbox(worldAimDirection);
+                        _lastFireTime = Time.time;
+                    }
+                }
+                else
+                {
+                    // Stops the firing animation if no input is detected
+                    StopShootingAnimation();
+                }
+            }
+
+            // Handles player rotation to face the aiming direction, either by mouse or Xbox controller input
+            HandlePlayerRotation();
         }
         else
         {
-            if (PlayerPrefs.GetInt("Level", 1) == 4 || PlayerPrefs.GetInt("Level", 1) == 5 || PlayerPrefs.GetInt("Level", 1) == 6 || PlayerPrefs.GetInt("Level", 1) == 7)
+            if (PlayerPrefs.GetInt("Level", 1) == 4 || PlayerPrefs.GetInt("Level", 1) == 5 ||
+                PlayerPrefs.GetInt("Level", 1) == 6 || PlayerPrefs.GetInt("Level", 1) == 7)
             {
                 if (_avatar == 0)
                 {
@@ -261,8 +266,6 @@ public class PlayerController : MonoBehaviour
                     playerAnimation.Play("ClaireIdle");
                 }
             }
-            // Play idle animation when player is not moving
-            
         }
     }
 
@@ -367,7 +370,6 @@ public class PlayerController : MonoBehaviour
             // Destroys the bullet after 0.5 second to avoid cluttering the scene with unused bullets
             Destroy(bullet, 0.5f);
         }
-        
     }
 
     // Fires a bullet from the player's position using mouse input
@@ -418,13 +420,11 @@ public class PlayerController : MonoBehaviour
             Destroy(bullet, 0.5f);
         }
     }
-    
+
     void HandlePlayerRotation()
     {
-        
         float mouseDelta = Input.GetAxis("Mouse X");
-        
+
         transform.Rotate(0, 200f * mouseDelta * Time.deltaTime, 0); // Adjust rotation speed if needed
     }
-    
 }

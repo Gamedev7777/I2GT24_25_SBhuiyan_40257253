@@ -133,14 +133,6 @@ public class GameManager : MonoBehaviour
         
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
     // Method called when the Start button is pressed
     public void StartButton()
     {
