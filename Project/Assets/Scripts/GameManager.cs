@@ -17,10 +17,10 @@ public class GameManager : MonoBehaviour
     public GameObject
         playerShieldText, playerSpeedText, videoCamera; // User Interface elements for player status (shield and speed)
 
-    public List<GameObject> popUpList = new List<GameObject>(); // List of pop-up game objects for different levels
+    public List<GameObject> popUpList = new(); // List of pop-up game objects for different levels
     public GameObject mainMenu; // Reference to the main menu game object
     public GameObject singleAndMultiplayerMenu; // Reference to the single and multiplayer selection menu
-    public List<AudioClip> musicList = new List<AudioClip>(); // List of background music clips
+    public List<AudioClip> musicList = new(); // List of background music clips
     public AudioSource musicAudioSource; // AudioSource component to play background music
     public Slider volumeSlider; // Slider User Interface element for controlling game music volume
     public GameObject chooseAvatarButton; // Button to allow player to choose an avatar
@@ -52,22 +52,26 @@ public class GameManager : MonoBehaviour
     // Method to change the background music
     public void ChooseBackgroundMusic()
     {
+        _musicIndex = PlayerPrefs.GetInt("musicindex", 0);
         // Changes music based on the current index, looping back to the first track after the last one
         if (_musicIndex == 0)
         {
             _musicIndex++;
+            PlayerPrefs.SetInt("musicindex", _musicIndex);
             musicAudioSource.clip = musicList[_musicIndex];
             musicAudioSource.Play();
         }
         else if (_musicIndex == 1)
         {
             _musicIndex++;
+            PlayerPrefs.SetInt("musicindex", _musicIndex);
             musicAudioSource.clip = musicList[_musicIndex];
             musicAudioSource.Play();
         }
         else if (_musicIndex == 2)
         {
             _musicIndex = 0;
+            PlayerPrefs.SetInt("musicindex", _musicIndex);
             musicAudioSource.clip = musicList[_musicIndex];
             musicAudioSource.Play();
         }
