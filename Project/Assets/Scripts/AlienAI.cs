@@ -18,8 +18,8 @@ public class AlienAI : MonoBehaviour
     public NavMeshAgent aiNavMeshAgent; // Reference to the NavMeshAgent component for movement
     public List<Transform> waypoints = new List<Transform>(); // List of waypoints for patrolling
     public GameObject target; // Reference to the target transform which is the player
-    public float chaseDistance = 10.0f; // Distance within which the alien starts chasing the target
-    public float attackDistance = 30.0f; // Distance within which the alien starts attacking the target
+    public float chaseDistance = 20.0f; // Distance within which the alien starts chasing the target
+    public float attackDistance = 10.0f; // Distance within which the alien starts attacking the target
     public GameObject laserPrefab; // Prefab for the laser projectile
     public Transform laserSpawnPosition; // Position from which the laser will be fired
     public AudioClip laserSound; // Sound clip to be played when the laser is fired
@@ -130,7 +130,7 @@ public class AlienAI : MonoBehaviour
             _currentWaypointIndex = randomIndex; // Sets the current waypoint index
             aiNavMeshAgent.SetDestination(waypoints[_currentWaypointIndex]
                 .position); // Sets the alien's destination to the selected waypoint
-
+            Debug.Log(waypoints[_currentWaypointIndex]);
             // Plays walking animation based on the alien type
             if (gameObject.tag == "Alien2")
             {
@@ -148,12 +148,21 @@ public class AlienAI : MonoBehaviour
         {
             // Calculates the distance to the target
             float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
-
+            
             // If within chase distance, transitions to chase state
-            if (distanceToTarget >= chaseDistance)
+            if (distanceToTarget > chaseDistance)
             {
                 Debug.Log("chase 1");
                 _currentState = AlienAIstate.chase; // Switches to chase state
+            }
+            else
+            {
+                aiNavMeshAgent.SetDestination(target.transform.position);
+
+                Quaternion targetRotation = Quaternion.LookRotation(aiNavMeshAgent.velocity.normalized);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 1000f * Time.deltaTime);
+                Debug.Log("attack 1");
+                _currentState = AlienAIstate.attack; // Switches to attack state
             }
         }
     }
