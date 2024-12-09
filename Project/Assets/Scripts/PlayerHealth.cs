@@ -10,7 +10,7 @@ public class PlayerHealth : MonoBehaviour
     public ParticleSystem playerDeathFX; // Particle system effect for player death
     public AudioClip playerDeathSound; // Audio clip to play when the player dies
     public Transform healthBar;
-    private float maxHealth;
+    public float maxHealth;
 
     void Awake()
     {

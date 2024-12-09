@@ -260,10 +260,21 @@ public class AlienAI : MonoBehaviour
             if (gameObject.tag == "Alien2")
             {
                 _animation.Play("ZlorpSoldierWalkingFiring");
+                if (_fireTimer <= 0)
+                {
+                    FireLaser(); // Fires a laser towards the target
+                    _fireTimer = _fireInterval; // Resets the fire timer
+                }
+                
             }
             else if (gameObject.tag == "Alien1")
             {
                 _animation.Play("ZlorpWalkingFiring");
+                if (_fireTimer <= 0)
+                {
+                    FireLaser(); // Fires a laser towards the target
+                    _fireTimer = _fireInterval; // Resets the fire timer
+                }
             }
         }
         else

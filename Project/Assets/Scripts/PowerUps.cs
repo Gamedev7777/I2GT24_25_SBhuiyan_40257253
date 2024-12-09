@@ -48,7 +48,10 @@ public class PowerUps : MonoBehaviour
             var player1 = SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0]
                 .GetComponent<PlayerHealth>();
             player1.health += 20;
-
+            
+            var healthPercentage = player1.health / player1.maxHealth;
+            player1.healthBar.localScale = new Vector3(healthPercentage, 0.1031f, 1);
+            
             // Updates Player 1's health text in the User Interface
             GameManager.instance.playerHealthText.text = "Player 1 Health: " + player1.health;
         }
@@ -67,6 +70,12 @@ public class PowerUps : MonoBehaviour
 
                 player1.health += 20;
                 player2.health += 20;
+                
+                var healthPercentage1 = player1.health / player1.maxHealth;
+                player1.healthBar.localScale = new Vector3(healthPercentage1, 0.1031f, 1);
+                
+                var healthPercentage2 = player2.health / player2.maxHealth;
+                player2.healthBar.localScale = new Vector3(healthPercentage2, 0.1031f, 1);
 
                 // Updates both Player 1 and Player 2's health text in the User Interface
                 GameManager.instance.playerHealthText.text = "Player 1 Health: " + player1.health;
@@ -79,6 +88,10 @@ public class PowerUps : MonoBehaviour
                     player1 = SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0]
                         .GetComponent<PlayerHealth>();
                     player1.health += 20;
+                    
+                    var healthPercentage = player1.health / player1.maxHealth;
+                    player1.healthBar.localScale = new Vector3(healthPercentage, 0.1031f, 1);
+                    
                     GameManager.instance.playerHealthText.text = "Player 1 Health: " + player1.health;
                 }
                 else if (SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].name ==
@@ -87,6 +100,10 @@ public class PowerUps : MonoBehaviour
                     player2 = SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0]
                         .GetComponent<PlayerHealth>();
                     player2.health += 20;
+                    
+                    var healthPercentage = player2.health / player2.maxHealth;
+                    player2.healthBar.localScale = new Vector3(healthPercentage, 0.1031f, 1);
+                    
                     GameManager.instance.playerHealthText.text = "Player 2 Health: " + player2.health;
                 }
             }
