@@ -646,6 +646,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1831571225}
     m_Modifications:
+    - target: {fileID: 138034, guid: 48d2973b7a25b451ea97a6eaf756f8cb, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 138036, guid: 48d2973b7a25b451ea97a6eaf756f8cb, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 138038, guid: 48d2973b7a25b451ea97a6eaf756f8cb, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 138040, guid: 48d2973b7a25b451ea97a6eaf756f8cb, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 153240, guid: 48d2973b7a25b451ea97a6eaf756f8cb, type: 3}
       propertyPath: m_Name
       value: Wall_Console_01_Large
@@ -711,6 +727,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1295241575}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6
@@ -1061,6 +1081,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 126905022}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6 (1)
@@ -1257,6 +1281,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1313715554}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6
@@ -2008,6 +2036,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grid_01 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 157636, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 457634, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.8706866
@@ -2288,6 +2320,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grid_01 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 157636, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 457634, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
       propertyPath: m_LocalScale.y
       value: 1.8498476
@@ -2559,6 +2595,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1899531122}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6
@@ -3260,6 +3300,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1038800471}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6
@@ -3582,6 +3626,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grid_01 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 157636, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 457634, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.8706866
@@ -3656,6 +3704,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2035499336}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6 (1)
@@ -3718,9 +3770,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1198451171}
     m_Modifications:
+    - target: {fileID: 110550, guid: 49c6cada7ed484c158ec10a1e2745a64, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 148598, guid: 49c6cada7ed484c158ec10a1e2745a64, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 185624, guid: 49c6cada7ed484c158ec10a1e2745a64, type: 3}
       propertyPath: m_Name
       value: Wall_Pipes_02_Large
+      objectReference: {fileID: 0}
+    - target: {fileID: 185626, guid: 49c6cada7ed484c158ec10a1e2745a64, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
       objectReference: {fileID: 0}
     - target: {fileID: 485624, guid: 49c6cada7ed484c158ec10a1e2745a64, type: 3}
       propertyPath: m_LocalScale.x
@@ -3795,6 +3859,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1295241575}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6 (1)
@@ -3857,9 +3925,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 642928627}
     m_Modifications:
+    - target: {fileID: 110550, guid: 49c6cada7ed484c158ec10a1e2745a64, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 148598, guid: 49c6cada7ed484c158ec10a1e2745a64, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 185624, guid: 49c6cada7ed484c158ec10a1e2745a64, type: 3}
       propertyPath: m_Name
       value: Wall_Pipes_02_Large (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 185626, guid: 49c6cada7ed484c158ec10a1e2745a64, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
       objectReference: {fileID: 0}
     - target: {fileID: 485624, guid: 49c6cada7ed484c158ec10a1e2745a64, type: 3}
       propertyPath: m_LocalScale.x
@@ -4113,6 +4193,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grid_01 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 157636, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 457634, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
       propertyPath: m_LocalScale.y
       value: 1.716231
@@ -4187,6 +4271,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 256660865}
     m_Modifications:
+    - target: {fileID: 3146073373623578506, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 6960104315236461236, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.91706026
@@ -4239,6 +4327,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallWithWindow (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7800047440945413252, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4260,6 +4352,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1529763452}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6 (1)
@@ -4464,6 +4560,10 @@ PrefabInstance:
     - target: {fileID: 157634, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
       propertyPath: m_Name
       value: Grid_01 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 157636, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
       objectReference: {fileID: 0}
     - target: {fileID: 457634, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
       propertyPath: m_LocalScale.y
@@ -4742,6 +4842,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 126905022}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6
@@ -4804,6 +4908,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 256660865}
     m_Modifications:
+    - target: {fileID: 3146073373623578506, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 6960104315236461236, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.94782954
@@ -4855,6 +4963,10 @@ PrefabInstance:
     - target: {fileID: 6981194306991431084, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
       propertyPath: m_Name
       value: WallWithWindow (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7800047440945413252, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5222,9 +5334,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 324623088}
     m_Modifications:
+    - target: {fileID: 119612, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 133726, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 133728, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
       propertyPath: m_Name
       value: Floor_Squared_02_6x6
+      objectReference: {fileID: 0}
+    - target: {fileID: 143814, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 143816, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
       objectReference: {fileID: 0}
     - target: {fileID: 433728, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
       propertyPath: m_LocalScale.x
@@ -5293,6 +5421,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1063764628}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6 (1)
@@ -5756,6 +5888,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1904668305}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6
@@ -5818,6 +5954,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1883982144}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6 (1)
@@ -5880,6 +6020,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 727787176}
     m_Modifications:
+    - target: {fileID: 100000, guid: be50ff3ed2fbe44349a64d3ac5fb98ee, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: be50ff3ed2fbe44349a64d3ac5fb98ee, type: 3}
       propertyPath: m_Name
       value: Floor_Squared_01_6x6 (1)
@@ -5954,6 +6098,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1706112107}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6 (1)
@@ -6220,6 +6368,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1079676718}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6 (1)
@@ -6689,9 +6841,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1915005773}
     m_Modifications:
+    - target: {fileID: 119612, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 133726, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 133728, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
       propertyPath: m_Name
       value: Floor_Squared_02_6x6
+      objectReference: {fileID: 0}
+    - target: {fileID: 143814, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 143816, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
       objectReference: {fileID: 0}
     - target: {fileID: 433728, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
       propertyPath: m_LocalScale.x
@@ -7135,6 +7303,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 637598615}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6 (1)
@@ -7330,6 +7502,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2035499336}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6
@@ -7392,9 +7568,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1198451171}
     m_Modifications:
+    - target: {fileID: 110550, guid: 49c6cada7ed484c158ec10a1e2745a64, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 148598, guid: 49c6cada7ed484c158ec10a1e2745a64, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 185624, guid: 49c6cada7ed484c158ec10a1e2745a64, type: 3}
       propertyPath: m_Name
       value: Wall_Pipes_02_Large (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 185626, guid: 49c6cada7ed484c158ec10a1e2745a64, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
       objectReference: {fileID: 0}
     - target: {fileID: 485624, guid: 49c6cada7ed484c158ec10a1e2745a64, type: 3}
       propertyPath: m_LocalScale.x
@@ -7608,6 +7796,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1909315614}
     m_Modifications:
+    - target: {fileID: 138034, guid: 48d2973b7a25b451ea97a6eaf756f8cb, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 138036, guid: 48d2973b7a25b451ea97a6eaf756f8cb, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 138038, guid: 48d2973b7a25b451ea97a6eaf756f8cb, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 138040, guid: 48d2973b7a25b451ea97a6eaf756f8cb, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 153240, guid: 48d2973b7a25b451ea97a6eaf756f8cb, type: 3}
       propertyPath: m_Name
       value: Wall_Console_01_Large (1)
@@ -8429,6 +8633,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grid_01 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 157636, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 457634, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.8706866
@@ -8503,6 +8711,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1038800471}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6 (1)
@@ -8565,6 +8777,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 256660865}
     m_Modifications:
+    - target: {fileID: 3146073373623578506, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 6960104315236461236, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.94782954
@@ -8613,6 +8829,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallWithWindow (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7800047440945413252, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8637,6 +8857,10 @@ PrefabInstance:
     - target: {fileID: 157634, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
       propertyPath: m_Name
       value: Grid (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 157636, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
       objectReference: {fileID: 0}
     - target: {fileID: 457634, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
       propertyPath: m_LocalScale.y
@@ -9268,6 +9492,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2144815266}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6
@@ -9631,6 +9859,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1357334703}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6 (1)
@@ -9693,6 +9925,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 637598615}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6
@@ -9755,6 +9991,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 727787176}
     m_Modifications:
+    - target: {fileID: 100000, guid: be50ff3ed2fbe44349a64d3ac5fb98ee, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: be50ff3ed2fbe44349a64d3ac5fb98ee, type: 3}
       propertyPath: m_Name
       value: Floor_Squared_01_6x6
@@ -10197,6 +10437,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1063764628}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6
@@ -10262,6 +10506,10 @@ PrefabInstance:
     - target: {fileID: 157634, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
       propertyPath: m_Name
       value: Grid_01 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 157636, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
       objectReference: {fileID: 0}
     - target: {fileID: 457634, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
       propertyPath: m_LocalScale.y
@@ -10845,6 +11093,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1883982144}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6
@@ -11194,6 +11446,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1899531122}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6 (1)
@@ -11292,6 +11548,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 256660865}
     m_Modifications:
+    - target: {fileID: 3146073373623578506, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 6960104315236461236, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.94782954
@@ -11343,6 +11603,10 @@ PrefabInstance:
     - target: {fileID: 6981194306991431084, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
       propertyPath: m_Name
       value: WallWithWindow (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7800047440945413252, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -11935,6 +12199,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grid (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 157636, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 457634, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.903865
@@ -12158,6 +12426,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grid_01 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 157636, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 457634, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
       propertyPath: m_LocalScale.y
       value: 1.716231
@@ -12232,9 +12504,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 324623088}
     m_Modifications:
+    - target: {fileID: 119612, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 133726, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 133728, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
       propertyPath: m_Name
       value: Floor_Squared_02_6x6 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 143814, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 143816, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
       objectReference: {fileID: 0}
     - target: {fileID: 433728, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
       propertyPath: m_LocalScale.x
@@ -12443,9 +12731,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 642928627}
     m_Modifications:
+    - target: {fileID: 110550, guid: 49c6cada7ed484c158ec10a1e2745a64, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 148598, guid: 49c6cada7ed484c158ec10a1e2745a64, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 185624, guid: 49c6cada7ed484c158ec10a1e2745a64, type: 3}
       propertyPath: m_Name
       value: Wall_Pipes_02_Large
+      objectReference: {fileID: 0}
+    - target: {fileID: 185626, guid: 49c6cada7ed484c158ec10a1e2745a64, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
       objectReference: {fileID: 0}
     - target: {fileID: 485624, guid: 49c6cada7ed484c158ec10a1e2745a64, type: 3}
       propertyPath: m_LocalScale.x
@@ -12818,6 +13118,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1529763452}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6
@@ -13063,9 +13367,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1196815455}
     m_Modifications:
+    - target: {fileID: 119612, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 133728, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
       propertyPath: m_Name
       value: Floor_Squared_02_6x6 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 143814, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 143816, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
       objectReference: {fileID: 0}
     - target: {fileID: 433728, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
       propertyPath: m_LocalScale.x
@@ -13165,6 +13481,10 @@ PrefabInstance:
     - target: {fileID: 157634, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
       propertyPath: m_Name
       value: Grid_01 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 157636, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
       objectReference: {fileID: 0}
     - target: {fileID: 457634, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
       propertyPath: m_LocalScale.y
@@ -13378,6 +13698,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 256660865}
     m_Modifications:
+    - target: {fileID: 3146073373623578506, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 6960104315236461236, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.94782954
@@ -13429,6 +13753,10 @@ PrefabInstance:
     - target: {fileID: 6981194306991431084, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
       propertyPath: m_Name
       value: WallWithWindow (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7800047440945413252, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -13611,6 +13939,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1831571225}
     m_Modifications:
+    - target: {fileID: 138034, guid: 48d2973b7a25b451ea97a6eaf756f8cb, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 138036, guid: 48d2973b7a25b451ea97a6eaf756f8cb, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 138038, guid: 48d2973b7a25b451ea97a6eaf756f8cb, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 138040, guid: 48d2973b7a25b451ea97a6eaf756f8cb, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 153240, guid: 48d2973b7a25b451ea97a6eaf756f8cb, type: 3}
       propertyPath: m_Name
       value: Wall_Console_01_Large (1)
@@ -13839,6 +14183,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1357334703}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6
@@ -13901,6 +14249,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1909315614}
     m_Modifications:
+    - target: {fileID: 138034, guid: 48d2973b7a25b451ea97a6eaf756f8cb, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 138036, guid: 48d2973b7a25b451ea97a6eaf756f8cb, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 138038, guid: 48d2973b7a25b451ea97a6eaf756f8cb, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 138040, guid: 48d2973b7a25b451ea97a6eaf756f8cb, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 153240, guid: 48d2973b7a25b451ea97a6eaf756f8cb, type: 3}
       propertyPath: m_Name
       value: Wall_Console_01_Large
@@ -14303,6 +14667,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1079676718}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6
@@ -14402,9 +14770,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1196815455}
     m_Modifications:
+    - target: {fileID: 119612, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 133728, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
       propertyPath: m_Name
       value: Floor_Squared_02_6x6
+      objectReference: {fileID: 0}
+    - target: {fileID: 143814, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 143816, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
       objectReference: {fileID: 0}
     - target: {fileID: 433728, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
       propertyPath: m_LocalScale.x
@@ -15118,6 +15498,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1706112107}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6
@@ -15646,6 +16030,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grid_01 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 157636, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 457634, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
       propertyPath: m_LocalScale.y
       value: 1.8498476
@@ -15720,6 +16108,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2144815266}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6 (1)
@@ -15782,6 +16174,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 256660865}
     m_Modifications:
+    - target: {fileID: 3146073373623578506, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 6960104315236461236, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
       propertyPath: m_LocalScale.y
       value: 0.94782954
@@ -15834,6 +16230,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallWithWindow (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 7800047440945413252, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15881,9 +16281,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1915005773}
     m_Modifications:
+    - target: {fileID: 119612, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 133726, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 133728, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
       propertyPath: m_Name
       value: Floor_Squared_02_6x6 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 143814, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 143816, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
       objectReference: {fileID: 0}
     - target: {fileID: 433728, guid: e1e43b751e1c847fcb7618aace293dfc, type: 3}
       propertyPath: m_LocalScale.x
@@ -15947,6 +16363,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1904668305}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6 (1)
@@ -16313,6 +16733,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1313715554}
     m_Modifications:
+    - target: {fileID: 100000, guid: add2d9420be3544d89122cce02950ec8, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: add2d9420be3544d89122cce02950ec8, type: 3}
       propertyPath: m_Name
       value: Floor_Third_03_Strip_2x6 (1)
@@ -16378,6 +16802,10 @@ PrefabInstance:
     - target: {fileID: 157634, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
       propertyPath: m_Name
       value: Grid_01 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 157636, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
+      propertyPath: m_TagString
+      value: FixedWall
       objectReference: {fileID: 0}
     - target: {fileID: 457634, guid: ed4a62f46e5bd46b69ebcba55fe5031f, type: 3}
       propertyPath: m_LocalScale.y
