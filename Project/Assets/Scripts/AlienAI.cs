@@ -14,9 +14,6 @@ public enum AlienAIstate
 public class AlienAI : MonoBehaviour
 {
     // Public variables
-    public float idleTime = 1.0f; // Time to stay idle before transitioning to patrol
-    public NavMeshAgent aiNavMeshAgent; // Reference to the NavMeshAgent component for movement
-    public List<Transform> waypoints = new List<Transform>(); // List of waypoints for patrolling
     public GameObject target; // Reference to the target transform which is the player
     public float chaseDistance = 20.0f; // Distance within which the alien starts chasing the target
     public float attackDistance = 10.0f; // Distance within which the alien starts attacking the target
@@ -25,14 +22,17 @@ public class AlienAI : MonoBehaviour
     public AudioClip laserSound; // Sound clip to be played when the laser is fired
 
     // Private variables
+    private List<Transform> _waypoints = new(); // List of waypoints for patrolling
+    private NavMeshAgent _aiNavMeshAgent; // Reference to the NavMeshAgent component for movement
+    private readonly float _maxIdleTime = 1.0f; // Time to stay idle before transitioning to patrol
     private AlienAIstate _currentState = AlienAIstate.idle; // Current state of the alien
     private int _currentWaypointIndex = -1; // Index of the current waypoint for patrolling
     private float _idleTimer = 1.0f; // Timer to keep track of idle time
-    private float _laserSpeed = 30.0f; // Speed of the laser projectile
+    private readonly float _laserSpeed = 30.0f; // Speed of the laser projectile
     private float _fireTimer; // Timer to manage firing intervals in attack state
-    private float _fireInterval = 0.5f; // Time interval between laser shots
+    private readonly float _fireInterval = 0.5f; // Time interval between laser shots
     private Animation _animation; // Reference to the Animation component of the Alien
-    private float distanceToTarget;
+    private float _distanceToTarget;
 
     // Start is called before the first frame update
     void Start()
@@ -40,17 +40,14 @@ public class AlienAI : MonoBehaviour
         // Gets the animation component from the first child of the alien game object
         _animation = transform.GetChild(0).GetComponent<Animation>();
 
-        // Finds the player by tag and assigns it as the target
-        // target = GameObject.FindGameObjectWithTag("Player");
-
         // Finds the waypoints by name and assigns them to the list
-        waypoints[0] = GameObject.Find("Waypoint1").transform;
-        waypoints[1] = GameObject.Find("Waypoint2").transform;
-        waypoints[2] = GameObject.Find("Waypoint3").transform;
-        waypoints[3] = GameObject.Find("Waypoint4").transform;
+        _waypoints[0] = GameObject.Find("Waypoint1").transform;
+        _waypoints[1] = GameObject.Find("Waypoint2").transform;
+        _waypoints[2] = GameObject.Find("Waypoint3").transform;
+        _waypoints[3] = GameObject.Find("Waypoint4").transform;
 
         // Gets the NavMeshAgent component attached to the alien for navigation
-        aiNavMeshAgent = GetComponent<NavMeshAgent>();
+        _aiNavMeshAgent = GetComponent<NavMeshAgent>();
 
         // Initialises the fire timer with the interval value
         _fireTimer = _fireInterval;
@@ -110,7 +107,7 @@ public class AlienAI : MonoBehaviour
             _animation.Play("ZlorpIdle");
         }
 
-        if (_idleTimer >= idleTime && PlayerPrefs.GetInt("Cutscene", 1) == 0)
+        if (_idleTimer >= _maxIdleTime && PlayerPrefs.GetInt("Cutscene", 1) == 0)
         {
             Debug.Log("patrol");
             _currentState = AlienAIstate.patrol; // Switches to patrol state
@@ -122,15 +119,15 @@ public class AlienAI : MonoBehaviour
     void HandlePatrolState()
     {
         // If the alien has reached the current waypoint or has not been assigned a waypoint
-        if ((aiNavMeshAgent.pathStatus == NavMeshPathStatus.PathComplete && aiNavMeshAgent.remainingDistance < 0.5f) ||
+        if ((_aiNavMeshAgent.pathStatus == NavMeshPathStatus.PathComplete && _aiNavMeshAgent.remainingDistance < 0.5f) ||
             _currentWaypointIndex == -1)
         {
             // Moves to a random waypoint in the list
-            int randomIndex = Random.Range(0, waypoints.Count);
+            int randomIndex = Random.Range(0, _waypoints.Count);
             _currentWaypointIndex = randomIndex; // Sets the current waypoint index
-            aiNavMeshAgent.SetDestination(waypoints[_currentWaypointIndex]
+            _aiNavMeshAgent.SetDestination(_waypoints[_currentWaypointIndex]
                 .position); // Sets the alien's destination to the selected waypoint
-            Debug.Log(waypoints[_currentWaypointIndex]);
+            Debug.Log(_waypoints[_currentWaypointIndex]);
             // Plays walking animation based on the alien type
             if (gameObject.tag == "Alien2")
             {
@@ -147,19 +144,19 @@ public class AlienAI : MonoBehaviour
         if (target != null)
         {
             // Calculates the distance to the target
-            float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
+            float _distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
             
             // If within chase distance, transitions to chase state
-            if (distanceToTarget > chaseDistance)
+            if (_distanceToTarget > chaseDistance)
             {
                 Debug.Log("chase 1");
                 _currentState = AlienAIstate.chase; // Switches to chase state
             }
             else
             {
-                aiNavMeshAgent.SetDestination(target.transform.position);
+                _aiNavMeshAgent.SetDestination(target.transform.position);
 
-                Quaternion targetRotation = Quaternion.LookRotation(aiNavMeshAgent.velocity.normalized);
+                Quaternion targetRotation = Quaternion.LookRotation(_aiNavMeshAgent.velocity.normalized);
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 1000f * Time.deltaTime);
                 Debug.Log("attack 1");
                 _currentState = AlienAIstate.attack; // Switches to attack state
@@ -173,8 +170,8 @@ public class AlienAI : MonoBehaviour
         float speedThreshold = 0.1f; // Minimum speed to consider as movement
         float distanceThreshold = 0.1f; // Minimum remaining distance to consider as moving
 
-        return aiNavMeshAgent.velocity.magnitude > speedThreshold &&
-               aiNavMeshAgent.remainingDistance > distanceThreshold;
+        return _aiNavMeshAgent.velocity.magnitude > speedThreshold &&
+               _aiNavMeshAgent.remainingDistance > distanceThreshold;
     }
 
     // Handles the chase state behaviour
@@ -183,9 +180,9 @@ public class AlienAI : MonoBehaviour
         // Sets the alien's destination to the target's position
         if (target != null)
         {
-            aiNavMeshAgent.SetDestination(target.transform.position);
+            _aiNavMeshAgent.SetDestination(target.transform.position);
 
-            Quaternion targetRotation = Quaternion.LookRotation(aiNavMeshAgent.velocity.normalized);
+            Quaternion targetRotation = Quaternion.LookRotation(_aiNavMeshAgent.velocity.normalized);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 1000f * Time.deltaTime);
 
 
@@ -207,10 +204,10 @@ public class AlienAI : MonoBehaviour
         }
 
         // Calculates the distance to the target
-        distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
+        _distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
 
         // If within attack distance, transitions to attack state
-        if (distanceToTarget <= attackDistance)
+        if (_distanceToTarget <= attackDistance)
         {
             Debug.Log("Attack 1");
             _currentState = AlienAIstate.attack; // Switches to attack state
@@ -230,12 +227,12 @@ public class AlienAI : MonoBehaviour
 
         // Calculates the direction to the target for rotation and attack
         Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
-        distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
+        _distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
         // Checks for direct line of sight to the player using a raycast
         RaycastHit hit;
         if (Physics.Raycast(transform.position, directionToTarget, out hit))
         {
-            if (hit.collider.gameObject != target && distanceToTarget > attackDistance)
+            if (hit.collider.gameObject != target && _distanceToTarget > attackDistance)
             {
                 Debug.Log("Chase 2");
                 // If there is no direct line of sight, transitions back to chase state
@@ -292,10 +289,10 @@ public class AlienAI : MonoBehaviour
         }
 
         // Calculates the distance to the target
-        distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
+        _distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
 
         // If the target moves out of attack distance, transitions back to chase state
-        if (distanceToTarget > chaseDistance)
+        if (_distanceToTarget > chaseDistance)
         {
             Debug.Log("Chase 3");
             _currentState = AlienAIstate.chase; // Switches to chase state
