@@ -38,19 +38,39 @@ public class AlienAI : MonoBehaviour
     void Start()
     {
         // Gets the animation component from the first child of the alien game object
-        _animation = transform.GetChild(0).GetComponent<Animation>();
+        AssignAnimationComponent();
 
         // Finds the waypoints by name and assigns them to the list
-        _waypoints.Add(GameObject.Find("Waypoint1").transform);
-        _waypoints.Add(GameObject.Find("Waypoint2").transform);
-        _waypoints.Add(GameObject.Find("Waypoint3").transform);
-        _waypoints.Add(GameObject.Find("Waypoint4").transform);
+        AddTheWaypoints();
 
         // Gets the NavMeshAgent component attached to the alien for navigation
-        _aiNavMeshAgent = GetComponent<NavMeshAgent>();
+        AssignNavMeshAgentComponent();
 
         // Initialises the fire timer with the interval value
+        InitialiseFireTimer();
+    }
+
+    private void InitialiseFireTimer()
+    {
         _fireTimer = _fireInterval;
+    }
+
+    private void AssignNavMeshAgentComponent()
+    {
+        _aiNavMeshAgent = GetComponent<NavMeshAgent>();
+    }
+
+    private void AssignAnimationComponent()
+    {
+        _animation = transform.GetChild(0).GetComponent<Animation>();
+    }
+
+    private void AddTheWaypoints()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            _waypoints.Add(GameObject.Find("Waypoint"+(i+1)).transform);
+        }
     }
 
     // Update is called once per frame
@@ -60,19 +80,15 @@ public class AlienAI : MonoBehaviour
         switch (_currentState)
         {
             case AlienAIstate.idle:
-//                Debug.Log("idle");
                 HandleIdleState(); // Handles behaviour when the alien is idle
                 break;
             case AlienAIstate.patrol:
-                Debug.Log("patrol");
                 HandlePatrolState(); // Handles behaviour when the alien is patrolling
                 break;
             case AlienAIstate.chase:
-                Debug.Log("chase");
                 HandleChaseState(); // Handles behaviour when the alien is chasing the target
                 break;
             case AlienAIstate.attack:
-                Debug.Log("attack");
                 HandleAttackState(); // Handles behaviour when the alien is attacking the target
                 break;
         }
@@ -82,27 +98,14 @@ public class AlienAI : MonoBehaviour
     void HandleIdleState()
     {
         // Increments the idle timer
-        _idleTimer += Time.deltaTime;
+        IncrementIdleTimer();
 
         // Plays idle animation based on the alien type
-        if (gameObject.tag == "Alien2")
+        if (gameObject.CompareTag("Alien2"))
         {
-            if (PlayerPrefs.GetInt("Cutscene", 1) == 1 &&
-                (PlayerPrefs.GetInt("Level", 1) == 4 || PlayerPrefs.GetInt("Level", 1) == 5 ||
-                 PlayerPrefs.GetInt("Level", 1) == 6 || PlayerPrefs.GetInt("Level", 1) == 7))
-            {
-                Debug.Log("Talking");
-                _animation.Play("ZlorpSoldierTalking");
-            }
-            else
-            {
-                Debug.Log("idle");
-                _animation.Play("ZlorpSoldierIdle");
-            }
+            _animation.Play(IsTalkingCutscene() ? "ZlorpSoldierTalking" : "ZlorpSoldierIdle");
         }
-
-
-        else if (gameObject.tag == "Alien1")
+        else if (gameObject.CompareTag("Alien1"))
         {
             _animation.Play("ZlorpIdle");
         }
@@ -113,6 +116,18 @@ public class AlienAI : MonoBehaviour
             _currentState = AlienAIstate.patrol; // Switches to patrol state
             _idleTimer = 0.0f; // Resets the idle timer
         }
+    }
+
+    private static bool IsTalkingCutscene()
+    {
+        return PlayerPrefs.GetInt("Cutscene", 1) == 1 &&
+               (PlayerPrefs.GetInt("Level", 1) == 4 || PlayerPrefs.GetInt("Level", 1) == 5 ||
+                PlayerPrefs.GetInt("Level", 1) == 6 || PlayerPrefs.GetInt("Level", 1) == 7);
+    }
+
+    private void IncrementIdleTimer()
+    {
+        _idleTimer += Time.deltaTime;
     }
 
     // Handles the patrol state behaviour
