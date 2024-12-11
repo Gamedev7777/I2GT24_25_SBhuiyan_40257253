@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -35,7 +36,9 @@ public class GameManager : MonoBehaviour
     // private variables
     private int _level; // Holds the current level number
     private int _musicIndex; // Holds the current music index for changing background music
-
+    private bool _isPaused = false;
+    [SerializeField] private GameObject pauseMenu;
+    
     void Awake()
     {
         // Sets the singleton instance and pauses the game at the start
@@ -135,6 +138,41 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && !_isPaused)
+        {
+            _isPaused = true;
+            GamePaused();
+        }
+    }
+
+    private void GamePaused()
+    {
+        Cursor.lockState = CursorLockMode.None; // Lock the cursor to the center of the game window.
+        Cursor.visible = true;
+        pauseMenu.SetActive(true);
+        Time.timeScale = 0;
+    }
+
+    public void ResumeGame()
+    {
+        _isPaused = false;
+        Time.timeScale = 1;
+        pauseMenu.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
+    public void MainMenu()
+    {
+        Time.timeScale = 1;
+        PlayerPrefs.SetInt("Level", 1); // Resets level to 1
+        PlayerPrefs.SetInt("firstTime", 1); // Marks that the first-time setup is complete
+        PlayerPrefs.SetInt("Upgraded", 0); // Resets upgrade state
+        SceneManager.LoadScene("Adapt or Die");
+    }
+    
     public void SkipCutscene()
     {
         var cutsceneCamera = SpawnManager.instance._levelSpawned.GetComponentInChildren<CutsceneCamera>();
@@ -154,7 +192,7 @@ public class GameManager : MonoBehaviour
             }
 
             Cursor.lockState =
-                CursorLockMode.Locked; // Unlock the cursor, allowing free movement outside the game window.
+                CursorLockMode.Locked; 
             Cursor.visible = false;
         }
 

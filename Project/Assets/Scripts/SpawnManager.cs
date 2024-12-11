@@ -86,7 +86,7 @@ public class SpawnManager : MonoBehaviour
                 }
                 else
                 {
-                    Cursor.lockState = CursorLockMode.None; // Lock the cursor to the center of the game window.
+                    Cursor.lockState = CursorLockMode.None; // Unlock the cursor to the center of the game window.
                     Cursor.visible = true;
                     GameManager.instance.popUpList[7].SetActive(true); // Shows the final level completion pop-up
                 }

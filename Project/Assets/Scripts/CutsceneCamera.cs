@@ -17,7 +17,7 @@ public class CutsceneCamera : MonoBehaviour
             GameManager.instance.popUpList[i].SetActive(false);
         }
 
-        Cursor.lockState = CursorLockMode.Locked; // Unlock the cursor, allowing free movement outside the game window.
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 }

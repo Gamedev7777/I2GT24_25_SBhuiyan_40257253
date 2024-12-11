@@ -41,10 +41,10 @@ public class AlienAI : MonoBehaviour
         _animation = transform.GetChild(0).GetComponent<Animation>();
 
         // Finds the waypoints by name and assigns them to the list
-        _waypoints[0] = GameObject.Find("Waypoint1").transform;
-        _waypoints[1] = GameObject.Find("Waypoint2").transform;
-        _waypoints[2] = GameObject.Find("Waypoint3").transform;
-        _waypoints[3] = GameObject.Find("Waypoint4").transform;
+        _waypoints.Add(GameObject.Find("Waypoint1").transform);
+        _waypoints.Add(GameObject.Find("Waypoint2").transform);
+        _waypoints.Add(GameObject.Find("Waypoint3").transform);
+        _waypoints.Add(GameObject.Find("Waypoint4").transform);
 
         // Gets the NavMeshAgent component attached to the alien for navigation
         _aiNavMeshAgent = GetComponent<NavMeshAgent>();
