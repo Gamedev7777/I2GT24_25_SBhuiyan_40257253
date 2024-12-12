@@ -54,41 +54,37 @@ public class GameManager : MonoBehaviour
         if (_musicIndex == 0)
         {
             _musicIndex++;
-            PlayerPrefs.SetInt("musicindex", _musicIndex);
-            _musicAudioSource.clip = musicList[_musicIndex];
-            _musicAudioSource.Play();
+            ChangeBackgroundMusic();
         }
         else if (_musicIndex == 1)
         {
             _musicIndex++;
-            PlayerPrefs.SetInt("musicindex", _musicIndex);
-            _musicAudioSource.clip = musicList[_musicIndex];
-            _musicAudioSource.Play();
+           ChangeBackgroundMusic();
         }
         else if (_musicIndex == 2)
         {
             _musicIndex = 0;
-            PlayerPrefs.SetInt("musicindex", _musicIndex);
-            _musicAudioSource.clip = musicList[_musicIndex];
-            _musicAudioSource.Play();
+          ChangeBackgroundMusic();
         }
     }
 
-    void Start()
+    private void ChangeBackgroundMusic()
     {
-        _musicAudioSource = FindObjectOfType<BackgroundMusic>().GetComponent<AudioSource>();
-        // Retrieves and initialises saved game settings and User Interface
-        _level = PlayerPrefs.GetInt("Level", 1);
-        AudioListener.volume = volumeSlider.value; // Sets the initial volume from the slider value
-        currentHighscoreText.text = "Highscore: " + PlayerPrefs.GetString("PlayerName") + " " +
-                                    PlayerPrefs.GetInt("Highscore") + " " + PlayerPrefs.GetString("HighscoreMode");
+        PlayerPrefs.SetInt("musicindex", _musicIndex);
+        _musicAudioSource.clip = musicList[_musicIndex];
+        _musicAudioSource.Play();
+    }
+
+    private void Start()
+    {
+        InitialiseTheMusic();
+        
+        GetCurrentLevel();
+        
+        InitialiseUITexts();
         ChooseBackgroundMusic(); // Plays background music
 
-        // Initialises User Interface elements with saved values from PlayerPrefs
-        scoreText.text = "Score: " + PlayerPrefs.GetInt("Score", 0); // Displays the player's score
-
-        levelNumberText.text =
-            "Level Number: " + _level; // Displays the current level number
+        
 
         // Checks if it is the player's first time playing
         if (PlayerPrefs.GetInt("firstTime", 1) == 1)
@@ -131,6 +127,28 @@ public class GameManager : MonoBehaviour
             popUpList[6].SetActive(true); // Shows the seventh story pop-up for level 7
             StartButton();
         }
+    }
+
+    private void InitialiseUITexts()
+    {
+        currentHighscoreText.text = "Highscore: " + PlayerPrefs.GetString("PlayerName") + " " +
+                                    PlayerPrefs.GetInt("Highscore") + " " + PlayerPrefs.GetString("HighscoreMode");
+        // Initialises User Interface elements with saved values from PlayerPrefs
+        scoreText.text = "Score: " + PlayerPrefs.GetInt("Score", 0); // Displays the player's score
+
+        levelNumberText.text =
+            "Level Number: " + _level; // Displays the current level number
+    }
+
+    private void GetCurrentLevel()
+    {
+        _level = PlayerPrefs.GetInt("Level", 1);
+    }
+
+    private void InitialiseTheMusic()
+    {
+        _musicAudioSource = FindObjectOfType<BackgroundMusic>().GetComponent<AudioSource>();
+        AudioListener.volume = volumeSlider.value; // Sets the initial volume from the slider value
     }
 
     private void Update()
