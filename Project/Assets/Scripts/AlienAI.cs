@@ -32,21 +32,17 @@ public class AlienAI : MonoBehaviour
     private float _fireTimer; // Timer to manage firing intervals in attack state
     private readonly float _fireInterval = 0.5f; // Time interval between laser shots
     private Animation _animation; // Reference to the Animation component of the Alien
-    private float _distanceToTarget;
+    private float _distanceToTarget; // Variable to save the calculation of the distance between alien and the target
 
     // Start is called before the first frame update
     void Start()
     {
-        // Gets the animation component from the first child of the alien game object
         AssignAnimationComponent();
-
-        // Finds the waypoints by name and assigns them to the list
+       
         AddTheWaypoints();
-
-        // Gets the NavMeshAgent component attached to the alien for navigation
+        
         AssignNavMeshAgentComponent();
-
-        // Initialises the fire timer with the interval value
+        
         InitialiseFireTimer();
     }
 
@@ -94,13 +90,21 @@ public class AlienAI : MonoBehaviour
         }
     }
 
-    // Handles the idle state behaviour
-    void HandleIdleState()
+   void HandleIdleState()
     {
-        // Increments the idle timer
         IncrementIdleTimer();
+        
+        PlayIdleAnimation();
 
-        // Plays idle animation based on the alien type
+        if (_idleTimer >= _maxIdleTime && PlayerPrefs.GetInt("Cutscene", 1) == 0)
+        {
+            _currentState = AlienAIstate.patrol; // Switches to patrol state
+            _idleTimer = 0.0f; // Resets the idle timer
+        }
+    }
+
+    private void PlayIdleAnimation()
+    {
         if (gameObject.CompareTag("Alien2"))
         {
             _animation.Play(IsTalkingCutscene() ? "ZlorpSoldierTalking" : "ZlorpSoldierIdle");
@@ -108,13 +112,6 @@ public class AlienAI : MonoBehaviour
         else if (gameObject.CompareTag("Alien1"))
         {
             _animation.Play("ZlorpIdle");
-        }
-
-        if (_idleTimer >= _maxIdleTime && PlayerPrefs.GetInt("Cutscene", 1) == 0)
-        {
-            Debug.Log("patrol");
-            _currentState = AlienAIstate.patrol; // Switches to patrol state
-            _idleTimer = 0.0f; // Resets the idle timer
         }
     }
 
@@ -130,53 +127,57 @@ public class AlienAI : MonoBehaviour
         _idleTimer += Time.deltaTime;
     }
 
-    // Handles the patrol state behaviour
     void HandlePatrolState()
     {
-        // If the alien has reached the current waypoint or has not been assigned a waypoint
+        // (If the alien has almost reached the current waypoint and the path status is complete) or has not been assigned a waypoint 
         if ((_aiNavMeshAgent.pathStatus == NavMeshPathStatus.PathComplete && _aiNavMeshAgent.remainingDistance < 0.5f) ||
             _currentWaypointIndex == -1)
-        {
-            // Moves to a random waypoint in the list
-            int randomIndex = Random.Range(0, _waypoints.Count);
-            _currentWaypointIndex = randomIndex; // Sets the current waypoint index
-            _aiNavMeshAgent.SetDestination(_waypoints[_currentWaypointIndex]
-                .position); // Sets the alien's destination to the selected waypoint
-            Debug.Log(_waypoints[_currentWaypointIndex]);
-            // Plays walking animation based on the alien type
-            if (gameObject.tag == "Alien2")
-            {
-                _animation.Play("ZlorpSoldierWalking");
-            }
-            else if (gameObject.tag == "Alien1")
-            {
-                _animation.Play("ZlorpWalking");
-            }
+        { 
+            PatrolAlienRandomly();
+            PlayWalkingAnimation();
         }
 
-        Debug.Log(target);
         // Checks if there is a target available
         if (target != null)
         {
-            // Calculates the distance to the target
-            float _distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
-            
-            // If within chase distance, transitions to chase state
+            CalculateDistanceToTarget();
+
+            // If within chase distance
             if (_distanceToTarget > chaseDistance)
             {
-                Debug.Log("chase 1");
                 _currentState = AlienAIstate.chase; // Switches to chase state
             }
             else
             {
-                _aiNavMeshAgent.SetDestination(target.transform.position);
-
-                Quaternion targetRotation = Quaternion.LookRotation(_aiNavMeshAgent.velocity.normalized);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 1000f * Time.deltaTime);
-                Debug.Log("attack 1");
+                SetAlienDestination();
                 _currentState = AlienAIstate.attack; // Switches to attack state
             }
         }
+    }
+
+    private void CalculateDistanceToTarget()
+    {
+        _distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
+    }
+
+    private void PlayWalkingAnimation()
+    {
+        if (gameObject.CompareTag("Alien2"))
+        {
+            _animation.Play("ZlorpSoldierWalking");
+        }
+        else if (gameObject.CompareTag("Alien1"))
+        {
+            _animation.Play("ZlorpWalking");
+        }
+    }
+
+    private void PatrolAlienRandomly()
+    {
+        int randomIndex = Random.Range(0, _waypoints.Count);
+        _currentWaypointIndex = randomIndex; // Sets the current waypoint index
+        _aiNavMeshAgent.SetDestination(_waypoints[_currentWaypointIndex]
+            .position); // Sets the alien's destination to the selected waypoint
     }
 
     // Checks if the alien is currently moving
@@ -190,26 +191,13 @@ public class AlienAI : MonoBehaviour
     }
 
     // Handles the chase state behaviour
-    void HandleChaseState()
+    private void HandleChaseState()
     {
-        // Sets the alien's destination to the target's position
+        // Checks if there is a target available
         if (target != null)
         {
-            _aiNavMeshAgent.SetDestination(target.transform.position);
-
-            Quaternion targetRotation = Quaternion.LookRotation(_aiNavMeshAgent.velocity.normalized);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 1000f * Time.deltaTime);
-
-
-            // Plays walking animation based on the alien type
-            if (gameObject.tag == "Alien2")
-            {
-                _animation.Play("ZlorpSoldierWalking");
-            }
-            else if (gameObject.tag == "Alien1")
-            {
-                _animation.Play("ZlorpWalking");
-            }
+            SetAlienDestination();
+            PlayWalkingAnimation();
         }
         else
         {
@@ -218,21 +206,25 @@ public class AlienAI : MonoBehaviour
             return;
         }
 
-        // Calculates the distance to the target
-        _distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
+        CalculateDistanceToTarget();
 
-        // If within attack distance, transitions to attack state
+        // If within attack distance
         if (_distanceToTarget <= attackDistance)
         {
-            Debug.Log("Attack 1");
             _currentState = AlienAIstate.attack; // Switches to attack state
         }
     }
 
-    // Handles the attack state behaviour
-    void HandleAttackState()
+    private void SetAlienDestination()
     {
-        // Checks if the target is not null before proceeding
+        _aiNavMeshAgent.SetDestination(target.transform.position);
+        Quaternion targetRotation = Quaternion.LookRotation(_aiNavMeshAgent.velocity.normalized);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 1000f * Time.deltaTime);
+    }
+
+    private void HandleAttackState()
+    {
+        // Checks if there is a target available
         if (target == null)
         {
             // If the target is lost, transitions back to patrol state
@@ -240,81 +232,99 @@ public class AlienAI : MonoBehaviour
             return;
         }
 
-        // Calculates the direction to the target for rotation and attack
-        Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
-        _distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
+        var directionToTarget = CalculateDirectionToTarget();
+        CalculateDistanceToTarget();
+        
         // Checks for direct line of sight to the player using a raycast
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, directionToTarget, out hit))
+        if (Physics.Raycast(transform.position, directionToTarget, out var hit))
         {
             if (hit.collider.gameObject != target && _distanceToTarget > attackDistance)
             {
-                Debug.Log("Chase 2");
                 // If there is no direct line of sight, transitions back to chase state
                 _currentState = AlienAIstate.chase;
                 return;
             }
         }
 
-        // Rotates towards the target to face it
-        Quaternion
-            lookRotation = Quaternion.LookRotation(directionToTarget); // Creates a rotation to look at the target
+        RotateTowardsTheTarget(directionToTarget);
 
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, 1000f * Time.deltaTime);
+        DecrementFireTimer();
 
-
-        // Fires laser at intervals based on the fire timer
-        _fireTimer -= Time.deltaTime;
-
-        // Plays the appropriate shooting or walking animation
         if (_fireTimer <= 0 && IsMoving())
         {
-            if (gameObject.tag == "Alien2")
-            {
-                _animation.Play("ZlorpSoldierWalkingFiring");
-                if (_fireTimer <= 0)
-                {
-                    FireLaser(); // Fires a laser towards the target
-                    _fireTimer = _fireInterval; // Resets the fire timer
-                }
-                
-            }
-            else if (gameObject.tag == "Alien1")
-            {
-                _animation.Play("ZlorpWalkingFiring");
-                if (_fireTimer <= 0)
-                {
-                    FireLaser(); // Fires a laser towards the target
-                    _fireTimer = _fireInterval; // Resets the fire timer
-                }
-            }
+            WalkAndFire();
         }
         else
         {
             if (_fireTimer <= 0)
             {
-                PlayShootingAnimation(); // Plays the shooting animation
-                FireLaser(); // Fires a laser towards the target
-                _fireTimer = _fireInterval; // Resets the fire timer
+                PlayShootingAnimation(); 
+                FireLaser();
+                ResetFireTimer();
             }
             else
             {
-                StopShootingAnimation(); // Stops the shooting animation
+                StopShootingAnimation();
             }
         }
+        
+        CalculateDistanceToTarget();
 
-        // Calculates the distance to the target
-        _distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
-
-        // If the target moves out of attack distance, transitions back to chase state
+        // If the target moves out of attack distance
         if (_distanceToTarget > chaseDistance)
         {
-            Debug.Log("Chase 3");
             _currentState = AlienAIstate.chase; // Switches to chase state
         }
     }
 
-    // Plays the shooting animation if it is not already playing
+    private void ResetFireTimer()
+    {
+        _fireTimer = _fireInterval;
+    }
+   
+    
+    private void WalkAndFire()
+    {
+        if (gameObject.tag == "Alien2")
+        {
+            _animation.Play("ZlorpSoldierWalkingFiring");
+            if (_fireTimer <= 0)
+            {
+                FireLaser();
+                ResetFireTimer();
+            }
+                
+        }
+        else if (gameObject.tag == "Alien1")
+        {
+            _animation.Play("ZlorpWalkingFiring");
+            if (_fireTimer <= 0)
+            {
+                FireLaser();
+                ResetFireTimer();
+            }
+        }
+    }
+
+    private void DecrementFireTimer()
+    {
+        _fireTimer -= Time.deltaTime;
+    }
+
+    private void RotateTowardsTheTarget(Vector3 directionToTarget)
+    {
+        Quaternion
+            lookRotation = Quaternion.LookRotation(directionToTarget);
+
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, 1000f * Time.deltaTime);
+    }
+
+    private Vector3 CalculateDirectionToTarget()
+    {
+        Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
+        return directionToTarget;
+    }
+    
     void PlayShootingAnimation()
     {
         if (gameObject.tag == "Alien2")
@@ -332,8 +342,7 @@ public class AlienAI : MonoBehaviour
             }
         }
     }
-
-    // Stops the shooting animation if it is playing
+    
     void StopShootingAnimation()
     {
         if (gameObject.tag == "Alien2")
@@ -351,8 +360,7 @@ public class AlienAI : MonoBehaviour
             }
         }
     }
-
-    // Fires a laser towards the target
+    
     void FireLaser()
     {
         if (laserPrefab != null)

@@ -7294,7 +7294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 6883296889806634158}
-  health: 15
+  health: 30
   alienDeathFX: {fileID: 2003168049522422739}
   alienDeathSound: {fileID: 8300000, guid: 07f1ca4d96bca46dbbaa5f4483f7a48a, type: 3}
 --- !u!54 &4979797931089950048
@@ -7358,13 +7358,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5173c141b0d2a154ea28c3aadf0f1701, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleTime: 1
-  aiNavMeshAgent: {fileID: -6549805239253676014}
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   target: {fileID: 0}
   chaseDistance: 20
   attackDistance: 15

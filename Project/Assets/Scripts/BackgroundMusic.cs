@@ -1,34 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BackgroundMusic : MonoBehaviour
 {
-    private static BackgroundMusic instance;
+    private static BackgroundMusic _instance; // An instance of the background music
 
-    public static BackgroundMusic Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = FindObjectOfType<BackgroundMusic>();
-                DontDestroyOnLoad(instance.gameObject);
-            }
-            return instance;
-        }
-    }
-
+    // Singleton pattern
     private void Awake()
     {
-        if (instance == null)
+        if (_instance == null)
         {
-            instance = this;
+            _instance = this;
             DontDestroyOnLoad(this);
         }
         else
         {
-            if (this != instance)
+            if (this != _instance)
             {
                 Destroy(gameObject);
             }

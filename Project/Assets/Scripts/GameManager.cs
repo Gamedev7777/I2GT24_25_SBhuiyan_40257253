@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -9,20 +8,16 @@ using UnityEngine.Video;
 public class GameManager : MonoBehaviour
 {
     // public variables
-    // User Interface elements for displaying score, player health, and level number
-    public TextMeshProUGUI scoreText;
-    public static GameManager instance; // Singleton instance of GameManager
+    public TextMeshProUGUI scoreText; // User Interface element for displaying score
+    public static GameManager instance; // Instance of GameManager
     public TextMeshProUGUI playerHealthText, playerHealthText2; // User Interface for player 1 and player 2 health
     public TextMeshProUGUI levelNumberText, avatarText; // User Interface for level number and avatar selection text
-
-    public GameObject
-        playerShieldText, playerSpeedText, videoCamera; // User Interface elements for player status (shield and speed)
-
+    public GameObject playerShieldText, playerSpeedText; // User Interface elements for player status (shield and speed)
+    public GameObject videoCamera; // Video camera is used to show the videos
     public List<GameObject> popUpList = new(); // List of pop-up game objects for different levels
     public GameObject mainMenu; // Reference to the main menu game object
     public GameObject singleAndMultiplayerMenu; // Reference to the single and multiplayer selection menu
     public List<AudioClip> musicList = new(); // List of background music clips
-    public AudioSource musicAudioSource; // AudioSource component to play background music
     public Slider volumeSlider; // Slider User Interface element for controlling game music volume
     public GameObject chooseAvatarButton; // Button to allow player to choose an avatar
     public TextMeshProUGUI chosenAvatarText; // User Interface text showing the chosen avatar name
@@ -30,19 +25,18 @@ public class GameManager : MonoBehaviour
     public TMP_InputField playerNameInputField; // Input field for player name in high score menu
     public TextMeshProUGUI highscoreText; // User Interface text for displaying new high score
     public TextMeshProUGUI currentHighscoreText; // User Interface text for displaying current high score
-
-    public VideoPlayer videoPlayer8, videoPlayer9;
+    public VideoPlayer videoPlayer8, videoPlayer9; // Video players to play story part 8 and 9 videos
 
     // private variables
+    private AudioSource _musicAudioSource; // AudioSource component to play background music
     private int _level; // Holds the current level number
     private int _musicIndex; // Holds the current music index for changing background music
-    private bool _isPaused = false;
-    [SerializeField] private GameObject pauseMenu;
+    private bool _isPaused; // Checks if the game is paused or not
+    [SerializeField] private GameObject pauseMenu; // Pause Menu User Interface
     
-    void Awake()
+    private void Awake()
     {
-        // Sets the singleton instance and pauses the game at the start
-        instance = this; // Assigns the singleton instance to this object
+        instance = this;
         Time.timeScale = 0; // Pauses the game until the player starts
     }
 
@@ -61,27 +55,28 @@ public class GameManager : MonoBehaviour
         {
             _musicIndex++;
             PlayerPrefs.SetInt("musicindex", _musicIndex);
-            musicAudioSource.clip = musicList[_musicIndex];
-            musicAudioSource.Play();
+            _musicAudioSource.clip = musicList[_musicIndex];
+            _musicAudioSource.Play();
         }
         else if (_musicIndex == 1)
         {
             _musicIndex++;
             PlayerPrefs.SetInt("musicindex", _musicIndex);
-            musicAudioSource.clip = musicList[_musicIndex];
-            musicAudioSource.Play();
+            _musicAudioSource.clip = musicList[_musicIndex];
+            _musicAudioSource.Play();
         }
         else if (_musicIndex == 2)
         {
             _musicIndex = 0;
             PlayerPrefs.SetInt("musicindex", _musicIndex);
-            musicAudioSource.clip = musicList[_musicIndex];
-            musicAudioSource.Play();
+            _musicAudioSource.clip = musicList[_musicIndex];
+            _musicAudioSource.Play();
         }
     }
 
     void Start()
     {
+        _musicAudioSource = FindObjectOfType<BackgroundMusic>().GetComponent<AudioSource>();
         // Retrieves and initialises saved game settings and User Interface
         _level = PlayerPrefs.GetInt("Level", 1);
         AudioListener.volume = volumeSlider.value; // Sets the initial volume from the slider value
