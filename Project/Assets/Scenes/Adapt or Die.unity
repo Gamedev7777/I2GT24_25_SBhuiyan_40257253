@@ -16472,10 +16472,10 @@ MonoBehaviour:
       m_Calls: []
   m_text: You and your wife, Claire, your son, Jack, and daughter, Jill, are eating
     dinner together. You are suddenly caught in a beam of light. You float off through
-    the ceiling, the loft and the roof to a spaceship high up in the sky. Your children
-    are separated from you and you find yourself in a maze. The maze has aliens that
-    shoot lasers at you. You find yourself holding a rifle. You must adapt or you
-    will die.
+    the ceiling, the loft and the roof to a spaceship high up in the sky. Your wife
+    and children are separated from you and you find yourself in a maze. The maze
+    has aliens that shoot lasers at you. You find yourself holding a rifle. You must
+    adapt or you will die.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
