@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     // Method to change the background music
     public void ChooseBackgroundMusic()
     {
-        _musicIndex = PlayerPrefs.GetInt("musicindex", 0);
+        
         // Changes music based on the current index, looping back to the first track after the last one
         if (_musicIndex == 0)
         {
@@ -77,12 +77,13 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        _musicIndex = PlayerPrefs.GetInt("musicindex", 0);
         InitialiseTheMusic();
         
         GetCurrentLevel();
         
         InitialiseUITexts();
-        ChooseBackgroundMusic(); // Plays background music
+        ChangeBackgroundMusic(); // Changes background music
 
         
 
