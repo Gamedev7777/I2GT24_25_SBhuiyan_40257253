@@ -320,6 +320,11 @@ MonoBehaviour:
   videoPlayer9: {fileID: 1535748254}
   remyVideoClip1: {fileID: 32900000, guid: 1376ff1b27de0a841a3947a492f7b623, type: 3}
   claireVideoClip1: {fileID: 32900000, guid: a115a401072eaef418b6288b517d89a3, type: 3}
+  remyVideoClip8: {fileID: 32900000, guid: 9c3e47962dd76ab45b59bb16f26a5d5c, type: 3}
+  claireVideoClip8: {fileID: 32900000, guid: ffcd5fa4f51b30141962aaf37030fb75, type: 3}
+  remyVideoClip9: {fileID: 32900000, guid: f0bce6e0d54648949b7491d64f49993d, type: 3}
+  claireVideoClip9: {fileID: 32900000, guid: fd7b05ebd71ff0b4b8a7550ac93998d4, type: 3}
+  buttonAudioClip: {fileID: 8300000, guid: 5493190d2c8bfc14d85bb5b5b420d607, type: 3}
   pauseMenu: {fileID: 1859316488}
 --- !u!4 &2769784
 Transform:
@@ -9606,7 +9611,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 981544487}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 9c3e47962dd76ab45b59bb16f26a5d5c, type: 3}
+  m_VideoClip: {fileID: 0}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 744922697}
@@ -14446,7 +14451,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1535748253}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: f0bce6e0d54648949b7491d64f49993d, type: 3}
+  m_VideoClip: {fileID: 0}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 744922697}

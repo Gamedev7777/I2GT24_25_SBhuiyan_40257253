@@ -27,7 +27,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI currentHighscoreText; // User Interface text for displaying current high score
     public VideoPlayer videoPlayer1, videoPlayer8, videoPlayer9; // Video players to play story part 8 and 9 videos
     public VideoClip remyVideoClip1, claireVideoClip1, remyVideoClip8, claireVideoClip8, remyVideoClip9, claireVideoClip9;
-    
+    public AudioClip buttonAudioClip;
+
     // private variables
     private AudioSource _musicAudioSource; // AudioSource component to play background music
     private int _level; // Holds the current level number
@@ -67,6 +68,7 @@ public class GameManager : MonoBehaviour
             _musicIndex = 0;
           ChangeBackgroundMusic();
         }
+        AudioSource.PlayClipAtPoint(buttonAudioClip, SpawnManager.instance.transform.position);
     }
 
     private void ChangeBackgroundMusic()
@@ -177,6 +179,7 @@ public class GameManager : MonoBehaviour
         pauseMenu.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        AudioSource.PlayClipAtPoint(buttonAudioClip, SpawnManager.instance.transform.position);
     }
 
     public void MainMenu()
@@ -185,6 +188,12 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("Level", 1); // Resets level to 1
         PlayerPrefs.SetInt("firstTime", 1); // Marks that the first-time setup is complete
         PlayerPrefs.SetInt("Upgraded", 0); // Resets upgrade state
+        AudioSource.PlayClipAtPoint(buttonAudioClip, SpawnManager.instance.transform.position);
+        Invoke(nameof(ProcessLoadScene), 0.6f);
+    }
+
+    private void ProcessLoadScene()
+    {
         SceneManager.LoadScene("Adapt or Die");
     }
     
@@ -192,6 +201,7 @@ public class GameManager : MonoBehaviour
     {
         var cutsceneCamera = SpawnManager.instance._levelSpawned.GetComponentInChildren<CutsceneCamera>();
         cutsceneCamera.SwitchCameras();
+        AudioSource.PlayClipAtPoint(buttonAudioClip, SpawnManager.instance.transform.position);
     }
 
     // Method called when the Start button is pressed
@@ -256,6 +266,7 @@ public class GameManager : MonoBehaviour
 
         AudioListener.volume = volumeSlider.value; // Sets volume to the slider value
         Time.timeScale = 1; // Resumes the game
+        AudioSource.PlayClipAtPoint(buttonAudioClip, SpawnManager.instance.transform.position);
     }
 
     // Method to restart the game and reset the score
@@ -278,6 +289,7 @@ public class GameManager : MonoBehaviour
         }
 
         SpawnManager.instance.fakeCamera.gameObject.SetActive(true);
+        AudioSource.PlayClipAtPoint(buttonAudioClip, SpawnManager.instance.transform.position);
     }
 
     // Method to save the high score and player information
@@ -304,10 +316,12 @@ public class GameManager : MonoBehaviour
 
        
         
-            PlayerPrefs.SetInt("firstTime", 1); // Marks as first time playing
-            PlayerPrefs.SetInt("Score", 0); // Resets score to 0
-            SceneManager.LoadScene("Adapt or Die"); // Reloads the scene to start again
+        PlayerPrefs.SetInt("firstTime", 1); // Marks as first time playing
+        PlayerPrefs.SetInt("Score", 0); // Resets score to 0
         
+        AudioSource.PlayClipAtPoint(buttonAudioClip, SpawnManager.instance.transform.position);
+        
+        Invoke(nameof(ProcessLoadScene), 0.6f);
     }
 
     // Method to upgrade the player and show the upgrade story pop-up
@@ -334,6 +348,7 @@ public class GameManager : MonoBehaviour
         }
         
         videoPlayer9.gameObject.SetActive(true);
+        AudioSource.PlayClipAtPoint(buttonAudioClip, SpawnManager.instance.transform.position);
     }
 
     // Method to toggle between avatars
@@ -352,6 +367,7 @@ public class GameManager : MonoBehaviour
             avatarText.text = "Choose Claire";
             chosenAvatarText.text = "Remy chosen";
         }
+        AudioSource.PlayClipAtPoint(buttonAudioClip, SpawnManager.instance.transform.position);
     }
 
     // Method to select the game mode (single or multiplayer)
@@ -369,6 +385,7 @@ public class GameManager : MonoBehaviour
             chooseAvatarButton.SetActive(true);
             chosenAvatarText.gameObject.SetActive(true);
         }
+        AudioSource.PlayClipAtPoint(buttonAudioClip, SpawnManager.instance.transform.position);
     }
 
     // Method called when the Play button is pressed from the main menu
@@ -376,6 +393,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("Mode", mode); // Sets the game difficulty level (0: Easy, 1: Normal, 2: Hard)
         mainMenu.SetActive(false); // Hides the main menu
+        AudioSource.PlayClipAtPoint(buttonAudioClip, SpawnManager.instance.transform.position);
     }
 
     public void PlayVideo1()
