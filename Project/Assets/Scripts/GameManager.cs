@@ -25,8 +25,9 @@ public class GameManager : MonoBehaviour
     public TMP_InputField playerNameInputField; // Input field for player name in high score menu
     public TextMeshProUGUI highscoreText; // User Interface text for displaying new high score
     public TextMeshProUGUI currentHighscoreText; // User Interface text for displaying current high score
-    public VideoPlayer videoPlayer8, videoPlayer9; // Video players to play story part 8 and 9 videos
-
+    public VideoPlayer videoPlayer1, videoPlayer8, videoPlayer9; // Video players to play story part 8 and 9 videos
+    public VideoClip remyVideoClip1, claireVideoClip1, remyVideoClip8, claireVideoClip8, remyVideoClip9, claireVideoClip9;
+    
     // private variables
     private AudioSource _musicAudioSource; // AudioSource component to play background music
     private int _level; // Holds the current level number
@@ -301,16 +302,12 @@ public class GameManager : MonoBehaviour
 
         highscoreMenu.SetActive(false); // Hides the high score menu
 
-        // if (PlayerPrefs.GetInt("Upgraded", 0) == 1)
-        {
+       
+        
             PlayerPrefs.SetInt("firstTime", 1); // Marks as first time playing
             PlayerPrefs.SetInt("Score", 0); // Resets score to 0
             SceneManager.LoadScene("Adapt or Die"); // Reloads the scene to start again
-        }
-        // else
-        // {
-        //     popUpList[7].SetActive(true); // Shows the final level completion pop-up
-        // }
+        
     }
 
     // Method to upgrade the player and show the upgrade story pop-up
@@ -324,6 +321,18 @@ public class GameManager : MonoBehaviour
         videoCamera.SetActive(true);
         popUpList[5].SetActive(false);
         popUpList[8].SetActive(true); // Shows the upgrade story pop-up
+        
+        if (PlayerPrefs.GetInt("Avatar", 0) == 0)
+        {
+            // Remy is chosen
+            videoPlayer9.clip = remyVideoClip9;
+        }
+        else if (PlayerPrefs.GetInt("Avatar", 0) == 1)
+        {
+            // Claire is chosen
+            videoPlayer9.clip = claireVideoClip9;
+        }
+        
         videoPlayer9.gameObject.SetActive(true);
     }
 
@@ -367,5 +376,21 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("Mode", mode); // Sets the game difficulty level (0: Easy, 1: Normal, 2: Hard)
         mainMenu.SetActive(false); // Hides the main menu
+    }
+
+    public void PlayVideo1()
+    {
+        if (PlayerPrefs.GetInt("Avatar", 0) == 0)
+        {
+           // Remy is chosen
+           videoPlayer1.clip = remyVideoClip1;
+           videoPlayer1.Play();
+        }
+        else if (PlayerPrefs.GetInt("Avatar", 0) == 1)
+        {
+            // Claire is chosen
+            videoPlayer1.clip = claireVideoClip1;
+            videoPlayer1.Play();
+        }
     }
 }

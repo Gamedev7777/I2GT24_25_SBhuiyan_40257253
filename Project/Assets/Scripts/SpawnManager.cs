@@ -82,6 +82,20 @@ public class SpawnManager : MonoBehaviour
                     _levelSpawned.SetActive(false);
                     GameManager.instance.videoCamera.SetActive(true);
                     GameManager.instance.popUpList[7].SetActive(true); // Shows the upgrade story pop-up
+                    
+                    if (PlayerPrefs.GetInt("Avatar", 0) == 0)
+                    {
+                        // Remy is chosen
+                        GameManager.instance.videoPlayer8.clip = GameManager.instance.remyVideoClip8;
+
+                    }
+                    else if (PlayerPrefs.GetInt("Avatar", 0) == 1)
+                    {
+                        // Claire is chosen
+                        GameManager.instance.videoPlayer8.clip = GameManager.instance.claireVideoClip8;
+
+                    }
+                    
                     GameManager.instance.videoPlayer8.gameObject.SetActive(true);
                 }
                 else

@@ -240,8 +240,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: e58fcce918ed3634f8424a0d6ffe5a14, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -339,6 +339,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCam: {fileID: 1697081372028783552}
+  remyAudioClip: {fileID: 8300000, guid: e58fcce918ed3634f8424a0d6ffe5a14, type: 3}
+  claireAudioClip: {fileID: 8300000, guid: d6b4897bf4197f8439d4a5566e773569, type: 3}
 --- !u!111 &8591325119619266193
 Animation:
   m_ObjectHideFlags: 0

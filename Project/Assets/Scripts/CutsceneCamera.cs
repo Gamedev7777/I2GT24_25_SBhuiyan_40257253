@@ -3,7 +3,16 @@ using UnityEngine;
 public class CutsceneCamera : MonoBehaviour
 {
     public GameObject mainCam; // Variable for the main camera
+    public AudioClip remyAudioClip, claireAudioClip;
+    
+    private AudioSource _audioSource;
 
+    private void Start()
+    {
+        _audioSource = GetComponent<AudioSource>();
+        PlayAudio();
+    }
+    
     public void SwitchCameras()
     {
         mainCam.SetActive(true);
@@ -29,4 +38,21 @@ public class CutsceneCamera : MonoBehaviour
             GameManager.instance.popUpList[i].SetActive(false);
         }
     }
+
+    private void PlayAudio()
+    {
+        if (PlayerPrefs.GetInt("Avatar", 0) == 0)
+        {
+            // Remy is chosen
+            _audioSource.clip = remyAudioClip;
+            _audioSource.Play();
+        }
+        else if (PlayerPrefs.GetInt("Avatar", 0) == 1)
+        {
+            // Claire is chosen
+            _audioSource.clip = claireAudioClip;
+            _audioSource.Play();
+        }
+    }
+    
 }
