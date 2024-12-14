@@ -81,11 +81,13 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _musicIndex = PlayerPrefs.GetInt("musicindex", 0);
+        
         InitialiseTheMusic();
         
         GetCurrentLevel();
         
         InitialiseUITexts();
+        
         ChangeBackgroundMusic(); // Changes background music
 
         
@@ -104,32 +106,32 @@ public class GameManager : MonoBehaviour
         else if (_level == 2)
         {
             popUpList[1].SetActive(true); // Shows the second story pop-up for level 2
-            StartButton();
+            StartButton(false);
         }
         else if (_level == 3)
         {
             popUpList[2].SetActive(true); // Shows the third story pop-up for level 3
-            StartButton();
+            StartButton(false);
         }
         else if (_level == 4)
         {
             popUpList[3].SetActive(true); // Shows the fourth story pop-up for level 4
-            StartButton();
+            StartButton(false);
         }
         else if (_level == 5)
         {
             popUpList[4].SetActive(true); // Shows the fifth story pop-up for level 5
-            StartButton();
+            StartButton(false);
         }
         else if (_level == 6)
         {
             popUpList[5].SetActive(true); // Shows the sixth story pop-up for level 6
-            StartButton();
+            StartButton(false);
         }
         else if (_level == 7)
         {
             popUpList[6].SetActive(true); // Shows the seventh story pop-up for level 7
-            StartButton();
+            StartButton(false);
         }
     }
 
@@ -205,7 +207,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Method called when the Start button is pressed
-    public void StartButton()
+    public void StartButton(bool clicked)
     {
         videoCamera.SetActive(false);
         // Deactivates level pop-ups except for the final ones
@@ -266,7 +268,11 @@ public class GameManager : MonoBehaviour
 
         AudioListener.volume = volumeSlider.value; // Sets volume to the slider value
         Time.timeScale = 1; // Resumes the game
-        AudioSource.PlayClipAtPoint(buttonAudioClip, SpawnManager.instance.transform.position);
+        if (clicked)
+        {
+            AudioSource.PlayClipAtPoint(buttonAudioClip, SpawnManager.instance.transform.position);
+        }
+        
     }
 
     // Method to restart the game and reset the score
