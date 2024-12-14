@@ -291,7 +291,8 @@ public class GameManager : MonoBehaviour
 
 
             PlayerPrefs.SetInt("Score", 0); // Resets score to 0
-            SceneManager.LoadScene("Adapt or Die"); // Reloads the scene to start again
+         
+            Invoke(nameof(ProcessLoadScene), 0.6f);
         }
 
         SpawnManager.instance.fakeCamera.gameObject.SetActive(true);
@@ -333,7 +334,6 @@ public class GameManager : MonoBehaviour
     // Method to upgrade the player and show the upgrade story pop-up
     public void Upgrade()
     {
-        AudioListener.volume = 0; // Mutes volume during upgrade
         PlayerPrefs.SetInt("Level", 1); // Resets level to 1
         PlayerPrefs.SetInt("Upgraded", 1); // Marks player as upgraded
 
