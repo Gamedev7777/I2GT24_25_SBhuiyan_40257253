@@ -26,8 +26,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI highscoreText; // User Interface text for displaying new high score
     public TextMeshProUGUI currentHighscoreText; // User Interface text for displaying current high score
     public VideoPlayer videoPlayer1, videoPlayer8, videoPlayer9; // Video players to play story part 8 and 9 videos
-    public VideoClip remyVideoClip1, claireVideoClip1, remyVideoClip8, claireVideoClip8, remyVideoClip9, claireVideoClip9; // Variables for video clips
-    public AudioClip buttonAudioClip; // Variable for button click sound
+    public VideoClip remyVideoClip1, claireVideoClip1, remyVideoClip8, claireVideoClip8, remyVideoClip9, claireVideoClip9;
+    public AudioClip buttonAudioClip;
 
     // private variables
     private AudioSource _musicAudioSource; // AudioSource component to play background music
@@ -35,47 +35,43 @@ public class GameManager : MonoBehaviour
     private int _musicIndex; // Holds the current music index for changing background music
     private bool _isPaused; // Checks if the game is paused or not
     [SerializeField] private GameObject pauseMenu; // Pause Menu User Interface
-    private readonly float _sceneLoadDelay = 0.6f; // Delay for loading the scene
-
+    
     private void Awake()
     {
         instance = this;
-        Time.timeScale = 0; // Stops the game
+        Time.timeScale = 0; // Pauses the game until the player starts
     }
 
+    // Method to change the volume of the game music
     public void ChangeMusicVolume()
     {
         AudioListener.volume = volumeSlider.value; // Sets the game volume based on the slider value
     }
 
+    // Method to change the background music
     public void ChooseBackgroundMusic()
     {
+        
         // Changes music based on the current index, looping back to the first track after the last one
         if (_musicIndex == 0)
         {
             _musicIndex++;
-            ChangeBackgroundMusicClip();
+            ChangeBackgroundMusic();
         }
         else if (_musicIndex == 1)
         {
             _musicIndex++;
-            ChangeBackgroundMusicClip();
+           ChangeBackgroundMusic();
         }
         else if (_musicIndex == 2)
         {
             _musicIndex = 0;
-            ChangeBackgroundMusicClip();
+          ChangeBackgroundMusic();
         }
-
-        PlayButtonClickSound();
-    }
-
-    private void PlayButtonClickSound()
-    {
         AudioSource.PlayClipAtPoint(buttonAudioClip, SpawnManager.instance.transform.position);
     }
 
-    private void ChangeBackgroundMusicClip()
+    private void ChangeBackgroundMusic()
     {
         PlayerPrefs.SetInt("musicindex", _musicIndex);
         _musicAudioSource.clip = musicList[_musicIndex];
@@ -85,33 +81,57 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         _musicIndex = PlayerPrefs.GetInt("musicindex", 0);
-
+        
         InitialiseTheMusic();
-
+        
         GetCurrentLevel();
-
+        
         InitialiseUITexts();
+        
+        ChangeBackgroundMusic(); // Changes background music
 
-        ChangeBackgroundMusicClip();
+        
 
+        // Checks if it is the player's first time playing
         if (PlayerPrefs.GetInt("firstTime", 1) == 1)
         {
-            singleAndMultiplayerMenu.SetActive(true);
+            singleAndMultiplayerMenu.SetActive(true); // Shows the single and multiplayer selection menu
         }
 
-        InitialiseLevel();
-    }
-
-    private void InitialiseLevel()
-    {
-        for (int i = 1; i <= _level; i++)
+        // Displays the appropriate pop-up based on the current level
+        if (_level == 1)
         {
-            popUpList[i - 1].SetActive(true); // Turns on the relevant pop-up based on the level number
-
-            if (_level > 1)
-            {
-                StartButton(false);
-            }
+            popUpList[0].SetActive(true); // Shows the first story pop-up
+        }
+        else if (_level == 2)
+        {
+            popUpList[1].SetActive(true); // Shows the second story pop-up for level 2
+            StartButton(false);
+        }
+        else if (_level == 3)
+        {
+            popUpList[2].SetActive(true); // Shows the third story pop-up for level 3
+            StartButton(false);
+        }
+        else if (_level == 4)
+        {
+            popUpList[3].SetActive(true); // Shows the fourth story pop-up for level 4
+            StartButton(false);
+        }
+        else if (_level == 5)
+        {
+            popUpList[4].SetActive(true); // Shows the fifth story pop-up for level 5
+            StartButton(false);
+        }
+        else if (_level == 6)
+        {
+            popUpList[5].SetActive(true); // Shows the sixth story pop-up for level 6
+            StartButton(false);
+        }
+        else if (_level == 7)
+        {
+            popUpList[6].SetActive(true); // Shows the seventh story pop-up for level 7
+            StartButton(false);
         }
     }
 
@@ -119,10 +139,11 @@ public class GameManager : MonoBehaviour
     {
         currentHighscoreText.text = "Highscore: " + PlayerPrefs.GetString("PlayerName") + " " +
                                     PlayerPrefs.GetInt("Highscore") + " " + PlayerPrefs.GetString("HighscoreMode");
-        
-        scoreText.text = "Score: " + PlayerPrefs.GetInt("Score", 0);
+        // Initialises User Interface elements with saved values from PlayerPrefs
+        scoreText.text = "Score: " + PlayerPrefs.GetInt("Score", 0); // Displays the player's score
 
-        levelNumberText.text = "Level Number: " + _level; 
+        levelNumberText.text =
+            "Level Number: " + _level; // Displays the current level number
     }
 
     private void GetCurrentLevel()
@@ -138,7 +159,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !_isPaused) // Checking for Esc key to be pressed and when the game is not paused
+        if (Input.GetKeyDown(KeyCode.Escape) && !_isPaused)
         {
             _isPaused = true;
             GamePaused();
@@ -147,15 +168,10 @@ public class GameManager : MonoBehaviour
 
     private void GamePaused()
     {
-        UnlockCursor();
+        Cursor.lockState = CursorLockMode.None; // Lock the cursor to the center of the game window.
+        Cursor.visible = true;
         pauseMenu.SetActive(true);
         Time.timeScale = 0;
-    }
-
-    private static void UnlockCursor()
-    {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
     }
 
     public void ResumeGame()
@@ -163,162 +179,124 @@ public class GameManager : MonoBehaviour
         _isPaused = false;
         Time.timeScale = 1;
         pauseMenu.SetActive(false);
-        LockCursor();
-        PlayButtonClickSound();
-    }
-
-    private static void LockCursor()
-    {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        AudioSource.PlayClipAtPoint(buttonAudioClip, SpawnManager.instance.transform.position);
     }
 
     public void MainMenu()
     {
         Time.timeScale = 1;
-        PlayerPrefs.SetInt("Level", 1); 
-        PlayerPrefs.SetInt("firstTime", 1); 
-        PlayerPrefs.SetInt("Upgraded", 0); 
-        PlayButtonClickSound();
-        Invoke(nameof(ProcessLoadScene), _sceneLoadDelay);
+        PlayerPrefs.SetInt("Level", 1); // Resets level to 1
+        PlayerPrefs.SetInt("firstTime", 1); // Marks that the first-time setup is complete
+        PlayerPrefs.SetInt("Upgraded", 0); // Resets upgrade state
+        AudioSource.PlayClipAtPoint(buttonAudioClip, SpawnManager.instance.transform.position);
+        Invoke(nameof(ProcessLoadScene), 0.6f);
     }
 
     private void ProcessLoadScene()
     {
         SceneManager.LoadScene("Adapt or Die");
     }
-
+    
     public void SkipCutscene()
     {
         var cutsceneCamera = SpawnManager.instance._levelSpawned.GetComponentInChildren<CutsceneCamera>();
         cutsceneCamera.SwitchCameras();
-        PlayButtonClickSound();
+        AudioSource.PlayClipAtPoint(buttonAudioClip, SpawnManager.instance.transform.position);
     }
 
+    // Method called when the Start button is pressed
     public void StartButton(bool clicked)
     {
         videoCamera.SetActive(false);
-        
-        InitialisePopups();
-
-        // Spawns the level using the SpawnManager
-        SpawnManager.instance.SpawnLevel();
-
-        InitialiseModeAndPlayerHealth();
-
-        SetAliensHealth();
-
-        AudioListener.volume = volumeSlider.value; // Sets volume to the slider value
-        
-        Time.timeScale = 1; // Resumes the game
-        
-        if (clicked)
+        // Deactivates level pop-ups except for the final ones
+        if (PlayerPrefs.GetInt("Level", 1) == 1)
         {
-            PlayButtonClickSound();
-        }
-    }
-
-    private void InitialiseModeAndPlayerHealth()
-    {
-        if (PlayerPrefs.GetInt("Controller", 0) == 0) // Single player mode
-        {
-            SetGameMode();
-
-            SetSinglePlayerHealth();
-        }
-        else if (PlayerPrefs.GetInt("Controller", 0) == 1) // Multiplayer mode
-        {
-            SetGameMode();
-
-            SetMultiplayerHealth();
-        }
-    }
-
-    private void InitialisePopups()
-    {
-        if (PlayerPrefs.GetInt("Level", 1) == 1) 
-        {
-            // Deactivates level pop-ups except for the final one
             for (int i = 0; i < popUpList.Count - 2; i++)
             {
                 popUpList[i].SetActive(false);
             }
 
-            LockCursor();
+            Cursor.lockState =
+                CursorLockMode.Locked; 
+            Cursor.visible = false;
         }
-    }
 
-    private static void SetAliensHealth()
-    {
-        foreach (GameObject alien in SpawnManager.instance._levelSpawned.GetComponent<Levels>().aliens)
+
+        // Spawns the level using the SpawnManager
+        SpawnManager.instance.SpawnLevel();
+
+        // Handles player health and User Interface elements based on the game mode
+        if (PlayerPrefs.GetInt("Controller", 0) == 0) // Single player mode
         {
-            alien.GetComponent<AlienHealth>().SetAlienHealth();
+            playerHealthText2.gameObject.SetActive(false); // Hides the second player's health User Interface
+
+            PlayerPrefs.SetInt("Mode", PlayerPrefs.GetInt("Mode", 0)); // Sets the game mode
+
+            // Sets the player health and updates the User Interface text for player 1
+            SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>()
+                .SetPlayerHealth();
+            playerHealthText.text =
+                "Player 1 Health: " + SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0]
+                    .GetComponent<PlayerHealth>().health; // Displays the player's health 
         }
-    }
+        else if (PlayerPrefs.GetInt("Controller", 0) == 1) // Multiplayer mode
+        {
+            PlayerPrefs.SetInt("Mode", PlayerPrefs.GetInt("Mode", 0)); // Sets the game mode
 
-    private void SetMultiplayerHealth()
-    {
-        PlayerHealth player0 = SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0]
-            .GetComponent<PlayerHealth>();
-        PlayerHealth player1 = SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[1]
-            .GetComponent<PlayerHealth>();
+            // Sets the player health and updates the User Interface text for player 1
+            SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>()
+                .SetPlayerHealth();
+            playerHealthText.text =
+                "Player 1 Health: " + SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0]
+                    .GetComponent<PlayerHealth>().health; // Displays the player's health
 
-        // Sets the player health
-        player0.SetPlayerHealth();
-        playerHealthText.text = "Player 1 Health: " + player0.health; // Displays the player's health
+            // Sets the player health and updates the UI text for player 2
+            SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerHealth>()
+                .SetPlayerHealth();
+            playerHealthText2.text = "Player 2 Health: " + SpawnManager.instance._levelSpawned.GetComponent<Levels>()
+                .player[1].GetComponent<PlayerHealth>().health; // Displays the player's health
+        }
 
-        // Sets the player health
-        player1.SetPlayerHealth();
-        playerHealthText2.text = "Player 2 Health: " + player1.health; // Displays the player's health
-    }
-    // add more comments later
-    private void SetSinglePlayerHealth()
-    {
-        PlayerHealth player0 = SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0]
-            .GetComponent<PlayerHealth>();
+        // Sets the health for each alien in the level
+        for (int i = 0; i < SpawnManager.instance._levelSpawned.GetComponent<Levels>().aliens.Count; i++)
+        {
+            SpawnManager.instance._levelSpawned.GetComponent<Levels>().aliens[i].GetComponent<AlienHealth>()
+                .SetAlienHealth();
+        }
 
-        playerHealthText2.gameObject.SetActive(false); // Hides the second player's health User Interface
-
-        // Sets the player health and updates the User Interface text for player 1
-        player0.SetPlayerHealth();
-        playerHealthText.text = "Player 1 Health: " + player0.health; // Displays the player's health 
-    }
-
-    private static void SetGameMode()
-    {
-        PlayerPrefs.SetInt("Mode", PlayerPrefs.GetInt("Mode", 0)); // Sets the game mode
+        AudioListener.volume = volumeSlider.value; // Sets volume to the slider value
+        Time.timeScale = 1; // Resumes the game
+        if (clicked)
+        {
+            AudioSource.PlayClipAtPoint(buttonAudioClip, SpawnManager.instance.transform.position);
+        }
+        
     }
 
     // Method to restart the game and reset the score
     public void PlayAgain()
     {
-        if (IsHighScoreAchieved())
+        if (PlayerPrefs.GetInt("Highscore", 0) < PlayerPrefs.GetInt("Score", 0))
         {
             highscoreMenu.SetActive(true); // Displays the high score menu if new high score is achieved
             highscoreText.text = "New High Score: " + PlayerPrefs.GetInt("Score", 0);
         }
         else
         {
-            ResetThePlayerPrefs();
+            PlayerPrefs.SetInt("Level", 1); // Resets level to 1
+            PlayerPrefs.SetInt("firstTime", 0); // Marks that the first-time setup is complete
+            PlayerPrefs.SetInt("Upgraded", 0); // Resets upgrade state
 
-            Invoke(nameof(ProcessLoadScene), _sceneLoadDelay);
+
+            PlayerPrefs.SetInt("Score", 0); // Resets score to 0
+         
+            Invoke(nameof(ProcessLoadScene), 0.6f);
         }
 
         SpawnManager.instance.fakeCamera.gameObject.SetActive(true);
-        PlayButtonClickSound();
-    }
-
-    private static void ResetThePlayerPrefs()
-    {
-        PlayerPrefs.SetInt("Level", 1); // Resets level to 1
-        PlayerPrefs.SetInt("Upgraded", 0); // Resets upgrade state
-        PlayerPrefs.SetInt("Score", 0); // Resets score to 0
-        PlayerPrefs.SetInt("firstTime", 1); // Marks as first time playing
-    }
-
-    private static bool IsHighScoreAchieved()
-    {
-        return PlayerPrefs.GetInt("Highscore", 0) < PlayerPrefs.GetInt("Score", 0);
+        AudioSource.PlayClipAtPoint(buttonAudioClip, SpawnManager.instance.transform.position);
     }
 
     // Method to save the high score and player information
@@ -327,17 +305,6 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("Highscore", PlayerPrefs.GetInt("Score", 0)); // Saves the current score as high score
         PlayerPrefs.SetString("PlayerName", playerNameInputField.text); // Saves player name
 
-        SaveHighscoreMode();
-
-        highscoreMenu.SetActive(false); // Hides the high score menu
-        ResetThePlayerPrefs();
-        PlayButtonClickSound();
-
-        Invoke(nameof(ProcessLoadScene), _sceneLoadDelay);
-    }
-
-    private static void SaveHighscoreMode()
-    {
         // Saves the game mode that achieved the high score
         if (PlayerPrefs.GetInt("Mode", 0) == 0) // Easy mode
         {
@@ -351,6 +318,17 @@ public class GameManager : MonoBehaviour
         {
             PlayerPrefs.SetString("HighscoreMode", "Hard");
         }
+
+        highscoreMenu.SetActive(false); // Hides the high score menu
+
+       
+        
+        PlayerPrefs.SetInt("firstTime", 1); // Marks as first time playing
+        PlayerPrefs.SetInt("Score", 0); // Resets score to 0
+        
+        AudioSource.PlayClipAtPoint(buttonAudioClip, SpawnManager.instance.transform.position);
+        
+        Invoke(nameof(ProcessLoadScene), 0.6f);
     }
 
     // Method to upgrade the player and show the upgrade story pop-up
@@ -360,12 +338,6 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("Upgraded", 1); // Marks player as upgraded
 
         Destroy(SpawnManager.instance._levelSpawned);
-        ShowUpgradeVideo();
-        PlayButtonClickSound();
-    }
-
-    private void ShowUpgradeVideo()
-    {
         videoCamera.SetActive(true);
         popUpList[5].SetActive(false);
         popUpList[8].SetActive(true); // Shows the upgrade story pop-up
@@ -380,7 +352,9 @@ public class GameManager : MonoBehaviour
             // Claire is chosen
             videoPlayer9.clip = claireVideoClip9;
         }
+        
         videoPlayer9.gameObject.SetActive(true);
+        AudioSource.PlayClipAtPoint(buttonAudioClip, SpawnManager.instance.transform.position);
     }
 
     // Method to toggle between avatars
@@ -399,7 +373,7 @@ public class GameManager : MonoBehaviour
             avatarText.text = "Choose Claire";
             chosenAvatarText.text = "Remy chosen";
         }
-        PlayButtonClickSound();
+        AudioSource.PlayClipAtPoint(buttonAudioClip, SpawnManager.instance.transform.position);
     }
 
     // Method to select the game mode (single or multiplayer)
@@ -417,8 +391,7 @@ public class GameManager : MonoBehaviour
             chooseAvatarButton.SetActive(true);
             chosenAvatarText.gameObject.SetActive(true);
         }
-
-        PlayButtonClickSound();
+        AudioSource.PlayClipAtPoint(buttonAudioClip, SpawnManager.instance.transform.position);
     }
 
     // Method called when the Play button is pressed from the main menu
@@ -426,16 +399,16 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("Mode", mode); // Sets the game difficulty level (0: Easy, 1: Normal, 2: Hard)
         mainMenu.SetActive(false); // Hides the main menu
-        PlayButtonClickSound();
+        AudioSource.PlayClipAtPoint(buttonAudioClip, SpawnManager.instance.transform.position);
     }
 
     public void PlayVideo1()
     {
         if (PlayerPrefs.GetInt("Avatar", 0) == 0)
         {
-            // Remy is chosen
-            videoPlayer1.clip = remyVideoClip1;
-            videoPlayer1.Play();
+           // Remy is chosen
+           videoPlayer1.clip = remyVideoClip1;
+           videoPlayer1.Play();
         }
         else if (PlayerPrefs.GetInt("Avatar", 0) == 1)
         {
