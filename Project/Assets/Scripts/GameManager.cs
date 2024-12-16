@@ -280,7 +280,7 @@ public class GameManager : MonoBehaviour
         player0.SetPlayerHealth();
         playerHealthText.text = "Player 1 Health: " + player0.health; // Displays the player's health 
     }
-    // Continue from here
+    
     private static void SetGameMode()
     {
         PlayerPrefs.SetInt("Mode", PlayerPrefs.GetInt("Mode", 0)); // Sets the game mode
@@ -301,7 +301,7 @@ public class GameManager : MonoBehaviour
             Invoke(nameof(ProcessLoadScene), _sceneLoadDelay);
         }
 
-        SpawnManager.instance.fakeCamera.gameObject.SetActive(true);
+        SpawnManager.instance.fakeCamera.gameObject.SetActive(true); // Fake camera used to prevent no camera rendering error
         PlayButtonClickSound();
     }
 
@@ -356,16 +356,16 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("Level", 1); // Resets level to 1
         PlayerPrefs.SetInt("Upgraded", 1); // Marks player as upgraded
 
-        Destroy(SpawnManager.instance._levelSpawned);
+        Destroy(SpawnManager.instance._levelSpawned); // Destroys level as the Be Upgraded video is shown
         ShowUpgradeVideo();
         PlayButtonClickSound();
     }
 
     private void ShowUpgradeVideo()
     {
-        videoCamera.SetActive(true);
+        videoCamera.SetActive(true); // Camera is being turned on so players can view the Upgrade video
         popUpList[5].SetActive(false);
-        popUpList[8].SetActive(true); // Shows the upgrade story pop-up
+        popUpList[8].SetActive(true); 
         
         if (PlayerPrefs.GetInt("Avatar", 0) == 0)
         {

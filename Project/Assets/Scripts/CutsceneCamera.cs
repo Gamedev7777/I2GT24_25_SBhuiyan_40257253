@@ -15,7 +15,6 @@ public class CutsceneCamera : MonoBehaviour
     
     public void SwitchCameras()
     {
-        Debug.Log("Switch Cameras");
         mainCam.SetActive(true);
         gameObject.SetActive(false);
         

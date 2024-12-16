@@ -4,25 +4,10 @@ using UnityEngine;
 public class Levels : MonoBehaviour
 {
     // public variables
-    // List of alien game objects in the level
-    public List<GameObject> aliens = new List<GameObject>();
-
-    // List of player game objects in the level
-    public List<GameObject> player = new List<GameObject>();
-
-    // Singleton instance of the Levels class
-    public static Levels instance;
-
-    // References to player avatars: Remy and Claire
-    public GameObject remy, claire;
-
-    // Called when the script instance is being loaded
-    void Awake()
-    {
-        // Assigns the instance of this script to the static Instance variable (Singleton pattern)
-        instance = this;
-    }
-
+    public List<GameObject> aliens = new List<GameObject>(); // List of alien game objects in the level
+    public List<GameObject> player = new List<GameObject>(); // List of player game objects in the level
+    public GameObject remy, claire; // References to player avatars: Remy and Claire
+    
     // Called before the first frame update
     void Start()
     {
@@ -46,21 +31,10 @@ public class Levels : MonoBehaviour
             }
         }
     }
-
-
-    // This method is called when the GameObject is enabled.
-    // It unlocks the mouse cursor by setting the cursor lock state to None.
-    // private void OnEnable()
-    // {
-    //     Cursor.lockState = CursorLockMode.Locked; // Unlock the cursor, allowing free movement outside the game window.
-    //     Cursor.visible = false;
-    // }
-
-    // This method is called when the GameObject is disabled.
-    // It locks the mouse cursor by setting the cursor lock state to Locked.
+    
     private void OnDisable()
     {
-        Cursor.lockState = CursorLockMode.None; // Lock the cursor to the center of the game window.
+        Cursor.lockState = CursorLockMode.None; // Locks the cursor
         Cursor.visible = true;
     }
 }
