@@ -104,14 +104,11 @@ public class GameManager : MonoBehaviour
 
     private void InitialiseLevel()
     {
-        for (int i = 1; i <= _level; i++)
+        popUpList[_level - 1].SetActive(true); // Turns on the relevant pop-up based on the level number
+        
+        if (_level > 1)
         {
-            popUpList[i - 1].SetActive(true); // Turns on the relevant pop-up based on the level number
-
-            if (_level > 1)
-            {
-                StartButton(false);
-            }
+            StartButton(false);
         }
     }
 
@@ -200,7 +197,7 @@ public class GameManager : MonoBehaviour
         videoCamera.SetActive(false);
         
         InitialisePopups();
-
+    
         // Spawns the level using the SpawnManager
         SpawnManager.instance.SpawnLevel();
 
@@ -271,11 +268,11 @@ public class GameManager : MonoBehaviour
         player1.SetPlayerHealth();
         playerHealthText2.text = "Player 2 Health: " + player1.health; // Displays the player's health
     }
-    // add more comments later
+    
     private void SetSinglePlayerHealth()
     {
         PlayerHealth player0 = SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0]
-            .GetComponent<PlayerHealth>();
+            .GetComponent<PlayerHealth>(); // Gets player health component
 
         playerHealthText2.gameObject.SetActive(false); // Hides the second player's health User Interface
 
@@ -283,7 +280,7 @@ public class GameManager : MonoBehaviour
         player0.SetPlayerHealth();
         playerHealthText.text = "Player 1 Health: " + player0.health; // Displays the player's health 
     }
-
+    // Continue from here
     private static void SetGameMode()
     {
         PlayerPrefs.SetInt("Mode", PlayerPrefs.GetInt("Mode", 0)); // Sets the game mode
