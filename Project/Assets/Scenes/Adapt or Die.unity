@@ -5374,6 +5374,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallWithWindow (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 6981194306991431084, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7800047440945413252, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
       propertyPath: m_TagString
       value: FixedWall
@@ -11802,7 +11806,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 497138, guid: 3e541691191f44de8b9db8a516d098f3, type: 3}
       propertyPath: m_LocalScale.x
-      value: 9.94883
+      value: 14.518963
       objectReference: {fileID: 0}
     - target: {fileID: 497138, guid: 3e541691191f44de8b9db8a516d098f3, type: 3}
       propertyPath: m_LocalScale.y
@@ -11810,11 +11814,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 497138, guid: 3e541691191f44de8b9db8a516d098f3, type: 3}
       propertyPath: m_LocalScale.z
-      value: 9.707136
+      value: 15.245368
       objectReference: {fileID: 0}
     - target: {fileID: 497138, guid: 3e541691191f44de8b9db8a516d098f3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 29.165
+      value: 41.7
       objectReference: {fileID: 0}
     - target: {fileID: 497138, guid: 3e541691191f44de8b9db8a516d098f3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -11822,7 +11826,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 497138, guid: 3e541691191f44de8b9db8a516d098f3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -29.029
+      value: -46.2
       objectReference: {fileID: 0}
     - target: {fileID: 497138, guid: 3e541691191f44de8b9db8a516d098f3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -12975,6 +12979,10 @@ PrefabInstance:
     - target: {fileID: 6981194306991431084, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
       propertyPath: m_Name
       value: WallWithWindow (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6981194306991431084, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7800047440945413252, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
       propertyPath: m_TagString
@@ -15661,6 +15669,10 @@ PrefabInstance:
     - target: {fileID: 6981194306991431084, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
       propertyPath: m_Name
       value: WallWithWindow (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6981194306991431084, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7800047440945413252, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
       propertyPath: m_TagString
@@ -18553,6 +18565,10 @@ PrefabInstance:
     - target: {fileID: 6981194306991431084, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
       propertyPath: m_Name
       value: WallWithWindow (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6981194306991431084, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7800047440945413252, guid: 26be0f4a999b33d4791d2c3ff7d747b5, type: 3}
       propertyPath: m_TagString
