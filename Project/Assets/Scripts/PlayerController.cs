@@ -16,11 +16,18 @@ public class PlayerController : MonoBehaviour
     private float _verticalMovementKeyboard; // Vertical movement input from keyboard
     private float _horizontalMovementXbox; // Horizontal movement input from Xbox controller
     private float _verticalMovementXbox; // Vertical movement input from Xbox controller
-    private float _combinedHorizontal, _combinedVertical; // Combined horizontal and vertical axes for keyboard and Xbox controller
+
+    private float
+        _combinedHorizontal,
+        _combinedVertical; // Combined horizontal and vertical axes for keyboard and Xbox controller
+
     private float _rightStickHorizontal, _rightStickVertical; // Used to get input for right stick of Xbox controller
     private Vector3 _playerMovement; // Player movement vector
     private readonly float _bulletSpeed = 30.0f; // Speed at which the bullet moves
-    private readonly float _fireThreshold = 0.1f; // Threshold value for firing using controller (to prevent unintentional small movements)
+
+    private readonly float
+        _fireThreshold = 0.1f; // Threshold value for firing using controller (to prevent unintentional small movements)
+
     private readonly float _fireCooldown = 0.2f; // Cooldown time between firing bullets for controller input
     private float _lastFireTime; // Tracks the time of the last fired bullet using controller
     private float _nextFireTime = 0.1f; // Tracks the time when the player can fire the next bullet using mouse input
@@ -29,25 +36,26 @@ public class PlayerController : MonoBehaviour
     private Vector3 _localMovement; // Local player movement direction based on player's transform
     private Vector3 _aimDirection; // Aim direction stores the direction player is facing
     private Vector3 _worldAimDirection; // Stores the converted vector from local space to world space
-    
+    private GameObject _bullet; // Stores the instantiated bullet that the player fires
+
     private void Start()
     {
-        // Load the selected avatar from PlayerPrefs, default to Remy (0)
+        // Loads the selected avatar from PlayerPrefs, default to Remy (0)
         _avatar = PlayerPrefs.GetInt("Avatar", 0);
         if (_avatar == 0)
         {
-            // Get the animation component for Remy
+            // Gets the animation component for Remy
             playerAnimation = transform.GetChild(0).GetComponent<Animation>();
         }
         else if (_avatar == 1)
         {
-            // Get the animation component for Claire
+            // Gets the animation component for Claire
             playerAnimation = transform.GetChild(1).GetComponent<Animation>();
         }
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (PlayerPrefs.GetInt("Cutscene", 1) == 0)
         {
@@ -61,7 +69,7 @@ public class PlayerController : MonoBehaviour
 
             // Determines the aiming direction from the controller's right stick input
             _aimDirection = DetermineDirection(new Vector2(_rightStickHorizontal, _rightStickVertical));
-            _worldAimDirection = transform.TransformDirection(_aimDirection);
+            _worldAimDirection = transform.TransformDirection(_aimDirection); // Converts direction vector from local space to world space
 
             // Checks if player is moving and firing using mouse input
             if (IsPlayerMoving() && Input.GetMouseButton(0))
@@ -76,14 +84,9 @@ public class PlayerController : MonoBehaviour
                     PlayWalkingFiringAnimation();
                 }
 
-                // Fires a bullet if the cooldown period has elapsed
-                if (Time.time >= _nextFireTime)
-                {
-                    FireBullet();
-                    _nextFireTime = Time.time + _fireRate;
-                }
+                FireBullet();
             }
-            else if (IsPlayerMoving() && _aimDirection != Vector3.zero) // Checks if the player is moving and aiming with the Xbox Controller
+            else if (IsPlayerMoving() && IsAimedWithXbox()) // Checks if the player is moving and aiming with the Xbox Controller
             {
                 RotateUsingXboxControllerRightStick();
 
@@ -96,26 +99,16 @@ public class PlayerController : MonoBehaviour
                 {
                     PlayWalkingFiringAnimation();
                 }
-
-                // Fires a bullet if aiming direction is provided and cooldown time has passed
-                if (Time.time >= _lastFireTime + _fireCooldown)
-                {
-                    FireBulletXbox(_worldAimDirection);
-                    _lastFireTime = Time.time;
-                }
+                
+                FireBulletXbox(_worldAimDirection);
             }
             else if (!IsPlayerMoving() && _aimDirection != Vector3.zero) // Checks if player is not moving but aiming with controller input
             {
                 RotateUsingXboxControllerRightStick();
 
                 PlayShootingAnimation();
-
-                // Fires a bullet if aiming direction is provided and cooldown time has passed
-                if (Time.time >= _lastFireTime + _fireCooldown)
-                {
-                    FireBulletXbox(_worldAimDirection);
-                    _lastFireTime = Time.time;
-                }
+                
+                FireBulletXbox(_worldAimDirection);
             }
             else
             {
@@ -144,20 +137,14 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetMouseButton(0))
                 {
                     PlayShootingAnimation();
-                    if (Time.time >= _nextFireTime)
-                    {
-                        FireBullet();
-                        _nextFireTime = Time.time + _fireRate;
-                    }
+                    
+                    FireBullet();
                 }
-                else if (_aimDirection != Vector3.zero) // Handles firing animations for controller input if the player is idle
+                else if (IsAimedWithXbox()) // Handles firing animations for controller input if the player is idle
                 {
                     PlayShootingAnimation();
-                    if (Time.time >= _lastFireTime + _fireCooldown)
-                    {
-                        FireBulletXbox(_worldAimDirection);
-                        _lastFireTime = Time.time;
-                    }
+                    
+                    FireBulletXbox(_worldAimDirection);
                 }
                 else
                 {
@@ -182,6 +169,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private bool IsAimedWithXbox()
+    {
+        return _aimDirection != Vector3.zero;
+    }
+
     private void PlayTalkingAnimation()
     {
         if (_avatar == 0)
@@ -197,7 +189,7 @@ public class PlayerController : MonoBehaviour
     private static bool IsItTalkingCutsceneLevel()
     {
         return PlayerPrefs.GetInt("Level", 1) == 4 || PlayerPrefs.GetInt("Level", 1) == 5 ||
-               PlayerPrefs.GetInt("Level", 1) == 6 || PlayerPrefs.GetInt("Level", 1) == 7;
+               PlayerPrefs.GetInt("Level", 1) == 6 || PlayerPrefs.GetInt("Level", 1) == 7; // Checking if the level is 4,5,6 or 7 as talking cutscenes play before them
     }
 
     private void PlayIdleAnimation()
@@ -290,21 +282,20 @@ public class PlayerController : MonoBehaviour
     private void GetAxes()
     {
         _horizontalMovementKeyboard = Input.GetAxis("Horizontal");
-        // Gets player input for vertical movement (up/down) from keyboard
+        
         _verticalMovementKeyboard = Input.GetAxis("Vertical");
-
-        // Gets player input for horizontal movement (left/right) from Xbox controller
+        
         _horizontalMovementXbox = Input.GetAxis("HorizontalPlayer2Xbox");
-        // Gets player input for vertical movement (up/down) from Xbox controller
+        
         _verticalMovementXbox = Input.GetAxis("VerticalPlayer2Xbox");
-
-        // Gets input from the right stick for aiming direction (used in controllers)
+        
         _rightStickHorizontal = Input.GetAxis("RightStickHorizontal");
+
         _rightStickVertical = Input.GetAxis("RightStickVertical");
     }
 
     // Plays the shooting animation if it is not already playing
-    void PlayShootingAnimation()
+    private void PlayShootingAnimation()
     {
         if (_avatar == 0)
         {
@@ -323,7 +314,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Stops the shooting animation if it is playing
-    void StopShootingAnimation()
+    private void StopShootingAnimation()
     {
         if (_avatar == 0)
         {
@@ -340,122 +331,109 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    // Continue later
-    // Determines the direction for aiming based on controller stick input
-    Vector3 DetermineDirection(Vector2 _stickInput)
+    
+    // Determines the direction for aiming based on controller right stick input
+    private Vector3 DetermineDirection(Vector2 stickInput)
     {
-        if (_stickInput.sqrMagnitude < _fireThreshold * _fireThreshold)
+        if (stickInput.sqrMagnitude < _fireThreshold * _fireThreshold) // Checking if the right stick has moved enough. Squared it to eliminate the negative values.
             return Vector3.zero;
 
-        _stickInput.Normalize();
-        float angle = Mathf.Atan2(_stickInput.y, _stickInput.x) * Mathf.Rad2Deg;
+        stickInput.Normalize();
+        float angle = Mathf.Atan2(stickInput.y, stickInput.x) * Mathf.Rad2Deg;
 
-        // Correcting direction determination to properly detect left direction
+        // Based on the tilt of the right stick we are calculating the direction the player fires at
         if (angle >= -22.5f && angle < 22.5f) return Vector3.right;
-        else if (angle >= 22.5f && angle < 67.5f) return new Vector3(1, 0, 1).normalized;
-        else if (angle >= 67.5f && angle < 112.5f) return Vector3.forward;
-        else if (angle >= 112.5f && angle < 157.5f) return new Vector3(-1, 0, 1).normalized;
-        else if ((angle >= 157.5f && angle <= 180f) || (angle < -157.5f && angle >= -180f)) return Vector3.left;
-        else if (angle >= -157.5f && angle < -112.5f) return new Vector3(-1, 0, -1).normalized;
-        else if (angle >= -112.5f && angle < -67.5f) return Vector3.back;
-        else if (angle >= -67.5f && angle < -22.5f) return new Vector3(1, 0, -1).normalized;
+        if (angle >= 22.5f && angle < 67.5f) return new Vector3(1, 0, 1).normalized;
+        if (angle >= 67.5f && angle < 112.5f) return Vector3.forward;
+        if (angle >= 112.5f && angle < 157.5f) return new Vector3(-1, 0, 1).normalized;
+        if ((angle >= 157.5f && angle <= 180f) || (angle < -157.5f && angle >= -180f)) return Vector3.left;
+        if (angle >= -157.5f && angle < -112.5f) return new Vector3(-1, 0, -1).normalized;
+        if (angle >= -112.5f && angle < -67.5f) return Vector3.back;
+        if (angle >= -67.5f && angle < -22.5f) return new Vector3(1, 0, -1).normalized;
 
         return Vector3.zero;
     }
 
-    // Fires a bullet in a specific direction based on controller input
-    void FireBulletXbox(Vector3 _direction)
+    // Fires a bullet in a specific direction based on Xbox controller input
+    private void FireBulletXbox(Vector3 _direction)
     {
-        AudioSource.PlayClipAtPoint(fireSound, SpawnManager.instance.transform.position, 0.4f);
+        if (Time.time >= _lastFireTime + _fireCooldown)
+        {
+            PlayFiringSound();
 
+            InstantiateBullet();
+
+            LaunchBulletXbox(_direction);
+            
+            _lastFireTime = Time.time; // Storing the current time of the system
+        }
+    }
+
+    private void LaunchBulletXbox(Vector3 _direction)
+    {
+        // Gets the Rigidbody component of the bullet to control its movement
+        Rigidbody bulletRb = _bullet.GetComponent<Rigidbody>();
+
+        if (bulletRb != null)
+        {
+            // Sets the bullet's velocity in the specified direction
+            bulletRb.velocity = _direction * _bulletSpeed;
+        }
+
+        // Destroys the bullet after 0.5 second to avoid cluttering the scene with unused bullets
+        Destroy(_bullet, 0.5f);
+    }
+
+    private void InstantiateBullet()
+    {
         if (_avatar == 0)
         {
             // Instantiates the bullet prefab at Remy's spawn position
-            GameObject bullet = Instantiate(bulletPrefab, remyBulletSpawnPosition.position,
+            _bullet = Instantiate(bulletPrefab, remyBulletSpawnPosition.position,
                 remyBulletSpawnPosition.rotation);
-
-            // Gets the Rigidbody component of the bullet to control its movement
-            Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
-
-            if (bulletRb != null)
-            {
-                // Sets the bullet's velocity in the specified direction
-                bulletRb.velocity = _direction * _bulletSpeed;
-            }
-
-            // Destroys the bullet after 0.5 second to avoid cluttering the scene with unused bullets
-            Destroy(bullet, 0.5f);
         }
         else if (_avatar == 1)
         {
             // Instantiates the bullet prefab at Claire's spawn position
-            GameObject bullet = Instantiate(bulletPrefab, claireBulletSpawnPosition.position,
+            _bullet = Instantiate(bulletPrefab, claireBulletSpawnPosition.position,
                 claireBulletSpawnPosition.rotation);
-
-            // Gets the Rigidbody component of the bullet to control its movement
-            Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
-
-            if (bulletRb != null)
-            {
-                // Sets the bullet's velocity in the specified direction
-                bulletRb.velocity = _direction * _bulletSpeed;
-            }
-
-            // Destroys the bullet after 0.5 second to avoid cluttering the scene with unused bullets
-            Destroy(bullet, 0.5f);
         }
+    }
+
+    private void PlayFiringSound()
+    {
+        AudioSource.PlayClipAtPoint(fireSound, SpawnManager.instance.transform.position, 0.4f);
     }
 
     // Fires a bullet from the player's position using mouse input
-    void FireBullet()
+    private void FireBullet()
     {
-        AudioSource.PlayClipAtPoint(fireSound, SpawnManager.instance.transform.position, 0.4f);
-
-        if (_avatar == 0)
+        if (Time.time >= _nextFireTime)
         {
-            // Instantiates the bullet prefab at Remy's spawn position
-            GameObject bullet = Instantiate(bulletPrefab, remyBulletSpawnPosition.position,
-                remyBulletSpawnPosition.rotation);
+            PlayFiringSound();
 
-            // Gets the Rigidbody component of the bullet to control its movement
-            Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
-            if (bulletRb != null)
-            {
-                bulletRb.velocity = transform.forward * _bulletSpeed;
-            }
+            InstantiateBullet();
 
-            // Destroys the bullet after 0.5 second to avoid cluttering the scene with unused bullets
-            Destroy(bullet, 0.5f);
-        }
-        else if (_avatar == 1)
-        {
-            // Instantiates the bullet prefab at Claire's spawn position
-            GameObject bullet = Instantiate(bulletPrefab, claireBulletSpawnPosition.position,
-                claireBulletSpawnPosition.rotation);
-            // Gets the Rigidbody component of the bullet to control its movement
-            Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
-            if (bulletRb != null)
-            {
-                // Creates a ray from the camera to the mouse position to determine where the bullet should go
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-
-                // Performs a raycast to determine where the mouse cursor intersects with the game world
-                if (Physics.Raycast(ray, out hit))
-                {
-                    // Calculates the direction from the player's position to the target hit point
-                    Vector3 direction = (hit.point - transform.position).normalized;
-                    // Sets the bullet's velocity in the direction of the target
-                    bulletRb.velocity = direction * _bulletSpeed;
-                }
-            }
-
-            // Destroys the bullet after 0.5 second to avoid cluttering the scene with unused bullets
-            Destroy(bullet, 0.5f);
+            LaunchBulletMouse();
+            
+            _nextFireTime = Time.time + _fireRate;
         }
     }
 
-    void HandlePlayerRotation()
+    private void LaunchBulletMouse()
+    {
+        // Gets the Rigidbody component of the bullet to control its movement
+        Rigidbody bulletRb = _bullet.GetComponent<Rigidbody>();
+        if (bulletRb != null)
+        {
+            bulletRb.velocity = transform.forward * _bulletSpeed;
+        }
+
+        // Destroys the bullet after 0.5 second to avoid cluttering the scene with unused bullets
+        Destroy(_bullet, 0.5f);
+    }
+
+    private void HandlePlayerRotation()
     {
         float mouseDelta = Input.GetAxis("Mouse X");
 
