@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !_isPaused) // Checking for Esc key to be pressed and when the game is not paused
+        if (Input.GetKeyDown(KeyCode.Escape) && !_isPaused && SpawnManager.instance._levelSpawned !=null) // Checking for Esc key to be pressed and when the game is not paused
         {
             _isPaused = true;
             GamePaused();
