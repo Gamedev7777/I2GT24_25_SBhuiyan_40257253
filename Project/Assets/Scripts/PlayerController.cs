@@ -59,7 +59,6 @@ public class PlayerController : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("Cutscene", 1) == 0)
         {
-            // Gets player input for horizontal movement (left/right) from keyboard
             GetAxes();
 
             // Combines both keyboard and controller inputs for movement
