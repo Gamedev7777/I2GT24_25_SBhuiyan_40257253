@@ -232,7 +232,7 @@ public class PlayerController : MonoBehaviour
     {
         _worldAimDirection.y = 0; // Keeps the aiming direction on the horizontal plane
         Quaternion targetRotation = Quaternion.LookRotation(_worldAimDirection);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * 360);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * 180);
     }
 
     private void PlayWalkingFiringAnimation()

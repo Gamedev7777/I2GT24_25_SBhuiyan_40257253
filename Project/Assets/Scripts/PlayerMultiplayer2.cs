@@ -55,7 +55,7 @@ public class PlayerMultiplayer2 : MonoBehaviour
                 worldAimDirection.y = 0;
                 Quaternion targetRotation = Quaternion.LookRotation(worldAimDirection);
                 // Rotates the player towards the aim direction
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * 360);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * 180);
 
                 // Checks if the speed power-up is active and plays appropriate animation
                 if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
