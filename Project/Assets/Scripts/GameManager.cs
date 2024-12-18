@@ -354,6 +354,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void DeleteHighscore()
+    {
+        PlayerPrefs.SetInt("Score", 0);
+        currentHighscoreText.text = "Highscore: " + 0;
+    }
+    
     // Method to upgrade the player and show the upgrade story pop-up
     public void Upgrade()
     {
