@@ -80,7 +80,19 @@ public class AlienHealth : MonoBehaviour
 
     private static void UpdateScore()
     {
-        PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + 100);
+        if (PlayerPrefs.GetInt("Mode", 0) == 0) // Easy mode
+        {
+            PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + 100);
+        }
+        else if (PlayerPrefs.GetInt("Mode", 0) == 1) // Normal mode
+        {
+            PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + 200);
+        }
+        else if (PlayerPrefs.GetInt("Mode", 0) == 2) // Hard mode
+        {
+            PlayerPrefs.SetInt("Score", PlayerPrefs.GetInt("Score") + 300);
+        }
+        
         GameManager.instance.scoreText.text = "Score: " + PlayerPrefs.GetInt("Score");
     }
 
