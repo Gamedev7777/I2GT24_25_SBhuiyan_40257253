@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     public GameObject mainMenu; // Reference to the main menu game object
     public GameObject singleAndMultiplayerMenu; // Reference to the single and multiplayer selection menu
     public List<AudioClip> musicList = new(); // List of background music clips
-    public Slider volumeSlider; // Slider User Interface element for controlling game music volume
+    public List<Slider> volumeSlider = new(); // Slider User Interface element for controlling game music volume
     public GameObject chooseAvatarButton; // Button to allow player to choose an avatar
     public TextMeshProUGUI chosenAvatarText; // User Interface text showing the chosen avatar name
     public GameObject highscoreMenu; // User Interface for high score input and display
@@ -43,9 +43,13 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0; // Stops the game
     }
 
-    public void ChangeMusicVolume()
+    public void ChangeMusicVolume(int index)
     {
-        AudioListener.volume = volumeSlider.value; // Sets the game volume based on the slider value
+        for (int i = 0; i < volumeSlider.Count; i++)
+        {
+            volumeSlider[i].value = volumeSlider[index].value;
+        }
+        AudioListener.volume = volumeSlider[index].value; // Sets the game volume based on the slider value
     }
 
     public void ChooseBackgroundMusic()
@@ -130,7 +134,7 @@ public class GameManager : MonoBehaviour
     private void InitialiseTheMusic()
     {
         _musicAudioSource = FindObjectOfType<BackgroundMusic>().GetComponent<AudioSource>();
-        AudioListener.volume = volumeSlider.value; // Sets the initial volume from the slider value
+        ChangeMusicVolume(0);
     }
 
     private void Update()
@@ -205,7 +209,7 @@ public class GameManager : MonoBehaviour
 
         SetAliensHealth();
 
-        AudioListener.volume = volumeSlider.value; // Sets volume to the slider value
+        ChangeMusicVolume(0);
         
         Time.timeScale = 1; // Resumes the game
         

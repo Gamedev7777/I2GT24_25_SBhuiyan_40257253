@@ -308,7 +308,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3ba8960a333894c489f9ba4a2c74826e, type: 3}
   - {fileID: 8300000, guid: aac0a360368e94c72808af3c16befc8e, type: 3}
   - {fileID: 8300000, guid: cc7bff8c008ce5b4795b11da784479a8, type: 3}
-  volumeSlider: {fileID: 289894997}
+  volumeSlider:
+  - {fileID: 914859280}
+  - {fileID: 617641578}
+  - {fileID: 289894997}
   chooseAvatarButton: {fileID: 43780842}
   chosenAvatarText: {fileID: 1264443726}
   highscoreMenu: {fileID: 1609606114}
@@ -3157,11 +3160,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2769783}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: ChangeMusicVolume
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -6673,11 +6676,11 @@ MonoBehaviour:
       - m_Target: {fileID: 2769783}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: ChangeMusicVolume
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -9165,7 +9168,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2769783}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: ChangeMusicVolume
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -19430,7 +19433,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.3
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 1
   Mute: 0
