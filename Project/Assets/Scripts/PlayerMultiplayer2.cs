@@ -172,7 +172,7 @@ public class PlayerMultiplayer2 : MonoBehaviour
     void FireBulletXbox(Vector3 _direction)
     {
         // Plays the fire sound effect at the SpawnManager's position
-        AudioSource.PlayClipAtPoint(fireSound, SpawnManager.instance.transform.position, 0.4f);
+        AudioSource.PlayClipAtPoint(fireSound, SpawnManager.instance.transform.position, 0.2f);
 
         // Instantiates the bullet prefab at the player's current position
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, bulletSpawnPosition.rotation);

@@ -401,7 +401,7 @@ public class PlayerController : MonoBehaviour
 
     private void PlayFiringSound()
     {
-        AudioSource.PlayClipAtPoint(fireSound, SpawnManager.instance.transform.position, 0.4f);
+        AudioSource.PlayClipAtPoint(fireSound, SpawnManager.instance.transform.position, 0.2f);
     }
 
     // Fires a bullet from the player's position using mouse input

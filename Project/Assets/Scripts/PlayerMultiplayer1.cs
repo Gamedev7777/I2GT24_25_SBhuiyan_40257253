@@ -187,7 +187,7 @@ public class PlayerMultiplayer1 : MonoBehaviour
 
     private void PlayFiringSound()
     {
-        AudioSource.PlayClipAtPoint(fireSound, SpawnManager.instance.transform.position, 0.4f); // Plays firing sound
+        AudioSource.PlayClipAtPoint(fireSound, SpawnManager.instance.transform.position, 0.2f); // Plays firing sound
     }
 
 

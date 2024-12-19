@@ -372,7 +372,7 @@ public class AlienAI : MonoBehaviour
             Quaternion laserRotation = Quaternion.LookRotation(laserDirection);
 
             // Plays the laser sound effect at the camera's position with 40% of the original volume
-            AudioSource.PlayClipAtPoint(laserSound, SpawnManager.instance.transform.position, 0.4f);
+            AudioSource.PlayClipAtPoint(laserSound, SpawnManager.instance.transform.position, 0.2f);
 
             // Instantiates the laser at the alien's position with the calculated rotation
             GameObject laser = Instantiate(laserPrefab, laserSpawnPosition.position, laserRotation);
