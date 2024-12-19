@@ -140,7 +140,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !_isPaused && SpawnManager.instance._levelSpawned !=null) // Checking for Esc key to be pressed and when the game is not paused
+        if (Input.GetKeyDown(KeyCode.Escape) && !_isPaused && SpawnManager.instance.levelSpawned !=null) // Checking for Esc key to be pressed and when the game is not paused
         {
             _isPaused = true;
             GamePaused();
@@ -192,7 +192,7 @@ public class GameManager : MonoBehaviour
 
     public void SkipCutscene()
     {
-        var cutsceneCamera = SpawnManager.instance._levelSpawned.GetComponentInChildren<CutsceneCamera>();
+        var cutsceneCamera = SpawnManager.instance.levelSpawned.GetComponentInChildren<CutsceneCamera>();
         cutsceneCamera.SwitchCameras();
         PlayButtonClickSound();
     }
@@ -252,7 +252,7 @@ public class GameManager : MonoBehaviour
 
     private static void SetAliensHealth()
     {
-        foreach (GameObject alien in SpawnManager.instance._levelSpawned.GetComponent<Levels>().aliens)
+        foreach (GameObject alien in SpawnManager.instance.levelSpawned.GetComponent<Levels>().aliens)
         {
             alien.GetComponent<AlienHealth>().SetAlienHealth();
         }
@@ -260,9 +260,9 @@ public class GameManager : MonoBehaviour
 
     private void SetMultiplayerHealth()
     {
-        PlayerHealth player0 = SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0]
+        PlayerHealth player0 = SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0]
             .GetComponent<PlayerHealth>();
-        PlayerHealth player1 = SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[1]
+        PlayerHealth player1 = SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[1]
             .GetComponent<PlayerHealth>();
 
         // Sets the player health
@@ -276,7 +276,7 @@ public class GameManager : MonoBehaviour
     
     private void SetSinglePlayerHealth()
     {
-        PlayerHealth player0 = SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0]
+        PlayerHealth player0 = SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0]
             .GetComponent<PlayerHealth>(); // Gets player health component
 
         playerHealthText2.gameObject.SetActive(false); // Hides the second player's health User Interface
@@ -367,7 +367,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("Level", 1); // Resets level to 1
         PlayerPrefs.SetInt("Upgraded", 1); // Marks player as upgraded
 
-        Destroy(SpawnManager.instance._levelSpawned); // Destroys level as the Be Upgraded video is shown
+        Destroy(SpawnManager.instance.levelSpawned); // Destroys level as the Be Upgraded video is shown
         ShowUpgradeVideo();
         PlayButtonClickSound();
     }

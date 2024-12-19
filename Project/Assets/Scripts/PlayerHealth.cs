@@ -110,7 +110,7 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         // Removes the player from the list of active players in the level
-        SpawnManager.instance._levelSpawned.GetComponent<Levels>().player.Remove(gameObject);
+        SpawnManager.instance.levelSpawned.GetComponent<Levels>().player.Remove(gameObject);
 
         // Restarts the level using the Spawn Manager script
         SpawnManager.instance.GameOver();

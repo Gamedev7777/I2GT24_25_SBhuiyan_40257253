@@ -54,7 +54,7 @@ public class PowerUps : MonoBehaviour
         {
             // Multiplayer mode: checks for multiple players and updates their health
             PlayerHealth player1, player2;
-            if (SpawnManager.instance._levelSpawned.GetComponent<Levels>().player.Count > 1)
+            if (SpawnManager.instance.levelSpawned.GetComponent<Levels>().player.Count > 1)
             {
                 player1 = UpdatePlayer1HealthMultiplayer();
                 player2 = UpdatePlayer2HealthMultiplayer();
@@ -63,12 +63,12 @@ public class PowerUps : MonoBehaviour
             else
             {
                 // Updates health for the alive player in multiplayer mode
-                if (SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].name == "PlayerMultiplayer1")
+                if (SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0].name == "PlayerMultiplayer1")
                 {
                     player1 = UpdateAlivePlayer1HealthMultiPlayerMode();
                     UpdateMultiplayer1HealthBar(player1);
                 }
-                else if (SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].name == "PlayerMultiplayer2")
+                else if (SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0].name == "PlayerMultiplayer2")
                 {
                     player2 = UpdateAlivePlayer2HealthMultiPlayerMode();
                     UpdateMultiplayer2HealthBar(player2);
@@ -90,7 +90,7 @@ public class PowerUps : MonoBehaviour
     private static PlayerHealth UpdateAlivePlayer2HealthMultiPlayerMode()
     {
         // Increases Player 2's health in multiplayer mode
-        var player2 = SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>();
+        var player2 = SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>();
         player2.health += 20;
         GameManager.instance.playerHealthText.text = "Player 2 Health: " + player2.health;
         return player2;
@@ -106,7 +106,7 @@ public class PowerUps : MonoBehaviour
     private static PlayerHealth UpdateAlivePlayer1HealthMultiPlayerMode()
     {
         // Increases Player 1's health in multiplayer mode
-        var player1 = SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>();
+        var player1 = SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>();
         player1.health += 20;
         GameManager.instance.playerHealthText.text = "Player 1 Health: " + player1.health;
         return player1;
@@ -125,7 +125,7 @@ public class PowerUps : MonoBehaviour
     private static PlayerHealth UpdatePlayer2HealthMultiplayer()
     {
         // Increases Player 2's health in multiplayer mode
-        var player2 = SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerHealth>();
+        var player2 = SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerHealth>();
         player2.health += 20;
         GameManager.instance.playerHealthText2.text = "Player 2 Health: " + player2.health;
         return player2;
@@ -134,7 +134,7 @@ public class PowerUps : MonoBehaviour
     private static PlayerHealth UpdatePlayer1HealthMultiplayer()
     {
         // Increases Player 1's health in multiplayer mode
-        var player1 = SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>();
+        var player1 = SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>();
         player1.health += 20;
         GameManager.instance.playerHealthText.text = "Player 1 Health: " + player1.health;
         return player1;
@@ -150,7 +150,7 @@ public class PowerUps : MonoBehaviour
     private static PlayerHealth UpdatePlayerHealthSingleplayer()
     {
         // Single-player mode: increases Player 1's health and updates User Interface
-        var player1 = SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>();
+        var player1 = SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>();
         player1.health += 20;
         GameManager.instance.playerHealthText.text = "Player 1 Health: " + player1.health;
         return player1;
@@ -171,17 +171,17 @@ public class PowerUps : MonoBehaviour
         }
         else if (PlayerPrefs.GetInt("Controller", 0) == 1)
         {
-            if (SpawnManager.instance._levelSpawned.GetComponent<Levels>().player.Count > 1)
+            if (SpawnManager.instance.levelSpawned.GetComponent<Levels>().player.Count > 1)
             {
                 DoublePlayerSpeedForBothPlayersMultiplayerMode();
             }
             else
             {
-                if (SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].name == "PlayerMultiplayer1")
+                if (SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0].name == "PlayerMultiplayer1")
                 {
                     DoublePlayerSpeedForPlayer1MultiplayerMode();
                 }
-                else if (SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].name == "PlayerMultiplayer2")
+                else if (SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0].name == "PlayerMultiplayer2")
                 {
                     DoublePlayerSpeedForPlayer2MultiplayerMode();
                 }
@@ -195,26 +195,26 @@ public class PowerUps : MonoBehaviour
     private static void DoublePlayerSpeedForPlayer2MultiplayerMode()
     {
         // Doubles Player 2's speed in multiplayer mode
-        SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer2>().playerSpeed *= 2.0f;
+        SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer2>().playerSpeed *= 2.0f;
     }
 
     private static void DoublePlayerSpeedForPlayer1MultiplayerMode()
     {
         // Doubles Player 1's speed in multiplayer mode
-        SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer1>().playerSpeed *= 2.0f;
+        SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer1>().playerSpeed *= 2.0f;
     }
 
     private static void DoublePlayerSpeedForBothPlayersMultiplayerMode()
     {
         // Doubles speed for both players in multiplayer mode
-        SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer1>().playerSpeed *= 2.0f;
-        SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerMultiplayer2>().playerSpeed *= 2.0f;
+        SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer1>().playerSpeed *= 2.0f;
+        SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerMultiplayer2>().playerSpeed *= 2.0f;
     }
 
     private static void DoublePlayerSpeedForSingleplayer()
     {
         // Doubles Player 1's speed in single-player mode
-        SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerController>().playerSpeed *= 2.0f;
+        SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerController>().playerSpeed *= 2.0f;
     }
 
     private void ProcessShieldPowerUp()
@@ -226,17 +226,17 @@ public class PowerUps : MonoBehaviour
         }
         else if (PlayerPrefs.GetInt("Controller", 0) == 1)
         {
-            if (SpawnManager.instance._levelSpawned.GetComponent<Levels>().player.Count > 1)
+            if (SpawnManager.instance.levelSpawned.GetComponent<Levels>().player.Count > 1)
             {
                 ActivateShieldsForBothPlayersMultiplayerMode();
             }
             else
             {
-                if (SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].name == "PlayerMultiplayer1")
+                if (SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0].name == "PlayerMultiplayer1")
                 {
                     ActivateShieldForPlayer1Multiplayer();
                 }
-                else if (SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].name == "PlayerMultiplayer2")
+                else if (SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0].name == "PlayerMultiplayer2")
                 {
                     ActivateShieldForPlayer2Multiplayer();
                 }
@@ -256,35 +256,35 @@ public class PowerUps : MonoBehaviour
     private static void ActivateShieldForPlayer2Multiplayer()
     {
         // Activates shield for Player 2 in multiplayer mode
-        SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>().playerShield = true;
-        SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer2>().claireShield.SetActive(true);
+        SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>().playerShield = true;
+        SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer2>().claireShield.SetActive(true);
     }
 
     private static void ActivateShieldForPlayer1Multiplayer()
     {
         // Activates shield for Player 1 in multiplayer mode
-        SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>().playerShield = true;
-        SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer1>().remyShield.SetActive(true);
+        SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>().playerShield = true;
+        SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer1>().remyShield.SetActive(true);
     }
 
     private static void ActivateShieldsForBothPlayersMultiplayerMode()
     {
         // Activates shields for both players in multiplayer mode
-        SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>().playerShield = true;
-        SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerHealth>().playerShield = true;
+        SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>().playerShield = true;
+        SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerHealth>().playerShield = true;
 
         // Activates shield visuals for both players
-        SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer1>().remyShield.SetActive(true);
-        SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerMultiplayer2>().claireShield.SetActive(true);
+        SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerMultiplayer1>().remyShield.SetActive(true);
+        SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[1].GetComponent<PlayerMultiplayer2>().claireShield.SetActive(true);
     }
 
     private static void ActivateShieldsForSingleplayer()
     {
         // Activates Player 1's shield in single-player mode
-        SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>().playerShield = true;
+        SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerHealth>().playerShield = true;
 
         // Activates shield visuals for Player 1
-        SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerController>().remyShield.SetActive(true);
-        SpawnManager.instance._levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerController>().claireShield.SetActive(true);
+        SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerController>().remyShield.SetActive(true);
+        SpawnManager.instance.levelSpawned.GetComponent<Levels>().player[0].GetComponent<PlayerController>().claireShield.SetActive(true);
     }
 }
