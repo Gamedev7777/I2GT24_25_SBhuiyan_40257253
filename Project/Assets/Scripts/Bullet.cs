@@ -11,13 +11,13 @@ public class Bullet : MonoBehaviour
             // Checks the difficulty mode stored in PlayerPrefs and applies appropriate damage
             if (PlayerPrefs.GetInt("Mode", 0) == 0) // Easy mode
             {
-                // Reduces the alien's health by 5 in easy mode
-                DealDamage(other, 5);
+                // Reduces the alien's health by 3 in easy mode
+                DealDamage(other, 3);
             }
             else if (PlayerPrefs.GetInt("Mode", 0) == 1) // Normal mode
             {
-                // Reduces the alien's health by 3 in normal mode
-                DealDamage(other, 3);
+                // Reduces the alien's health by 2 in normal mode
+                DealDamage(other, 2);
             }
             else if (PlayerPrefs.GetInt("Mode", 0) == 2) // Hard mode
             {
