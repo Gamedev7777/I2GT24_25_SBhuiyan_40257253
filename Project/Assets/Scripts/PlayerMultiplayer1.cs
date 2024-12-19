@@ -19,6 +19,7 @@ public class PlayerMultiplayer1 : MonoBehaviour
     private readonly float _fireRate = 0.2f; // Rate at which bullets can be fired
     private Animation _remyAnimation; // Reference to the Animation component of the player model
     private Vector3 _localMovement; // Player's movement relative to their current rotation
+    private GameObject _bullet; // Stores the instantiated bullet that the player fires
     
     private void Start()
     {
@@ -49,13 +50,13 @@ public class PlayerMultiplayer1 : MonoBehaviour
                 }
 
                 FireBullet(); // Calls the function to fire a bullet  
-                // Continue later
             }
             else // Handles different player states when not both moving and firing
             {
                 StopShootingAnimation();
+                
                 // If player is moving but not firing, plays movement animations
-                if (_horizontalMovement != 0 || _verticalMovement != 0)
+                if (IsPlayerMoving())
                 {
                     // Chooses the appropriate animation based on whether the player has the speed power-up
                     if (PlayerPrefs.GetInt("SpeedPowerUp", 0) == 1)
@@ -76,11 +77,8 @@ public class PlayerMultiplayer1 : MonoBehaviour
                 if (Input.GetMouseButton(0))
                 {
                     PlayShootingAnimation(); // Plays idle shooting animation
-                    if (Time.time >= _nextFireTime)
-                    {
-                        FireBullet(); // Calls the function to fire a bullet
-                        _nextFireTime = Time.time + _fireRate; // Updates the next time the player can fire
-                    }
+
+                    FireBullet(); // Calls the function to fire a bullet
                 }
                 else
                 {
@@ -93,27 +91,33 @@ public class PlayerMultiplayer1 : MonoBehaviour
         }
         else
         {
-            if (PlayerPrefs.GetInt("Level", 1) == 4 || PlayerPrefs.GetInt("Level", 1) == 5 ||
-                PlayerPrefs.GetInt("Level", 1) == 6 || PlayerPrefs.GetInt("Level", 1) == 7)
+            if (IsItTalkingCutsceneLevel())
             {
-                _remyAnimation.Play("RemyTalking");
+                _remyAnimation.Play("RemyTalking"); // Plays the Remy talking animation
             }
             else
             {
-                _remyAnimation.Play("RemyIdle");
+                _remyAnimation.Play("RemyIdle"); // Plays the Remy idle animation
             }
         }
     }
 
+    private static bool IsItTalkingCutsceneLevel()
+    {
+        return PlayerPrefs.GetInt("Level", 1) == 4 || PlayerPrefs.GetInt("Level", 1) == 5 ||
+               PlayerPrefs.GetInt("Level", 1) == 6 || PlayerPrefs.GetInt("Level", 1) == 7; // Checking if the level is 4,5,6 or 7 as talking cutscenes play before them
+    }
+
     private bool IsPlayerMoving()
     {
-        return (_horizontalMovement != 0 || _verticalMovement != 0);
+        return (_horizontalMovement != 0 || _verticalMovement != 0); // Checks whether the player is moving
     }
 
     private void MovePlayer()
     {
         // Creates a new movement vector based on the player's input, normalizing for diagonal movement
         _playerMovement = new Vector3(_horizontalMovement, 0, _verticalMovement).normalized;
+        
         // Converts the movement to be relative to the player's current rotation
         _localMovement = transform.TransformDirection(_playerMovement);
 
@@ -123,13 +127,13 @@ public class PlayerMultiplayer1 : MonoBehaviour
 
     private void GetAxes()
     {
-        _horizontalMovement = Input.GetAxis("Horizontal");
+        _horizontalMovement = Input.GetAxis("Horizontal"); // Gets horizontal axis
 
-        _verticalMovement = Input.GetAxis("Vertical");
+        _verticalMovement = Input.GetAxis("Vertical"); // Gets vertical axis
     }
 
     // Method to play the shooting animation when player starts firing while idle
-    void PlayShootingAnimation()
+    private void PlayShootingAnimation()
     {
         // Plays the shooting animation only if it's not already playing
         if (!_remyAnimation.IsPlaying("RemyIdleFiring"))
@@ -139,7 +143,7 @@ public class PlayerMultiplayer1 : MonoBehaviour
     }
 
     // Method to stop the shooting animation when player stops firing
-    void StopShootingAnimation()
+    private void StopShootingAnimation()
     {
         // Stops the shooting animation if it is currently playing
         if (_remyAnimation.IsPlaying("RemyIdleFiring"))
@@ -149,33 +153,48 @@ public class PlayerMultiplayer1 : MonoBehaviour
     }
 
     // Method to fire a bullet from the player's position
-    void FireBullet()
+    private void FireBullet()
     {
         if (Time.time >= _nextFireTime)
         {
-            // Plays the fire sound effect at the position of the SpawnManager
-            AudioSource.PlayClipAtPoint(fireSound, SpawnManager.instance.transform.position, 0.4f);
+            PlayFiringSound();
 
-            // Instantiates the bullet prefab at the player's current position
-            GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, bulletSpawnPosition.rotation);
+            InstantiateBullet();
 
-            // Gets the Rigidbody component of the bullet to control its movement
-            Rigidbody bulletRb = bullet.GetComponent<Rigidbody>();
-            if (bulletRb != null)
-            {
-                bulletRb.velocity = transform.forward * _bulletSpeed;
-            }
-            // Destroys the bullet after 1 second to avoid cluttering the scene with unused bullets
-            Destroy(bullet, 1.0f);
+            LaunchBullet();
+            
             _nextFireTime = Time.time + _fireRate; // Updates the next time the player can fire
         }
     }
 
+    private void LaunchBullet()
+    {
+        // Gets the Rigidbody component of the bullet to control its movement
+        Rigidbody bulletRb = _bullet.GetComponent<Rigidbody>();
+        if (bulletRb != null)
+        {
+            bulletRb.velocity = transform.forward * _bulletSpeed; // Sets the velocity of the bullet
+        }
+        // Destroys the bullet after 1 second to avoid cluttering the scene with unused bullets
+        Destroy(_bullet, 1.0f);
+    }
 
-    void HandlePlayerRotation()
+    private void InstantiateBullet()
+    {
+        // Instantiates the bullet prefab at the player's current position
+        _bullet = Instantiate(bulletPrefab, bulletSpawnPosition.position, bulletSpawnPosition.rotation);
+    }
+
+    private void PlayFiringSound()
+    {
+        AudioSource.PlayClipAtPoint(fireSound, SpawnManager.instance.transform.position, 0.4f); // Plays firing sound
+    }
+
+
+    private void HandlePlayerRotation()
     {
         float mouseDelta = Input.GetAxis("Mouse X");
 
-        transform.Rotate(0, 200f * mouseDelta * Time.deltaTime, 0); // Adjust rotation speed if needed
+        transform.Rotate(0, 200f * mouseDelta * Time.deltaTime, 0); // Adjusts rotation speed if needed
     }
 }
