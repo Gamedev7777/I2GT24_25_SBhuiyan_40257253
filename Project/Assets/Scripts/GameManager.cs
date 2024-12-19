@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
@@ -28,9 +29,9 @@ public class GameManager : MonoBehaviour
     public VideoPlayer videoPlayer1, videoPlayer8, videoPlayer9; // Video players to play story part 8 and 9 videos
     public VideoClip remyVideoClip1, claireVideoClip1, remyVideoClip8, claireVideoClip8, remyVideoClip9, claireVideoClip9; // Variables for video clips
     public AudioClip buttonAudioClip; // Variable for button click sound
-
+    [HideInInspector] public AudioSource musicAudioSource; // AudioSource component to play background music
+    
     // private variables
-    private AudioSource _musicAudioSource; // AudioSource component to play background music
     private int _level; // Holds the current level number
     private int _musicIndex; // Holds the current music index for changing background music
     private bool _isPaused; // Checks if the game is paused or not
@@ -82,8 +83,8 @@ public class GameManager : MonoBehaviour
     private void ChangeBackgroundMusicClip()
     {
         PlayerPrefs.SetInt("musicindex", _musicIndex);
-        _musicAudioSource.clip = musicList[_musicIndex];
-        _musicAudioSource.Play();
+        musicAudioSource.clip = musicList[_musicIndex];
+        musicAudioSource.Play();
     }
 
     private void Start()
@@ -133,7 +134,7 @@ public class GameManager : MonoBehaviour
 
     private void InitialiseTheMusic()
     {
-        _musicAudioSource = FindObjectOfType<BackgroundMusic>().GetComponent<AudioSource>();
+        musicAudioSource = FindObjectOfType<BackgroundMusic>().GetComponent<AudioSource>();
         ChangeMusicVolume(0);
     }
 

@@ -15,7 +15,10 @@ public class CutsceneCamera : MonoBehaviour
     
     public void SwitchCameras()
     {
+        ChangeMusicVolume(0.6f);
+        
         mainCam.SetActive(true);
+        
         gameObject.SetActive(false);
         
         PlayerPrefs.SetInt("Cutscene", 0);
@@ -41,6 +44,7 @@ public class CutsceneCamera : MonoBehaviour
 
     private void PlayAudio()
     {
+        ChangeMusicVolume(0.2f);
         if (PlayerPrefs.GetInt("Avatar", 0) == 0)
         {
             // Remy is chosen
@@ -54,5 +58,9 @@ public class CutsceneCamera : MonoBehaviour
             _audioSource.Play();
         }
     }
-    
+
+    private void ChangeMusicVolume(float volume)
+    {
+        GameManager.instance.musicAudioSource.volume = volume;
+    }
 }
