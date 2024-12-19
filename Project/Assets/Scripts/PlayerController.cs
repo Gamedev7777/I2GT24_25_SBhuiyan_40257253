@@ -354,7 +354,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Fires a bullet in a specific direction based on Xbox controller input
-    private void FireBulletXbox(Vector3 _direction)
+    private void FireBulletXbox(Vector3 direction)
     {
         if (Time.time >= _lastFireTime + _fireCooldown)
         {
@@ -362,13 +362,13 @@ public class PlayerController : MonoBehaviour
 
             InstantiateBullet();
 
-            LaunchBulletXbox(_direction);
+            LaunchBulletXbox(direction);
             
             _lastFireTime = Time.time; // Storing the current time of the system
         }
     }
 
-    private void LaunchBulletXbox(Vector3 _direction)
+    private void LaunchBulletXbox(Vector3 direction)
     {
         // Gets the Rigidbody component of the bullet to control its movement
         Rigidbody bulletRb = _bullet.GetComponent<Rigidbody>();
@@ -376,7 +376,7 @@ public class PlayerController : MonoBehaviour
         if (bulletRb != null)
         {
             // Sets the bullet's velocity in the specified direction
-            bulletRb.velocity = _direction * _bulletSpeed;
+            bulletRb.velocity = direction * _bulletSpeed;
         }
 
         // Destroys the bullet after 0.5 second to avoid cluttering the scene with unused bullets
