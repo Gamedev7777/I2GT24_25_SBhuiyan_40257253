@@ -328,6 +328,7 @@ MonoBehaviour:
   remyVideoClip9: {fileID: 32900000, guid: f0bce6e0d54648949b7491d64f49993d, type: 3}
   claireVideoClip9: {fileID: 32900000, guid: fd7b05ebd71ff0b4b8a7550ac93998d4, type: 3}
   buttonAudioClip: {fileID: 8300000, guid: 5493190d2c8bfc14d85bb5b5b420d607, type: 3}
+  musicAudioSource: {fileID: 0}
   pauseMenu: {fileID: 1859316488}
 --- !u!4 &2769784
 Transform:
@@ -2088,10 +2089,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Collect the powerups. The GREEN powerup gives you double the speed for
-    the duration of the current level, the CYAN powerup gives you 20 additional health
-    points, the YELLOW powerup gives you a shield for 20 seconds during which you
-    are immune from taking damage.
+  m_text: Collect the powerups. The GREEN DIAMOND powerup gives you double the speed
+    for the duration of the current level, the RED HEART powerup gives you 20 additional
+    health points, the YELLOW STAR powerup gives you a shield for 20 seconds during
+    which you are immune from taking damage.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4660,7 +4661,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -80, y: -15}
+  m_AnchoredPosition: {x: -93, y: -33}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &403496919
@@ -6275,7 +6276,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -79, y: 17}
+  m_AnchoredPosition: {x: -90, y: 29}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &588791150
@@ -6787,7 +6788,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -115, y: 48}
+  m_AnchoredPosition: {x: -106, y: 31}
   m_SizeDelta: {x: 183.83557, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &634845889
@@ -8334,7 +8335,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -110, y: 130}
+  m_AnchoredPosition: {x: -112, y: 130}
   m_SizeDelta: {x: 183.83545, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &773459829
@@ -9245,7 +9246,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -80, y: -55}
+  m_AnchoredPosition: {x: -93, y: -81}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &914859280
@@ -9496,7 +9497,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -15, y: 13}
+  m_AnchoredPosition: {x: -21.900024, y: 10.900024}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &938286308
@@ -12172,7 +12173,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -81, y: 17}
+  m_AnchoredPosition: {x: -86, y: 23}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1246027100
@@ -12465,7 +12466,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -83, y: 22}
+  m_AnchoredPosition: {x: -85, y: 24}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1273660639
@@ -13432,7 +13433,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -6.0007, y: -66}
+  m_AnchoredPosition: {x: -6.0007, y: -69}
   m_SizeDelta: {x: 142, y: 83.3163}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1368127034
@@ -14986,7 +14987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   alienList: []
-  _levelSpawned: {fileID: 0}
+  levelSpawned: {fileID: 0}
   levelPrefabList:
   - {fileID: 6682265048812147589, guid: 1299aeb5f2e6aa248957eb96ceacf881, type: 3}
   - {fileID: 6682265048812147589, guid: 2d10bf2bcf0117947add9b0279461957, type: 3}
@@ -18522,7 +18523,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -83, y: 15}
+  m_AnchoredPosition: {x: -91, y: 25}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2045634450
@@ -19701,7 +19702,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.6
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0
