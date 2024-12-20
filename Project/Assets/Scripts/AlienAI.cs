@@ -70,7 +70,7 @@ public class AlienAI : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         // Executes behaviour based on the current state
         switch (_currentState)
@@ -90,7 +90,7 @@ public class AlienAI : MonoBehaviour
         }
     }
 
-   void HandleIdleState()
+   private void HandleIdleState()
     {
         IncrementIdleTimer();
         
@@ -127,7 +127,7 @@ public class AlienAI : MonoBehaviour
         _idleTimer += Time.deltaTime;
     }
 
-    void HandlePatrolState()
+    private void HandlePatrolState()
     {
         // (If the alien has almost reached the current waypoint and the path status is complete) or has not been assigned a waypoint 
         if ((_aiNavMeshAgent.pathStatus == NavMeshPathStatus.PathComplete && _aiNavMeshAgent.remainingDistance < 0.5f) ||
@@ -222,32 +222,41 @@ public class AlienAI : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 1000f * Time.deltaTime);
     }
 
+    // Check if there is a clear line of sight to the target
+    private bool HasLineOfSightToTarget()
+    {
+        Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
+        float distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
+
+        if (Physics.Raycast(transform.position, directionToTarget, out var hit, distanceToTarget))
+        {
+            // Return true only if the hit object is the target
+            return hit.collider.gameObject == target;
+        }
+
+        return false;
+    }
+
     private void HandleAttackState()
     {
         // Checks if there is a target available
         if (target == null)
         {
-            // If the target is lost, transitions back to patrol state
             _currentState = AlienAIstate.patrol;
             return;
         }
 
         var directionToTarget = CalculateDirectionToTarget();
         CalculateDistanceToTarget();
-        
-        // Checks for direct line of sight to the player using a raycast
-        if (Physics.Raycast(transform.position, directionToTarget, out var hit))
+
+        // Use the new line-of-sight check
+        if (!HasLineOfSightToTarget() || _distanceToTarget > attackDistance)
         {
-            if (hit.collider.gameObject != target && _distanceToTarget > attackDistance)
-            {
-                // If there is no direct line of sight, transitions back to chase state
-                _currentState = AlienAIstate.chase;
-                return;
-            }
+            _currentState = AlienAIstate.chase;
+            return;
         }
 
         RotateTowardsTheTarget(directionToTarget);
-
         DecrementFireTimer();
 
         if (_fireTimer <= 0 && IsMoving())
@@ -258,7 +267,7 @@ public class AlienAI : MonoBehaviour
         {
             if (_fireTimer <= 0)
             {
-                PlayShootingAnimation(); 
+                PlayShootingAnimation();
                 FireLaser();
                 ResetFireTimer();
             }
@@ -267,13 +276,13 @@ public class AlienAI : MonoBehaviour
                 StopShootingAnimation();
             }
         }
-        
+
         CalculateDistanceToTarget();
 
         // If the target moves out of attack distance
         if (_distanceToTarget > chaseDistance)
         {
-            _currentState = AlienAIstate.chase; // Switches to chase state
+            _currentState = AlienAIstate.chase;
         }
     }
 
