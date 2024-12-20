@@ -161,7 +161,18 @@ public class SpawnManager : MonoBehaviour
     // Processes player shield by disabling it after a fixed time
     public void ProcessPlayerShield()
     {
-        Invoke(nameof(DisablePlayerShield), 20.0f); // Disables player shield after 20 seconds
+        if (PlayerPrefs.GetInt("Mode", 0) == 0) // Easy mode
+        {
+            Invoke(nameof(DisablePlayerShield), 20.0f); // Disables player shield after 20 seconds
+        }
+        else if (PlayerPrefs.GetInt("Mode", 0) == 1) // Normal mode
+        {
+            Invoke(nameof(DisablePlayerShield), 15.0f); // Disables player shield after 15 seconds
+        }
+        else if (PlayerPrefs.GetInt("Mode", 0) == 2) // Hard mode
+        {
+            Invoke(nameof(DisablePlayerShield), 10.0f); // Disables player shield after 10 seconds
+        }
     }
 
     // Disables the player's shield and updates the User Interface
