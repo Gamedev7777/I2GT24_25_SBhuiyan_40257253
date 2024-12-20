@@ -37,35 +37,36 @@ public class AlienAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        AssignAnimationComponent();
-       
-        AddTheWaypoints();
+        AssignAnimationComponent(); // Assigns the animation component to the Alien
         
-        AssignNavMeshAgentComponent();
+        AddTheWaypoints(); // Adds waypoints to the patrol list
         
-        InitialiseFireTimer();
+        AssignNavMeshAgentComponent(); // Assigns the NavMeshAgent component
+        
+        InitialiseFireTimer(); // Initialises the fire timer
     }
 
     private void InitialiseFireTimer()
     {
-        _fireTimer = _fireInterval;
+        _fireTimer = _fireInterval; // Sets the fire timer to the interval value
     }
 
     private void AssignNavMeshAgentComponent()
     {
-        _aiNavMeshAgent = GetComponent<NavMeshAgent>();
+        _aiNavMeshAgent = GetComponent<NavMeshAgent>(); // Gets the NavMeshAgent component from the Alien
     }
 
     private void AssignAnimationComponent()
     {
-        _animation = transform.GetChild(0).GetComponent<Animation>();
+        _animation = transform.GetChild(0).GetComponent<Animation>(); // Assigns the Animation component from the Alien's child
     }
 
     private void AddTheWaypoints()
     {
+        // Loops through and adds waypoints to the patrol list
         for (int i = 0; i < 4; i++)
         {
-            _waypoints.Add(GameObject.Find("Waypoint"+(i+1)).transform);
+            _waypoints.Add(GameObject.Find("Waypoint" + (i + 1)).transform);
         }
     }
 
@@ -90,12 +91,13 @@ public class AlienAI : MonoBehaviour
         }
     }
 
-   private void HandleIdleState()
+    private void HandleIdleState()
     {
-        IncrementIdleTimer();
+        IncrementIdleTimer(); // Increments the idle timer
         
-        PlayIdleAnimation();
+        PlayIdleAnimation(); // Plays the idle animation
 
+        // Checks if the idle time exceeds the max idle time and transitions to patrol state
         if (_idleTimer >= _maxIdleTime && PlayerPrefs.GetInt("Cutscene", 1) == 0)
         {
             _currentState = AlienAIstate.patrol; // Switches to patrol state
@@ -105,6 +107,7 @@ public class AlienAI : MonoBehaviour
 
     private void PlayIdleAnimation()
     {
+        // Plays different animations based on the Alien type and cutscene status
         if (gameObject.CompareTag("Alien2"))
         {
             _animation.Play(IsTalkingCutscene() ? "ZlorpSoldierTalking" : "ZlorpSoldierIdle");
@@ -117,6 +120,7 @@ public class AlienAI : MonoBehaviour
 
     private static bool IsTalkingCutscene()
     {
+        // Checks if the current level has a talking cutscene
         return PlayerPrefs.GetInt("Cutscene", 1) == 1 &&
                (PlayerPrefs.GetInt("Level", 1) == 4 || PlayerPrefs.GetInt("Level", 1) == 5 ||
                 PlayerPrefs.GetInt("Level", 1) == 6 || PlayerPrefs.GetInt("Level", 1) == 7);
@@ -124,23 +128,23 @@ public class AlienAI : MonoBehaviour
 
     private void IncrementIdleTimer()
     {
-        _idleTimer += Time.deltaTime;
+        _idleTimer += Time.deltaTime; // Increments the idle timer by the frame time
     }
 
     private void HandlePatrolState()
     {
-        // (If the alien has almost reached the current waypoint and the path status is complete) or has not been assigned a waypoint 
+        // Handles patrol logic, checking if near the waypoint or needs to change destination
         if ((_aiNavMeshAgent.pathStatus == NavMeshPathStatus.PathComplete && _aiNavMeshAgent.remainingDistance < 0.5f) ||
             _currentWaypointIndex == -1)
         { 
-            PatrolAlienRandomly();
-            PlayWalkingAnimation();
+            PatrolAlienRandomly(); // Chooses a random waypoint for patrolling
+            PlayWalkingAnimation(); // Plays the walking animation
         }
 
         // Checks if there is a target available
         if (target != null)
         {
-            CalculateDistanceToTarget();
+            CalculateDistanceToTarget(); // Calculates the distance to the target
 
             // If within chase distance
             if (_distanceToTarget > chaseDistance)
@@ -149,7 +153,7 @@ public class AlienAI : MonoBehaviour
             }
             else
             {
-                SetAlienDestination();
+                SetAlienDestination(); // Sets the alien's destination to the target
                 _currentState = AlienAIstate.attack; // Switches to attack state
             }
         }
@@ -157,11 +161,12 @@ public class AlienAI : MonoBehaviour
 
     private void CalculateDistanceToTarget()
     {
-        _distanceToTarget = Vector3.Distance(transform.position, target.transform.position);
+        _distanceToTarget = Vector3.Distance(transform.position, target.transform.position); // Calculates the distance to the target
     }
 
     private void PlayWalkingAnimation()
     {
+        // Plays walking animations based on the Alien type
         if (gameObject.CompareTag("Alien2"))
         {
             _animation.Play("ZlorpSoldierWalking");
@@ -174,15 +179,16 @@ public class AlienAI : MonoBehaviour
 
     private void PatrolAlienRandomly()
     {
+        // Chooses a random waypoint for patrolling and sets it as the destination
         int randomIndex = Random.Range(0, _waypoints.Count);
         _currentWaypointIndex = randomIndex; // Sets the current waypoint index
-        _aiNavMeshAgent.SetDestination(_waypoints[_currentWaypointIndex]
-            .position); // Sets the alien's destination to the selected waypoint
+        _aiNavMeshAgent.SetDestination(_waypoints[_currentWaypointIndex].position); // Sets the destination to the waypoint
     }
 
     // Checks if the alien is currently moving
     private bool IsMoving()
     {
+        // Returns true if the Alien's speed and distance are above thresholds
         float speedThreshold = 0.1f; // Minimum speed to consider as movement
         float distanceThreshold = 0.1f; // Minimum remaining distance to consider as moving
 
@@ -222,7 +228,7 @@ public class AlienAI : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 1000f * Time.deltaTime);
     }
 
-    // Check if there is a clear line of sight to the target
+    // Checks if there is a clear line of sight to the target
     private bool HasLineOfSightToTarget()
     {
         Vector3 directionToTarget = (target.transform.position - transform.position).normalized;
@@ -249,7 +255,7 @@ public class AlienAI : MonoBehaviour
         var directionToTarget = CalculateDirectionToTarget();
         CalculateDistanceToTarget();
 
-        // Use the new line-of-sight check
+        // Uses line-of-sight check
         if (!HasLineOfSightToTarget() || _distanceToTarget > attackDistance)
         {
             _currentState = AlienAIstate.chase;
