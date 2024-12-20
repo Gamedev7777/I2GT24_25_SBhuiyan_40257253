@@ -334,24 +334,27 @@ public class PlayerController : MonoBehaviour
     // Determines the direction for aiming based on controller right stick input
     private Vector3 DetermineDirection(Vector2 stickInput)
     {
-        if (stickInput.sqrMagnitude < _fireThreshold * _fireThreshold) // Checking if the right stick has moved enough. Squared it to eliminate the negative values.
-            return Vector3.zero;
+        // Checks if the right stick input magnitude is below the firing threshold
+        // (squared to avoid computational cost of square root and handle negative values)
+        if (stickInput.sqrMagnitude < _fireThreshold * _fireThreshold)
+            return Vector3.zero; // Returns zero vector if input is too small
 
-        stickInput.Normalize();
-        float angle = Mathf.Atan2(stickInput.y, stickInput.x) * Mathf.Rad2Deg;
+        stickInput.Normalize(); // Normalises the stick input to get a unit vector
+        float angle = Mathf.Atan2(stickInput.y, stickInput.x) * Mathf.Rad2Deg; // Calculates the angle of input in degrees
 
-        // Based on the tilt of the right stick we are calculating the direction the player fires at
-        if (angle >= -22.5f && angle < 22.5f) return Vector3.right;
-        if (angle >= 22.5f && angle < 67.5f) return new Vector3(1, 0, 1).normalized;
-        if (angle >= 67.5f && angle < 112.5f) return Vector3.forward;
-        if (angle >= 112.5f && angle < 157.5f) return new Vector3(-1, 0, 1).normalized;
-        if ((angle >= 157.5f && angle <= 180f) || (angle < -157.5f && angle >= -180f)) return Vector3.left;
-        if (angle >= -157.5f && angle < -112.5f) return new Vector3(-1, 0, -1).normalized;
-        if (angle >= -112.5f && angle < -67.5f) return Vector3.back;
-        if (angle >= -67.5f && angle < -22.5f) return new Vector3(1, 0, -1).normalized;
+        // Determines the direction to fire based on the angle of the right stick input
+        if (angle >= -22.5f && angle < 22.5f) return Vector3.right; // Right
+        if (angle >= 22.5f && angle < 67.5f) return new Vector3(1, 0, 1).normalized; // Top-right diagonal
+        if (angle >= 67.5f && angle < 112.5f) return Vector3.forward; // Forward
+        if (angle >= 112.5f && angle < 157.5f) return new Vector3(-1, 0, 1).normalized; // Top-left diagonal
+        if ((angle >= 157.5f && angle <= 180f) || (angle < -157.5f && angle >= -180f)) return Vector3.left; // Left
+        if (angle >= -157.5f && angle < -112.5f) return new Vector3(-1, 0, -1).normalized; // Bottom-left diagonal
+        if (angle >= -112.5f && angle < -67.5f) return Vector3.back; // Backward
+        if (angle >= -67.5f && angle < -22.5f) return new Vector3(1, 0, -1).normalized; // Bottom-right diagonal
 
-        return Vector3.zero;
+        return Vector3.zero; // Default return value if no condition is met
     }
+
 
     // Fires a bullet in a specific direction based on Xbox controller input
     private void FireBulletXbox(Vector3 direction)

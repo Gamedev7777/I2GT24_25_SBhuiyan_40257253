@@ -165,23 +165,24 @@ public class PlayerMultiplayer2 : MonoBehaviour
     {
         // Checks if the stick input magnitude is below the threshold to ignore minor movements
         if (stickInput.sqrMagnitude < _fireThreshold * _fireThreshold)
-            return Vector3.zero;
+            return Vector3.zero; // Returns zero direction if input is too small
 
-        stickInput.Normalize();
-        float angle = Mathf.Atan2(stickInput.y, stickInput.x) * Mathf.Rad2Deg;
+        stickInput.Normalize(); // Normalises the stick input to get a unit vector
+        float angle = Mathf.Atan2(stickInput.y, stickInput.x) * Mathf.Rad2Deg; // Calculates the angle of the stick input in degrees
 
-        // Correcting direction determination to properly detect left direction
-        if (angle >= -22.5f && angle < 22.5f) return Vector3.right;
-        if (angle >= 22.5f && angle < 67.5f) return new Vector3(1, 0, 1).normalized;
-        if (angle >= 67.5f && angle < 112.5f) return Vector3.forward;
-        if (angle >= 112.5f && angle < 157.5f) return new Vector3(-1, 0, 1).normalized;
-        if ((angle >= 157.5f && angle <= 180f) || (angle < -157.5f && angle >= -180f)) return Vector3.left;
-        if (angle >= -157.5f && angle < -112.5f) return new Vector3(-1, 0, -1).normalized;
-        if (angle >= -112.5f && angle < -67.5f) return Vector3.back;
-        if (angle >= -67.5f && angle < -22.5f) return new Vector3(1, 0, -1).normalized;
+        // Determines the direction based on the angle
+        if (angle >= -22.5f && angle < 22.5f) return Vector3.right; // Right direction
+        if (angle >= 22.5f && angle < 67.5f) return new Vector3(1, 0, 1).normalized; // Diagonal right-forward direction
+        if (angle >= 67.5f && angle < 112.5f) return Vector3.forward; // Forward direction
+        if (angle >= 112.5f && angle < 157.5f) return new Vector3(-1, 0, 1).normalized; // Diagonal left-forward direction
+        if ((angle >= 157.5f && angle <= 180f) || (angle < -157.5f && angle >= -180f)) return Vector3.left; // Left direction
+        if (angle >= -157.5f && angle < -112.5f) return new Vector3(-1, 0, -1).normalized; // Diagonal left-backward direction
+        if (angle >= -112.5f && angle < -67.5f) return Vector3.back; // Backward direction
+        if (angle >= -67.5f && angle < -22.5f) return new Vector3(1, 0, -1).normalized; // Diagonal right-backward direction
 
-        return Vector3.zero;
+        return Vector3.zero; // Returns zero direction if no condition is met
     }
+
 
     // Fires a bullet in a specific direction based on controller input
     private void FireBulletXbox(Vector3 direction)

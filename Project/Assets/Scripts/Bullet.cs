@@ -30,10 +30,13 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    // Deals damage to an alien based on the collision and specified damage amount
     private static void DealDamage(Collision other, int damage)
     {
+        // Accesses the AlienHealth component in the parent of the collided object and applies damage
         other.gameObject.GetComponentInParent<AlienHealth>().TakeDamage(damage);
     }
+
 
     private void Update()
     {

@@ -105,7 +105,7 @@ public class PlayerMultiplayer1 : MonoBehaviour
     private static bool IsItTalkingCutsceneLevel()
     {
         return PlayerPrefs.GetInt("Level", 1) == 4 || PlayerPrefs.GetInt("Level", 1) == 5 ||
-               PlayerPrefs.GetInt("Level", 1) == 6 || PlayerPrefs.GetInt("Level", 1) == 7; // Checking if the level is 4,5,6 or 7 as talking cutscenes play before them
+               PlayerPrefs.GetInt("Level", 1) == 6 || PlayerPrefs.GetInt("Level", 1) == 7; // Checks if the level is 4,5,6 or 7 as talking cutscenes play before them
     }
 
     private bool IsPlayerMoving()

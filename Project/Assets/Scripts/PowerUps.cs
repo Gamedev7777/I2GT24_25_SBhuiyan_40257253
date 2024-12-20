@@ -7,7 +7,7 @@ public class PowerUps : MonoBehaviour
 
     private void Start()
     {
-        // Initializes the Speed Power-Up status to zero (inactive) at the beginning of the game
+        // Initialises the Speed Power-Up status to zero (inactive) at the beginning of the game
         PlayerPrefs.SetInt("SpeedPowerUp", 0);
     }
 

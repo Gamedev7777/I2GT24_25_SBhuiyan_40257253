@@ -11,21 +11,21 @@ public class Levels : MonoBehaviour
     // Called before the first frame update
     void Start()
     {
-        // Check the player's preference (using PlayerPrefs) to determine which avatar to activate
+        // Checks the player's preference (using PlayerPrefs) to determine which avatar to activate
         // Default value is 0 if no value is found
 
         if (PlayerPrefs.GetInt("Controller", 0) == 0)
         {
-            // Check the player's avatar selection (0 for Remy, 1 for Claire)
+            // Checks the player's avatar selection (0 for Remy, 1 for Claire)
             if (PlayerPrefs.GetInt("Avatar", 0) == 0)
             {
-                // Activate Remy and deactivate Claire if the player selected Remy
+                // Activates Remy and deactivates Claire if the player selected Remy
                 remy.SetActive(true);
                 claire.SetActive(false);
             }
             else if (PlayerPrefs.GetInt("Avatar", 0) == 1)
             {
-                // Activate Claire and deactivate Remy if the player selected Claire
+                // Activates Claire and deactivates Remy if the player selected Claire
                 remy.SetActive(false);
                 claire.SetActive(true);
             }

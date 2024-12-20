@@ -101,9 +101,9 @@ public class PlayerHealth : MonoBehaviour
 
     private void UpdateHealthBar()
     {
-        var healthPercentage = health / maxHealth; // Calculating how much health is left and storing it
+        var healthPercentage = health / maxHealth; // Calculates how much health is left and stores it
 
-        healthBar.localScale = new Vector3(healthPercentage, 0.1031f, 1); // Using the above to scale the health bar
+        healthBar.localScale = new Vector3(healthPercentage, 0.1031f, 1); // Uses the above to scale the health bar
     }
 
     // Method to handle the player's death

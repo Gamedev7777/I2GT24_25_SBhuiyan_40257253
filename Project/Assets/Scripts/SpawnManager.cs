@@ -68,7 +68,7 @@ public class SpawnManager : MonoBehaviour
         // Setting the value for the cutscene PlayerPrefs and use it to play video before level 1 and cutscenes for other levels
         PlayerPrefs.SetInt("Cutscene", PlayerPrefs.GetInt("Level", 1) == 1 ? 0 : 1);
 
-        fakeCamera.gameObject.SetActive(false); // Deactivate the fake camera
+        fakeCamera.gameObject.SetActive(false); // Deactivates the fake camera
     }
 
     // Called when the level is completed
@@ -120,7 +120,7 @@ public class SpawnManager : MonoBehaviour
 
     private static void UnlockCursor()
     {
-        Cursor.lockState = CursorLockMode.None; // Unlock the cursor
+        Cursor.lockState = CursorLockMode.None; // Unlocks the cursor
         Cursor.visible = true;
     }
 
