@@ -457,4 +457,10 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit(); // Quits the game
     }
+
+    public void DeletePlayerPrefs()
+    {
+        PlayerPrefs.DeleteAll(); // Deletes all player prefs
+        PlayerPrefs.Save(); // Saves to the disk immediately
+    }
 }
