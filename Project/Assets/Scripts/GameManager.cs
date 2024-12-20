@@ -452,4 +452,9 @@ public class GameManager : MonoBehaviour
             videoPlayer1.Play();
         }
     }
+
+    public void QuitGame()
+    {
+        Application.Quit(); // Quits the game
+    }
 }
