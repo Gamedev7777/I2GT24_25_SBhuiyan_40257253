@@ -2355,10 +2355,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Collect the powerups. The GREEN DIAMOND powerup gives you double the speed
+  m_text: Collect the power-ups. The GREEN DIAMOND powerup gives you double the speed
     for the duration of the current level, the RED HEART powerup gives you 20 additional
-    health points, the YELLOW STAR powerup gives you a shield for 20 seconds during
-    which you are immune from taking damage.
+    health points, the YELLOW STAR powerup gives you a shield for 20 seconds in Easy
+    Mode, 15 seconds in Normal Mode and 10 seconds in Hard Mode during which you
+    are immune from taking damage.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
